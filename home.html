@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<script>document.documentElement.classList.remove('no-js');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SWUT — Integrated Engineering Software</title>
+<meta name="description" content="We build the environment where every structural software works together. Integrated BIM solutions, training, consultancy and expert support for structural engineering teams.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: #f4f3f0; color: #141414; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  h1, h2, h3 { font-family: 'Outfit', system-ui, sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: #141414; color: #f4f3f0; }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes gridpan { from { background-position: 0 0; } to { background-position: 60px 60px; } }
+
+  /* ---------- nav ---------- */
+  #siteNav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px;
+    background: transparent; border-bottom: 1px solid transparent;
+    transition: background .35s ease, border-color .35s ease, backdrop-filter .35s ease;
+  }
+  #navLogo { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.14em; font-size: 19px; color: #f7f7f5; transition: color .35s ease; }
+  #navMark { width: 10px; height: 10px; background: #f7f7f5; border-radius: 2px; transform: rotate(45deg); display: inline-block; transition: background .35s ease; }
+  #navLinks { display: flex; align-items: center; gap: 34px; font-size: 13px; letter-spacing: 0.02em; color: #f7f7f5; transition: color .35s ease; }
+  #navLinks a { position: relative; padding-bottom: 5px; opacity: 0.8; transition: opacity .25s ease; }
+  #navLinks a:hover { opacity: 1; }
+  #navLinks a::after {
+    content: ""; position: absolute; left: 0; bottom: 0; height: 1.5px; width: 100%;
+    background: currentColor; transform: scaleX(0); transform-origin: left center;
+    transition: transform .34s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #navLinks a:hover::after { transform: scaleX(1); }
+  #siteNav.is-solid { background: rgba(244, 243, 240, 0.93); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom-color: rgba(0, 0, 0, 0.07); }
+  #siteNav.is-solid #navLogo, #siteNav.is-solid #navLinks { color: #141414; }
+  #siteNav.is-solid #navMark { background: #141414; }
+
+  /* ---------- roll-over buttons ---------- */
+  [data-roll] { position: relative; overflow: hidden; }
+  [data-roll] > span { display: inline-flex; align-items: center; gap: 8px; transition: transform .48s cubic-bezier(0.22, 1, 0.36, 1); }
+  [data-roll] > span:last-child { position: absolute; inset: 0; justify-content: center; transform: translateY(105%); }
+  [data-roll]:hover > span:first-child { transform: translateY(calc(-100% - 28px)); }
+  [data-roll]:hover > span:last-child { transform: translateY(0); }
+
+  .btn-dark { display: inline-flex; align-items: center; gap: 8px; background: #141414; color: #fff; padding: 11px 20px; border-radius: 100px; font-weight: 600; font-size: 14px; transition: transform .25s ease, box-shadow .25s ease; }
+  .btn-dark:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16); }
+  .btn-light { display: inline-flex; align-items: center; gap: 10px; background: #f4f3f0; color: #141414; padding: 16px 30px; border-radius: 100px; font-weight: 600; font-size: 16px; transition: transform .25s ease; }
+  .btn-light:hover { transform: translateY(-3px); }
+
+  /* ---------- hero ---------- */
+  #top { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 140px 40px 56px; overflow: hidden; }
+  .hero-photo { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=2000&q=80') center / cover no-repeat; }
+  .hero-scrim {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, rgba(11,11,13,0.9) 0%, rgba(11,11,13,0.78) 40%, rgba(11,11,13,0.42) 70%, rgba(11,11,13,0.15) 100%),
+      linear-gradient(180deg, rgba(11,11,13,0.3) 0%, rgba(11,11,13,0.55) 60%, #0b0b0d 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.45;
+    background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridpan 22s linear infinite;
+    -webkit-mask-image: radial-gradient(80% 60% at 50% 40%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(80% 60% at 50% 40%, #000 40%, transparent 100%);
+  }
+  .eyebrow-hero { display: flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: 0.18em; color: #e6e6e6; margin-bottom: 28px; text-transform: uppercase; }
+  #top h1 { font-size: clamp(46px, 8.5vw, 128px); line-height: 0.94; font-weight: 600; letter-spacing: -0.03em; color: #f7f7f5; }
+
+  /* ---------- sections ---------- */
+  .section { padding: 120px 40px; border-top: 1px solid rgba(0, 0, 0, 0.06); }
+  .shell { max-width: 1280px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.18em; color: #6f6f6f; text-transform: uppercase; margin-bottom: 36px; }
+  .lede { font-size: clamp(26px, 3.4vw, 46px); line-height: 1.22; font-weight: 500; letter-spacing: -0.02em; }
+
+  /* ---------- marquee ---------- */
+  .marquee-mask { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .marquee-track { display: flex; width: max-content; animation: marquee 28s linear infinite; align-items: center; gap: 64px; }
+  .marquee-track span.logo { display: flex; align-items: center; gap: 64px; white-space: nowrap; font-size: clamp(20px, 2.4vw, 30px); font-weight: 700; letter-spacing: -0.02em; color: #c2c0ba; }
+  .marquee-track span.dot { width: 7px; height: 7px; background: #dcdad4; border-radius: 2px; transform: rotate(45deg); }
+
+  /* ---------- services bento ---------- */
+  #svc-bento { display: grid; gap: 16px; grid-template-columns: 1fr; grid-auto-rows: auto; }
+  @media (min-width: 640px) {
+    #svc-bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(215px, auto); }
+    #svc-bento > :nth-child(3) { grid-column: span 2; min-height: 320px; }
+  }
+  @media (min-width: 1024px) {
+    #svc-bento { grid-template-columns: 1fr 1.2fr 1fr; grid-auto-rows: minmax(232px, 1fr); }
+    #svc-bento > :nth-child(1) { grid-column: 1; grid-row: 1; }
+    #svc-bento > :nth-child(2) { grid-column: 1; grid-row: 2; }
+    #svc-bento > :nth-child(3) { grid-column: 2; grid-row: 1 / span 2; min-height: auto; }
+    #svc-bento > :nth-child(4) { grid-column: 3; grid-row: 1; }
+    #svc-bento > :nth-child(5) { grid-column: 3; grid-row: 2; }
+  }
+  .svc-card {
+    position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
+    gap: 16px; padding: 26px; border-radius: 20px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #141414; transition: transform .3s ease, border-color .3s ease;
+  }
+  .svc-card:hover { transform: translateY(-6px); border-color: rgba(0, 0, 0, 0.28); }
+  .svc-card h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .svc-card p { font-size: 14px; line-height: 1.55; color: #5a5a5a; }
+  .svc-head { display: flex; align-items: center; justify-content: space-between; }
+  .svc-icon { width: 44px; height: 44px; border-radius: 13px; background: rgba(0, 0, 0, 0.05); display: flex; align-items: center; justify-content: center; }
+  .svc-no { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a8a8a; }
+  .pill { display: inline-flex; align-self: flex-start; gap: 8px; align-items: center; padding: 8px 14px; background: rgba(0, 0, 0, 0.05); border-radius: 100px; font-size: 12px; color: #141414; }
+  .pill-dark { background: #141414; color: #fff; }
+  .tag { font-size: 12px; padding: 7px 12px; border: 1px solid rgba(0, 0, 0, 0.14); border-radius: 100px; color: #4a4a4a; }
+  .svc-feature { position: relative; overflow: hidden; border-radius: 22px; min-height: 300px; display: flex; flex-direction: column; justify-content: flex-end; transition: transform .3s ease; }
+  .svc-feature:hover { transform: translateY(-6px); }
+
+  /* ---------- products gallery ---------- */
+  #prod-gallery { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; transition: grid-template-columns 500ms ease-out; }
+  #prod-gallery > a { position: relative; min-height: 520px; overflow: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between; padding: 26px; color: #fff; }
+  #prod-gallery > a img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 500ms ease-out; }
+  #prod-gallery > a:hover img { transform: scale(1.06); }
+  #prod-gallery .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,13,0.25) 0%, rgba(11,11,13,0.5) 55%, rgba(11,11,13,0.9) 100%); }
+  #prod-gallery .num { position: relative; width: 40px; height: 40px; border: 1px dashed rgba(255, 255, 255, 0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  #prod-gallery h3 { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 10px; }
+  #prod-gallery p { font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); max-width: 340px; }
+  @media (min-width: 901px) {
+    #prod-gallery:has(> a:nth-child(1):hover) { grid-template-columns: 2.2fr 1fr 1fr 1fr; }
+    #prod-gallery:has(> a:nth-child(2):hover) { grid-template-columns: 1fr 2.2fr 1fr 1fr; }
+    #prod-gallery:has(> a:nth-child(3):hover) { grid-template-columns: 1fr 1fr 2.2fr 1fr; }
+    #prod-gallery:has(> a:nth-child(4):hover) { grid-template-columns: 1fr 1fr 1fr 2.2fr; }
+  }
+  @media (max-width: 900px) {
+    #prod-gallery { grid-template-columns: 1fr; }
+    #prod-gallery > a { min-height: 300px; }
+  }
+
+  /* ---------- testimonials ---------- */
+  .t-nav { width: 52px; height: 52px; border-radius: 100px; border: 1px solid rgba(0, 0, 0, 0.16); background: transparent; color: #141414; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .25s ease; }
+  .t-nav:hover { background: rgba(0, 0, 0, 0.08); }
+  .t-nav.is-primary { background: #141414; color: #fff; }
+  .t-nav.is-primary:hover { background: #141414; }
+  #tTrack { display: flex; transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1); }
+  #tTrack > div { flex: 0 0 100%; }
+  .t-card { background: #fbfbfa; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 22px; padding: clamp(30px, 4vw, 56px); }
+  .t-card blockquote { font-size: clamp(20px, 2.6vw, 34px); line-height: 1.38; font-weight: 500; letter-spacing: -0.015em; max-width: 960px; }
+
+  /* ---------- contact ---------- */
+  #contact-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { #contact-grid { grid-template-columns: 0.9fr 1.1fr; } }
+  .contact-panel { position: relative; overflow: hidden; border-radius: 22px; background: #141414; color: #f4f3f0; padding: clamp(30px, 4vw, 48px); display: flex; flex-direction: column; justify-content: space-between; gap: 44px; min-height: 460px; }
+  .contact-panel .grid-fx {
+    position: absolute; inset: 0; opacity: 0.5;
+    background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 38px 38px;
+    -webkit-mask-image: radial-gradient(120% 120% at 100% 0%, #000, transparent 72%);
+    mask-image: radial-gradient(120% 120% at 100% 0%, #000, transparent 72%);
+  }
+  .field-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #7d7d86; }
+  .contact-form { border-radius: 22px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); padding: clamp(30px, 4vw, 48px); }
+  .contact-form form { display: flex; flex-direction: column; gap: 18px; }
+  /* Must beat the display:flex on .contact-sent, which would otherwise
+     override the UA stylesheet's [hidden] { display: none }. */
+  [hidden] { display: none !important; }
+  .contact-sent { min-height: 360px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 16px; }
+  .contact-form label { display: flex; flex-direction: column; gap: 8px; }
+  .contact-form label > span { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8a8a; }
+  .contact-form input, .contact-form textarea {
+    width: 100%; padding: 14px 16px; border: 1px solid rgba(0, 0, 0, 0.14); border-radius: 10px;
+    font-size: 15px; font-family: inherit; color: #141414; background: #fbfbfa; outline: none;
+  }
+  .contact-form textarea { resize: vertical; }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: #141414; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
+  .btn-submit { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; background: #141414; color: #fff; border: none; padding: 15px 30px; border-radius: 100px; font-weight: 600; font-size: 15px; font-family: inherit; cursor: pointer; transition: transform .25s ease; }
+  .btn-submit:hover { transform: translateY(-3px); }
+  .btn-ghost { margin-top: 8px; display: inline-flex; align-items: center; gap: 8px; background: transparent; color: #141414; border: 1px solid rgba(0, 0, 0, 0.16); padding: 13px 26px; border-radius: 100px; font-weight: 600; font-size: 15px; font-family: inherit; cursor: pointer; }
+
+  /* ---------- footer ---------- */
+  footer { padding: 64px 40px 40px; border-top: 1px solid rgba(0, 0, 0, 0.08); background: #fff; }
+  .foot-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+  @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; } }
+  .foot-head { font-size: 12px; color: #8a8a8a; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 18px; }
+  .foot-links { display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: #4a4a4a; }
+  .foot-links a:hover { color: #000; }
+  .foot-bar { max-width: 1280px; margin: 56px auto 0; padding-top: 24px; border-top: 1px solid rgba(0, 0, 0, 0.06); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 12px; color: #9a9a9a; }
+
+  /* ---------- reveal ----------
+     Scoped to :not(.no-js) so the content is never left invisible if the
+     script fails to run. */
+  html:not(.no-js) [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(0.16, 1, 0.3, 1), transform .8s cubic-bezier(0.16, 1, 0.3, 1); }
+  html:not(.no-js) [data-reveal].is-in { opacity: 1; transform: none; }
+  [data-reveal-text] span { transition: color 140ms linear; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .marquee-track, .hero-grid { animation: none; }
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+  }
+
+  @media (max-width: 860px) {
+    #siteNav { padding: 14px 20px; }
+    #navLinks { display: none; }
+    .section, #top { padding-left: 20px; padding-right: 20px; }
+    footer { padding-left: 20px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="siteNav">
+  <a id="navLogo" href="#top">
+    <span id="navMark"></span>
+    SWUT
+  </a>
+  <div id="navLinks">
+    <a href="#partners">Partners</a>
+    <a href="#services">Services</a>
+    <a href="#products">Products</a>
+    <a href="#contact">Contact</a>
+    <a href="#clients">Clients</a>
+  </div>
+  <a href="#contact" class="btn-dark" data-roll>
+    <span>Request a Quote <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+    <span>Request a Quote <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<header id="top">
+  <div class="hero-photo"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-grid"></div>
+
+  <div style="position:relative; z-index:2; width:100%;">
+    <div data-reveal class="eyebrow-hero">Integrated Engineering Software</div>
+
+    <h1 data-reveal>SWUT<br>for solutions</h1>
+
+    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:32px; margin-top:44px;">
+      <p data-reveal style="max-width:440px; font-size:18px; line-height:1.55; color:#cfcfcf;">
+        We build the environment where every structural software works together — so you build better.
+      </p>
+      <a data-reveal href="#contact" class="btn-light" data-roll>
+        <span>Request a Quote <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+        <span>Request a Quote <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- LOGO MARQUEE / PARTNERS -->
+<section id="partners" aria-label="Trusted software vendors" style="padding:34px 0; border-bottom:1px solid rgba(0,0,0,0.06); background:#ffffff; overflow:hidden;">
+  <div class="marquee-mask">
+    <div class="marquee-track" id="logoTrack"></div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section id="services" class="section">
+  <div class="shell">
+    <div class="eyebrow">( What We Do )</div>
+    <h2 data-reveal-text class="lede" style="max-width:1050px; margin-bottom:80px;">
+      One software can't fulfil every requirement of the construction industry. We integrate them — supporting a BIM environment where all your tools collaborate, backed by training, consultancy and expert support.
+    </h2>
+
+    <div id="svc-bento">
+
+      <!-- 01 Software Maintenance -->
+      <a data-reveal href="#contact" class="svc-card">
+        <div class="svc-head">
+          <span class="svc-icon"><span style="width:13px; height:13px; background:#141414; border-radius:2px; transform:rotate(45deg);"></span></span>
+          <span class="svc-no">01</span>
+        </div>
+        <div>
+          <h3>Software Maintenance</h3>
+          <p>High-quality support, the latest developments and additional tools — stay current with expert back-up.</p>
+        </div>
+        <span class="pill">99.9% uptime · 24h SLA</span>
+      </a>
+
+      <!-- 02 Technical Support -->
+      <a data-reveal href="#contact" class="svc-card">
+        <div class="svc-head">
+          <span class="svc-icon"><span style="width:14px; height:14px; background:#141414; border-radius:50%;"></span></span>
+          <span class="svc-no">02</span>
+        </div>
+        <div>
+          <h3>Technical Support</h3>
+          <p>Focus on the project, not software concerns. Our team leads you to the right answer, fast.</p>
+        </div>
+        <span class="pill">● Avg. response &lt; 2h</span>
+      </a>
+
+      <!-- CENTER — feature image -->
+      <a data-reveal href="#contact" class="svc-feature">
+        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=80" alt="Integrated engineering environment" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(11,11,13,0.1) 0%, rgba(11,11,13,0.4) 45%, rgba(11,11,13,0.92) 100%);"></div>
+        <div style="position:relative; padding:34px; color:#ffffff;">
+          <span style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.78);">The Swut environment</span>
+          <h3 style="font-size:clamp(24px,2.6vw,30px); font-weight:600; letter-spacing:-0.02em; margin:12px 0 10px;">One platform, every structural tool</h3>
+          <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,0.84); max-width:420px;">We integrate IDEA StatiCa, Bentley and CSI into a single BIM environment — so your teams collaborate and build better.</p>
+        </div>
+      </a>
+
+      <!-- 03 Training -->
+      <a data-reveal href="#contact" class="svc-card">
+        <div class="svc-head">
+          <span class="svc-icon">
+            <span style="display:flex; flex-direction:column; gap:3px;">
+              <span style="width:16px; height:3px; background:#141414; border-radius:2px;"></span>
+              <span style="width:11px; height:3px; background:#141414; border-radius:2px;"></span>
+              <span style="width:16px; height:3px; background:#141414; border-radius:2px;"></span>
+            </span>
+          </span>
+          <span class="svc-no">03</span>
+        </div>
+        <div>
+          <h3>Training</h3>
+          <p>New to BIM or experienced, there's always room to improve. Get the most out of your software.</p>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag">Beginner</span>
+          <span class="tag">Advanced</span>
+        </div>
+      </a>
+
+      <!-- 04 Financing -->
+      <a data-reveal href="#contact" class="svc-card">
+        <div class="svc-head">
+          <span class="svc-icon"><span style="width:14px; height:14px; border:3px solid #141414; border-radius:50%;"></span></span>
+          <span class="svc-no">04</span>
+        </div>
+        <div>
+          <h3>Financing</h3>
+          <p>Spread the cost of your software portfolio with financing options tailored to your budget.</p>
+        </div>
+        <span class="pill pill-dark">Coming soon</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="section">
+  <div class="shell">
+    <div class="eyebrow">( Our Products )</div>
+    <h2 data-reveal-text class="lede" style="max-width:900px; margin-bottom:60px;">Best-in-class structural software from the world's leading vendors — integrated into one BIM environment.</h2>
+
+    <div id="prod-gallery">
+      <a data-reveal href="#contact">
+        <img src="https://images.unsplash.com/photo-1416331108676-a22ccb276e35?w=1200&q=80" alt="IDEA StatiCa">
+        <div class="scrim"></div>
+        <span class="num">1</span>
+        <div style="position:relative;">
+          <h3>IDEA StatiCa</h3>
+          <p>Break the limits of your steel designs — structural design of all steel connections and members, in minutes.</p>
+        </div>
+      </a>
+
+      <a data-reveal href="#contact">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" alt="Midas">
+        <div class="scrim"></div>
+        <span class="num">2</span>
+        <div style="position:relative;">
+          <h3>Midas</h3>
+          <p>Software solutions that accelerate project delivery and improve asset performance for the infrastructure we rely on.</p>
+        </div>
+      </a>
+
+      <a data-reveal href="#contact">
+        <img src="https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?w=1200&q=80" alt="PlanSwift">
+        <div class="scrim"></div>
+        <span class="num">3</span>
+        <div style="position:relative;">
+          <h3>PlanSwift</h3>
+          <p>The pioneering leader in structural and earthquake engineering software, trusted in over 160 countries.</p>
+        </div>
+      </a>
+
+      <a data-reveal href="#contact">
+        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80" alt="ZWCAD">
+        <div class="scrim"></div>
+        <span class="num">4</span>
+        <div style="position:relative;">
+          <h3>ZWCAD</h3>
+          <p>Industry-standard design and BIM tools for architecture, engineering and construction — with flexible financing.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS / TESTIMONIALS -->
+<section id="clients" class="section" style="background:#ffffff;">
+  <div class="shell">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:40px; flex-wrap:wrap; gap:20px;">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">( Clients' Reviews )</div>
+        <h2 data-reveal style="font-size:clamp(28px,4vw,54px); font-weight:600; letter-spacing:-0.02em;">What partners say</h2>
+      </div>
+      <div style="display:flex; align-items:center; gap:18px;">
+        <span id="tCounter" style="font-size:13px; color:#6f6f6f;">01 / 04</span>
+        <div style="display:flex; gap:12px;">
+          <button id="tPrev" class="t-nav" aria-label="Previous testimonial" data-roll>
+            <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="12" x2="5" y2="12"/><polyline points="11 6 5 12 11 18"/></svg></span>
+            <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="12" x2="5" y2="12"/><polyline points="11 6 5 12 11 18"/></svg></span>
+          </button>
+          <button id="tNext" class="t-nav is-primary" aria-label="Next testimonial" data-roll>
+            <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+            <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div style="overflow:hidden; border-radius:22px;">
+      <div id="tTrack"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section" style="background:#ffffff;">
+  <div class="shell">
+    <div class="eyebrow">( Contact Us )</div>
+    <div id="contact-grid">
+
+      <!-- left: dark info panel -->
+      <div data-reveal class="contact-panel">
+        <div class="grid-fx"></div>
+        <div style="position:relative;">
+          <h2 style="font-size:clamp(30px,4vw,50px); font-weight:600; letter-spacing:-0.03em; line-height:1.02;">Let's build<br>better, together</h2>
+          <p style="font-size:15px; line-height:1.6; color:#b8b8bd; margin-top:18px; max-width:420px;">Tell us about your engineering environment and we'll recommend the optimum BIM software portfolio for your needs and budget.</p>
+        </div>
+        <div style="position:relative; display:flex; flex-direction:column; gap:22px;">
+          <div style="display:flex; flex-direction:column; gap:3px;">
+            <span class="field-label">Phone</span>
+            <a href="tel:+201211112737" style="font-size:17px;">+2 012 1111 27 37</a>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:3px;">
+            <span class="field-label">Email</span>
+            <a href="mailto:info@swutsolutions.com" style="font-size:17px;">info@swutsolutions.com</a>
+          </div>
+          <div style="display:flex; gap:40px; flex-wrap:wrap;">
+            <div style="display:flex; flex-direction:column; gap:3px;">
+              <span class="field-label">Location</span>
+              <span style="font-size:17px;">Cairo, Egypt</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+              <span class="field-label">Social</span>
+              <a href="https://www.linkedin.com/company/iengs/about/" target="_blank" rel="noopener" style="font-size:17px;">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- right: form -->
+      <div data-reveal class="contact-form">
+        <form id="contactForm">
+          <div class="field-row">
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" required placeholder="Jane Engineer">
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" required placeholder="jane@company.com">
+            </label>
+          </div>
+          <label>
+            <span>Company</span>
+            <input type="text" name="company" placeholder="Your firm">
+          </label>
+          <label>
+            <span>How can we help?</span>
+            <textarea name="message" rows="4" required placeholder="Tell us about your software portfolio, team size, or the tools you're evaluating…"></textarea>
+          </label>
+          <button type="submit" class="btn-submit" data-roll>
+            <span>Send message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+            <span>Send message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+          </button>
+        </form>
+
+        <div id="contactSent" class="contact-sent" hidden>
+          <span style="width:56px; height:56px; border-radius:100px; background:#141414; color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:26px;">✓</span>
+          <h3 style="font-size:26px; font-weight:600; letter-spacing:-0.02em;">Thanks — your message is on its way</h3>
+          <p style="font-size:15px; line-height:1.6; color:#5a5a5a; max-width:420px;">A member of the Swut team will get back to you within one business day.</p>
+          <button id="contactReset" type="button" class="btn-ghost" data-roll>
+            <span>Send another <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+            <span>Send another <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div style="display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:0.14em; font-size:20px; margin-bottom:18px;">
+        <span style="width:10px; height:10px; background:#141414; border-radius:2px; transform:rotate(45deg); display:inline-block;"></span> SWUT
+      </div>
+      <p style="font-size:14px; color:#6f6f6f; line-height:1.6; max-width:340px;">Integrated Engineering Software. Your partner in BIM solutions for the structural engineering industry.</p>
+      <p style="font-size:12px; color:#9a9a9a; margin-top:20px;">Reg. No. 157051 · Tax ID 609-210-416</p>
+    </div>
+    <div>
+      <div class="foot-head">Company</div>
+      <div class="foot-links">
+        <a href="#services">Services</a><a href="#products">Products</a><a href="#partners">Partners</a><a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-head">Get in touch</div>
+      <div class="foot-links">
+        <a href="tel:+201211112737">+2 012 1111 27 37</a><a href="mailto:info@swutsolutions.com">info@swutsolutions.com</a><a href="https://www.linkedin.com/company/iengs/about/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <span>© <span id="year">2026</span> SWUT, Inc. All rights reserved.</span>
+    <span>Your Partner in BIM Solutions</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var VENDORS = ['IDEA StatiCa', 'Bentley', 'CSI', 'Autodesk'];
+
+  var TESTIMONIALS = [
+    { quote: 'We used to get proper, effective technical presentations including trial demos from the Swut team, which facilitated our evaluation and made us familiar with every technical feature.', name: 'Ismail Maatok', role: 'Head of IT', initials: 'IM' },
+    { quote: 'A comfortable business relationship — we always get customized solutions that fit our technical need and budget. Swut has managed our software portfolio for more than 5 years.', name: 'Ahmed Nasr', role: 'Head of IT', initials: 'AN' },
+    { quote: 'As an expert STAAD and RAM Connection user for over 10 years, we get effective support from Swut to handle our Bentley portfolio — increasing efficiency at minimal cost.', name: 'Amr Shuman', role: 'Head of Civil Engineering', initials: 'AS' },
+    { quote: 'On our journey into the digitalization era, we received adequate consultancy from Swut regarding the optimum software solutions from IDEA StatiCa and CSI.', name: 'Dr. Ali El Minissi', role: 'Head of IT', initials: 'AE' }
+  ];
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- logo marquee ----------
+     The keyframe pans to -50%, so the vendor cycle is emitted twice: the
+     second half slides in exactly where the first began. */
+  var track = document.getElementById('logoTrack');
+  var half = document.createDocumentFragment();
+  for (var r = 0; r < 3; r++) {
+    VENDORS.forEach(function (name) {
+      var s = document.createElement('span');
+      s.className = 'logo';
+      s.textContent = name;
+      var dot = document.createElement('span');
+      dot.className = 'dot';
+      s.appendChild(dot);
+      half.appendChild(s);
+    });
+  }
+  track.appendChild(half.cloneNode(true));
+  track.appendChild(half);
+
+  /* ---------- testimonials ---------- */
+  var tTrack = document.getElementById('tTrack');
+  var tCounter = document.getElementById('tCounter');
+  var tIndex = 0;
+  var timer = null;
+
+  TESTIMONIALS.forEach(function (t) {
+    var slide = document.createElement('div');
+    var card = document.createElement('div');
+    card.className = 't-card';
+
+    var mark = document.createElement('span');
+    mark.setAttribute('aria-hidden', 'true');
+    mark.style.cssText = 'display:block; font-size:56px; line-height:0.4; font-weight:700; color:#141414; margin-bottom:24px;';
+    mark.textContent = '“';
+
+    var quote = document.createElement('blockquote');
+    quote.textContent = t.quote;
+
+    var foot = document.createElement('div');
+    foot.style.cssText = 'display:flex; align-items:center; gap:16px; margin-top:34px; padding-top:28px; border-top:1px solid rgba(0,0,0,0.1);';
+
+    var avatar = document.createElement('span');
+    avatar.style.cssText = 'width:46px; height:46px; border-radius:100px; background:#141414; color:#ffffff; display:flex; align-items:center; justify-content:center; font-weight:700; flex:0 0 auto;';
+    avatar.textContent = t.initials;
+
+    var who = document.createElement('div');
+    who.style.cssText = 'font-size:14px; color:#141414;';
+    var strong = document.createElement('span');
+    strong.style.fontWeight = '600';
+    strong.textContent = t.name;
+    var role = document.createElement('span');
+    role.style.color = '#6f6f6f';
+    role.textContent = ' — ' + t.role;
+    who.appendChild(strong);
+    who.appendChild(role);
+
+    foot.appendChild(avatar);
+    foot.appendChild(who);
+    card.appendChild(mark);
+    card.appendChild(quote);
+    card.appendChild(foot);
+    slide.appendChild(card);
+    tTrack.appendChild(slide);
+  });
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function renderT() {
+    tTrack.style.transform = 'translateX(-' + (tIndex * 100) + '%)';
+    tCounter.textContent = pad(tIndex + 1) + ' / ' + pad(TESTIMONIALS.length);
+  }
+
+  function goT(step, stopAuto) {
+    if (stopAuto && timer) { clearInterval(timer); timer = null; }
+    tIndex = (tIndex + step + TESTIMONIALS.length) % TESTIMONIALS.length;
+    renderT();
+  }
+
+  document.getElementById('tNext').addEventListener('click', function () { goT(1, true); });
+  document.getElementById('tPrev').addEventListener('click', function () { goT(-1, true); });
+  renderT();
+  if (!reduceMotion) timer = setInterval(function () { goT(1, false); }, 6000);
+
+  /* ---------- contact form ---------- */
+  var form = document.getElementById('contactForm');
+  var sent = document.getElementById('contactSent');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    form.hidden = true;
+    sent.hidden = false;
+  });
+
+  document.getElementById('contactReset').addEventListener('click', function () {
+    form.reset();
+    sent.hidden = true;
+    form.hidden = false;
+  });
+
+  /* ---------- scroll reveal ---------- */
+  var revealEls = document.querySelectorAll('[data-reveal]');
+  if (reduceMotion) {
+    revealEls.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- nav: transparent over the hero, solid past it ---------- */
+  var nav = document.getElementById('siteNav');
+  var hero = document.getElementById('top');
+
+  function onScroll() {
+    nav.classList.toggle('is-solid', window.scrollY > hero.offsetHeight - 80);
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ---------- word-by-word colour scrub on the section ledes ---------- */
+  var textBlocks = [];
+  document.querySelectorAll('[data-reveal-text]').forEach(function (el) {
+    var words = el.textContent.trim().replace(/\s+/g, ' ').split(' ');
+    el.textContent = '';
+    var spans = words.map(function (w) {
+      var s = document.createElement('span');
+      s.textContent = w;
+      s.style.color = '#c7c5c0';
+      el.appendChild(s);
+      el.appendChild(document.createTextNode(' '));
+      return s;
+    });
+    textBlocks.push({ el: el, spans: spans });
+  });
+
+  var GREY = [199, 197, 192];
+  var INK = [20, 20, 20];
+
+  function lerp(a, b, t) { return Math.round(a + (b - a) * t); }
+
+  function scrubText() {
+    var vh = window.innerHeight;
+    textBlocks.forEach(function (block) {
+      var rect = block.el.getBoundingClientRect();
+      var start = vh * 0.85;
+      var end = vh * 0.4;
+      var p = Math.max(0, Math.min(1, (start - rect.top) / (start - end)));
+      var n = block.spans.length;
+      block.spans.forEach(function (s, i) {
+        var wp = Math.max(0, Math.min(1, p * n - i));
+        s.style.color = 'rgb(' + lerp(GREY[0], INK[0], wp) + ',' + lerp(GREY[1], INK[1], wp) + ',' + lerp(GREY[2], INK[2], wp) + ')';
+      });
+    });
+  }
+
+  if (reduceMotion) {
+    textBlocks.forEach(function (b) { b.spans.forEach(function (s) { s.style.color = '#141414'; }); });
+  } else {
+    scrubText();
+    window.addEventListener('scroll', scrubText, { passive: true });
+    window.addEventListener('resize', scrubText, { passive: true });
+  }
+
+  /* ---------- footer year ---------- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>

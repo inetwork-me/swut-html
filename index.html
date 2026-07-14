@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<script>document.documentElement.classList.remove('no-js');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swut Solutions — Integrated Software Environments for Structural Engineering &amp; BIM</title>
+<meta name="description" content="Partnering with global engineering tech leaders to optimize design, analysis, and BIM workflows. Authorized licensing, support, and training for structural engineering teams.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lora:wght@500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<style>
+  body { margin: 0; font-family: 'Inter', sans-serif; }
+
+  @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+  .animate-infinite-marquee { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+
+  @keyframes floatX { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-8px) translateX(4px); } }
+  @keyframes floatY { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(6px) translateX(-6px); } }
+  .animate-float-node-1 { animation: floatX 6s ease-in-out infinite; }
+  .animate-float-node-2 { animation: floatY 8s ease-in-out infinite; }
+
+  @keyframes step-pulse { 0%, 100% { opacity: 0.3; } 33% { opacity: 1; } }
+  .animate-step-1 { animation: step-pulse 3s infinite; }
+  .animate-step-2 { animation: step-pulse 3s infinite 1s; }
+  .animate-step-3 { animation: step-pulse 3s infinite 2s; }
+
+  @keyframes chatPopLeft {
+    0%   { opacity: 0; transform: translateY(12px) scale(0.96); }
+    10%  { opacity: 1; transform: translateY(0) scale(1); }
+    88%  { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  }
+  @keyframes chatPopRight {
+    0%, 28% { opacity: 0; transform: translateY(12px) scale(0.96); }
+    38%     { opacity: 1; transform: translateY(0) scale(1); }
+    88%     { opacity: 1; transform: translateY(0) scale(1); }
+    100%    { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  }
+  .animate-chat-left  { opacity: 0; animation: chatPopLeft  6s cubic-bezier(0.16,1,0.3,1) infinite; }
+  .animate-chat-right { opacity: 0; animation: chatPopRight 6s cubic-bezier(0.16,1,0.3,1) infinite; }
+
+  @keyframes slide-carousel { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
+  .animate-testimonials-carousel { display: flex; width: max-content; gap: 24px; animation: slide-carousel 45s linear infinite; }
+  .animate-testimonials-carousel:hover { animation-play-state: paused; }
+
+  @keyframes marquee-contact { 0% { transform: translateX(0); } 100% { transform: translateX(-33.33%); } }
+  .animate-contact-marquee { display: flex; width: max-content; animation: marquee-contact 25s linear infinite; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner { animation: spin 1s linear infinite; }
+
+  @keyframes pulse { 50% { opacity: 0.4; } }
+  .pulse-dot { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* Reveal starts at opacity:0 and is switched on by the observer, so without
+     JS the whole page would be blank. Keep it visible in that case. */
+  .no-js .reveal { opacity: 1; transform: none; transition: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .animate-infinite-marquee,
+    .animate-contact-marquee,
+    .animate-testimonials-carousel,
+    .animate-float-node-1,
+    .animate-float-node-2,
+    .animate-step-1,
+    .animate-step-2,
+    .animate-step-3,
+    .animate-chat-left,
+    .animate-chat-right,
+    .spinner,
+    .pulse-dot { animation: none; }
+    .animate-chat-left,
+    .animate-chat-right { opacity: 1; }
+  }
+</style>
+</head>
+
+<body>
+<div class="overflow-clip" style="position:relative;width:100%;background:#f4f4f3;font-family:Inter,sans-serif;">
+
+  <!-- Background fold columns -->
+  <div class="grid-cols-6 md:grid-cols-12" style="position:absolute;inset:0;z-index:0;pointer-events:none;display:grid;height:100%;width:100%;">
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+  </div>
+
+  <!-- ============================= HEADER ============================= -->
+  <header class="px-6 md:px-16" style="position:relative;z-index:20;width:100%;padding-top:20px;padding-bottom:20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(228,228,231,0.4);">
+    <a href="#" class="hidden md:flex" style="align-items:center;gap:10px;text-decoration:none;">
+      <div style="width:20px;height:20px;background:#09090b;border-radius:4px;"></div>
+      <span style="font-weight:700;font-size:18px;letter-spacing:-0.02em;color:#09090b;">Swut Solutions</span>
+    </a>
+    <a href="#" class="flex md:hidden" style="align-items:center;gap:10px;text-decoration:none;">
+      <div style="width:18px;height:18px;background:#09090b;border-radius:4px;"></div>
+      <span style="font-weight:700;font-size:16px;letter-spacing:-0.02em;color:#09090b;">Swut Solutions</span>
+    </a>
+
+    <nav class="hidden md:flex" style="position:absolute;left:50%;transform:translateX(-50%);align-items:center;gap:20px;">
+      <a href="#products" class="text-zinc-600 hover:text-black transition-colors" style="font-size:14px;font-weight:500;text-decoration:none;">Products</a>
+      <a href="#services" class="text-zinc-600 hover:text-black transition-colors" style="font-size:14px;font-weight:500;text-decoration:none;">Services</a>
+      <a href="#testimonials" class="text-zinc-600 hover:text-black transition-colors" style="font-size:14px;font-weight:500;text-decoration:none;">Testimonials</a>
+    </nav>
+
+    <div class="hidden md:flex" style="align-items:center;">
+      <button type="button" class="hover:shadow-[0_6px_20px_rgba(239,68,68,0.35)]" style="background:#27272a;color:#fff;border:none;border-radius:9999px;padding:10px 26px;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .3s;box-shadow:0 4px 12px -1px rgba(239,68,68,0.15);">Request Trial</button>
+    </div>
+
+    <button type="button" id="menu-toggle" class="flex md:hidden" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu" style="color:#09090b;background:none;border:none;cursor:pointer;padding:0;">
+      <svg id="icon-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"></path></svg>
+      <svg id="icon-close" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none;"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+    </button>
+
+    <div id="mobile-menu" class="md:hidden" style="display:none;position:absolute;top:100%;left:0;width:100%;background:#fff;border-bottom:1px solid #e4e4e7;padding:24px;flex-direction:column;gap:16px;box-shadow:0 20px 25px -5px rgba(0,0,0,0.1);z-index:50;box-sizing:border-box;">
+      <a href="#products" class="text-zinc-600 hover:text-black transition-colors" style="font-size:14px;font-weight:500;text-decoration:none;">Products</a>
+      <a href="#services" class="text-zinc-600 hover:text-black transition-colors" style="font-size:14px;font-weight:500;text-decoration:none;">Services</a>
+      <a href="#testimonials" class="text-zinc-600 hover:text-black transition-colors" style="font-size:14px;font-weight:500;text-decoration:none;">Testimonials</a>
+      <div style="display:flex;flex-direction:column;gap:12px;padding-top:8px;">
+        <button type="button" style="background:#27272a;color:#fff;border:none;border-radius:9999px;padding:10px 24px;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;">Request Trial</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================= HERO ============================= -->
+  <section class="reveal" style="position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;text-align:center;padding:112px 24px 64px;max-width:1000px;margin:0 auto;">
+    <span style="font-family:Inter,sans-serif;font-size:10px;letter-spacing:0.15em;font-weight:700;color:#71717a;background:rgba(255,255,255,0.8);border:1px solid #e4e4e7;padding:6px 16px;border-radius:9999px;margin-bottom:32px;box-shadow:0 1px 2px rgba(0,0,0,0.05);white-space:nowrap;width:fit-content;">2 DEMO SLOTS AVAILABLE THIS MONTH</span>
+
+    <h1 class="text-5xl md:text-7xl" style="font-family:'Lora',serif;font-weight:500;color:#09090b;letter-spacing:-0.03em;line-height:1.05;margin:0 0 32px;max-width:820px;">Integrated Software Environments for Structural Engineering &amp; BIM.</h1>
+
+    <p class="md:text-lg" style="color:#71717a;font-size:16px;max-width:640px;line-height:1.6;margin:0 0 40px;font-family:Inter,sans-serif;">Partnering with global engineering tech leaders to optimize design, analysis, and BIM workflows. Highly responsive support, straight from our team to yours.</p>
+
+    <div style="display:flex;flex-direction:row;align-items:center;gap:16px;">
+      <button type="button" class="group hover:bg-zinc-800" style="background:#09090b;color:#fff;padding:14px 28px;border:none;border-bottom:1px solid rgba(249,115,22,0.3);border-radius:9999px;font-weight:500;font-size:14px;cursor:pointer;transition:all .3s;position:relative;box-shadow:0 5px 15px -3px rgba(239,68,68,0.2);display:inline-flex;align-items:center;white-space:nowrap;">Contact Us<svg class="group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style="width:16px;height:16px;margin-left:6px;display:inline-block;transition:transform .3s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg></button>
+      <button type="button" class="group hover:bg-zinc-200/50" style="border:1px solid #d4d4d8;background:rgba(232,232,231,0.8);color:#27272a;padding:14px 28px;border-radius:9999px;font-weight:500;font-size:14px;cursor:pointer;transition:all .3s;white-space:nowrap;display:inline-flex;align-items:center;">Get Trial<svg class="group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style="width:16px;height:16px;margin-left:6px;display:inline-block;transition:transform .3s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg></button>
+    </div>
+  </section>
+
+  <!-- ============================= PARTNER MARQUEE ============================= -->
+  <section class="reveal" style="position:relative;z-index:10;width:100%;padding:40px 0 96px;border-top:1px solid rgba(228,228,231,0.4);">
+    <p style="text-align:center;font-family:Inter,sans-serif;font-size:11px;letter-spacing:0.2em;font-weight:700;color:#a1a1aa;margin:0 0 32px;">TRUSTED BY ENGINEERING TEAMS WORLDWIDE</p>
+    <div style="width:100%;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(to right, transparent, black 10%, black 90%, transparent);mask-image:linear-gradient(to right, transparent, black 10%, black 90%, transparent);">
+      <div class="animate-infinite-marquee">
+        <!-- set 1 -->
+        <div style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">IDEA StatiCa</span></div>
+        <div style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">Bentley Systems</span></div>
+        <div style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">CSI</span></div>
+        <div style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">Autodesk</span></div>
+        <div style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">Trimble Tekla</span></div>
+        <div style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">Dlubal</span></div>
+        <div style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">RISA</span></div>
+        <div style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">SAP2000</span></div>
+        <!-- set 2 (duplicate for seamless loop) -->
+        <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">IDEA StatiCa</span></div>
+        <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">Bentley Systems</span></div>
+        <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">CSI</span></div>
+        <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">Autodesk</span></div>
+        <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">Trimble Tekla</span></div>
+        <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">Dlubal</span></div>
+        <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">RISA</span></div>
+        <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;"><span style="font-size:20px;font-weight:700;color:#a1a1aa;white-space:nowrap;">SAP2000</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SERVICES ============================= -->
+  <section id="services" class="py-8 reveal" style="position:relative;z-index:10;width:100%;border-top:1px solid rgba(228,228,231,0.4);">
+    <div class="grid-cols-6 md:grid-cols-12" style="position:absolute;inset:0;z-index:0;pointer-events:none;display:grid;height:100%;width:100%;">
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+      <div style="border-left:1px solid rgba(228,228,231,0.4);background:linear-gradient(to right, rgba(228,228,231,0.1), transparent 70%);height:100%;"></div>
+    </div>
+
+    <div style="position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px;max-width:900px;margin:0 auto 24px;">
+      <span class="uppercase" style="font-weight:700;font-size:9px;letter-spacing:0.25em;color:#71717a;background:rgba(255,255,255,0.9);border:1px solid rgba(228,228,231,0.8);padding:4px 14px;border-radius:9999px;margin-bottom:12px;white-space:nowrap;width:fit-content;box-shadow:0 1px 2px rgba(0,0,0,0.05);">Our Services</span>
+      <h2 class="text-4xl md:text-6xl" style="font-family:'Lora',serif;font-weight:500;color:#18181b;letter-spacing:-0.02em;line-height:1.08;margin:0 0 16px;max-width:760px;">A Full Operations Suite Behind Every License.</h2>
+      <p class="md:text-base" style="color:#71717a;font-size:14px;max-width:560px;line-height:1.6;margin:0;">From first evaluation to long-term portfolio management, we equip structural engineering teams with the tools and support to design with confidence.</p>
+    </div>
+
+    <div class="grid-cols-1 lg:grid-cols-3 px-6 md:px-16" style="position:relative;z-index:10;display:grid;gap:24px;max-width:1280px;margin:0 auto;padding-bottom:32px;width:100%;box-sizing:border-box;">
+
+      <!-- 01 — BIM Consultancy -->
+      <div class="group hover:shadow-md" style="border:1px solid #e4e4e7;background:rgba(250,250,250,0.5);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:box-shadow .3s;">
+        <div style="background:rgba(244,244,245,0.6);padding:12px;height:150px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:6px;border-bottom:1px solid rgba(228,228,231,0.4);">
+          <div class="animate-step-1" style="background:#fff;border-radius:9px;padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 2px rgba(0,0,0,0.04);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M20 6 9 17l-5-5"></path></svg>
+            <p style="font-size:11px;font-weight:600;color:#18181b;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">IFC Structural Model Uploaded</p>
+          </div>
+          <div class="animate-step-2" style="background:#fff;border-radius:9px;padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 2px rgba(0,0,0,0.04);">
+            <div class="spinner" style="width:12px;height:12px;border-radius:9999px;border:2px solid #3b82f6;border-top-color:transparent;flex-shrink:0;"></div>
+            <p style="font-size:11px;font-weight:600;color:#18181b;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Auto-checking solver constraints...</p>
+          </div>
+          <div class="animate-step-3" style="background:#fff;border-radius:9px;padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 2px rgba(0,0,0,0.04);">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#d4d4d8" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="9"></circle></svg>
+            <p style="font-size:11px;font-weight:600;color:#18181b;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Model Validation Report Generated</p>
+          </div>
+        </div>
+        <div class="p-5" style="box-sizing:border-box;background:#fff;">
+          <span style="color:#f97316;font-weight:700;font-size:12px;display:block;margin-bottom:4px;">01</span>
+          <h3 class="text-lg" style="font-family:'Lora',serif;font-weight:600;color:#09090b;margin:0 0 4px;">BIM Consultancy</h3>
+          <p class="line-clamp-2" style="color:#71717a;font-size:12px;line-height:1.6;margin:0;max-width:24rem;">Guiding engineering firms through digital transformation and model-based BIM collaboration.</p>
+        </div>
+      </div>
+
+      <!-- 02 — Software Portfolio Management -->
+      <div class="group hover:shadow-md" style="border:1px solid #e4e4e7;background:rgba(250,250,250,0.5);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:box-shadow .3s;">
+        <div style="background:rgba(244,244,245,0.6);position:relative;overflow:hidden;height:150px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(228,228,231,0.4);">
+          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;max-width:80%;">
+            <span class="animate-float-node-1" style="padding:6px 12px;font-size:11px;font-weight:600;color:#27272a;background:#fff;border:1px solid rgba(228,228,231,0.6);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.04);white-space:nowrap;">IDEA StatiCa</span>
+            <span class="animate-float-node-2" style="padding:6px 12px;font-size:11px;font-weight:600;color:#27272a;background:#fff;border:1px solid rgba(228,228,231,0.6);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.04);white-space:nowrap;">Bentley Systems</span>
+            <span class="animate-float-node-1" style="padding:6px 12px;font-size:11px;font-weight:600;color:#27272a;background:#fff;border:1px solid rgba(228,228,231,0.6);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.04);white-space:nowrap;">CSI Suite</span>
+            <span class="animate-float-node-2" style="padding:6px 12px;font-size:11px;font-weight:600;color:#27272a;background:#fff;border:1px solid rgba(228,228,231,0.6);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.04);white-space:nowrap;">STAAD Pro</span>
+            <span class="animate-float-node-1" style="padding:6px 12px;font-size:11px;font-weight:600;color:#27272a;background:#fff;border:1px solid rgba(228,228,231,0.6);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.04);white-space:nowrap;">ETABS</span>
+          </div>
+        </div>
+        <div class="p-5" style="box-sizing:border-box;background:#fff;">
+          <span style="color:#f97316;font-weight:700;font-size:12px;display:block;margin-bottom:4px;">02</span>
+          <h3 class="text-lg" style="font-family:'Lora',serif;font-weight:600;color:#09090b;margin:0 0 4px;">Software Portfolio Management</h3>
+          <p class="line-clamp-2" style="color:#71717a;font-size:12px;line-height:1.6;margin:0;max-width:24rem;">Active license management, maintenance terms, and upgrades for portfolio cost-efficiency.</p>
+        </div>
+      </div>
+
+      <!-- 03 — Technical Support & Training -->
+      <div class="group hover:shadow-md" style="border:1px solid #e4e4e7;background:rgba(250,250,250,0.5);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:box-shadow .3s;">
+        <div style="background:rgba(244,244,245,0.6);padding:14px;height:150px;flex-shrink:0;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:8px;border-bottom:1px solid rgba(228,228,231,0.4);">
+          <div class="animate-chat-left" style="align-self:flex-start;background:#fff;border:1px solid rgba(228,228,231,0.8);border-radius:16px 16px 16px 4px;padding:8px 12px;box-shadow:0 2px 8px -1px rgba(0,0,0,0.04);max-width:85%;position:relative;z-index:1;">
+            <div style="display:flex;align-items:center;">
+              <span style="font-size:9px;font-weight:700;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em;">Swut Support • Eng. Sarah</span>
+              <span class="pulse-dot" style="width:6px;height:6px;border-radius:9999px;background:#10b981;display:inline-block;margin-left:6px;"></span>
+            </div>
+            <p style="font-size:10px;color:#52525b;line-height:1.3;margin:2px 0 0;">Hi! Let's get your Bentley RAM connection license activated right away.</p>
+          </div>
+          <div class="animate-chat-right" style="align-self:flex-end;background:#2563eb;color:#fff;border-radius:16px 16px 4px 16px;padding:8px 12px;box-shadow:0 4px 12px rgba(37,99,235,0.15);max-width:85%;position:relative;z-index:1;">
+            <span style="font-size:9px;font-weight:700;color:#bfdbfe;text-transform:uppercase;letter-spacing:0.05em;">You</span>
+            <p style="font-size:10px;font-weight:500;line-height:1.3;margin:2px 0 0;">Perfect, the calculation solver is running flawlessly now. Thank you!</p>
+          </div>
+        </div>
+        <div class="p-5" style="box-sizing:border-box;background:#fff;">
+          <span style="color:#f97316;font-weight:700;font-size:12px;display:block;margin-bottom:4px;">03</span>
+          <h3 class="text-lg" style="font-family:'Lora',serif;font-weight:600;color:#09090b;margin:0 0 4px;">Technical Support &amp; Training</h3>
+          <p class="line-clamp-2" style="color:#71717a;font-size:12px;line-height:1.6;margin:0;max-width:24rem;">Direct technical assistance, evaluation demos, custom courses, and financing solutions.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================= PRODUCTS (sticky stack) ============================= -->
+  <section id="products" class="overflow-visible pt-16 pb-48" style="position:relative;z-index:10;width:100%;">
+    <div class="max-w-7xl mx-auto px-6 md:px-16 overflow-visible" style="position:relative;z-index:10;">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-12 reveal" style="width:100%;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span class="uppercase w-fit block" style="font-weight:700;font-size:9px;color:#71717a;background:#fff;border:1px solid rgba(228,228,231,0.8);padding:4px 12px;border-radius:9999px;letter-spacing:0.25em;box-shadow:0 1px 2px rgba(0,0,0,0.05);white-space:nowrap;">Products</span>
+          <h2 class="text-4xl md:text-5xl" style="font-family:'Lora',serif;font-weight:500;color:#18181b;letter-spacing:-0.02em;line-height:1.1;margin:0;">Software Products Licenses.</h2>
+        </div>
+        <p class="md:text-sm md:text-end" style="color:#71717a;font-size:12px;max-width:380px;line-height:1.6;margin:0;text-align:start;">Authorized distribution, tier licensing, and fully compliant local keys for Egypt's leading structural engineering and BIM suites.</p>
+      </div>
+
+      <div class="space-y-[30vh] overflow-visible">
+
+        <!-- IDEA StatiCa -->
+        <div class="flex flex-col md:flex-row" style="position:sticky;top:100px;z-index:10;width:100%;border-radius:24px;border:1px solid rgba(212,212,216,0.8);background:#f5f5f4;overflow:hidden;height:380px;transition:transform .5s;">
+          <div class="w-full md:w-1/2 group" style="height:100%;position:relative;overflow:hidden;background:#e4e4e7;border-right:1px solid rgba(212,212,216,0.8);flex-shrink:0;">
+            <img src="https://assets-us-01.kc-usercontent.com/1ca05609-4ad1-009e-bc40-2e1230b16a75/4db7291f-9734-4736-85f3-a244351afa55/IDEA_StatiCa.jpg" alt="Idea Statics" loading="lazy" class="grayscale group-hover:grayscale-0 group-hover:scale-[1.02]" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.08);transition:all .7s;">
+          </div>
+          <div class="w-full md:w-1/2" style="height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:24px;background:#f5f5f4;box-sizing:border-box;flex-shrink:0;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+              <h3 class="text-xl md:text-2xl" style="font-family:'Lora',serif;font-weight:600;color:#18181b;letter-spacing:-0.02em;margin:0;">Idea Statics</h3>
+              <span class="uppercase" style="font-size:9px;font-weight:700;letter-spacing:0.1em;color:#a1a1aa;white-space:nowrap;">Structural Analysis</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <p class="line-clamp-2" style="color:#71717a;font-size:13px;line-height:1.6;margin:0;max-width:32rem;">Advanced component-based finite element design for code-compliant structural steel joints of any geometry or loading complexity.</p>
+              <span style="font-size:12px;color:#18181b;font-weight:500;">✓ Full Core Support  •  ✓ Egyptian Code Compliant</span>
+            </div>
+            <div class="grid-cols-2" style="display:grid;gap:16px;border-top:1px dashed #d4d4d8;padding-top:12px;margin-top:auto;">
+              <div>
+                <span class="uppercase" style="font-size:9px;font-weight:600;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-bottom:4px;">Solver Matrix</span>
+                <span class="text-lg md:text-xl" style="font-weight:700;color:#09090b;">3D FEA</span>
+              </div>
+              <div>
+                <span class="uppercase" style="font-size:9px;font-weight:600;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-bottom:4px;">Verification</span>
+                <span class="text-lg md:text-xl" style="font-weight:700;color:#09090b;">100% Code Approved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PlanSwift -->
+        <div class="flex flex-col md:flex-row" style="position:sticky;top:100px;z-index:20;width:100%;border-radius:24px;border:1px solid rgba(212,212,216,0.8);background:#f5f5f4;overflow:hidden;height:380px;transition:transform .5s;">
+          <div class="w-full md:w-1/2 group" style="height:100%;position:relative;overflow:hidden;background:#e4e4e7;border-right:1px solid rgba(212,212,216,0.8);flex-shrink:0;">
+            <img src="https://www.planswift.com/wp-content/uploads/2015/05/general-contractor-estimating-software.jpg" alt="PlanSwift" loading="lazy" class="grayscale group-hover:grayscale-0 group-hover:scale-[1.02]" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.08);transition:all .7s;">
+          </div>
+          <div class="w-full md:w-1/2" style="height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:24px;background:#f5f5f4;box-sizing:border-box;flex-shrink:0;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+              <h3 class="text-xl md:text-2xl" style="font-family:'Lora',serif;font-weight:600;color:#18181b;letter-spacing:-0.02em;margin:0;">PlanSwift</h3>
+              <span class="uppercase" style="font-size:9px;font-weight:700;letter-spacing:0.1em;color:#a1a1aa;white-space:nowrap;">Digital Estimating</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <p class="line-clamp-2" style="color:#71717a;font-size:13px;line-height:1.6;margin:0;max-width:32rem;">Industry-standard digital quantity takeoff and construction estimating tool. Calculate materials and labor with drag-and-drop ease.</p>
+              <span style="font-size:12px;color:#18181b;font-weight:500;">✓ Full Core Support  •  ✓ Egyptian Code Compliant</span>
+            </div>
+            <div class="grid-cols-2" style="display:grid;gap:16px;border-top:1px dashed #d4d4d8;padding-top:12px;margin-top:auto;">
+              <div>
+                <span class="uppercase" style="font-size:9px;font-weight:600;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-bottom:4px;">Estimating Speed</span>
+                <span class="text-lg md:text-xl" style="font-weight:700;color:#09090b;">10x Faster</span>
+              </div>
+              <div>
+                <span class="uppercase" style="font-size:9px;font-weight:600;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-bottom:4px;">Material Accuracy</span>
+                <span class="text-lg md:text-xl" style="font-weight:700;color:#09090b;">99.8% QTO</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MIDAS Suite -->
+        <div class="flex flex-col md:flex-row" style="position:sticky;top:100px;z-index:30;width:100%;border-radius:24px;border:1px solid rgba(212,212,216,0.8);background:#f5f5f4;overflow:hidden;height:380px;transition:transform .5s;">
+          <div class="w-full md:w-1/2 group" style="height:100%;position:relative;overflow:hidden;background:#e4e4e7;border-right:1px solid rgba(212,212,216,0.8);flex-shrink:0;">
+            <img src="https://www.midasuser.com/assets/home/case/img_application_1.png" alt="MIDAS Suite" loading="lazy" class="grayscale group-hover:grayscale-0 group-hover:scale-[1.02]" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.08);transition:all .7s;">
+          </div>
+          <div class="w-full md:w-1/2" style="height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:24px;background:#f5f5f4;box-sizing:border-box;flex-shrink:0;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+              <h3 class="text-xl md:text-2xl" style="font-family:'Lora',serif;font-weight:600;color:#18181b;letter-spacing:-0.02em;margin:0;">MIDAS Suite</h3>
+              <span class="uppercase" style="font-size:9px;font-weight:700;letter-spacing:0.1em;color:#a1a1aa;white-space:nowrap;">Structural Engineering</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <p class="line-clamp-2" style="color:#71717a;font-size:13px;line-height:1.6;margin:0;max-width:32rem;">Powerful, multi-discipline solver including MIDAS Gen for buildings, MIDAS Civil for bridge engineering, and MIDAS GTS NX for geotech analysis.</p>
+              <span style="font-size:12px;color:#18181b;font-weight:500;">✓ Full Core Support  •  ✓ Egyptian Code Compliant</span>
+            </div>
+            <div class="grid-cols-2" style="display:grid;gap:16px;border-top:1px dashed #d4d4d8;padding-top:12px;margin-top:auto;">
+              <div>
+                <span class="uppercase" style="font-size:9px;font-weight:600;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-bottom:4px;">Solver Power</span>
+                <span class="text-lg md:text-xl" style="font-weight:700;color:#09090b;">Multi-Discipline</span>
+              </div>
+              <div>
+                <span class="uppercase" style="font-size:9px;font-weight:600;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-bottom:4px;">Global Projects</span>
+                <span class="text-lg md:text-xl" style="font-weight:700;color:#09090b;">20,000+ Active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ZWCAD -->
+        <div class="flex flex-col md:flex-row" style="position:sticky;top:100px;z-index:40;width:100%;border-radius:24px;border:1px solid rgba(212,212,216,0.8);background:#f5f5f4;overflow:hidden;height:380px;transition:transform .5s;">
+          <div class="w-full md:w-1/2 group" style="height:100%;position:relative;overflow:hidden;background:#e4e4e7;border-right:1px solid rgba(212,212,216,0.8);flex-shrink:0;">
+            <img src="https://statics.zwsoft.com/upload/en/20250826/52a6b782b7c5af5f2e33a6836f9bc5bf.jpg" alt="ZWCAD" loading="lazy" class="grayscale group-hover:grayscale-0 group-hover:scale-[1.02]" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.08);transition:all .7s;">
+          </div>
+          <div class="w-full md:w-1/2" style="height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:24px;background:#f5f5f4;box-sizing:border-box;flex-shrink:0;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+              <h3 class="text-xl md:text-2xl" style="font-family:'Lora',serif;font-weight:600;color:#18181b;letter-spacing:-0.02em;margin:0;">ZWCAD</h3>
+              <span class="uppercase" style="font-size:9px;font-weight:700;letter-spacing:0.1em;color:#a1a1aa;white-space:nowrap;">2D / 3D CAD Engine</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <p class="line-clamp-2" style="color:#71717a;font-size:13px;line-height:1.6;margin:0;max-width:32rem;">Highly cost-efficient, fast, and completely DWG-compatible CAD system for draftsmanship, modeling, and workflow automation.</p>
+              <span style="font-size:12px;color:#18181b;font-weight:500;">✓ Full Core Support  •  ✓ Egyptian Code Compliant</span>
+            </div>
+            <div class="grid-cols-2" style="display:grid;gap:16px;border-top:1px dashed #d4d4d8;padding-top:12px;margin-top:auto;">
+              <div>
+                <span class="uppercase" style="font-size:9px;font-weight:600;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-bottom:4px;">Compatibility</span>
+                <span class="text-lg md:text-xl" style="font-weight:700;color:#09090b;">100% DWG</span>
+              </div>
+              <div>
+                <span class="uppercase" style="font-size:9px;font-weight:600;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-bottom:4px;">Core License</span>
+                <span class="text-lg md:text-xl" style="font-weight:700;color:#09090b;">Perpetual Key</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= TESTIMONIALS ============================= -->
+  <section id="testimonials" class="pb-16 md:pb-20 reveal" style="position:relative;z-index:10;width:100%;border-top:1px solid rgba(228,228,231,0.4);">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 max-w-7xl mx-auto px-6 md:px-16 pt-20 pb-12" style="position:relative;z-index:10;width:100%;box-sizing:border-box;">
+      <div>
+        <span class="uppercase w-fit block" style="font-weight:700;font-size:9px;color:#71717a;background:#fff;border:1px solid rgba(228,228,231,0.8);padding:4px 12px;border-radius:9999px;letter-spacing:0.25em;white-space:nowrap;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">Our Clients</span>
+        <h2 class="text-4xl md:text-5xl" style="font-family:'Lora',serif;font-weight:500;color:#18181b;letter-spacing:-0.02em;line-height:1.1;margin:0;">What Our Clients Say.</h2>
+      </div>
+      <p class="md:text-sm md:text-end" style="color:#71717a;font-size:12px;max-width:380px;line-height:1.6;margin:0;text-align:start;">Real stories from engineering teams that use Swut Solutions to optimize portfolios, scale licenses faster, and achieve measurable results.</p>
+    </div>
+
+    <div class="space-y-6" style="position:relative;width:100%;overflow:hidden;padding:16px 0;">
+
+      <!-- Row 1 -->
+      <div style="width:100%;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);">
+        <div class="animate-testimonials-carousel" data-testimonial-row="1">
+          <figure class="w-[360px] md:w-[400px] hover:border-zinc-500" style="background:#fff;border:1px dashed rgba(212,212,216,0.8);border-radius:24px;padding:24px;margin:0;display:flex;flex-direction:column;justify-content:space-between;height:210px;flex-shrink:0;position:relative;box-sizing:border-box;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:border-color .3s;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <span style="color:#ea580c;font-size:12px;letter-spacing:-0.02em;">★★★★★</span>
+              <span aria-hidden="true" style="color:#ea580c;font-family:'Lora',serif;font-size:22px;font-weight:700;line-height:1;">"</span>
+            </div>
+            <blockquote class="line-clamp-3" style="font-family:'Lora',serif;font-size:13px;line-height:1.6;color:#27272a;margin:10px 0;">Swut got our IDEA StatiCa license live in a day and the onboarding support was hands-on the entire time.</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:10px;">
+              <div style="width:32px;height:32px;border-radius:9999px;background:#e4e4e7;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#71717a;">SE</div>
+              <div>
+                <span style="font-size:12px;font-weight:700;color:#18181b;display:block;">Sarah El-Masry</span>
+                <span class="uppercase" style="font-size:9px;color:#a1a1aa;letter-spacing:0.05em;">Structural Lead, Cairo Steel Works</span>
+              </div>
+            </figcaption>
+            <div style="position:absolute;bottom:24px;right:24px;width:28px;height:28px;border-radius:9999px;border:1px solid rgba(228,228,231,0.8);background:#fafafa;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:10px;font-weight:700;color:#71717a;box-shadow:0 1px 2px rgba(0,0,0,0.05);">IS</div>
+          </figure>
+
+          <figure class="w-[360px] md:w-[400px] hover:border-zinc-500" style="background:#fff;border:1px dashed rgba(212,212,216,0.8);border-radius:24px;padding:24px;margin:0;display:flex;flex-direction:column;justify-content:space-between;height:210px;flex-shrink:0;position:relative;box-sizing:border-box;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:border-color .3s;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <span style="color:#ea580c;font-size:12px;letter-spacing:-0.02em;">★★★★★</span>
+              <span aria-hidden="true" style="color:#ea580c;font-family:'Lora',serif;font-size:22px;font-weight:700;line-height:1;">"</span>
+            </div>
+            <blockquote class="line-clamp-3" style="font-family:'Lora',serif;font-size:13px;line-height:1.6;color:#27272a;margin:10px 0;">Their Bentley RAM support team resolved a solver constraint issue in under an hour. Genuinely responsive.</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:10px;">
+              <div style="width:32px;height:32px;border-radius:9999px;background:#e4e4e7;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#71717a;">OF</div>
+              <div>
+                <span style="font-size:12px;font-weight:700;color:#18181b;display:block;">Omar Farouk</span>
+                <span class="uppercase" style="font-size:9px;color:#a1a1aa;letter-spacing:0.05em;">BIM Manager, Nile Consulting</span>
+              </div>
+            </figcaption>
+            <div style="position:absolute;bottom:24px;right:24px;width:28px;height:28px;border-radius:9999px;border:1px solid rgba(228,228,231,0.8);background:#fafafa;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:10px;font-weight:700;color:#71717a;box-shadow:0 1px 2px rgba(0,0,0,0.05);">BR</div>
+          </figure>
+
+          <figure class="w-[360px] md:w-[400px] hover:border-zinc-500" style="background:#fff;border:1px dashed rgba(212,212,216,0.8);border-radius:24px;padding:24px;margin:0;display:flex;flex-direction:column;justify-content:space-between;height:210px;flex-shrink:0;position:relative;box-sizing:border-box;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:border-color .3s;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <span style="color:#ea580c;font-size:12px;letter-spacing:-0.02em;">★★★★★</span>
+              <span aria-hidden="true" style="color:#ea580c;font-family:'Lora',serif;font-size:22px;font-weight:700;line-height:1;">"</span>
+            </div>
+            <blockquote class="line-clamp-3" style="font-family:'Lora',serif;font-size:13px;line-height:1.6;color:#27272a;margin:10px 0;">The portfolio management service alone saved us weeks of license renewal admin every year.</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:10px;">
+              <div style="width:32px;height:32px;border-radius:9999px;background:#e4e4e7;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#71717a;">LH</div>
+              <div>
+                <span style="font-size:12px;font-weight:700;color:#18181b;display:block;">Layla Haddad</span>
+                <span class="uppercase" style="font-size:9px;color:#a1a1aa;letter-spacing:0.05em;">Principal Engineer, Delta Structures</span>
+              </div>
+            </figcaption>
+            <div style="position:absolute;bottom:24px;right:24px;width:28px;height:28px;border-radius:9999px;border:1px solid rgba(228,228,231,0.8);background:#fafafa;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:10px;font-weight:700;color:#71717a;box-shadow:0 1px 2px rgba(0,0,0,0.05);">CSI</div>
+          </figure>
+        </div>
+      </div>
+
+      <!-- Row 2 (reverse) -->
+      <div style="width:100%;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);">
+        <div class="animate-testimonials-carousel" data-testimonial-row="2" style="animation-direction:reverse;">
+          <figure class="w-[360px] md:w-[400px] hover:border-zinc-500" style="background:#fff;border:1px dashed rgba(212,212,216,0.8);border-radius:24px;padding:24px;margin:0;display:flex;flex-direction:column;justify-content:space-between;height:210px;flex-shrink:0;position:relative;box-sizing:border-box;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:border-color .3s;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <span style="color:#ea580c;font-size:12px;letter-spacing:-0.02em;">★★★★★</span>
+              <span aria-hidden="true" style="color:#ea580c;font-family:'Lora',serif;font-size:22px;font-weight:700;line-height:1;">"</span>
+            </div>
+            <blockquote class="line-clamp-3" style="font-family:'Lora',serif;font-size:13px;line-height:1.6;color:#27272a;margin:10px 0;">MIDAS training from Swut brought our whole team up to speed on multi-discipline analysis fast.</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:10px;">
+              <div style="width:32px;height:32px;border-radius:9999px;background:#e4e4e7;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#71717a;">KY</div>
+              <div>
+                <span style="font-size:12px;font-weight:700;color:#18181b;display:block;">Karim Youssef</span>
+                <span class="uppercase" style="font-size:9px;color:#a1a1aa;letter-spacing:0.05em;">Design Director, Alexandria BIM Group</span>
+              </div>
+            </figcaption>
+            <div style="position:absolute;bottom:24px;right:24px;width:28px;height:28px;border-radius:9999px;border:1px solid rgba(228,228,231,0.8);background:#fafafa;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:10px;font-weight:700;color:#71717a;box-shadow:0 1px 2px rgba(0,0,0,0.05);">MI</div>
+          </figure>
+
+          <figure class="w-[360px] md:w-[400px] hover:border-zinc-500" style="background:#fff;border:1px dashed rgba(212,212,216,0.8);border-radius:24px;padding:24px;margin:0;display:flex;flex-direction:column;justify-content:space-between;height:210px;flex-shrink:0;position:relative;box-sizing:border-box;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:border-color .3s;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <span style="color:#ea580c;font-size:12px;letter-spacing:-0.02em;">★★★★★</span>
+              <span aria-hidden="true" style="color:#ea580c;font-family:'Lora',serif;font-size:22px;font-weight:700;line-height:1;">"</span>
+            </div>
+            <blockquote class="line-clamp-3" style="font-family:'Lora',serif;font-size:13px;line-height:1.6;color:#27272a;margin:10px 0;">Straightforward financing options meant we could scale our SAP2000 seats without budget headaches.</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:10px;">
+              <div style="width:32px;height:32px;border-radius:9999px;background:#e4e4e7;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#71717a;">NA</div>
+              <div>
+                <span style="font-size:12px;font-weight:700;color:#18181b;display:block;">Nourhan Adel</span>
+                <span class="uppercase" style="font-size:9px;color:#a1a1aa;letter-spacing:0.05em;">Project Engineer, Giza Infrastructure</span>
+              </div>
+            </figcaption>
+            <div style="position:absolute;bottom:24px;right:24px;width:28px;height:28px;border-radius:9999px;border:1px solid rgba(228,228,231,0.8);background:#fafafa;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:10px;font-weight:700;color:#71717a;box-shadow:0 1px 2px rgba(0,0,0,0.05);">CSI</div>
+          </figure>
+
+          <figure class="w-[360px] md:w-[400px] hover:border-zinc-500" style="background:#fff;border:1px dashed rgba(212,212,216,0.8);border-radius:24px;padding:24px;margin:0;display:flex;flex-direction:column;justify-content:space-between;height:210px;flex-shrink:0;position:relative;box-sizing:border-box;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:border-color .3s;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <span style="color:#ea580c;font-size:12px;letter-spacing:-0.02em;">★★★★★</span>
+              <span aria-hidden="true" style="color:#ea580c;font-family:'Lora',serif;font-size:22px;font-weight:700;line-height:1;">"</span>
+            </div>
+            <blockquote class="line-clamp-3" style="font-family:'Lora',serif;font-size:13px;line-height:1.6;color:#27272a;margin:10px 0;">ETABS support during a live high-rise deadline was the difference between shipping on time or not.</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:10px;">
+              <div style="width:32px;height:32px;border-radius:9999px;background:#e4e4e7;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#71717a;">TM</div>
+              <div>
+                <span style="font-size:12px;font-weight:700;color:#18181b;display:block;">Tarek Mostafa</span>
+                <span class="uppercase" style="font-size:9px;color:#a1a1aa;letter-spacing:0.05em;">Technical Director, Horus Engineering</span>
+              </div>
+            </figcaption>
+            <div style="position:absolute;bottom:24px;right:24px;width:28px;height:28px;border-radius:9999px;border:1px solid rgba(228,228,231,0.8);background:#fafafa;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:10px;font-weight:700;color:#71717a;box-shadow:0 1px 2px rgba(0,0,0,0.05);">CSI</div>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="grid-cols-2 lg:grid-cols-4 px-6 md:px-16" style="position:relative;z-index:10;display:grid;max-width:1280px;margin:48px auto 0;border-top:1px solid rgba(228,228,231,0.6);border-bottom:1px solid rgba(228,228,231,0.6);box-sizing:border-box;">
+      <div class="last:border-none" style="position:relative;padding:32px 16px;border-right:1px solid rgba(228,228,231,0.6);display:flex;flex-direction:column;justify-content:space-between;height:130px;box-sizing:border-box;">
+        <div style="position:absolute;top:32px;right:16px;display:flex;gap:2px;align-items:flex-end;height:12px;">
+          <span style="width:1.5px;height:6px;background:#d4d4d8;"></span><span style="width:1.5px;height:10px;background:#d4d4d8;"></span><span style="width:1.5px;height:12px;background:#ea580c;"></span><span style="width:1.5px;height:8px;background:#d4d4d8;"></span>
+        </div>
+        <span class="text-4xl md:text-5xl" style="font-weight:700;color:#09090b;letter-spacing:-0.02em;display:flex;align-items:baseline;">3<span style="color:#ea580c;font-weight:500;margin-left:2px;">x</span></span>
+        <span class="uppercase md:text-[10px]" style="font-size:9px;font-weight:700;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-top:12px;">Average First-Year ROI</span>
+      </div>
+      <div class="last:border-none" style="position:relative;padding:32px 16px;border-right:1px solid rgba(228,228,231,0.6);display:flex;flex-direction:column;justify-content:space-between;height:130px;box-sizing:border-box;">
+        <div style="position:absolute;top:32px;right:16px;display:flex;gap:2px;align-items:flex-end;height:12px;">
+          <span style="width:1.5px;height:6px;background:#d4d4d8;"></span><span style="width:1.5px;height:10px;background:#d4d4d8;"></span><span style="width:1.5px;height:12px;background:#ea580c;"></span><span style="width:1.5px;height:8px;background:#d4d4d8;"></span>
+        </div>
+        <span class="text-4xl md:text-5xl" style="font-weight:700;color:#09090b;letter-spacing:-0.02em;display:flex;align-items:baseline;">100<span style="color:#ea580c;font-weight:500;margin-left:2px;">+</span></span>
+        <span class="uppercase md:text-[10px]" style="font-size:9px;font-weight:700;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-top:12px;">Hours Saved Per Month</span>
+      </div>
+      <div class="last:border-none" style="position:relative;padding:32px 16px;border-right:1px solid rgba(228,228,231,0.6);display:flex;flex-direction:column;justify-content:space-between;height:130px;box-sizing:border-box;">
+        <div style="position:absolute;top:32px;right:16px;display:flex;gap:2px;align-items:flex-end;height:12px;">
+          <span style="width:1.5px;height:6px;background:#d4d4d8;"></span><span style="width:1.5px;height:10px;background:#d4d4d8;"></span><span style="width:1.5px;height:12px;background:#ea580c;"></span><span style="width:1.5px;height:8px;background:#d4d4d8;"></span>
+        </div>
+        <span class="text-4xl md:text-5xl" style="font-weight:700;color:#09090b;letter-spacing:-0.02em;display:flex;align-items:baseline;">60<span style="color:#ea580c;font-weight:500;margin-left:2px;">%</span></span>
+        <span class="uppercase md:text-[10px]" style="font-size:9px;font-weight:700;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-top:12px;">Less Manual Work Across Teams</span>
+      </div>
+      <div class="last:border-none" style="position:relative;padding:32px 16px;border-right:1px solid rgba(228,228,231,0.6);display:flex;flex-direction:column;justify-content:space-between;height:130px;box-sizing:border-box;">
+        <div style="position:absolute;top:32px;right:16px;display:flex;gap:2px;align-items:flex-end;height:12px;">
+          <span style="width:1.5px;height:6px;background:#d4d4d8;"></span><span style="width:1.5px;height:10px;background:#d4d4d8;"></span><span style="width:1.5px;height:12px;background:#ea580c;"></span><span style="width:1.5px;height:8px;background:#d4d4d8;"></span>
+        </div>
+        <span class="text-4xl md:text-5xl" style="font-weight:700;color:#09090b;letter-spacing:-0.02em;display:flex;align-items:baseline;">98<span style="color:#ea580c;font-weight:500;margin-left:2px;">%</span></span>
+        <span class="uppercase md:text-[10px]" style="font-size:9px;font-weight:700;color:#a1a1aa;letter-spacing:0.05em;display:block;margin-top:12px;">Client Retention Rate</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= GET IN TOUCH MARQUEE ============================= -->
+  <a href="#contact" id="contact" class="group hover:bg-zinc-900/5 reveal" style="display:block;width:100%;overflow:hidden;background:#f5f5f4;border-top:1px dashed #d4d4d8;border-bottom:1px dashed #d4d4d8;padding:24px 0;position:relative;z-index:10;cursor:pointer;transition:background-color .3s;text-decoration:none;">
+    <div class="animate-contact-marquee" data-repeat="contact"></div>
+  </a>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="px-6 md:px-16 reveal" style="width:100%;background:#f5f5f4;padding-top:80px;padding-bottom:16px;max-width:1280px;margin:0 auto;position:relative;z-index:10;display:flex;align-items:flex-start;box-sizing:border-box;flex-wrap:wrap;justify-content:space-between;gap:48px;">
+    <div>
+      <p style="font-size:14px;font-weight:700;color:#18181b;letter-spacing:-0.02em;margin:0 0 8px;">Join 20K+ users</p>
+      <p style="font-size:12px;color:#71717a;max-width:280px;line-height:1.6;margin:0 0 24px;">Get actionable structural engineering insights, software licensing guides, and BIM workflow tips delivered every Sunday.</p>
+      <form style="width:100%;max-width:360px;display:flex;align-items:center;background:transparent;border:1px solid #d4d4d8;border-radius:9999px;padding:4px 4px 4px 16px;box-sizing:border-box;">
+        <label for="newsletter-email" class="sr-only">Email address</label>
+        <input id="newsletter-email" name="email" type="email" placeholder="Enter your email" style="background:transparent;font-size:12px;color:#27272a;border:none;outline:none;flex:1;padding:8px 8px 8px 0;min-width:0;">
+        <button type="submit" class="hover:bg-zinc-800" style="background:#09090b;color:#fff;font-size:12px;font-weight:600;padding:8px 20px;border:none;border-radius:9999px;flex-shrink:0;display:flex;align-items:center;gap:4px;cursor:pointer;transition:background-color .2s;white-space:nowrap;">Subscribe
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a1a1aa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+        </button>
+      </form>
+    </div>
+
+    <div>
+      <div class="flex flex-wrap gap-12 md:gap-20" style="width:100%;justify-content:space-between;height:100%;">
+        <nav>
+          <p style="font-size:12px;font-weight:700;color:#18181b;letter-spacing:0.05em;margin:0 0 16px;">Navigation</p>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">Home</a>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">About</a>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">Case Studies</a>
+          <a href="#products" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">Products</a>
+          <a href="#contact" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">Contact</a>
+        </nav>
+        <nav>
+          <p style="font-size:12px;font-weight:700;color:#18181b;letter-spacing:0.05em;margin:0 0 16px;">Legal</p>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">Privacy Policy</a>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">Terms of Service</a>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">Licensing Compliance</a>
+        </nav>
+        <nav>
+          <p style="font-size:12px;font-weight:700;color:#18181b;letter-spacing:0.05em;margin:0 0 16px;">Socials</p>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">LinkedIn</a>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">X (Twitter)</a>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">YouTube</a>
+          <a href="#" class="hover:text-zinc-950" style="font-size:12px;color:#71717a;font-weight:500;transition:color .15s;display:block;padding:4px 0;text-decoration:none;">Instagram</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Wordmark -->
+  <div aria-hidden="true" style="width:100%;max-width:1280px;margin:64px auto 0;padding:40px 0 0;border-top:1px dashed #d4d4d8;user-select:none;pointer-events:none;position:relative;z-index:10;box-sizing:border-box;overflow:hidden;">
+    <div class="animate-contact-marquee" data-repeat="wordmark"></div>
+  </div>
+
+  <!-- Colophon -->
+  <div class="flex-col md:flex-row px-6 md:px-16" style="width:100%;max-width:1280px;margin:0 auto;padding-top:16px;padding-bottom:32px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:10px;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.1em;border-top:1px solid rgba(228,228,231,0.5);position:relative;z-index:10;box-sizing:border-box;">
+    <span>© 2026 Swut Solutions • Designed by Marso</span>
+    <span>Built with Tailwind CSS</span>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // --- Mobile menu ---------------------------------------------------------
+  var toggle = document.getElementById('menu-toggle');
+  var menu = document.getElementById('mobile-menu');
+  var iconOpen = document.getElementById('icon-open');
+  var iconClose = document.getElementById('icon-close');
+
+  function setMenu(open) {
+    menu.style.display = open ? 'flex' : 'none';
+    iconOpen.style.display = open ? 'none' : 'block';
+    iconClose.style.display = open ? 'block' : 'none';
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+
+  toggle.addEventListener('click', function () {
+    setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  // Close the menu when a link inside it is followed, or on resize to desktop.
+  menu.addEventListener('click', function (e) {
+    if (e.target.closest('a')) setMenu(false);
+  });
+  window.addEventListener('resize', function () {
+    if (window.innerWidth >= 768) setMenu(false);
+  });
+
+  // --- Marquee repeats -----------------------------------------------------
+  // The contact/wordmark marquees translate by -33.33%, so each needs its
+  // content tripled to loop seamlessly.
+  var ARROW = '<svg class="group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-zinc-950" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#a1a1aa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:16px;flex-shrink:0;transition:all .3s;"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>';
+
+  var TEMPLATES = {
+    contact:
+      '<div style="display:flex;align-items:center;margin:0 48px;flex-shrink:0;">' +
+        '<span class="text-5xl md:text-7xl" style="font-family:\'Lora\',serif;font-weight:500;color:#09090b;letter-spacing:-0.02em;user-select:none;">Get In Touch</span>' +
+        ARROW +
+      '</div>',
+    wordmark:
+      '<h2 class="text-[16vw]" style="font-weight:900;letter-spacing:-0.04em;color:#09090b;line-height:1;text-transform:uppercase;margin:0;white-space:nowrap;flex-shrink:0;padding-right:64px;">Swut Solutions</h2>'
+  };
+
+  var REPEATS = { contact: 18, wordmark: 6 };
+
+  Object.keys(TEMPLATES).forEach(function (key) {
+    var host = document.querySelector('[data-repeat="' + key + '"]');
+    if (host) host.innerHTML = TEMPLATES[key].repeat(REPEATS[key]);
+  });
+
+  // --- Testimonial carousels -----------------------------------------------
+  // Each row's keyframe shifts by -50%, so the cards must be duplicated once.
+  document.querySelectorAll('[data-testimonial-row]').forEach(function (row) {
+    var clone = row.innerHTML;
+    row.insertAdjacentHTML('beforeend', clone);
+    Array.prototype.slice.call(row.children, row.children.length / 2).forEach(function (el) {
+      el.setAttribute('aria-hidden', 'true');
+    });
+  });
+
+  // --- Scroll reveal -------------------------------------------------------
+  var reveals = document.querySelectorAll('.reveal');
+
+  if (!('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('is-visible'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(function (el) { observer.observe(el); });
+})();
+</script>
+</body>
+</html>
