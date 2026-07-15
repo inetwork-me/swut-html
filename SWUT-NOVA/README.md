@@ -21,25 +21,25 @@ internet connection — no build step required.
 | `CLAUDE.md` | Project rules (square corners; tag headlines are the only pills). |
 | `uploads/Design-Sytem-Nova.md` | The full Nova design-system token reference. |
 
-## Images to add
+## Images
 
-The original photos live in the design tool as an embedded image sidecar that
-exceeds the design API's 256 KiB per-file transfer cap, so they could not be
-pulled over automatically. Until real photos are dropped in, the hero shows a
-dark panel and the product/service cards show neutral placeholders — nothing is
-broken.
+The hero and the product/service cards use plain `<img>` tags pointing at
+web-optimized JPEGs in `uploads/` (each ≤ ~390 KB, ~1.6 MB total). The two
+"Our Technology" inline pills keep their labelled SVG art (`tech-a.svg` /
+`tech-b.svg`) — a pill that small can't show a photo legibly.
 
-Drop images into `uploads/` for these slots and they'll be wired in:
+| File | Used by |
+|---|---|
+| `uploads/hero.jpg` | Hero background |
+| `uploads/prod-idea.jpg` | Product 01 — IDEA StatiCa |
+| `uploads/prod-zwcad.jpg` | Product 02 — ZWCAD |
+| `uploads/prod-midas.jpg` | Product 03 — Midas |
+| `uploads/prod-planswift.jpg` | Product 04 — PlanSwift |
+| `uploads/svc-maint.jpg` | Service — Software Maintenance |
+| `uploads/svc-train.jpg` | Service — Training |
+| `uploads/svc-finance.jpg` | Service — Finance |
+| `uploads/svc-support.jpg` | Service — Technical Support |
+| `uploads/svc-demo.jpg` | Service — Trial Demo |
 
-| Where | Slot id | Subject |
-|---|---|---|
-| Hero background | *(direct `<img>`)* | `eduard-galitsky-pdcR2kN-NDI-unsplash.jpg` |
-| Product 01 | `prod-idea` | IDEA StatiCa |
-| Product 02 | `prod-zwcad` | ZWCAD |
-| Product 03 | `prod-midas` | Midas |
-| Product 04 | `prod-planswift` | PlanSwift |
-| Service | `svc-maint` | Software Maintenance |
-| Service | `svc-train` | Training |
-| Service | `svc-finance` | Finance |
-| Service | `svc-support` | Technical Support |
-| Service | `svc-demo` | Trial Demo |
+To swap any image, drop a replacement at the same path (or change the `img`
+field in the `products` / `services` arrays near the bottom of `index.html`).

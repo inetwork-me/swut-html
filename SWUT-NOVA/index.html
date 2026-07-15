@@ -80,7 +80,7 @@
   <!-- ===== HERO ===== -->
   <section data-nav-theme="dark" class="relative h-screen min-h-[640px] w-full overflow-hidden">
     <div class="pointer-events-none absolute inset-0" style="animation: heroZoom 32s ease-in-out infinite alternate; will-change: transform">
-      <img src="uploads/eduard-galitsky-pdcR2kN-NDI-unsplash.jpg" alt="" class="h-full w-full object-cover">
+      <img src="uploads/hero.jpg" alt="" class="h-full w-full object-cover">
     </div>
 
     <!-- #000 layer @ 40% opacity for legibility -->
@@ -151,7 +151,7 @@
         <!-- background image (animates on hover) -->
         <div class="absolute inset-0 overflow-hidden">
           <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
-            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ prod.slot }}" shape="rect" fit="cover" placeholder="{{ prod.placeholder }}" hint-size="100%,100%"></x-import>
+            <img src="{{ prod.img }}" alt="{{ prod.name }}" class="h-full w-full object-cover" loading="lazy">
           </div>
         </div>
         <!-- #000 @ 40% layer -->
@@ -209,7 +209,7 @@
           <!-- 9:16 image, 610px tall (343 × 610 keeps the ratio) -->
           <div class="relative h-[610px] w-full overflow-hidden">
             <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ svc.slot }}" shape="rect" fit="cover" placeholder="{{ svc.placeholder }}" hint-size="100%,100%"></x-import>
+              <img src="{{ svc.img }}" alt="{{ svc.title }}" class="h-full w-full object-cover" loading="lazy">
             </div>
             <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
             <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
@@ -564,28 +564,28 @@ class Component extends DCLogic {
       navClass, brandClass, burgerWrapClass, barTopClass, barBotClass,
       ctaClass, overlayClass,
       services: [
-        { title: 'Software Maintenance', slot: 'svc-maint', placeholder: 'service image',
+        { title: 'Software Maintenance', slot: 'svc-maint', img: 'uploads/svc-maint.jpg', placeholder: 'service image',
           desc: 'Ongoing updates, monitoring, and expert fixes that keep every license secure and running smoothly.' },
-        { title: 'Training', slot: 'svc-train', placeholder: 'service image',
+        { title: 'Training', slot: 'svc-train', img: 'uploads/svc-train.jpg', placeholder: 'service image',
           desc: 'Hands-on onboarding and role-based sessions so your team masters each tool from day one.' },
-        { title: 'Finance', slot: 'svc-finance', placeholder: 'service image',
+        { title: 'Finance', slot: 'svc-finance', img: 'uploads/svc-finance.jpg', placeholder: 'service image',
           desc: 'Flexible licensing and payment plans that keep powerful software within your budget.' },
-        { title: 'Technical Support', slot: 'svc-support', placeholder: 'service image',
+        { title: 'Technical Support', slot: 'svc-support', img: 'uploads/svc-support.jpg', placeholder: 'service image',
           desc: 'Fast, expert help whenever you need it — from setup questions to complex troubleshooting.' },
-        { title: 'Trial Demo', slot: 'svc-demo', placeholder: 'service image',
+        { title: 'Trial Demo', slot: 'svc-demo', img: 'uploads/svc-demo.jpg', placeholder: 'service image',
           desc: 'Try before you commit with a guided, full-feature demo tailored to your workflow.' },
       ],
       slideNext: () => this._slide(1),
       slidePrev: () => this._slide(-1),
       testiLoop: [...this._testimonials, ...this._testimonials],
       products: [
-        { num: '01', name: 'IDEA StatiCa', slot: 'prod-idea', placeholder: 'IDEA StatiCa image',
+        { num: '01', name: 'IDEA StatiCa', slot: 'prod-idea', img: 'uploads/prod-idea.jpg', placeholder: 'IDEA StatiCa image',
           desc: 'Design and code-check steel and concrete connections in minutes — with total confidence.' },
-        { num: '02', name: 'ZWCAD', slot: 'prod-zwcad', placeholder: 'ZWCAD image',
+        { num: '02', name: 'ZWCAD', slot: 'prod-zwcad', img: 'uploads/prod-zwcad.jpg', placeholder: 'ZWCAD image',
           desc: 'A fast, reliable, DWG-compatible CAD platform for 2D drafting and 3D design.' },
-        { num: '03', name: 'Midas', slot: 'prod-midas', placeholder: 'Midas image',
+        { num: '03', name: 'Midas', slot: 'prod-midas', img: 'uploads/prod-midas.jpg', placeholder: 'Midas image',
           desc: 'Advanced structural and geotechnical analysis for the most complex projects.' },
-        { num: '04', name: 'PlanSwift', slot: 'prod-planswift', placeholder: 'PlanSwift image',
+        { num: '04', name: 'PlanSwift', slot: 'prod-planswift', img: 'uploads/prod-planswift.jpg', placeholder: 'PlanSwift image',
           desc: 'Digital takeoff and estimating that speeds up bidding and cuts costly errors.' },
       ],
       processCards: [
