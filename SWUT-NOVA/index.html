@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          background: 'oklch(var(--background))',
+          foreground: 'oklch(var(--foreground))',
+          card: 'oklch(var(--card))',
+          border: 'oklch(var(--border))',
+          primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
+          muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
+        },
+        borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' },
+        boxShadow: {
+          sm: '0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10)',
+          md: '0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10)',
+        },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  :root {
+    --background: 1 0 0;
+    --foreground: 0.145 0 0;
+    --card: 1 0 0;
+    --border: 0.922 0 0;
+    --primary: 0.205 0 0;
+    --primary-foreground: 0.985 0 0;
+    --muted-foreground: 0.556 0 0;
+    --muted: 0.97 0 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  * { cursor: none; }
+  #services-track { scrollbar-width: none; -ms-overflow-style: none; }
+  #services-track::-webkit-scrollbar { display: none; }
+  @keyframes heroReveal {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1); }
+    to   { transform: scale(1.22); }
+  }
+</style>
+</helmet>
+
+<div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
+
+  <!-- custom inverting ring cursor -->
+  <div id="swut-cursor" style="position:fixed;top:0;left:0;width:20px;height:20px;border:2px solid #fff;border-radius:9999px;pointer-events:none;z-index:9999;mix-blend-mode:difference;transform:translate(-100px,-100px);transition:transform 0.08s ease-out,width 0.15s ease,height 0.15s ease;will-change:transform"></div>
+
+  <!-- ===== TOP NAV ===== -->
+  <nav class="{{ navClass }}">
+    <div class="grid h-full grid-cols-3 items-center px-6 sm:px-10 lg:px-20">
+      <a href="#" class="{{ brandClass }} justify-self-start">SWUT</a>
+
+      <button onClick="{{ toggleMenu }}" aria-label="Open menu" class="{{ burgerWrapClass }} justify-self-center">
+        <span class="{{ barTopClass }}"></span>
+        <span class="{{ barBotClass }}"></span>
+      </button>
+
+      <a href="#quote" class="{{ ctaClass }} justify-self-end">Request a Quote</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section data-nav-theme="dark" class="relative h-screen min-h-[640px] w-full overflow-hidden">
+    <div class="pointer-events-none absolute inset-0" style="animation: heroZoom 32s ease-in-out infinite alternate; will-change: transform">
+      <img src="uploads/eduard-galitsky-pdcR2kN-NDI-unsplash.jpg" alt="" class="h-full w-full object-cover">
+    </div>
+
+    <!-- #000 layer @ 40% opacity for legibility -->
+    <div class="pointer-events-none absolute inset-0 bg-black/40"></div>
+    <!-- extra bottom gradient to seat the copy -->
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 via-black/25 to-transparent"></div>
+
+    <!-- bottom content row: headline left, body + CTA right -->
+    <div class="pointer-events-none absolute inset-x-0 bottom-0">
+      <div class="px-6 pb-12 sm:px-10 lg:px-20 lg:pb-20">
+        <div class="grid items-end gap-10 lg:grid-cols-12 lg:gap-16" style="justify-content: center; display: grid; align-items: center">
+          <h1 data-reveal="lines" class="pointer-events-auto text-balance text-4xl font-semibold leading-[1.2] tracking-tight text-white sm:text-5xl lg:col-span-7 lg:text-6xl xl:text-7xl">
+            Engineering solutions,<br class="hidden sm:block"> backed by licensed expertise.
+          </h1>
+
+          <div class="pointer-events-auto flex flex-col items-end gap-6 justify-self-end text-right lg:col-span-5 lg:pb-2" style="align-items: flex-start">
+            <p class="max-w-md text-pretty text-base leading-relaxed text-white/85 sm:text-lg" style="text-align: left; animation: heroReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s both">SWUT pairs certified, licensed engineers with a proven delivery record turning complex technical challenges into dependable, compliant solutions for your most demanding projects.</p>
+            <a href="#quote" class="group inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black shadow-sm transition hover:bg-white/90" style="animation: heroReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.45s both">
+              Request a Quote
+              <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW WE WORK ===== -->
+  <section data-nav-theme="light" class="flex min-h-screen flex-col justify-center bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
+      <!-- tag on the left -->
+      <div class="col-span-12 lg:col-span-3">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">How We Work</span>
+      </div>
+
+      <!-- description + cards share one column so they start from the same point -->
+      <div class="col-span-12 lg:col-span-9">
+        <h2 data-reveal="lines" class="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+          We help teams work smarter by pairing the right licensed software with the training and ongoing support they need to unlock lasting value from every tool.
+        </h2>
+
+        <div class="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-3">
+          <sc-for list="{{ processCards }}" as="card" hint-placeholder-count="3">
+            <div data-reveal="fade" class="flex flex-col gap-5 border-l border-border px-6 py-2">
+              <span class="flex w-fit items-center justify-center bg-muted p-2 text-foreground">
+                <i data-lucide="{{ card.icon }}" class="size-5"></i>
+              </span>
+              <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ card.title }}</h3>
+              <p class="text-sm leading-relaxed text-muted-foreground">{{ card.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+
+        <div class="mt-28">
+          <a href="#" data-reveal="fade" class="group inline-flex items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90">
+            Learn more
+            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTS ===== -->
+  <section id="products" data-nav-theme="dark" class="grid min-h-screen grid-cols-1 sm:grid-cols-2 lg:h-[720px] lg:min-h-0 lg:grid-cols-4">
+    <sc-for list="{{ products }}" as="prod" hint-placeholder-count="4">
+      <div class="group relative flex min-h-[380px] flex-col overflow-hidden">
+        <!-- background image (animates on hover) -->
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ prod.slot }}" shape="rect" fit="cover" placeholder="{{ prod.placeholder }}" hint-size="100%,100%"></x-import>
+          </div>
+        </div>
+        <!-- #000 @ 40% layer -->
+        <div class="pointer-events-none absolute inset-0 bg-black/40 transition-colors duration-500 group-hover:bg-black/30"></div>
+
+        <!-- content: vertical stack, bottom-left, 32px padding -->
+        <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
+          <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">{{ prod.num }}</span>
+          <h3 class="text-2xl font-semibold tracking-tight">{{ prod.name }}</h3>
+          <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">{{ prod.desc }}</p>
+          <a href="#" class="pointer-events-auto mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+            Explore product
+            <i data-lucide="arrow-right" class="size-4"></i>
+          </a>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <!-- ===== OUR TECHNOLOGY ===== -->
+  <section data-nav-theme="dark" class="flex min-h-screen flex-col items-center justify-center bg-primary px-6 py-24 text-center text-primary-foreground sm:px-10 lg:h-[610px] lg:min-h-0 lg:px-20 lg:py-0">
+    <span data-reveal="fade" class="mb-10 inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Our Technology</span>
+
+    <h2 data-reveal="fade" class="mx-auto max-w-5xl text-balance text-3xl font-semibold leading-[1.25] tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl">
+      Our licensed<span style="display:inline-block;width:1.55em;height:0.95em;vertical-align:middle;margin:0 0.18em"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="tech-1" shape="pill" fit="cover" src="./tech-a.svg" placeholder="software UI" hint-size="110px,66px" style="display:block;width:100%;height:100%"></x-import></span>software powers<span style="display:inline-block;width:1.55em;height:0.95em;vertical-align:middle;margin:0 0.18em"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="tech-2" shape="pill" fit="cover" src="./tech-b.svg" placeholder="engineering" hint-size="110px,66px" style="display:block;width:100%;height:100%"></x-import></span>precise, compliant engineering.
+    </h2>
+
+    <a href="#" data-reveal="fade" class="mt-12 inline-flex items-center rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
+      Get a Quote
+    </a>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section data-nav-theme="light" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="overflow: visible">
+    <!-- header row: headlines left, slider arrows right -->
+    <div class="flex items-end justify-between gap-6">
+      <div class="flex flex-col items-start gap-5">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Swut Services</span>
+        <h2 data-reveal="lines" class="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">Services</h2>
+      </div>
+      <div data-reveal="fade" class="flex shrink-0 items-center gap-2">
+        <button onClick="{{ slidePrev }}" aria-label="Previous" class="flex size-11 items-center justify-center bg-[oklch(0.922_0_0)] text-foreground transition-colors duration-300 hover:bg-[oklch(0.86_0_0)] sm:size-12">
+          <i data-lucide="chevron-left" class="size-5"></i>
+        </button>
+        <button onClick="{{ slideNext }}" aria-label="Next" class="flex size-11 items-center justify-center bg-[oklch(0.922_0_0)] text-foreground transition-colors duration-300 hover:bg-[oklch(0.86_0_0)] sm:size-12">
+          <i data-lucide="chevron-right" class="size-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- slider track -->
+    <div id="services-track" class="mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-1" style="overflow: hidden">
+      <sc-for list="{{ services }}" as="svc" hint-placeholder-count="5" style="overflow: auto">
+        <div class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
+          <!-- 9:16 image, 610px tall (343 × 610 keeps the ratio) -->
+          <div class="relative h-[610px] w-full overflow-hidden">
+            <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ svc.slot }}" shape="rect" fit="cover" placeholder="{{ svc.placeholder }}" hint-size="100%,100%"></x-import>
+            </div>
+            <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+            <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <span class="flex size-14 scale-90 items-center justify-center rounded-full border border-white/80 text-white opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+                <i data-lucide="arrow-up-right" class="size-6"></i>
+              </span>
+            </div>
+          </div>
+          <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ svc.title }}</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">{{ svc.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section data-nav-theme="light" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="background-color: #F8F8F8">
+    <div class="flex flex-col items-center gap-5 text-center">
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Real Reviews</span>
+      <h2 data-reveal="lines" class="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">Testimonials</h2>
+    </div>
+
+    <div id="testi-track" class="mt-16 flex gap-6 overflow-hidden" style="overflow: hidden">
+      <sc-for list="{{ testiLoop }}" as="t" hint-placeholder-count="8">
+        <div class="flex aspect-[4/5] w-[340px] max-w-[82vw] shrink-0 flex-col border border-border bg-card p-8">
+          <i data-lucide="quote" fill="currentColor" stroke-width="0" class="size-11 text-black/15"></i>
+          <div class="mt-auto flex flex-col items-start gap-5">
+            <p class="text-pretty text-base leading-relaxed text-foreground">{{ t.quote }}</p>
+            <div class="flex flex-col">
+              <span class="font-semibold tracking-tight text-foreground">{{ t.name }}</span>
+              <span class="text-sm text-muted-foreground">{{ t.role }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer data-nav-theme="dark" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
+    <!-- contact block -->
+    <div class="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+      <div class="flex flex-col items-start gap-6">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Contact Us</span>
+        <h2 data-reveal="lines" class="max-w-2xl text-balance text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">Let's build something dependable together.</h2>
+      </div>
+      <a href="#quote" class="group inline-flex shrink-0 items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
+        Request a Quote
+        <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+      </a>
+    </div>
+
+    <div class="my-14 h-px w-full bg-white/10"></div>
+
+    <!-- columns -->
+    <div data-reveal="fade" class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
+      <div class="flex flex-col gap-4">
+        <span class="text-xl font-bold tracking-tight">SWUT</span>
+        <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
+        <div class="mt-2 flex items-center gap-3">
+          <a href="#" aria-label="Facebook" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.5-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94Z"></path></svg>
+          </a>
+          <a href="#" aria-label="Instagram" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.17.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.17-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.17.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.17.4 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.17-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.17.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.17a3.64 3.64 0 0 0-.88-1.35 3.64 3.64 0 0 0-1.35-.88c-.41-.16-1.03-.35-2.17-.4-1.24-.06-1.59-.07-4.74-.07Zm0 2.76a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6Zm0 1.62a3.68 3.68 0 1 0 0 7.36 3.68 3.68 0 0 0 0-7.36Zm5.48-2.9a1.24 1.24 0 1 1 0 2.48 1.24 1.24 0 0 1 0-2.48Z"></path></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
+        <ul class="flex flex-col gap-3">
+          <sc-for list="{{ menuLinks }}" as="link" hint-placeholder-count="5">
+            <li><a href="#" class="text-sm text-white/70 transition-colors hover:text-white">{{ link.label }}</a></li>
+          </sc-for>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Contact</span>
+        <div class="flex flex-col gap-3 text-sm">
+          <a href="mailto:hello@swut.co" class="text-white/70 transition-colors hover:text-white">hello@swut.co</a>
+          <a href="tel:+97140000000" class="text-white/70 transition-colors hover:text-white">+971 4 000 0000</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Location</span>
+        <p class="text-sm leading-relaxed text-white/70">Cairo,<br>Egypt</p>
+      </div>
+    </div>
+
+    <!-- bottom bar -->
+    <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <span class="text-sm text-white/50">© 2026 SWUT. All rights reserved.</span>
+      <div class="flex gap-6 text-sm text-white/50">
+        <a href="#" class="transition-colors hover:text-white">Privacy Policy</a>
+        <a href="#" class="transition-colors hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== FULL-PAGE MENU OVERLAY ===== -->
+  <div class="{{ overlayClass }}">
+    <div class="flex h-full flex-col px-6 sm:px-10 lg:px-20">
+      <div class="flex h-20 shrink-0 items-center justify-between">
+        <span class="text-xl font-bold tracking-tight text-foreground">SWUT</span>
+      </div>
+
+      <nav class="flex flex-1 flex-col justify-center gap-2 pb-24">
+        <sc-for list="{{ menuLinks }}" as="link" hint-placeholder-count="5">
+          <a href="#" onClick="{{ closeMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+            <span>{{ link.label }}</span>
+            <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
+          </a>
+        </sc-for>
+
+        <div class="mt-10 flex flex-col gap-1 text-sm text-muted-foreground">
+          <span class="font-mono uppercase tracking-widest text-foreground/60">Get in touch</span>
+          <a href="mailto:hello@swut.co" class="text-lg text-foreground hover:text-muted-foreground">hello@swut.co</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, navDark: true };
+
+  _testimonials = [
+    { quote: 'SWUT sorted our entire licensing stack in weeks — software audits are no longer something we dread.', name: 'Lina Farouk', role: 'Operations Director, Delta Structures' },
+    { quote: 'Their training turned a complex toolset into something my whole team actually uses every day.', name: 'Marcus Reid', role: 'BIM Manager, Northline Engineering' },
+    { quote: 'Fast, knowledgeable support. Whenever we hit a wall, SWUT had an answer the same day.', name: 'Priya Nair', role: 'Project Lead, Vantage Consultants' },
+    { quote: 'The trial demo made the decision easy — we saw the value before spending a single dirham.', name: 'Omar Haddad', role: 'Managing Partner, Cornerstone Design' },
+  ];
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const line = 32; // sample point near the nav's vertical center
+      let dark = true;
+      document.querySelectorAll('[data-nav-theme]').forEach(s => {
+        const r = s.getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) dark = s.dataset.navTheme === 'dark';
+      });
+      if (dark !== this.state.navDark) this.setState({ navDark: dark });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    requestAnimationFrame(this._onScroll);
+    this._onMove = (e) => {
+      const el = document.getElementById('swut-cursor');
+      if (el) el.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+    };
+    window.addEventListener('mousemove', this._onMove, { passive: true });
+    this._onProductScroll = () => {
+      const vh = window.innerHeight || 1;
+      document.querySelectorAll('#products .prod-content').forEach(el => {
+        const card = el.parentElement;
+        const r = card.getBoundingClientRect();
+        const center = r.top + r.height / 2;
+        // 0 as the card enters from the bottom, 1 once the card is centered in the viewport
+        const q = Math.min(1, Math.max(0, (vh - center) / (vh / 2)));
+        const travel = r.height * 0.62; // content starts near the top of the card
+        el.style.transform = `translateY(${-travel * (1 - q)}px)`;
+      });
+    };
+    window.addEventListener('scroll', this._onProductScroll, { passive: true });
+    requestAnimationFrame(this._onProductScroll);
+    // auto-advance the services slider; pause while hovering, resume on leave
+    this._startAuto();
+    const track = document.getElementById('services-track');
+    if (track) {
+      track.addEventListener('mouseenter', () => this._stopAuto());
+      track.addEventListener('mouseleave', () => this._startAuto());
+    }
+    this._startTesti();
+    this._initReveal();
+    this._icons();
+  }
+  componentDidUpdate() { this._icons(); }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('scroll', this._onProductScroll);
+    window.removeEventListener('mousemove', this._onMove);
+    this._stopAuto();
+    this._stopTesti();
+    if (this._revealIO) this._revealIO.disconnect();
+  }
+
+  _slide(dir) {
+    const track = document.getElementById('services-track');
+    if (!track) return;
+    const card = track.querySelector(':scope > *');
+    const cardW = card ? card.getBoundingClientRect().width + 24 : track.clientWidth;
+    const perView = Math.max(1, Math.floor(track.clientWidth / cardW)); // whole cards per page
+    const step = perView * cardW;                                       // advance a full page
+    const max = track.scrollWidth - track.clientWidth;
+    const cur = track.scrollLeft;
+    let target;
+    if (dir > 0) {
+      // already at the end? loop back to the first card. otherwise advance, but never past
+      // the end — the last step rests at max so the final card is fully visible.
+      target = cur >= max - 4 ? 0 : Math.min(cur + step, max);
+    } else {
+      target = cur <= 4 ? max : Math.max(cur - step, 0);
+    }
+    track.scrollTo({ left: target, behavior: 'smooth' });
+  }
+
+  _startAuto() {
+    this._stopAuto();
+    this._autoTimer = setInterval(() => this._slide(1), 3500);
+  }
+  _stopAuto() { if (this._autoTimer) clearInterval(this._autoTimer); }
+
+  _startTesti() {
+    const track = document.getElementById('testi-track');
+    if (!track) return;
+    this._testiPaused = false;
+    track.addEventListener('mouseenter', () => { this._testiPaused = true; });
+    track.addEventListener('mouseleave', () => { this._testiPaused = false; });
+    const tick = () => {
+      if (track.isConnected) {
+        if (!this._testiPaused && track.scrollWidth > track.clientWidth) {
+          track.scrollLeft += 0.6;
+          const half = track.scrollWidth / 2; // list is duplicated for a seamless loop
+          if (track.scrollLeft >= half) track.scrollLeft -= half;
+        }
+        this._testiRaf = requestAnimationFrame(tick);
+      }
+    };
+    this._testiRaf = requestAnimationFrame(tick);
+  }
+  _stopTesti() { if (this._testiRaf) cancelAnimationFrame(this._testiRaf); }
+
+  _initReveal() {
+    const start = () => {
+      const targets = Array.from(document.querySelectorAll('[data-reveal]'));
+      targets.forEach(el => (el.dataset.reveal === 'lines' ? this._prepLines(el) : this._prepFade(el)));
+      if (!('IntersectionObserver' in window)) { targets.forEach(el => this._revealEl(el)); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { this._revealEl(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+      this._revealIO = io;
+      targets.forEach(el => io.observe(el));
+    };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => requestAnimationFrame(start));
+    else requestAnimationFrame(start);
+  }
+
+  _prepFade(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(26px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1)';
+    el.style.willChange = 'opacity, transform';
+    if (el.dataset.revealDelay) el.style.transitionDelay = el.dataset.revealDelay;
+  }
+
+  _prepLines(el) {
+    // allow plain text + <br>; anything richer (images/spans) falls back to fade
+    const nodes = Array.from(el.childNodes);
+    if (nodes.some(n => n.nodeType === 1 && n.tagName !== 'BR')) {
+      el.dataset.reveal = 'fade'; this._prepFade(el); return;
+    }
+    const tokens = [];
+    nodes.forEach(n => {
+      if (n.nodeType === 3) n.textContent.trim().split(/\s+/).filter(Boolean).forEach(w => tokens.push({ t: 'w', x: w }));
+      else if (n.nodeType === 1 && n.tagName === 'BR') tokens.push({ t: 'br' });
+    });
+    el.textContent = '';
+    const probes = [];
+    tokens.forEach(tok => {
+      if (tok.t === 'w') {
+        const s = document.createElement('span');
+        s.textContent = tok.x; s.style.display = 'inline-block';
+        el.appendChild(s); el.appendChild(document.createTextNode(' '));
+        probes.push(s);
+      } else {
+        probes.push(el.appendChild(document.createElement('br')));
+      }
+    });
+    const lines = []; let cur = []; let top = null;
+    probes.forEach(p => {
+      if (p.tagName === 'BR') { if (cur.length) { lines.push(cur); cur = []; } top = null; return; }
+      const t = p.offsetTop;
+      if (top !== null && Math.abs(t - top) > 3) { lines.push(cur); cur = []; }
+      top = t; cur.push(p.textContent);
+    });
+    if (cur.length) lines.push(cur);
+    el.textContent = '';
+    el.__lineInners = [];
+    lines.forEach((lineWords, i) => {
+      const outer = document.createElement('span');
+      outer.style.display = 'block';
+      outer.style.overflow = 'hidden';
+      outer.style.paddingBottom = '0.12em';
+      const inner = document.createElement('span');
+      inner.style.display = 'inline-block';
+      inner.textContent = lineWords.join(' ');
+      inner.style.transform = 'translateY(115%)';
+      inner.style.transition = 'transform 0.85s cubic-bezier(0.22,1,0.36,1)';
+      inner.style.transitionDelay = (i * 0.09) + 's';
+      inner.style.willChange = 'transform';
+      outer.appendChild(inner);
+      el.appendChild(outer);
+      el.__lineInners.push(inner);
+    });
+  }
+
+  _revealEl(el) {
+    if (el.__lineInners) el.__lineInners.forEach(i => (i.style.transform = 'translateY(0)'));
+    else { el.style.opacity = '1'; el.style.transform = 'none'; }
+  }
+
+  _icons() {
+    if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} }
+  }
+
+  renderVals() {
+    const { menuOpen, navDark } = this.state;
+    // transparent white chrome over dark sections (hero, products, technology);
+    // blurred light chrome over light sections and while the menu is open
+    const solid = !navDark || menuOpen;
+
+    const navBase = 'fixed inset-x-0 top-0 z-50 h-20 transition-colors duration-300';
+    const navClass = navBase + (solid
+      ? ' border-b border-border bg-background/70 backdrop-blur-md'
+      : ' bg-transparent');
+
+    const brandBase = 'text-xl font-bold tracking-tight transition-colors';
+    const brandClass = brandBase + (solid ? ' text-foreground' : ' text-white');
+
+    const barColor = solid ? 'bg-foreground' : 'bg-white';
+    const burgerWrapClass = 'relative flex h-11 w-11 flex-col items-center justify-center gap-[7px] rounded-none transition hover:bg-foreground/10';
+    const barBase = 'block h-0.5 w-6 rounded-none transition-all duration-300 ' + barColor;
+    const barTopClass = barBase + (menuOpen ? ' translate-y-[4.5px] rotate-45' : '');
+    const barBotClass = barBase + (menuOpen ? ' -translate-y-[4.5px] -rotate-45' : '');
+
+    const ctaBase = 'hidden rounded-none bg-transparent px-5 py-2.5 text-sm font-semibold transition hover:opacity-70 sm:inline-flex';
+    const ctaClass = ctaBase + (solid ? ' text-foreground' : ' text-white');
+
+    const overlayBase = 'fixed inset-0 z-40 bg-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]';
+    const overlayClass = overlayBase + (menuOpen
+      ? ' pointer-events-auto translate-y-0 opacity-100'
+      : ' pointer-events-none -translate-y-4 opacity-0');
+
+    return {
+      navClass, brandClass, burgerWrapClass, barTopClass, barBotClass,
+      ctaClass, overlayClass,
+      services: [
+        { title: 'Software Maintenance', slot: 'svc-maint', placeholder: 'service image',
+          desc: 'Ongoing updates, monitoring, and expert fixes that keep every license secure and running smoothly.' },
+        { title: 'Training', slot: 'svc-train', placeholder: 'service image',
+          desc: 'Hands-on onboarding and role-based sessions so your team masters each tool from day one.' },
+        { title: 'Finance', slot: 'svc-finance', placeholder: 'service image',
+          desc: 'Flexible licensing and payment plans that keep powerful software within your budget.' },
+        { title: 'Technical Support', slot: 'svc-support', placeholder: 'service image',
+          desc: 'Fast, expert help whenever you need it — from setup questions to complex troubleshooting.' },
+        { title: 'Trial Demo', slot: 'svc-demo', placeholder: 'service image',
+          desc: 'Try before you commit with a guided, full-feature demo tailored to your workflow.' },
+      ],
+      slideNext: () => this._slide(1),
+      slidePrev: () => this._slide(-1),
+      testiLoop: [...this._testimonials, ...this._testimonials],
+      products: [
+        { num: '01', name: 'IDEA StatiCa', slot: 'prod-idea', placeholder: 'IDEA StatiCa image',
+          desc: 'Design and code-check steel and concrete connections in minutes — with total confidence.' },
+        { num: '02', name: 'ZWCAD', slot: 'prod-zwcad', placeholder: 'ZWCAD image',
+          desc: 'A fast, reliable, DWG-compatible CAD platform for 2D drafting and 3D design.' },
+        { num: '03', name: 'Midas', slot: 'prod-midas', placeholder: 'Midas image',
+          desc: 'Advanced structural and geotechnical analysis for the most complex projects.' },
+        { num: '04', name: 'PlanSwift', slot: 'prod-planswift', placeholder: 'PlanSwift image',
+          desc: 'Digital takeoff and estimating that speeds up bidding and cuts costly errors.' },
+      ],
+      processCards: [
+        { icon: 'key-round', title: 'Software Licenses',
+          body: 'We source and provision fully compliant, enterprise-grade software licenses — matching the right tools to your workflow so you stay covered, cost-efficient, and audit-ready.' },
+        { icon: 'graduation-cap', title: 'Training',
+          body: 'We onboard you and your team with hands-on, role-specific training, so everyone works confidently and gets the most out of every license from day one.' },
+        { icon: 'wrench', title: 'Software Maintenance',
+          body: 'Ongoing updates, monitoring, and expert support keep your software secure, current, and running smoothly long after deployment.' },
+      ],
+      menuLinks: [
+        { label: 'Home' }, { label: 'Services' }, { label: 'Projects' },
+        { label: 'About' }, { label: 'Contact' },
+      ],
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>
