@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<script src="./page-transition.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          background: 'oklch(var(--background))',
+          foreground: 'oklch(var(--foreground))',
+          card: 'oklch(var(--card))',
+          border: 'oklch(var(--border))',
+          primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
+          muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
+        },
+        borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  :root {
+    --background: 1 0 0;
+    --foreground: 0.145 0 0;
+    --card: 1 0 0;
+    --border: 0.922 0 0;
+    --primary: 0.205 0 0;
+    --primary-foreground: 0.985 0 0;
+    --muted-foreground: 0.556 0 0;
+    --muted: 0.97 0 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  input:focus, textarea:focus, button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+</style>
+</helmet>
+
+<div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
+
+  <!-- ===== TOP NAV ===== -->
+  <nav data-reveal="fade" class="{{ navClass }}">
+    <div class="grid h-full grid-cols-3 items-center px-6 sm:px-10 lg:px-20">
+      <a href="SWUT Home.dc.html" class="justify-self-start"><img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain sm:h-9"></a>
+      <button onClick="{{ toggleMenu }}" aria-label="Open menu" class="{{ burgerWrapClass }} justify-self-center">
+        <span class="{{ barTopClass }}"></span>
+        <span class="{{ barBotClass }}"></span>
+      </button>
+      <a href="#quote" onClick="{{ scrollToQuote }}" class="{{ ctaClass }} justify-self-end">Request a Quote</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section data-nav-theme="dark" data-screen-label="Hero" class="relative overflow-hidden bg-primary px-6 py-32 text-primary-foreground sm:px-10 lg:px-20 lg:py-40">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[45fr_55fr] lg:gap-16">
+      <div class="flex flex-col items-start gap-6">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">PlanSwift</span>
+        <h1 class="max-w-xl text-balance text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+          <span data-reveal="mask" class="block overflow-hidden py-1"><span class="inline-block">Measure your plans.</span></span>
+          <span data-reveal="mask" class="block overflow-hidden py-1"><span class="inline-block">Build your estimate.</span></span>
+        </h1>
+        <p data-reveal="fade" class="max-w-md text-lg leading-relaxed text-white/70">PlanSwift helps construction teams measure quantities from digital drawings and prepare material and labor estimates. Request your software license through SWUT Solutions.</p>
+        <div data-reveal="fade" class="mt-2 flex flex-wrap items-center gap-4">
+          <a href="#quote" onClick="{{ scrollToQuote }}" class="group inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
+            Request a License Quote
+            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+          </a>
+          <a href="#videos" onClick="{{ scrollToVideos }}" class="inline-flex items-center gap-2 rounded-none border border-white/30 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10">
+            <i data-lucide="play" class="size-4"></i>
+            Watch PlanSwift in Action
+          </a>
+        </div>
+      </div>
+
+      <div data-curtain-container class="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/11]">
+        <div data-reveal="curtain" class="absolute inset-0">
+          <img src="https://images.unsplash.com/photo-1762146828422-50a8bd416d3c?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Architectural drawings and construction plans spread out for review" class="h-full w-full object-cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY PLANSWIFT + FEATURES ===== -->
+  <section data-nav-theme="light" data-screen-label="Why PlanSwift" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
+      <div class="col-span-12 lg:col-span-3">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Why PlanSwift?</span>
+      </div>
+
+      <div class="col-span-12 lg:col-span-9">
+        <p data-reveal="mask" class="block max-w-3xl overflow-hidden text-balance py-1 text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+          <span class="inline-block">Measure directly on your drawings, build reusable estimates, and bring quantities into your Excel workflow&mdash;so your team spends less time repeating the same work.</span>
+        </p>
+
+        <div data-reveal="stagger" class="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
+            <div class="flex flex-col gap-5 border-l border-border px-6 py-2">
+              <span class="flex w-fit items-center justify-center bg-muted p-2 text-foreground">
+                <i data-lucide="{{ f.icon }}" class="size-5"></i>
+              </span>
+              <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ f.title }}</h3>
+              <p class="text-sm leading-relaxed text-muted-foreground">{{ f.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VIDEO GALLERY ===== -->
+  <section id="videos" data-nav-theme="dark" data-screen-label="Videos" class="bg-black px-6 py-24 text-white sm:px-10 lg:px-20 lg:py-28">
+    <h2 data-reveal="mask" class="block max-w-2xl overflow-hidden py-1 text-balance text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+      <span class="inline-block">See PlanSwift in action.</span>
+    </h2>
+
+    <div class="mt-16 grid grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-8">
+      <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
+        <div class="flex flex-col gap-4">
+          <div data-curtain-container data-curtain-delay="{{ v.delay }}" class="relative aspect-video w-full overflow-hidden bg-white/5">
+            <div data-reveal="curtain" data-curtain-delay="{{ v.delay }}" class="absolute inset-0">
+              <button type="button" onClick="{{ v.open }}" aria-label="{{ v.playLabel }}" class="group relative flex h-full w-full items-center justify-center">
+                <img src="{{ v.thumb }}" alt="{{ v.title }} thumbnail" class="absolute inset-0 h-full w-full object-cover">
+                <span class="absolute inset-0 bg-black/20 transition group-hover:bg-black/35"></span>
+                <span class="relative flex size-16 items-center justify-center rounded-full border border-white/70 bg-black/45 text-white transition group-hover:scale-105 group-hover:bg-black/65">
+                  <i data-lucide="play" class="size-6"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <span class="text-base font-semibold tracking-tight text-white">{{ v.title }}</span>
+            <span class="text-sm leading-relaxed text-white/60">{{ v.blurb }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ activeVideo }}" hint-placeholder-val="{{ false }}">
+      <div role="dialog" aria-modal="true" aria-label="{{ activeVideo.title }}" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-6" onClick="{{ closeVideo }}" onKeyDown="{{ onModalKeyDown }}">
+        <div class="flex w-full max-w-4xl flex-col gap-3" onClick="{{ stopProp }}">
+          <div class="relative aspect-video w-full">
+            <iframe src="{{ activeVideo.embedSrc }}" title="{{ activeVideo.title }}" class="h-full w-full border-0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+          </div>
+          <a href="{{ activeVideo.watchUrl }}" target="_blank" rel="noopener" class="self-start text-sm text-white/60 underline transition hover:text-white">Trouble playing? Watch on YouTube</a>
+        </div>
+        <button type="button" ref="{{ modalCloseRef }}" onClick="{{ closeVideo }}" aria-label="Close video" class="absolute right-6 top-6 flex size-11 items-center justify-center border border-white/30 text-white transition hover:bg-white/10">
+          <i data-lucide="x" class="size-5"></i>
+        </button>
+      </div>
+    </sc-if>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section data-nav-theme="light" data-screen-label="FAQ" class="px-6 py-24 sm:px-10 lg:px-20 lg:py-24" style="background-color:#F3F3F3">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
+      <div class="lg:col-span-4">
+        <h2 data-reveal="mask" class="block max-w-sm overflow-hidden py-1 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <span class="inline-block">Before you get started.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-8">
+        <div class="flex flex-col border-t border-border">
+          <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="5">
+            <div class="border-b border-border">
+              <button type="button" onClick="{{ q.toggle }}" aria-expanded="{{ q.open }}" class="flex w-full items-center justify-between gap-6 py-6 text-left">
+                <span class="text-lg font-medium tracking-tight text-foreground sm:text-xl">{{ q.question }}</span>
+                <span class="shrink-0 text-2xl leading-none text-muted-foreground">{{ q.symbol }}</span>
+              </button>
+              <div class="overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" style="{{ q.panelStyle }}">
+                <p class="max-w-2xl pb-6 text-base leading-relaxed text-muted-foreground">{{ q.answer }}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LICENSE ENQUIRY FORM ===== -->
+  <section id="quote" data-curtain-cols data-curtain-duration="900" data-nav-theme="light" data-screen-label="License enquiry" class="px-6 py-24 sm:px-10 lg:px-20 lg:py-24" style="background-color:#FFFFFF">
+    <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
+      <div data-reveal="curtain-left" class="flex flex-col items-start gap-5 lg:col-span-5">
+        <span class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">License Enquiry</span>
+        <h2 class="max-w-lg text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">Get your PlanSwift license.</h2>
+        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us what you need and request a license quote for your team.</p>
+      </div>
+
+      <div data-reveal="curtain-right" onFocus="{{ forceRevealCurtain }}" class="lg:col-span-7">
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div data-reveal="fade" role="status" class="flex flex-col gap-4 border border-border bg-muted p-8 sm:p-10">
+            <span class="inline-flex w-fit items-center gap-1.5 border border-border px-3 py-1 text-xs uppercase tracking-widest text-muted-foreground">Simulated Submission — Prototype Only</span>
+            <h3 class="text-2xl font-semibold tracking-tight text-foreground">Thanks, {{ formFirstName }}.</h3>
+            <p class="max-w-md text-base leading-relaxed text-muted-foreground">Your enquiry for {{ formSelectionsText }} license(s) has been recorded in this prototype. In the live site, SWUT would follow up at {{ formEmail }}.</p>
+            <button onClick="{{ resetForm }}" class="mt-2 inline-flex w-fit items-center gap-2 border border-border px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-background">Submit another enquiry</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ handleSubmit }}" class="flex flex-col gap-6" novalidate="">
+            <sc-if value="{{ submitError }}" hint-placeholder-val="{{ false }}">
+              <div role="alert" class="border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">Something went wrong submitting this prototype form. Please try again.</div>
+            </sc-if>
+
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div class="flex flex-col gap-2">
+                <label for="q-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <input id="q-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
+                <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
+              </div>
+              <div class="flex flex-col gap-2">
+                <label for="q-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <input id="q-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
+                <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div class="flex flex-col gap-2">
+                <label for="q-company" class="text-sm text-muted-foreground">Company</label>
+                <input id="q-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
+              </div>
+              <div class="flex flex-col gap-2">
+                <label for="q-phone" class="text-sm text-muted-foreground">Phone number</label>
+                <input id="q-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="+971 4 000 0000">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProductsKeyDown }}">
+                <label id="q-product-label" class="text-sm text-muted-foreground">Product <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <div class="relative">
+                  <button type="button" id="q-product" aria-haspopup="listbox" aria-expanded="{{ productsOpen }}" aria-labelledby="q-product-label" onClick="{{ toggleProductsOpen }}" class="flex w-full items-center justify-between gap-2 border border-border bg-transparent px-4 py-3 text-left text-base text-foreground" aria-invalid="{{ errors.product }}" aria-describedby="err-product">
+                    <span class="truncate">{{ productsSummary }}</span>
+                    <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+                  </button>
+                  <sc-if value="{{ productsOpen }}" hint-placeholder-val="{{ false }}">
+                    <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                      <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="4">
+                        <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                          <input type="radio" name="q-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                          {{ opt.name }}
+                        </label>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+                <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a product.</span></sc-if>
+              </div>
+              <div class="flex flex-col gap-2">
+                <label for="q-licenses" class="text-sm text-muted-foreground">Number of licenses</label>
+                <input id="q-licenses" type="number" min="1" value="{{ fields.licenses }}" onChange="{{ setLicenses }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" aria-invalid="{{ errors.licenses }}" aria-describedby="err-licenses">
+                <sc-if value="{{ errors.licenses }}" hint-placeholder-val="{{ false }}"><span id="err-licenses" class="text-sm text-red-600">Enter at least 1 license.</span></sc-if>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="q-notes" class="text-sm text-muted-foreground">Message — optional</label>
+              <textarea id="q-notes" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Trades you estimate for, current tools, timeline…"></textarea>
+            </div>
+
+            <button type="submit" disabled="{{ isSubmitting }}" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:opacity-60">
+              {{ submitLabel }}
+              <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+            </button>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer data-reveal="fade" data-nav-theme="dark" data-screen-label="Footer" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
+      <div class="flex flex-col gap-4">
+        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="block h-auto w-[160px] object-contain sm:w-[190px]" style="margin-bottom:15px">
+        <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
+        <ul class="flex flex-col gap-3">
+          <li><a href="SWUT Home.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
+          <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
+          <li><a href="#videos" onClick="{{ scrollToVideos }}" class="text-sm text-white/70 transition-colors hover:text-white">Videos</a></li>
+          <li><a href="#quote" onClick="{{ scrollToQuote }}" class="text-sm text-white/70 transition-colors hover:text-white">Request a Quote</a></li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Contact</span>
+        <div class="flex flex-col gap-3 text-sm">
+          <a href="mailto:hello@swut.co" class="text-white/70 transition-colors hover:text-white">hello@swut.co</a>
+          <a href="tel:+97140000000" class="text-white/70 transition-colors hover:text-white">+971 4 000 0000</a>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Location</span>
+        <p class="text-sm leading-relaxed text-white/70">Cairo,<br>Egypt</p>
+      </div>
+    </div>
+    <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <span class="text-sm text-white/50">© 2026 SWUT. All rights reserved.</span>
+      <div class="flex gap-6 text-sm text-white/50">
+        <a href="#" class="transition-colors hover:text-white">Privacy Policy</a>
+        <a href="#" class="transition-colors hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== FULL-PAGE MENU OVERLAY ===== -->
+  <div class="{{ overlayClass }}" data-menu-open="{{ menuOpen }}">
+    <div class="flex h-full flex-col px-6 sm:px-10 lg:px-20">
+      <div class="flex h-20 shrink-0 items-center justify-between">
+        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain">
+      </div>
+      <nav class="relative flex flex-1 items-center overflow-hidden pb-24">
+        <div class="{{ mainPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ submenuOpen }}" inert="{{ submenuOpen }}">
+          <sc-for list="{{ menuLinks }}" as="link" hint-placeholder-count="4">
+            <sc-if value="{{ link.isSubmenuTrigger }}" hint-placeholder-val="{{ false }}">
+              <button type="button" ref="{{ productsBtnRef }}" aria-haspopup="true" aria-expanded="{{ submenuOpen }}" onClick="{{ openProductsMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-left text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+                <span>{{ link.label }}</span>
+                <i data-lucide="chevron-right" class="size-7 opacity-60 transition-all group-hover:opacity-100 sm:size-9"></i>
+              </button>
+            </sc-if>
+            <sc-if value="{{ link.isLink }}" hint-placeholder-val="{{ true }}">
+              <a href="{{ link.href }}" onClick="{{ link.onClick }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+                <span>{{ link.label }}</span>
+                <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
+              </a>
+            </sc-if>
+          </sc-for>
+
+          <div class="mt-10 flex flex-col gap-1 text-sm text-muted-foreground">
+            <span class="font-mono uppercase tracking-widest text-foreground/60">Get in touch</span>
+            <a href="mailto:hello@swut.co" class="text-lg text-foreground hover:text-muted-foreground">hello@swut.co</a>
+          </div>
+        </div>
+
+        <div class="{{ subPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ subPanelHidden }}" inert="{{ subPanelHidden }}">
+          <button type="button" ref="{{ backLinkRef }}" onClick="{{ closeProductsMenu }}" class="flex items-center gap-3 py-5 text-lg font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground">
+            <i data-lucide="arrow-left" class="size-4"></i>
+            <span>Main menu</span>
+          </button>
+          <sc-for list="{{ productLinks }}" as="p" hint-placeholder-count="4">
+            <sc-if value="{{ p.isLink }}" hint-placeholder-val="{{ true }}">
+              <a href="{{ p.href }}" onClick="{{ closeMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+                <span>{{ p.name }}</span>
+                <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
+              </a>
+            </sc-if>
+            <sc-if value="{{ p.isCurrent }}" hint-placeholder-val="{{ false }}">
+              <div aria-current="page" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-muted-foreground sm:text-5xl lg:text-6xl">
+                <span>{{ p.name }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p.isComingSoon }}" hint-placeholder-val="{{ false }}">
+              <div aria-disabled="true" tabIndex="-1" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground/30 sm:text-5xl lg:text-6xl">
+                <span>{{ p.name }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
+class Component extends DCLogic {
+  state = {
+    menuOpen: false, navDark: true, submenuOpen: false,
+    submitted: false, isSubmitting: false, submitError: false,
+    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'PlanSwift', licenses: '1' },
+    productsOpen: false, errors: {},
+    activeVideoId: null,
+    openFaq: 0,
+  };
+
+  _PRODUCTS = ['PlanSwift', 'IDEA StatiCa', 'ZWCAD', 'Midas'];
+  _PRODUCT_LINKS = [
+    { name: 'IDEA StatiCa', href: 'IDEA StatiCa.dc.html', available: true, current: false },
+    { name: 'ZWCAD', available: false, current: false },
+    { name: 'Midas', available: false, current: false },
+    { name: 'PlanSwift', available: true, current: true },
+  ];
+
+  _closeOverlay() {
+    document.body.style.overflow = '';
+    this.setState({ menuOpen: false, submenuOpen: false });
+  }
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const line = 32;
+      let dark = true;
+      document.querySelectorAll('[data-nav-theme]').forEach(s => {
+        const r = s.getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) dark = s.dataset.navTheme === 'dark';
+      });
+      if (dark !== this.state.navDark) this.setState({ navDark: dark });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    requestAnimationFrame(this._onScroll);
+    this._initReveal();
+    this._icons();
+    this._onDocClick = (e) => {
+      if (this.state.productsOpen && this._prodWrap && !this._prodWrap.contains(e.target)) this.setState({ productsOpen: false });
+    };
+    document.addEventListener('mousedown', this._onDocClick);
+    this._onKeyDown = (e) => {
+      if (e.key !== 'Escape') return;
+      if (this.state.activeVideoId) { this._closeVideo(); return; }
+      if (!this.state.menuOpen) return;
+      if (this.state.submenuOpen) this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus());
+      else this._closeOverlay();
+    };
+    document.addEventListener('keydown', this._onKeyDown);
+  }
+  componentDidUpdate() { this._icons(); }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    document.removeEventListener('mousedown', this._onDocClick);
+    document.removeEventListener('keydown', this._onKeyDown);
+    if (this._revealSweep) { window.removeEventListener('scroll', this._revealSweep); window.removeEventListener('resize', this._revealSweep); }
+  }
+
+  _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  // Consolidated reveal: fade, mask (upward clip reveal), stagger (children),
+  // curtain (bottom-to-top clip, optional per-element data-curtain-delay),
+  // curtain-left/curtain-right (directional column reveal).
+  _initReveal() {
+    if (this._revealIO) return;
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fadeTargets = Array.from(document.querySelectorAll('[data-reveal="fade"]'));
+    const maskTargets = [];
+    document.querySelectorAll('[data-reveal="mask"]').forEach(h => { if (h.firstElementChild) maskTargets.push(h.firstElementChild); });
+    const staggerTargets = [];
+    document.querySelectorAll('[data-reveal="stagger"]').forEach(group => {
+      Array.from(group.children).forEach((child, i) => staggerTargets.push({ el: child, delay: i * 90 }));
+    });
+    const curtainContainers = Array.from(document.querySelectorAll('[data-curtain-container]'));
+    const colContainers = Array.from(document.querySelectorAll('[data-curtain-cols]'));
+
+    if (reduced || !('IntersectionObserver' in window)) {
+      fadeTargets.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+      maskTargets.forEach(el => { el.style.transform = 'none'; });
+      staggerTargets.forEach(t => { t.el.style.opacity = '1'; t.el.style.transform = 'none'; });
+      document.querySelectorAll('[data-reveal="curtain"]').forEach(el => { el.style.clipPath = ''; });
+      colContainers.forEach(el => {
+        const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+        if (l) l.style.clipPath = ''; if (r) r.style.clipPath = '';
+      });
+      return;
+    }
+
+    fadeTargets.forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1)';
+    });
+    maskTargets.forEach(el => {
+      el.style.transform = 'translateY(110%)';
+      el.style.transition = 'transform 0.75s cubic-bezier(0.22,1,0.36,1)';
+    });
+    staggerTargets.forEach(t => {
+      t.el.style.opacity = '0'; t.el.style.transform = 'translateY(24px)';
+      t.el.style.transition = `opacity 0.7s ease ${t.delay}ms, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${t.delay}ms`;
+    });
+    document.querySelectorAll('[data-reveal="curtain"]').forEach(el => {
+      const delay = Number(el.dataset.curtainDelay) || 0;
+      el.style.clipPath = 'inset(100% 0 0 0)';
+      el.style.transition = `clip-path 1000ms cubic-bezier(0.22,1,0.36,1) ${delay}ms`;
+    });
+    colContainers.forEach(el => {
+      const dur = Number(el.dataset.curtainDuration) || 1000;
+      const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+      if (l) { l.style.clipPath = 'inset(0 100% 0 0)'; l.style.transition = `clip-path ${dur}ms cubic-bezier(0.22,1,0.36,1)`; }
+      if (r) { r.style.clipPath = 'inset(0 0 0 100%)'; r.style.transition = `clip-path ${dur}ms cubic-bezier(0.22,1,0.36,1)`; }
+    });
+
+    // Scroll-driven visibility polling — more reliable than IntersectionObserver
+    // in this environment (IO silently failed to fire for some targets on real
+    // scroll during testing). Checked on scroll/resize plus a couple of
+    // rAF passes right after mount to catch above-the-fold content.
+    this._revealIO = { disconnect: () => { this._revealPending = []; } };
+    const margin = 60;
+    const inView = (el) => { const r = el.getBoundingClientRect(); return r.top < window.innerHeight + margin && r.bottom > -margin; };
+    const pending = [];
+    [...fadeTargets, ...staggerTargets.map(t => t.el)].forEach(el => pending.push({ el, reveal: () => { el.style.opacity = '1'; el.style.transform = 'none'; } }));
+    maskTargets.forEach(el => pending.push({ el, reveal: () => { el.style.transform = 'translateY(0)'; } }));
+    curtainContainers.forEach(el => pending.push({ el, reveal: () => {
+      const inner = el.querySelector('[data-reveal="curtain"]');
+      if (!inner) return;
+      const delay = Number(inner.dataset.curtainDelay) || 0;
+      inner.style.clipPath = 'inset(0 0 0 0)';
+      setTimeout(() => { inner.style.clipPath = ''; inner.style.transition = ''; }, delay + 1050);
+    } }));
+    colContainers.forEach(el => pending.push({ el, reveal: () => {
+      const dur = Number(el.dataset.curtainDuration) || 1000;
+      const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+      if (l) { l.style.clipPath = 'inset(0 0 0 0)'; setTimeout(() => { l.style.clipPath = ''; l.style.transition = ''; }, dur + 50); }
+      if (r) { r.style.clipPath = 'inset(0 0 0 0)'; setTimeout(() => { r.style.clipPath = ''; r.style.transition = ''; }, dur + 50); }
+    } }));
+    this._revealPending = pending;
+    const sweep = () => {
+      this._revealPending = this._revealPending.filter(item => {
+        if (!inView(item.el)) return true;
+        item.reveal();
+        return false;
+      });
+    };
+    this._revealSweep = sweep;
+    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('resize', sweep);
+    requestAnimationFrame(sweep);
+    requestAnimationFrame(() => requestAnimationFrame(sweep));
+    setTimeout(sweep, 400);
+  }
+
+  _validate(f) {
+    const errors = {};
+    if (!f.name.trim()) errors.name = true;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.product) errors.product = true;
+    if (!f.licenses || Number(f.licenses) < 1) errors.licenses = true;
+    return errors;
+  }
+
+  _closeVideo() {
+    this.setState({ activeVideoId: null }, () => { if (this._videoOpenerEl) this._videoOpenerEl.focus(); });
+  }
+
+  renderVals() {
+    const { menuOpen, navDark, submenuOpen, submitted, isSubmitting, submitError, fields, errors, productsOpen, activeVideoId, openFaq } = this.state;
+    const solid = !navDark || menuOpen;
+    const navBase = 'fixed inset-x-0 top-0 z-50 h-20 transition-colors duration-300';
+    const navClass = navBase + (solid ? ' border-b border-border bg-background/70 backdrop-blur-md' : ' bg-transparent');
+    const barColor = solid ? 'bg-foreground' : 'bg-white';
+    const burgerWrapClass = 'relative flex h-11 w-11 flex-col items-center justify-center gap-[7px] rounded-none transition hover:bg-foreground/10';
+    const barBase = 'block h-0.5 w-6 rounded-none transition-all duration-300 ' + barColor;
+    const barTopClass = barBase + (menuOpen ? ' translate-y-[4.5px] rotate-45' : '');
+    const barBotClass = barBase + (menuOpen ? ' -translate-y-[4.5px] -rotate-45' : '');
+    const ctaClass = 'hidden rounded-none bg-transparent px-5 py-2.5 text-sm font-semibold transition hover:opacity-70 sm:inline-flex' + (solid ? ' text-foreground' : ' text-white');
+    const overlayClass = 'fixed inset-0 z-40 bg-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]' + (menuOpen ? ' pointer-events-auto translate-y-0 opacity-100' : ' pointer-events-none -translate-y-4 opacity-0');
+
+    const VIDEOS = [
+      { id: 'IqrzobCU4rs', title: 'PlanSwift Demo', blurb: 'A walkthrough of measuring and estimating a project in PlanSwift.' },
+      { id: 'OylK050QWfM', title: 'Level 1 PlanSwift Webinar', blurb: 'A pre-recorded webinar covering the basics of PlanSwift.' },
+      { id: 'x2k_wViwhoM', title: 'Level 2 Parts Plus Webinar', blurb: 'A follow-on webinar on the Parts Plus workflow in PlanSwift.' },
+    ];
+    const videos = VIDEOS.map((v, i) => ({
+      ...v, delay: i * 120, playLabel: 'Play ' + v.title,
+      thumb: `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`,
+      embedSrc: `https://www.youtube.com/embed/${v.id}`,
+      watchUrl: `https://www.youtube.com/watch?v=${v.id}`,
+      open: (e) => { this._videoOpenerEl = e.currentTarget; this.setState({ activeVideoId: v.id }); },
+    }));
+    const activeVideoDef = videos.find(v => v.id === activeVideoId) || null;
+
+    const FAQS = [
+      { question: 'Who is PlanSwift designed for?', answer: 'Construction estimators and contractors across trades — general contractors, drywall, concrete, electrical, plumbing, and other specialty trades who need to measure drawings and price bids.' },
+      { question: 'Which drawing formats can I use?', answer: 'PlanSwift works with common digital plan formats, including PDF and CAD files (DWG/DXF), plus scanned or image-based drawings.' },
+      { question: 'Can I use it with Excel?', answer: 'Yes. Takeoff quantities can be brought into your Excel spreadsheet estimating workflow.' },
+      { question: 'Does it handle estimating as well as takeoff?', answer: 'Yes. Alongside measuring quantities, PlanSwift supports building material and labor estimates using reusable assemblies.' },
+      { question: 'How do I request a license through SWUT?', answer: 'Fill out the enquiry form below with your details and number of licenses, and SWUT Solutions will follow up with a quote.' },
+    ];
+    const faqs = FAQS.map((f, i) => {
+      const open = openFaq === i;
+      return {
+        ...f, open, symbol: open ? '\u2212' : '+',
+        panelStyle: open ? 'max-height:400px;opacity:1' : 'max-height:0;opacity:0',
+        toggle: () => this.setState({ openFaq: open ? -1 : i }),
+      };
+    });
+
+    const FEATURES = [
+      { icon: 'ruler', title: 'Digital takeoff', desc: 'Measure areas, lengths, volumes, and item counts.' },
+      { icon: 'file-up', title: 'Drawing import', desc: 'Work from supported digital plans and scanned drawings.' },
+      { icon: 'layers', title: 'Custom assemblies', desc: 'Group materials and labor into reusable estimating assemblies.' },
+      { icon: 'file-spreadsheet', title: 'Excel workflow', desc: 'Bring takeoff quantities into your spreadsheet estimating workflow.' },
+      { icon: 'columns-3', title: 'Drawing comparison', desc: 'Compare revisions to identify changes in the plans.' },
+      { icon: 'clipboard-list', title: 'Reports and outputs', desc: 'Organize quantities and estimate information for review and sharing.' },
+    ];
+
+    return {
+      navClass, burgerWrapClass, barTopClass, barBotClass, ctaClass, overlayClass,
+      toggleMenu: () => this.setState(s => {
+        const menuOpen = !s.menuOpen;
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+        return { menuOpen, submenuOpen: false };
+      }),
+      closeMenu: () => this._closeOverlay(),
+      openProductsMenu: () => this.setState({ submenuOpen: true }, () => this._backLinkEl && this._backLinkEl.focus()),
+      closeProductsMenu: () => this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus()),
+      productsBtnRef: (el) => { this._productsBtnEl = el; },
+      backLinkRef: (el) => { this._backLinkEl = el; },
+      submenuOpen,
+      subPanelHidden: !submenuOpen,
+      mainPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? '-translate-x-full' : 'translate-x-0'),
+      subPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? 'translate-x-0' : 'translate-x-full'),
+      productLinks: this._PRODUCT_LINKS.map(p => ({
+        ...p,
+        isLink: p.available && !p.current,
+        isCurrent: p.available && p.current,
+        isComingSoon: !p.available,
+      })),
+      scrollToQuote: (e) => {
+        e.preventDefault(); this._closeOverlay();
+        const el = document.getElementById('quote');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      },
+      scrollToVideos: (e) => {
+        e.preventDefault(); this._closeOverlay();
+        const el = document.getElementById('videos');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      },
+      features: FEATURES,
+      videos, activeVideo: activeVideoDef,
+      closeVideo: () => this._closeVideo(),
+      stopProp: (e) => e.stopPropagation(),
+      onModalKeyDown: (e) => { if (e.key === 'Escape') this._closeVideo(); },
+      modalCloseRef: (el) => { if (el && activeVideoId) requestAnimationFrame(() => el.focus()); },
+      faqs,
+      submitted, notSubmitted: !submitted, isSubmitting, submitError,
+      fields, errors, productsOpen,
+      submitLabel: isSubmitting ? 'Submitting…' : 'Request a License Quote',
+      formFirstName: (fields.name.trim().split(/\s+/)[0]) || 'there',
+      formEmail: fields.email,
+      formSelectionsText: `${fields.licenses || '1'} \u00d7 ${fields.product}`,
+      prodWrapRef: (el) => { this._prodWrap = el; },
+      toggleProductsOpen: () => this.setState(s => ({ productsOpen: !s.productsOpen })),
+      onProductsKeyDown: (e) => { if (e.key === 'Escape') this.setState({ productsOpen: false }); },
+      productsSummary: fields.product,
+      productOptions: this._PRODUCTS.map(name => ({
+        name, checked: fields.product === name,
+        select: () => this.setState({ fields: { ...fields, product: name }, productsOpen: false }),
+      })),
+      forceRevealCurtain: (e) => { const el = e.currentTarget; el.style.clipPath = ''; el.style.transition = ''; },
+      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
+      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
+      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
+      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
+      setLicenses: (e) => this.setState(s => ({ fields: { ...s.fields, licenses: e.target.value } })),
+      setNotes: (e) => this.setState(s => ({ fields: { ...s.fields, notes: e.target.value } })),
+      handleSubmit: (e) => {
+        e.preventDefault();
+        const errs = this._validate(this.state.fields);
+        if (Object.keys(errs).length) { this.setState({ errors: errs, submitError: false }); return; }
+        this.setState({ errors: {}, isSubmitting: true, submitError: false });
+        setTimeout(() => this.setState({ isSubmitting: false, submitted: true }), 700);
+      },
+      resetForm: () => this.setState({
+        submitted: false, isSubmitting: false, submitError: false, errors: {},
+        fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'PlanSwift', licenses: '1' },
+      }),
+      menuLinks: [
+        { label: 'Home', href: 'SWUT Home.dc.html', isLink: true, isSubmenuTrigger: false, onClick: () => this._closeOverlay() },
+        { label: 'Products', isLink: false, isSubmenuTrigger: true },
+        { label: 'Videos', href: '#videos', isLink: true, isSubmenuTrigger: false, onClick: (e) => { e.preventDefault(); this._closeOverlay(); document.getElementById('videos')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); } },
+        { label: 'Request a Quote', href: '#quote', isLink: true, isSubmenuTrigger: false, onClick: (e) => { e.preventDefault(); this._closeOverlay(); document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); } },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

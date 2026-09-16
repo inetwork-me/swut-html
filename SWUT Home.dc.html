@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+<script src="./page-transition.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -66,7 +67,7 @@
   <!-- ===== TOP NAV ===== -->
   <nav class="{{ navClass }}">
     <div class="grid h-full grid-cols-3 items-center px-6 sm:px-10 lg:px-20">
-      <a href="#" class="{{ brandClass }} justify-self-start">SWUT</a>
+      <a href="#" class="justify-self-start"><img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain sm:h-9"></a>
 
       <button onClick="{{ toggleMenu }}" aria-label="Open menu" class="{{ burgerWrapClass }} justify-self-center">
         <span class="{{ barTopClass }}"></span>
@@ -80,7 +81,7 @@
   <!-- ===== HERO ===== -->
   <section data-nav-theme="dark" class="relative h-screen min-h-[640px] w-full overflow-hidden">
     <div class="pointer-events-none absolute inset-0" style="animation: heroZoom 32s ease-in-out infinite alternate; will-change: transform">
-      <img src="uploads/hero.jpg" alt="" class="h-full w-full object-cover">
+      <img src="uploads/eduard-galitsky-pdcR2kN-NDI-unsplash.jpg" alt="" class="h-full w-full object-cover">
     </div>
 
     <!-- #000 layer @ 40% opacity for legibility -->
@@ -147,27 +148,44 @@
   <!-- ===== PRODUCTS ===== -->
   <section id="products" data-nav-theme="dark" class="grid min-h-screen grid-cols-1 sm:grid-cols-2 lg:h-[720px] lg:min-h-0 lg:grid-cols-4">
     <sc-for list="{{ products }}" as="prod" hint-placeholder-count="4">
-      <div class="group relative flex min-h-[380px] flex-col overflow-hidden">
-        <!-- background image (animates on hover) -->
-        <div class="absolute inset-0 overflow-hidden">
-          <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
-            <img src="{{ prod.img }}" alt="{{ prod.name }}" class="h-full w-full object-cover" loading="lazy">
+      <sc-if value="{{ prod.href }}" hint-placeholder-val="{{ false }}">
+        <a href="{{ prod.href }}" class="group relative flex min-h-[380px] flex-col overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-inset">
+          <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ prod.slot }}" shape="rect" fit="cover" placeholder="{{ prod.placeholder }}" hint-size="100%,100%"></x-import>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-0 bg-black/40 transition-colors duration-500 group-hover:bg-black/30"></div>
+          <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
+            <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">{{ prod.num }}</span>
+            <h3 class="text-2xl font-semibold tracking-tight">{{ prod.name }}</h3>
+            <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">{{ prod.desc }}</p>
+            <span class="mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+              Explore product
+              <i data-lucide="arrow-right" class="size-4"></i>
+            </span>
+          </div>
+        </a>
+      </sc-if>
+      <sc-if value="{{ prod.notLinked }}" hint-placeholder-val="{{ true }}">
+        <div class="group relative flex min-h-[380px] flex-col overflow-hidden">
+          <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ prod.slot }}" shape="rect" fit="cover" placeholder="{{ prod.placeholder }}" hint-size="100%,100%"></x-import>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-0 bg-black/40 transition-colors duration-500 group-hover:bg-black/30"></div>
+          <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
+            <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">{{ prod.num }}</span>
+            <h3 class="text-2xl font-semibold tracking-tight">{{ prod.name }}</h3>
+            <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">{{ prod.desc }}</p>
+            <a href="#" class="pointer-events-auto mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+              Explore product
+              <i data-lucide="arrow-right" class="size-4"></i>
+            </a>
           </div>
         </div>
-        <!-- #000 @ 40% layer -->
-        <div class="pointer-events-none absolute inset-0 bg-black/40 transition-colors duration-500 group-hover:bg-black/30"></div>
-
-        <!-- content: vertical stack, bottom-left, 32px padding -->
-        <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
-          <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">{{ prod.num }}</span>
-          <h3 class="text-2xl font-semibold tracking-tight">{{ prod.name }}</h3>
-          <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">{{ prod.desc }}</p>
-          <a href="#" class="pointer-events-auto mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-            Explore product
-            <i data-lucide="arrow-right" class="size-4"></i>
-          </a>
-        </div>
-      </div>
+      </sc-if>
     </sc-for>
   </section>
 
@@ -176,7 +194,7 @@
     <span data-reveal="fade" class="mb-10 inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Our Technology</span>
 
     <h2 data-reveal="fade" class="mx-auto max-w-5xl text-balance text-3xl font-semibold leading-[1.25] tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl">
-      Our licensed<span style="display:inline-block;width:1.55em;height:0.95em;vertical-align:middle;margin:0 0.18em"><img src="uploads/tech-1.jpg" alt="" class="rounded-full" style="display:block;width:100%;height:100%;object-fit:cover"></span>software powers<span style="display:inline-block;width:1.55em;height:0.95em;vertical-align:middle;margin:0 0.18em"><img src="uploads/tech-2.jpg" alt="" class="rounded-full" style="display:block;width:100%;height:100%;object-fit:cover"></span>precise, compliant engineering.
+      Our licensed<span style="display:inline-block;width:1.55em;height:0.95em;vertical-align:middle;margin:0 0.18em"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="tech-1" shape="pill" fit="cover" src="./tech-a.svg" placeholder="software UI" hint-size="110px,66px" style="display:block;width:100%;height:100%"></x-import></span>software powers<span style="display:inline-block;width:1.55em;height:0.95em;vertical-align:middle;margin:0 0.18em"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="tech-2" shape="pill" fit="cover" src="./tech-b.svg" placeholder="engineering" hint-size="110px,66px" style="display:block;width:100%;height:100%"></x-import></span>precise, compliant engineering.
     </h2>
 
     <a href="#" data-reveal="fade" class="mt-12 inline-flex items-center rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
@@ -209,7 +227,7 @@
           <!-- 9:16 image, 610px tall (343 × 610 keeps the ratio) -->
           <div class="relative h-[610px] w-full overflow-hidden">
             <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
-              <img src="{{ svc.img }}" alt="{{ svc.title }}" class="h-full w-full object-cover" loading="lazy">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ svc.slot }}" shape="rect" fit="cover" placeholder="{{ svc.placeholder }}" hint-size="100%,100%"></x-import>
             </div>
             <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
             <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
@@ -267,7 +285,7 @@
     <!-- columns -->
     <div data-reveal="fade" class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
       <div class="flex flex-col gap-4">
-        <span class="text-xl font-bold tracking-tight">SWUT</span>
+        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="block h-auto w-[160px] object-contain sm:w-[190px]" style="margin-bottom:15px">
         <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
         <div class="mt-2 flex items-center gap-3">
           <a href="#" aria-label="Facebook" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
@@ -316,23 +334,58 @@
   </footer>
 
   <!-- ===== FULL-PAGE MENU OVERLAY ===== -->
-  <div class="{{ overlayClass }}">
+  <div class="{{ overlayClass }}" data-menu-open="{{ menuOpen }}">
     <div class="flex h-full flex-col px-6 sm:px-10 lg:px-20">
       <div class="flex h-20 shrink-0 items-center justify-between">
-        <span class="text-xl font-bold tracking-tight text-foreground">SWUT</span>
+        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain">
       </div>
 
-      <nav class="flex flex-1 flex-col justify-center gap-2 pb-24">
-        <sc-for list="{{ menuLinks }}" as="link" hint-placeholder-count="5">
-          <a href="#" onClick="{{ closeMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
-            <span>{{ link.label }}</span>
-            <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
-          </a>
-        </sc-for>
+      <nav class="relative flex flex-1 items-center overflow-hidden pb-24">
+        <div class="{{ mainPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ submenuOpen }}" inert="{{ submenuOpen }}">
+          <sc-for list="{{ menuLinks }}" as="link" hint-placeholder-count="5">
+            <sc-if value="{{ link.isSubmenuTrigger }}" hint-placeholder-val="{{ false }}">
+              <button type="button" ref="{{ productsBtnRef }}" aria-haspopup="true" aria-expanded="{{ submenuOpen }}" onClick="{{ openProductsMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-left text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+                <span>{{ link.label }}</span>
+                <i data-lucide="chevron-right" class="size-7 opacity-60 transition-all group-hover:opacity-100 sm:size-9"></i>
+              </button>
+            </sc-if>
+            <sc-if value="{{ link.isLink }}" hint-placeholder-val="{{ true }}">
+              <a href="#" onClick="{{ closeMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+                <span>{{ link.label }}</span>
+                <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
+              </a>
+            </sc-if>
+          </sc-for>
 
-        <div class="mt-10 flex flex-col gap-1 text-sm text-muted-foreground">
-          <span class="font-mono uppercase tracking-widest text-foreground/60">Get in touch</span>
-          <a href="mailto:hello@swut.co" class="text-lg text-foreground hover:text-muted-foreground">hello@swut.co</a>
+          <div class="mt-10 flex flex-col gap-1 text-sm text-muted-foreground">
+            <span class="font-mono uppercase tracking-widest text-foreground/60">Get in touch</span>
+            <a href="mailto:hello@swut.co" class="text-lg text-foreground hover:text-muted-foreground">hello@swut.co</a>
+          </div>
+        </div>
+
+        <div class="{{ subPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ subPanelHidden }}" inert="{{ subPanelHidden }}">
+          <button type="button" ref="{{ backLinkRef }}" onClick="{{ closeProductsMenu }}" class="flex items-center gap-3 py-5 text-lg font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground">
+            <i data-lucide="arrow-left" class="size-4"></i>
+            <span>Main menu</span>
+          </button>
+          <sc-for list="{{ productLinks }}" as="p" hint-placeholder-count="4">
+            <sc-if value="{{ p.isLink }}" hint-placeholder-val="{{ true }}">
+              <a href="{{ p.href }}" onClick="{{ closeMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+                <span>{{ p.name }}</span>
+                <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
+              </a>
+            </sc-if>
+            <sc-if value="{{ p.isCurrent }}" hint-placeholder-val="{{ false }}">
+              <div aria-current="page" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-muted-foreground sm:text-5xl lg:text-6xl">
+                <span>{{ p.name }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p.isComingSoon }}" hint-placeholder-val="{{ false }}">
+              <div aria-disabled="true" tabIndex="-1" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground/30 sm:text-5xl lg:text-6xl">
+                <span>{{ p.name }}</span>
+              </div>
+            </sc-if>
+          </sc-for>
         </div>
       </nav>
     </div>
@@ -342,7 +395,18 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { menuOpen: false, navDark: true };
+  state = { menuOpen: false, navDark: true, submenuOpen: false };
+
+  _PRODUCT_LINKS = [
+    { name: 'IDEA StatiCa', href: 'IDEA StatiCa.dc.html', available: true, current: false },
+    { name: 'ZWCAD', available: false, current: false },
+    { name: 'Midas', available: false, current: false },
+    { name: 'PlanSwift', href: 'PlanSwift.dc.html', available: true, current: false },
+  ];
+  _closeOverlay() {
+    document.body.style.overflow = '';
+    this.setState({ menuOpen: false, submenuOpen: false });
+  }
 
   _testimonials = [
     { quote: 'SWUT sorted our entire licensing stack in weeks — software audits are no longer something we dread.', name: 'Lina Farouk', role: 'Operations Director, Delta Structures' },
@@ -368,6 +432,15 @@ class Component extends DCLogic {
       if (el) el.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
     };
     window.addEventListener('mousemove', this._onMove, { passive: true });
+    this._onOverlayKeyDown = (e) => {
+      if (e.key !== 'Escape' || !this.state.menuOpen) return;
+      if (this.state.submenuOpen) {
+        this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus());
+      } else {
+        this._closeOverlay();
+      }
+    };
+    document.addEventListener('keydown', this._onOverlayKeyDown);
     this._onProductScroll = () => {
       const vh = window.innerHeight || 1;
       document.querySelectorAll('#products .prod-content').forEach(el => {
@@ -398,6 +471,7 @@ class Component extends DCLogic {
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('scroll', this._onProductScroll);
     window.removeEventListener('mousemove', this._onMove);
+    document.removeEventListener('keydown', this._onOverlayKeyDown);
     this._stopAuto();
     this._stopTesti();
     if (this._revealIO) this._revealIO.disconnect();
@@ -533,7 +607,7 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    const { menuOpen, navDark } = this.state;
+    const { menuOpen, navDark, submenuOpen } = this.state;
     // transparent white chrome over dark sections (hero, products, technology);
     // blurred light chrome over light sections and while the menu is open
     const solid = !navDark || menuOpen;
@@ -564,28 +638,28 @@ class Component extends DCLogic {
       navClass, brandClass, burgerWrapClass, barTopClass, barBotClass,
       ctaClass, overlayClass,
       services: [
-        { title: 'Software Maintenance', slot: 'svc-maint', img: 'uploads/svc-maint.jpg', placeholder: 'service image',
+        { title: 'Software Maintenance', slot: 'svc-maint', placeholder: 'service image',
           desc: 'Ongoing updates, monitoring, and expert fixes that keep every license secure and running smoothly.' },
-        { title: 'Training', slot: 'svc-train', img: 'uploads/svc-train.jpg', placeholder: 'service image',
+        { title: 'Training', slot: 'svc-train', placeholder: 'service image',
           desc: 'Hands-on onboarding and role-based sessions so your team masters each tool from day one.' },
-        { title: 'Finance', slot: 'svc-finance', img: 'uploads/svc-finance.jpg', placeholder: 'service image',
+        { title: 'Finance', slot: 'svc-finance', placeholder: 'service image',
           desc: 'Flexible licensing and payment plans that keep powerful software within your budget.' },
-        { title: 'Technical Support', slot: 'svc-support', img: 'uploads/svc-support.jpg', placeholder: 'service image',
+        { title: 'Technical Support', slot: 'svc-support', placeholder: 'service image',
           desc: 'Fast, expert help whenever you need it — from setup questions to complex troubleshooting.' },
-        { title: 'Trial Demo', slot: 'svc-demo', img: 'uploads/svc-demo.jpg', placeholder: 'service image',
+        { title: 'Trial Demo', slot: 'svc-demo', placeholder: 'service image',
           desc: 'Try before you commit with a guided, full-feature demo tailored to your workflow.' },
       ],
       slideNext: () => this._slide(1),
       slidePrev: () => this._slide(-1),
       testiLoop: [...this._testimonials, ...this._testimonials],
       products: [
-        { num: '01', name: 'IDEA StatiCa', slot: 'prod-idea', img: 'uploads/prod-idea.jpg', placeholder: 'IDEA StatiCa image',
+        { num: '01', name: 'IDEA StatiCa', slot: 'prod-idea', placeholder: 'IDEA StatiCa image', href: 'IDEA StatiCa.dc.html', notLinked: false,
           desc: 'Design and code-check steel and concrete connections in minutes — with total confidence.' },
-        { num: '02', name: 'ZWCAD', slot: 'prod-zwcad', img: 'uploads/prod-zwcad.jpg', placeholder: 'ZWCAD image',
+        { num: '02', name: 'ZWCAD', slot: 'prod-zwcad', placeholder: 'ZWCAD image', notLinked: true,
           desc: 'A fast, reliable, DWG-compatible CAD platform for 2D drafting and 3D design.' },
-        { num: '03', name: 'Midas', slot: 'prod-midas', img: 'uploads/prod-midas.jpg', placeholder: 'Midas image',
+        { num: '03', name: 'Midas', slot: 'prod-midas', placeholder: 'Midas image', notLinked: true,
           desc: 'Advanced structural and geotechnical analysis for the most complex projects.' },
-        { num: '04', name: 'PlanSwift', slot: 'prod-planswift', img: 'uploads/prod-planswift.jpg', placeholder: 'PlanSwift image',
+        { num: '04', name: 'PlanSwift', slot: 'prod-planswift', placeholder: 'PlanSwift image', href: 'PlanSwift.dc.html', notLinked: false,
           desc: 'Digital takeoff and estimating that speeds up bidding and cuts costly errors.' },
       ],
       processCards: [
@@ -597,11 +671,33 @@ class Component extends DCLogic {
           body: 'Ongoing updates, monitoring, and expert support keep your software secure, current, and running smoothly long after deployment.' },
       ],
       menuLinks: [
-        { label: 'Home' }, { label: 'Services' }, { label: 'Projects' },
-        { label: 'About' }, { label: 'Contact' },
+        { label: 'Home', isLink: true, isSubmenuTrigger: false },
+        { label: 'Products', isLink: false, isSubmenuTrigger: true },
+        { label: 'Services', isLink: true, isSubmenuTrigger: false },
+        { label: 'Projects', isLink: true, isSubmenuTrigger: false },
+        { label: 'About', isLink: true, isSubmenuTrigger: false },
+        { label: 'Contact', isLink: true, isSubmenuTrigger: false },
       ],
-      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
-      closeMenu: () => this.setState({ menuOpen: false }),
+      toggleMenu: () => this.setState(s => {
+        const menuOpen = !s.menuOpen;
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+        return { menuOpen, submenuOpen: false };
+      }),
+      closeMenu: () => this._closeOverlay(),
+      openProductsMenu: () => this.setState({ submenuOpen: true }, () => this._backLinkEl && this._backLinkEl.focus()),
+      closeProductsMenu: () => this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus()),
+      productsBtnRef: (el) => { this._productsBtnEl = el; },
+      backLinkRef: (el) => { this._backLinkEl = el; },
+      submenuOpen,
+      subPanelHidden: !submenuOpen,
+      mainPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? '-translate-x-full' : 'translate-x-0'),
+      subPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? 'translate-x-0' : 'translate-x-full'),
+      productLinks: this._PRODUCT_LINKS.map(p => ({
+        ...p,
+        isLink: p.available && !p.current,
+        isCurrent: p.available && p.current,
+        isComingSoon: !p.available,
+      })),
     };
   }
 }
