@@ -56,7 +56,7 @@
   <!-- ===== TOP NAV ===== -->
   <nav data-reveal="fade" class="{{ navClass }}">
     <div class="grid h-full grid-cols-3 items-center px-6 sm:px-10 lg:px-20">
-      <a href="SWUT Home.dc.html" class="justify-self-start"><img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain sm:h-9"></a>
+      <a href="./" class="justify-self-start"><img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain sm:h-9"></a>
       <button onClick="{{ toggleMenu }}" aria-label="Open menu" class="{{ burgerWrapClass }} justify-self-center">
         <span class="{{ barTopClass }}"></span>
         <span class="{{ barBotClass }}"></span>
@@ -283,8 +283,8 @@
       <div class="flex flex-col gap-4">
         <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
         <ul class="flex flex-col gap-3">
-          <li><a href="SWUT Home.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
-          <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
+          <li><a href="./" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
+          <li><a href="./#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
           <li><a href="#overview" class="text-sm text-white/70 transition-colors hover:text-white">Overview</a></li>
           <li><a href="#quote" onClick="{{ scrollToQuote }}" class="text-sm text-white/70 transition-colors hover:text-white">Request a Quote</a></li>
         </ul>
@@ -842,7 +842,7 @@ class Component extends DCLogic {
       gallery: galleryList,
       galleryRows,
       menuLinks: [
-        { label: 'Home', href: 'SWUT Home.dc.html', isLink: true, isSubmenuTrigger: false, onClick: () => this._closeOverlay() },
+        { label: 'Home', href: './', isLink: true, isSubmenuTrigger: false, onClick: () => this._closeOverlay() },
         { label: 'Products', isLink: false, isSubmenuTrigger: true },
         { label: 'Overview', href: '#overview', isLink: true, isSubmenuTrigger: false, onClick: () => this._closeOverlay() },
         { label: 'Request a Quote', href: '#quote', isLink: true, isSubmenuTrigger: false, onClick: (e) => {
