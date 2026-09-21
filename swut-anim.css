@@ -1,0 +1,80 @@
+/* SWUT service-hero motion. Every animated element's STATIC state is the
+   complete composition, so reduced motion / paused states stay legible. */
+
+@keyframes swutTravel {
+  0%, 6% { transform: translateX(0); opacity: 1; }
+  22%, 30% { transform: translateX(160px); opacity: 1; }
+  46%, 54% { transform: translateX(320px); opacity: 1; }
+  70%, 88% { transform: translateX(480px); opacity: 1; }
+  93% { transform: translateX(480px); opacity: 0; }
+  94% { transform: translateX(0); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes swutRise {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50% { transform: translateY(-10px); opacity: 1; }
+}
+@keyframes swutSheen {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 0.4; }
+}
+@keyframes swutGlow {
+  0%, 100% { opacity: 0.14; }
+  50% { opacity: 0.42; }
+}
+/* Continuous dash travel — loops without a visible reset. */
+@keyframes swutFlow {
+  to { stroke-dashoffset: -28; }
+}
+/* Sequential appearance, eased in and out of a dim resting state. */
+@keyframes swutStep {
+  0%, 6% { opacity: 0.16; }
+  24%, 62% { opacity: 1; }
+  84%, 100% { opacity: 0.16; }
+}
+/* Slow move between an overview and a magnified detail. */
+@keyframes swutDrift {
+  0%, 12% { transform: translate(0, 0) scale(1); }
+  46%, 66% { transform: translate(-46px, -30px) scale(1.26); }
+  94%, 100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes swutCardIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes swutFade {
+  0%, 20% { opacity: 0; }
+  50%, 64% { opacity: 1; }
+  90%, 100% { opacity: 0; }
+}
+
+.swut-travel { animation: swutTravel 9s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.swut-rise { animation: swutRise 3.6s ease-in-out infinite; }
+.swut-sheen { animation: swutSheen 4.5s ease-in-out infinite; }
+.swut-glow { animation: swutGlow 4.5s ease-in-out infinite; }
+.swut-flow { animation: swutFlow 2.6s linear infinite; }
+.swut-step { animation: swutStep 7.2s ease-in-out infinite; }
+.swut-drift { animation: swutDrift 14s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+.swut-fade { animation: swutFade 14s ease-in-out infinite; }
+.swut-card-in { animation: swutCardIn 700ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.swut-card-in:nth-child(2) { animation-delay: 90ms; }
+.swut-card-in:nth-child(3) { animation-delay: 180ms; }
+.swut-card-in:nth-child(4) { animation-delay: 270ms; }
+.swut-card-in:nth-child(5) { animation-delay: 360ms; }
+.swut-card-in:nth-child(6) { animation-delay: 450ms; }
+.swut-card-in:nth-child(n+7) { animation-delay: 540ms; }
+
+/* Paused offscreen and while the tab is hidden. */
+[data-hero-anim="paused"] .swut-travel,
+[data-hero-anim="paused"] .swut-rise,
+[data-hero-anim="paused"] .swut-sheen,
+[data-hero-anim="paused"] .swut-glow,
+[data-hero-anim="paused"] .swut-flow,
+[data-hero-anim="paused"] .swut-step,
+[data-hero-anim="paused"] .swut-drift,
+[data-hero-anim="paused"] .swut-fade { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .swut-travel, .swut-rise, .swut-sheen, .swut-glow,
+  .swut-flow, .swut-step, .swut-drift, .swut-fade, .swut-card-in { animation: none !important; }
+}

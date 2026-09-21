@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./page-transition.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          background: 'oklch(var(--background))',
+          foreground: 'oklch(var(--foreground))',
+          card: 'oklch(var(--card))',
+          border: 'oklch(var(--border))',
+          primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
+          muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
+        },
+        borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="./events-data.js"></script>
+<script src="./reveal.js"></script>
+<link rel="stylesheet" href="./swut-anim.css">
+<style>
+  :root {
+    --background: 1 0 0;
+    --foreground: 0.145 0 0;
+    --card: 1 0 0;
+    --border: 0.922 0 0;
+    --primary: 0.205 0 0;
+    --primary-foreground: 0.985 0 0;
+    --muted-foreground: 0.556 0 0;
+    --muted: 0.97 0 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  input:focus, button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+</style>
+</helmet>
+
+<div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
+
+  <dc-import name="NavHeader" current-page="events" quote-href="Contact.dc.html" hint-size="100%,80px"></dc-import>
+
+  <section data-nav-theme="dark" data-screen-label="Events intro" class="bg-primary px-6 pb-16 pt-32 text-primary-foreground sm:px-10 sm:pt-36 lg:px-20 lg:pb-20 lg:pt-40">
+    <div class="grid grid-cols-12 items-end gap-8 lg:gap-16">
+      <div class="col-span-12 flex flex-col items-start gap-5 lg:col-span-7">
+        <span class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Events</span>
+        <h1 class="max-w-2xl text-balance text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl lg:text-6xl">
+          <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">Meet. Learn.</span></span>
+          <span data-reveal="mask" data-reveal-delay="90" class="block overflow-hidden pb-1"><span class="block">Exchange ideas.</span></span>
+        </h1>
+      </div>
+      <p data-reveal="fade" data-reveal-delay="140" class="col-span-12 max-w-md text-pretty text-base leading-relaxed text-white/70 sm:text-lg lg:col-span-5 lg:pb-3">Explore SWUT events across engineering software, technical learning, and industry conversations.</p>
+    </div>
+  </section>
+
+  <section data-nav-theme="light" data-screen-label="Events archive" class="px-6 py-16 sm:px-10 lg:px-20 lg:py-20" style="background-color:#F8F8F8">
+
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:gap-6">
+        <div class="flex flex-col gap-2 lg:w-[34%]">
+          <label for="ev-search" class="text-sm text-muted-foreground">Search events</label>
+          <div class="relative">
+            <i data-lucide="search" class="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"></i>
+            <input id="ev-search" type="search" value="{{ q }}" onChange="{{ setQuery }}" placeholder="Title, summary, or venue" class="h-[50px] w-full border border-border bg-background pl-11 pr-4 text-base text-foreground placeholder:text-muted-foreground">
+          </div>
+        </div>
+
+        <button type="button" aria-expanded="{{ filtersOpen }}" aria-controls="ev-filters" onClick="{{ toggleFilters }}" class="flex h-[50px] w-full items-center justify-between border border-border bg-background px-4 text-base text-foreground lg:hidden">
+          <span>Filters</span>
+          <i data-lucide="{{ filtersIcon }}" class="size-4 text-muted-foreground"></i>
+        </button>
+
+        <div id="ev-filters" class="{{ filtersWrapClass }}">
+          <div class="flex flex-1 flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProdKey }}">
+            <label id="ev-product-label" class="text-sm text-muted-foreground">Product</label>
+            <div class="relative">
+              <button type="button" aria-haspopup="listbox" aria-expanded="{{ prodOpen }}" aria-labelledby="ev-product-label" onClick="{{ toggleProd }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 text-left text-base text-foreground">
+                <span class="truncate">{{ product }}</span>
+                <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+              </button>
+              <sc-if value="{{ prodOpen }}" hint-placeholder-val="{{ false }}">
+                <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                  <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="4">
+                    <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                      <input type="radio" name="ev-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                      {{ opt.name }}
+                    </label>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div class="flex flex-1 flex-col gap-2" ref="{{ svcWrapRef }}" onKeyDown="{{ onSvcKey }}">
+            <label id="ev-service-label" class="text-sm text-muted-foreground">Service</label>
+            <div class="relative">
+              <button type="button" aria-haspopup="listbox" aria-expanded="{{ svcOpen }}" aria-labelledby="ev-service-label" onClick="{{ toggleSvc }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 text-left text-base text-foreground">
+                <span class="truncate">{{ service }}</span>
+                <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+              </button>
+              <sc-if value="{{ svcOpen }}" hint-placeholder-val="{{ false }}">
+                <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                  <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="3">
+                    <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                      <input type="radio" name="ev-service-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                      {{ opt.name }}
+                    </label>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div class="flex flex-1 flex-col gap-2" ref="{{ dateWrapRef }}" onKeyDown="{{ onDateKey }}">
+            <label id="ev-date-label" class="text-sm text-muted-foreground">Date</label>
+            <div class="relative">
+              <button type="button" aria-haspopup="listbox" aria-expanded="{{ dateOpen }}" aria-labelledby="ev-date-label" onClick="{{ toggleDate }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 text-left text-base text-foreground">
+                <span class="truncate">{{ date }}</span>
+                <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+              </button>
+              <sc-if value="{{ dateOpen }}" hint-placeholder-val="{{ false }}">
+                <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                  <sc-for list="{{ dateOptions }}" as="opt" hint-placeholder-count="3">
+                    <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                      <input type="radio" name="ev-date-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                      {{ opt.name }}
+                    </label>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border pt-5">
+        <span aria-live="polite" class="text-sm text-muted-foreground">{{ countLabel }}</span>
+        <sc-if value="{{ hasFilters }}" hint-placeholder-val="{{ false }}">
+          <button type="button" onClick="{{ clearFilters }}" class="inline-flex items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground">
+            <i data-lucide="x" class="size-4"></i>
+            Clear filters
+          </button>
+        </sc-if>
+      </div>
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <sc-for list="{{ cards }}" as="ev" hint-placeholder-count="1">
+        <a href="{{ ev.href }}" onClick="{{ rememberReturn }}" class="swut-card-in group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+          <div class="relative aspect-[16/10] w-full overflow-hidden">
+            <img src="{{ ev.image }}" alt="{{ ev.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" style="object-position:50% 40%">
+          </div>
+          <div class="flex flex-col items-start gap-3 p-7">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ ev.dateAndStatus }}</span>
+            <h2 class="text-balance text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-2xl">{{ ev.title }}</h2>
+            <p class="line-clamp-2 text-sm leading-relaxed text-muted-foreground">{{ ev.summary }}</p>
+            <span class="flex items-center gap-2 text-sm text-muted-foreground">
+              <i data-lucide="map-pin" class="size-4 shrink-0"></i>
+              {{ ev.place }}
+            </span>
+            <span class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
+              View event
+              <i data-lucide="arrow-up-right" class="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5"></i>
+            </span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div class="mt-12 flex flex-col items-start gap-5 border border-border bg-background px-8 py-14">
+        <p class="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">No events match your search.</p>
+        <button type="button" onClick="{{ clearFilters }}" class="group inline-flex items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90">
+          Clear filters
+          <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+        </button>
+      </div>
+    </sc-if>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
+class Component extends DCLogic {
+  state = { q: '', product: 'All products', service: 'All services', date: 'All events', open: null, filtersOpen: false, ready: false };
+
+  _DEFAULTS = { q: '', product: 'All products', service: 'All services', date: 'All events' };
+
+  componentDidMount() {
+    this.setState({ ...this._fromUrl() }, () => this._restoreScroll());
+    this._waitForData();
+    this._onPop = () => this.setState({ ...this._fromUrl(), open: null });
+    window.addEventListener('popstate', this._onPop);
+    this._onDocClick = (e) => {
+      const wraps = { product: this._prodWrap, service: this._svcWrap, date: this._dateWrap };
+      const w = wraps[this.state.open];
+      if (this.state.open && w && !w.contains(e.target)) this.setState({ open: null });
+    };
+    document.addEventListener('mousedown', this._onDocClick);
+    this._icons();
+  }
+
+  componentDidUpdate() { this._icons(); }
+
+  componentWillUnmount() {
+    window.removeEventListener('popstate', this._onPop);
+    document.removeEventListener('mousedown', this._onDocClick);
+    if (this._dataTimer) clearTimeout(this._dataTimer);
+  }
+
+  _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  _waitForData() {
+    if (window.SWUTEvents) { this.setState({ ready: true }); return; }
+    this._tries = (this._tries || 0) + 1;
+    if (this._tries > 40) return;
+    this._dataTimer = setTimeout(() => this._waitForData(), 60);
+  }
+
+  _fromUrl() {
+    try {
+      const p = new URLSearchParams(window.location.search);
+      return {
+        q: p.get('q') || '',
+        product: p.get('product') || 'All products',
+        service: p.get('service') || 'All services',
+        date: p.get('date') || 'All events',
+      };
+    } catch (e) { return { ...this._DEFAULTS }; }
+  }
+
+  _toUrl(next, push) {
+    try {
+      const p = new URLSearchParams();
+      Object.keys(this._DEFAULTS).forEach(k => {
+        if (next[k] && next[k] !== this._DEFAULTS[k]) p.set(k, next[k]);
+      });
+      const qs = p.toString();
+      const url = window.location.pathname + (qs ? '?' + qs : '');
+      window.history[push ? 'pushState' : 'replaceState']({ swutEvents: true }, '', url);
+    } catch (e) {}
+  }
+
+  _set(patch, push) {
+    this.setState(s => {
+      const next = { ...s, ...patch };
+      this._toUrl(next, push);
+      return patch;
+    });
+  }
+
+  _restoreScroll() {
+    try {
+      const raw = sessionStorage.getItem('swut_events_return');
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      sessionStorage.removeItem('swut_events_return');
+      if (saved.search !== window.location.search) return;
+      requestAnimationFrame(() => window.scrollTo({ top: saved.y || 0, behavior: 'auto' }));
+    } catch (e) {}
+  }
+
+  _opts(list, key, push) {
+    return (list || []).map(name => ({
+      name, checked: this.state[key] === name,
+      select: () => { this._set({ [key]: name, open: null }, push !== false); },
+    }));
+  }
+
+  renderVals() {
+    const { q, product, service, date, open, filtersOpen } = this.state;
+    const api = window.SWUTEvents;
+    const list = api ? api.filter({ q, product, service, date }) : [];
+    const cards = list.map(ev => ({
+      href: ev.href,
+      image: ev.image,
+      imageAlt: ev.imageAlt,
+      title: ev.title,
+      summary: ev.summary,
+      place: api.place(ev),
+      dateAndStatus: api.dateLabel(ev) + ' \u2014 ' + (api.status(ev) === 'upcoming' ? 'Upcoming' : 'Past'),
+    }));
+    const hasFilters = !!q || product !== 'All products' || service !== 'All services' || date !== 'All events';
+    const esc = (key) => (e) => { if (e.key === 'Escape' && this.state.open === key) this.setState({ open: null }); };
+    const toggle = (key) => () => this.setState(s => ({ open: s.open === key ? null : key }));
+
+    return {
+      q, product, service, date,
+      filtersOpen,
+      filtersIcon: filtersOpen ? 'chevron-up' : 'chevron-down',
+      filtersWrapClass: 'flex-col gap-4 sm:flex-row sm:gap-5 lg:flex lg:flex-1 lg:flex-row lg:gap-6 ' + (filtersOpen ? 'flex' : 'hidden'),
+      prodOpen: open === 'product',
+      svcOpen: open === 'service',
+      dateOpen: open === 'date',
+      productOptions: this._opts(api ? api.products : ['All products'], 'product'),
+      serviceOptions: this._opts(api ? api.serviceOptions() : ['All services'], 'service'),
+      dateOptions: this._opts(api ? api.dateOptions : ['All events'], 'date'),
+      cards,
+      isEmpty: !!api && cards.length === 0,
+      countLabel: !api ? 'Loading events\u2026' : (cards.length === 1 ? '1 event' : cards.length + ' events'),
+      hasFilters,
+      toggleFilters: () => this.setState(s => ({ filtersOpen: !s.filtersOpen, open: null })),
+      toggleProd: toggle('product'),
+      toggleSvc: toggle('service'),
+      toggleDate: toggle('date'),
+      onProdKey: esc('product'),
+      onSvcKey: esc('service'),
+      onDateKey: esc('date'),
+      prodWrapRef: (el) => { this._prodWrap = el; },
+      svcWrapRef: (el) => { this._svcWrap = el; },
+      dateWrapRef: (el) => { this._dateWrap = el; },
+      setQuery: (e) => { this._set({ q: e.target.value }, false); },
+      clearFilters: () => {
+        this._set({ ...this._DEFAULTS, open: null }, true);
+        const el = document.getElementById('ev-search');
+        if (el) el.focus();
+      },
+      rememberReturn: () => {
+        try {
+          sessionStorage.setItem('swut_events_return', JSON.stringify({ search: window.location.search, y: window.scrollY }));
+        } catch (e) {}
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

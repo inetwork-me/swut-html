@@ -7,7 +7,6 @@
 </head>
 <body>
 <x-dc>
-
 <div id="swut-cursor" style="position:fixed;top:0;left:0;width:20px;height:20px;border:2px solid #fff;border-radius:9999px;pointer-events:none;z-index:9999;mix-blend-mode:difference;transform:translate(-100px,-100px);transition:transform 0.08s ease-out;will-change:transform"></div>
 
 <nav class="{{ navClass }}">
@@ -27,10 +26,11 @@
       <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain">
     </div>
     <nav class="relative flex flex-1 items-center overflow-hidden pb-24">
-      <div class="{{ mainPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ submenuOpen }}" inert="{{ submenuOpen }}">
+      <div class="{{ mainPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col overflow-y-auto pb-24" style="justify-content:safe center" aria-hidden="{{ submenuOpen }}" inert="{{ submenuOpen }}">
+        <div class="flex w-full shrink-0 flex-col gap-2">
         <sc-for list="{{ menuLinks }}" as="link" hint-placeholder-count="5">
           <sc-if value="{{ link.isSubmenuTrigger }}" hint-placeholder-val="{{ false }}">
-            <button type="button" ref="{{ productsBtnRef }}" aria-haspopup="true" aria-expanded="{{ submenuOpen }}" onClick="{{ openProductsMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-left text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+            <button type="button" ref="{{ link.btnRef }}" aria-haspopup="true" aria-expanded="{{ link.expanded }}" onClick="{{ link.open }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-left text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
               <span>{{ link.label }}</span>
               <i data-lucide="chevron-right" class="size-7 opacity-60 transition-all group-hover:opacity-100 sm:size-9"></i>
             </button>
@@ -47,62 +47,75 @@
           <span class="font-mono uppercase tracking-widest text-foreground/60">Get in touch</span>
           <a href="mailto:hello@swut.co" class="text-lg text-foreground hover:text-muted-foreground">hello@swut.co</a>
         </div>
+        </div>
       </div>
 
-      <div class="{{ subPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ subPanelHidden }}" inert="{{ subPanelHidden }}">
-        <button type="button" ref="{{ backLinkRef }}" onClick="{{ closeProductsMenu }}" class="flex items-center gap-3 py-5 text-lg font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground">
+      <div class="{{ subPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-start overflow-y-auto pb-16 sm:pb-20" aria-hidden="{{ subPanelHidden }}" inert="{{ subPanelHidden }}">
+        <div class="flex w-full shrink-0 flex-col">
+        <button type="button" ref="{{ backLinkRef }}" onClick="{{ closeSubmenu }}" class="mb-8 flex w-fit items-center gap-3 py-2 text-base font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 sm:mb-10 sm:text-lg">
           <i data-lucide="arrow-left" class="size-4"></i>
-          <span>Main menu</span>
+          <span>Back to main menu</span>
         </button>
-        <sc-for list="{{ productLinks }}" as="p" hint-placeholder-count="4">
+        <sc-for list="{{ submenuItems }}" as="p" hint-placeholder-count="4">
           <sc-if value="{{ p.isLink }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ p.href }}" onClick="{{ closeMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
-              <span>{{ p.name }}</span>
-              <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
+            <a href="{{ p.href }}" onClick="{{ closeMenu }}" class="{{ p.linkClass }}">
+              <span class="text-pretty pr-4">{{ p.name }}</span>
+              <i data-lucide="arrow-up-right" class="mt-1 size-6 shrink-0 opacity-0 transition-all group-hover:opacity-100 sm:size-8"></i>
             </a>
           </sc-if>
           <sc-if value="{{ p.isCurrent }}" hint-placeholder-val="{{ false }}">
-            <div aria-current="page" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-muted-foreground sm:text-5xl lg:text-6xl">
+            <div aria-current="page" class="{{ p.currentClass }}">
               <span>{{ p.name }}</span>
             </div>
           </sc-if>
           <sc-if value="{{ p.isComingSoon }}" hint-placeholder-val="{{ false }}">
-            <div aria-disabled="true" tabIndex="-1" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground/30 sm:text-5xl lg:text-6xl">
+            <div aria-disabled="true" tabIndex="-1" class="{{ p.soonClass }}">
               <span>{{ p.name }}</span>
             </div>
           </sc-if>
         </sc-for>
+        </div>
       </div>
     </nav>
   </div>
 </div>
-
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:600},&quot;currentPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;idea-statica&quot;,&quot;contact&quot;,&quot;event&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;quoteHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#quote&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:600},&quot;currentPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;idea-statica&quot;,&quot;contact&quot;,&quot;event&quot;,&quot;events&quot;,&quot;training&quot;,&quot;support&quot;,&quot;workshops&quot;,&quot;maintenance&quot;,&quot;consultancy&quot;,&quot;demo&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;quoteHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#quote&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { menuOpen: false, navDark: true, submenuOpen: false };
+  state = { menuOpen: false, navDark: true, submenu: null };
 
   _PAGES = {
     'home': 'SWUT Home.dc.html',
     'idea-statica': 'IDEA StatiCa.dc.html',
     'contact': 'Contact.dc.html',
     'event': 'Event.dc.html',
+    'events': 'Events.dc.html',
+    'training': 'Training.dc.html',
+    'support': 'Technical Support.dc.html',
+    'workshops': 'Technical Workshops.dc.html',
+    'maintenance': 'Software Maintenance.dc.html',
+    'consultancy': 'BIM Consultancy.dc.html',
+    'demo': 'Request a Demo.dc.html',
   };
   _PRODUCT_LINKS = [
     { name: 'IDEA StatiCa', page: 'idea-statica', available: true },
     { name: 'ZWCAD', available: false },
     { name: 'Midas', available: false },
   ];
+  _SERVICE_LINKS = [
+    { name: 'Training', page: 'training', available: true },
+    { name: 'Technical Support', page: 'support', available: true },
+    { name: 'Technical Workshops', page: 'workshops', available: true },
+    { name: 'Software Maintenance', page: 'maintenance', available: true },
+    { name: 'BIM Consultancy', page: 'consultancy', available: true },
+    { name: 'Request a Demo', page: 'demo', available: true },
+  ];
 
   _closeOverlay() {
     document.body.style.overflow = '';
-    this.setState({ menuOpen: false, submenuOpen: false });
+    this.setState({ menuOpen: false, submenu: null });
   }
 
-  // Cross-page section link: if we're already on the target page, just
-  // smooth-scroll; otherwise stash the target and do a real navigation (the
-  // shared page-transition curtain handles the animated crossfade), and the
-  // destination page picks the pending target back up on mount.
   _goToSection(targetPage, sectionId) {
     return (e) => {
       e.preventDefault();
@@ -137,7 +150,7 @@ class Component extends DCLogic {
     window.addEventListener('mousemove', this._onMove, { passive: true });
     this._onKeyDown = (e) => {
       if (e.key !== 'Escape' || !this.state.menuOpen) return;
-      if (this.state.submenuOpen) this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus());
+      if (this.state.submenu) { const key = this.state.submenu; this.setState({ submenu: null }, () => this._btns[key] && this._btns[key].focus()); }
       else this._closeOverlay();
     };
     document.addEventListener('keydown', this._onKeyDown);
@@ -151,8 +164,11 @@ class Component extends DCLogic {
   }
   _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
 
+  _btns = {};
+
   renderVals() {
-    const { menuOpen, navDark, submenuOpen } = this.state;
+    const { menuOpen, navDark, submenu } = this.state;
+    const submenuOpen = !!submenu;
     const current = this.props.currentPage || 'home';
     const quoteHref = this.props.quoteHref || '#quote';
     const solid = !navDark || menuOpen;
@@ -169,7 +185,6 @@ class Component extends DCLogic {
     const homeHref = current === 'home' ? '#' : this._PAGES.home;
     const onHomeClick = (e) => { if (current === 'home') { e.preventDefault(); this._closeOverlay(); window.scrollTo({ top: 0, behavior: 'smooth' }); } else { this._closeOverlay(); } };
     const onQuoteClick = (e) => {
-      // in-page anchor (starts with '#', not a route) — just close + smooth scroll
       if (quoteHref.startsWith('#') && quoteHref.length > 1) {
         e.preventDefault();
         this._closeOverlay();
@@ -180,10 +195,23 @@ class Component extends DCLogic {
       }
     };
 
+    const openSubmenu = (key) => () => this.setState({ submenu: key }, () => this._backLinkEl && this._backLinkEl.focus());
+    const trigger = (key, label) => ({
+      label, isSubmenuTrigger: true, expanded: submenu === key,
+      open: openSubmenu(key),
+      btnRef: (el) => { this._btns[key] = el; },
+    });
+
     const menuLinks = [
       { label: 'Home', isLink: true, href: homeHref, onClick: onHomeClick },
-      { label: 'Products', isSubmenuTrigger: true },
-      { label: 'Services', isLink: true, href: current === 'home' ? '#services' : this._PAGES.home, onClick: this._goToSection('home', 'services') },
+      trigger('products', 'Products'),
+      trigger('services', 'Services'),
+      { label: 'Events', isLink: true, href: current === 'events' ? '#' : this._PAGES.events, onClick: (e) => {
+        if (current !== 'events') { this._closeOverlay(); return; }
+        e.preventDefault();
+        this._closeOverlay();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } },
       { label: 'About', isLink: true, href: '#', onClick: (e) => { e.preventDefault(); this._closeOverlay(); } },
       { label: 'Contact', isLink: true, href: current === 'contact' ? '#enquiry' : this._PAGES.contact, onClick: (e) => {
         if (current !== 'contact') { this._closeOverlay(); return; }
@@ -194,6 +222,11 @@ class Component extends DCLogic {
       } },
     ];
 
+    const source = submenu === 'services' ? this._SERVICE_LINKS : this._PRODUCT_LINKS;
+    const big = 'border-b border-border py-5 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl';
+    const mid = 'border-b border-border py-5 text-[28px] font-semibold leading-[1.15] tracking-tight sm:py-6 sm:text-[32px] lg:py-7 lg:text-[42px]';
+    const scale = submenu === 'services' ? mid : big;
+
     return {
       navClass, burgerWrapClass, barTopClass, barBotClass, ctaClass, overlayClass,
       homeHref, onHomeClick, quoteHref, onQuoteClick,
@@ -202,22 +235,23 @@ class Component extends DCLogic {
       mainPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? '-translate-x-full' : 'translate-x-0'),
       subPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? 'translate-x-0' : 'translate-x-full'),
       menuLinks,
-      productLinks: this._PRODUCT_LINKS.map(p => ({
+      submenuItems: source.map(p => ({
         name: p.name,
         href: p.available ? this._PAGES[p.page] : undefined,
         isLink: p.available && p.page !== current,
         isCurrent: p.available && p.page === current,
         isComingSoon: !p.available,
+        linkClass: 'group flex w-full items-start justify-between gap-6 text-foreground transition-colors hover:text-muted-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ' + scale,
+        currentClass: 'flex w-full items-start justify-between gap-6 text-muted-foreground ' + scale,
+        soonClass: 'flex w-full items-start justify-between gap-6 text-foreground/30 ' + scale,
       })),
       toggleMenu: () => this.setState(s => {
         const menuOpen = !s.menuOpen;
         document.body.style.overflow = menuOpen ? 'hidden' : '';
-        return { menuOpen, submenuOpen: false };
+        return { menuOpen, submenu: null };
       }),
       closeMenu: () => this._closeOverlay(),
-      openProductsMenu: () => this.setState({ submenuOpen: true }, () => this._backLinkEl && this._backLinkEl.focus()),
-      closeProductsMenu: () => this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus()),
-      productsBtnRef: (el) => { this._productsBtnEl = el; },
+      closeSubmenu: () => { const key = this.state.submenu; this.setState({ submenu: null }, () => this._btns[key] && this._btns[key].focus()); },
       backLinkRef: (el) => { this._backLinkEl = el; },
     };
   }

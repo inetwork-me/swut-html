@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
+
+  <dc-import name="NavHeader" current-page="{{ navKey }}" quote-href="#enquiry" hint-size="100%,80px"></dc-import>
+
+  <!-- ===== HERO ===== -->
+  <section data-nav-theme="dark" data-screen-label="Service hero" class="bg-primary px-6 pb-16 pt-32 text-primary-foreground sm:px-10 sm:pb-20 sm:pt-36 lg:px-20">
+    <div class="flex flex-col items-start gap-6">
+      <span class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">{{ label }}</span>
+      <h1 class="max-w-3xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+        <sc-for list="{{ headlineLines }}" as="line" hint-placeholder-count="2">
+          <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">{{ line.text }}</span></span>
+        </sc-for>
+      </h1>
+      <p data-reveal="fade" class="max-w-xl text-pretty text-base leading-relaxed text-white/70 sm:text-lg">{{ intro }}</p>
+      <a href="#enquiry" onClick="{{ scrollToForm }}" data-reveal="fade" class="group mt-4 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
+        {{ heroCta }}
+        <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== OVERVIEW ===== -->
+  <section data-nav-theme="light" data-screen-label="Service overview" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
+      <div class="col-span-12 lg:col-span-3">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ overviewLabel }}</span>
+      </div>
+      <div class="col-span-12 lg:col-span-9">
+        <h2 data-reveal="fade" class="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">{{ overviewLead }}</h2>
+
+        <div class="mt-16 flex flex-col">
+          <sc-for list="{{ overviewItems }}" as="item" hint-placeholder-count="3">
+            <div data-reveal="fade" class="grid grid-cols-12 items-start gap-6 border-t border-border py-8 lg:gap-10">
+              <div class="col-span-12 flex items-baseline gap-4 lg:col-span-4">
+                <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ item.num }}</span>
+                <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ item.title }}</h3>
+              </div>
+              <p class="col-span-12 text-sm leading-relaxed text-muted-foreground lg:col-span-8 lg:text-base">{{ item.body }}</p>
+            </div>
+          </sc-for>
+          <div class="border-t border-border"></div>
+        </div>
+
+        <sc-if value="{{ qualifier }}" hint-placeholder-val="{{ false }}">
+          <p data-reveal="fade" class="mt-8 max-w-2xl text-sm leading-relaxed text-muted-foreground">{{ qualifier }}</p>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ENQUIRY PREPARATION ===== -->
+  <sc-if value="{{ hasPrep }}" hint-placeholder-val="{{ true }}">
+  <section data-nav-theme="light" data-screen-label="Enquiry prep" class="px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
+    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
+      <div class="col-span-12 lg:col-span-3">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Before You Enquire</span>
+      </div>
+      <div class="col-span-12 lg:col-span-9">
+        <h2 data-reveal="fade" class="max-w-2xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">{{ prepLead }}</h2>
+        <div class="mt-14 flex flex-col">
+          <sc-for list="{{ prepItems }}" as="p" hint-placeholder-count="4">
+            <div data-reveal="fade" class="grid grid-cols-12 items-start gap-4 border-t border-border py-6 lg:gap-10">
+              <span class="col-span-12 text-base font-medium text-foreground lg:col-span-4">{{ p.title }}</span>
+              <span class="col-span-12 text-sm leading-relaxed text-muted-foreground lg:col-span-8">{{ p.body }}</span>
+            </div>
+          </sc-for>
+          <div class="border-t border-border"></div>
+        </div>
+        <p data-reveal="fade" class="mt-8 max-w-2xl text-sm leading-relaxed text-muted-foreground">These are prompts to help us understand your needs — not a list of guaranteed deliverables. Share whatever you have; we'll follow up with the rest.</p>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== ENQUIRY FORM ===== -->
+  <section id="enquiry" data-curtain-cols data-curtain-duration="900" data-nav-theme="light" data-screen-label="Service form" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-24">
+    <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
+
+      <div data-reveal="curtain-left" class="flex flex-col items-start gap-6 lg:col-span-4">
+        <h2 class="max-w-sm text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">{{ formHeading }}</h2>
+        <p class="max-w-sm text-base leading-relaxed text-muted-foreground">{{ formSub }}</p>
+        <div class="mt-2 flex w-full max-w-sm flex-col">
+          <div class="flex flex-col gap-1.5 border-t border-border py-5">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Email</span>
+            <a href="mailto:hello@swut.co" class="text-lg text-foreground transition-colors hover:text-muted-foreground">hello@swut.co</a>
+          </div>
+          <div class="flex flex-col gap-1.5 border-t border-b border-border py-5">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Location</span>
+            <span class="text-lg text-foreground">Cairo, Egypt</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal="curtain-right" onFocus="{{ forceReveal }}" class="lg:col-span-8">
+        <form onSubmit="{{ handleSubmit }}" class="flex flex-col gap-6" novalidate="">
+
+          <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
+            <div role="alert" class="flex flex-col gap-2 border border-border bg-muted px-5 py-4">
+              <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
+              <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. Connect a form endpoint and this button will send for real. Until then, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+            </div>
+          </sc-if>
+
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="s-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="s-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
+              <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="s-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="s-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
+              <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="s-company" class="text-sm text-muted-foreground">Company</label>
+              <input id="s-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="s-phone" class="text-sm text-muted-foreground">Phone number</label>
+              <input id="s-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div class="flex flex-col gap-2" ref="{{ svcWrapRef }}" onKeyDown="{{ onServiceKeyDown }}">
+              <label id="s-service-label" class="text-sm text-muted-foreground">Service <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <div class="relative">
+                <button type="button" id="s-service" aria-haspopup="listbox" aria-expanded="{{ serviceOpen }}" aria-labelledby="s-service-label" onClick="{{ toggleServiceOpen }}" class="flex w-full items-center justify-between gap-2 border border-border bg-transparent px-4 py-3 text-left text-base text-foreground">
+                  <span class="truncate">{{ fields.service }}</span>
+                  <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+                </button>
+                <sc-if value="{{ serviceOpen }}" hint-placeholder-val="{{ false }}">
+                  <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                    <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="6">
+                      <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                        <input type="radio" name="s-service-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                        {{ opt.name }}
+                      </label>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProductKeyDown }}">
+              <label id="s-product-label" class="text-sm text-muted-foreground">Product</label>
+              <div class="relative">
+                <button type="button" id="s-product" aria-haspopup="listbox" aria-expanded="{{ productOpen }}" aria-labelledby="s-product-label" onClick="{{ toggleProductOpen }}" class="flex w-full items-center justify-between gap-2 border border-border bg-transparent px-4 py-3 text-left text-base text-foreground">
+                  <span class="truncate">{{ fields.product }}</span>
+                  <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+                </button>
+                <sc-if value="{{ productOpen }}" hint-placeholder-val="{{ false }}">
+                  <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                    <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="4">
+                      <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                        <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                        {{ opt.name }}
+                      </label>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+
+          <sc-if value="{{ hasExtra }}" hint-placeholder-val="{{ false }}">
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div class="flex flex-col gap-2">
+                <label for="s-extra" class="text-sm text-muted-foreground">{{ extraLabel }}</label>
+                <input id="s-extra" type="{{ extraType }}" min="1" value="{{ fields.extra }}" onChange="{{ setExtra }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ extraPlaceholder }}" aria-invalid="{{ errors.extra }}" aria-describedby="err-extra">
+                <sc-if value="{{ errors.extra }}" hint-placeholder-val="{{ false }}"><span id="err-extra" class="text-sm text-red-600">{{ extraError }}</span></sc-if>
+              </div>
+            </div>
+          </sc-if>
+
+          <div class="flex flex-col gap-2">
+            <label for="s-message" class="text-sm text-muted-foreground">{{ messageLabel }} <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <textarea id="s-message" rows="5" required="" value="{{ fields.message }}" onChange="{{ setMessage }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ messagePlaceholder }}" aria-invalid="{{ errors.message }}" aria-describedby="err-message"></textarea>
+            <sc-if value="{{ errors.message }}" hint-placeholder-val="{{ false }}"><span id="err-message" class="text-sm text-red-600">Add a few words so we can respond usefully.</span></sc-if>
+          </div>
+
+          <button type="submit" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90">
+            {{ submitLabel }}
+            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer data-reveal="fade" data-nav-theme="dark" data-screen-label="Footer" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
+      <div class="flex flex-col gap-4">
+        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="block h-auto w-[160px] object-contain sm:w-[190px]" style="margin-bottom:15px">
+        <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
+        <ul class="flex flex-col gap-3">
+          <li><a href="SWUT Home.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
+          <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
+          <li><a href="SWUT Home.dc.html#services" class="text-sm text-white/70 transition-colors hover:text-white">All Services</a></li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Services</span>
+        <ul class="flex flex-col gap-3">
+          <sc-for list="{{ footerServices }}" as="f" hint-placeholder-count="6">
+            <li><a href="{{ f.href }}" class="text-sm text-white/70 transition-colors hover:text-white">{{ f.name }}</a></li>
+          </sc-for>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Contact</span>
+        <div class="flex flex-col gap-3 text-sm">
+          <a href="mailto:hello@swut.co" class="text-white/70 transition-colors hover:text-white">hello@swut.co</a>
+          <span class="text-white/40">Cairo, Egypt</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <span class="text-sm text-white/50">© 2026 SWUT. All rights reserved.</span>
+      <div class="flex gap-6 text-sm text-white/50">
+        <a href="#" class="transition-colors hover:text-white">Privacy Policy</a>
+        <a href="#" class="transition-colors hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200},&quot;serviceKey&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;training&quot;,&quot;options&quot;:[&quot;training&quot;,&quot;support&quot;,&quot;workshops&quot;,&quot;maintenance&quot;,&quot;consultancy&quot;,&quot;demo&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = {
+    fields: { name: '', email: '', company: '', phone: '', message: '', service: '', product: 'Not sure / Other', extra: '' },
+    errors: {}, serviceOpen: false, productOpen: false, noBackend: false,
+  };
+
+  _SERVICES = ['Training', 'Technical Support', 'Technical Workshops', 'Software Maintenance', 'BIM Consultancy', 'Request a Demo'];
+  _PRODUCTS = ['IDEA StatiCa', 'ZWCAD', 'Midas', 'Not sure / Other'];
+  _FOOTER = [
+    { name: 'Training', href: 'Training.dc.html' },
+    { name: 'Technical Support', href: 'Technical Support.dc.html' },
+    { name: 'Technical Workshops', href: 'Technical Workshops.dc.html' },
+    { name: 'Software Maintenance', href: 'Software Maintenance.dc.html' },
+    { name: 'BIM Consultancy', href: 'BIM Consultancy.dc.html' },
+    { name: 'Request a Demo', href: 'Request a Demo.dc.html' },
+  ];
+
+  _CONTENT = {
+    training: {
+      service: 'Training', label: 'Training',
+      headline: ['Build confidence', 'in your software.'],
+      intro: "Develop your skills with SWUT's software training, whether you're getting started or building on existing experience.",
+      heroCta: 'Request Training',
+      overviewLabel: 'What We Cover',
+      overviewLead: "Training is shaped around where your team is today — from first steps in a new tool to sharpening the habits of experienced users.",
+      items: [
+        { title: 'Getting familiar', body: 'An introduction to the software and its core tools, so new users can find their way around and start working without guesswork.' },
+        { title: 'Developing existing skills', body: 'For teams already using the software: a closer look at features that are often underused, and the workflows they unlock.' },
+        { title: 'Relevant to your industry', body: 'Sessions are discussed around the products SWUT supplies and the engineering and design work our clients do.' },
+      ],
+      prepLead: 'A few details help us shape the right session before we reply.',
+      prep: [
+        { title: 'Which software', body: 'Name the product — or products — the training should cover.' },
+        { title: 'Experience level', body: 'Tell us whether the group is new to the software or already working in it daily.' },
+        { title: 'Number of participants', body: 'A rough headcount is enough at this stage.' },
+        { title: 'Topics to cover', body: 'List the tools, tasks, or workflows the team wants to get better at.' },
+      ],
+      formHeading: 'Tell us what your team wants to learn.',
+      formSub: 'Send the details and we\u2019ll come back with options for a session.',
+      messageLabel: 'Topics to cover',
+      messagePlaceholder: 'Software, experience level, and the topics or workflows you want covered.',
+      submit: 'Request Training',
+      extra: { label: 'Number of participants', type: 'number', placeholder: 'e.g. 8', error: 'Enter 1 or more participants.' },
+    },
+    support: {
+      service: 'Technical Support', label: 'Technical Support',
+      headline: ['Get help.', 'Keep your work moving.'],
+      intro: "When documentation and tutorials don't answer your question, contact SWUT for guidance on your software issue.",
+      heroCta: 'Request Support',
+      overviewLabel: 'What To Send Us',
+      overviewLead: 'Describe what you were doing and what the software did instead — that is usually enough for us to point you in the right direction.',
+      items: [
+        { title: 'Tools and functions', body: 'Questions about how a particular tool, command, or setting is meant to work.' },
+        { title: 'Problems in use', body: 'Issues you run into while working — unexpected behaviour, errors, or results you cannot explain.' },
+        { title: 'A suitable next step', body: 'Where an answer sits outside our scope, we point you toward the relevant information or the right contact.' },
+      ],
+      prepLead: 'The more precise your description, the faster we can be useful.',
+      prep: [
+        { title: 'Product and version', body: 'Which software you are using, and the exact version or build number.' },
+        { title: 'The issue', body: 'What you expected to happen, and what happened instead.' },
+        { title: 'Error message', body: 'Copy the wording exactly, or attach a screenshot when you reply to our email.' },
+        { title: 'Steps that led to it', body: 'The sequence you followed before the problem appeared.' },
+      ],
+      formHeading: 'How can we help?',
+      formSub: 'Send us the detail and we\u2019ll review your issue.',
+      messageLabel: 'Describe the issue',
+      messagePlaceholder: 'What you were doing, what happened, any error message, and the steps to reproduce it.',
+      submit: 'Request Technical Support',
+      extra: { label: 'Software version', type: 'text', placeholder: 'e.g. 24.1.2', error: 'Enter the software version.' },
+    },
+    workshops: {
+      service: 'Technical Workshops', label: 'Technical Workshops',
+      headline: ['A workshop built', 'around your workflow.'],
+      intro: "Discuss a technical workshop focused on your company's software use, team needs, and BIM workflow.",
+      heroCta: 'Request a Workshop',
+      overviewLabel: 'Possible Focus',
+      overviewLead: 'A workshop starts from your company — the way your team already works, and the points where the software gets in the way.',
+      items: [
+        { title: 'Company-specific topics', body: 'We discuss the subjects and challenges your team raises, rather than a fixed syllabus.' },
+        { title: 'Better use of the tools', body: 'Guidance on getting more out of the software your team already owns.' },
+        { title: 'Fit within BIM', body: 'How the software sits inside your wider BIM workflow and the handovers around it.' },
+      ],
+      prepLead: 'Tell us about the team and the workflow you want to examine.',
+      prep: [
+        { title: 'Team size', body: 'How many people would take part.' },
+        { title: 'Software used', body: 'The tools in use today, including versions where relevant.' },
+        { title: 'Workflow challenges', body: 'Where work slows down, gets repeated, or breaks between stages.' },
+        { title: 'Topics to explore', body: 'Anything specific you would like the workshop to address.' },
+      ],
+      formHeading: 'Plan a workshop for your team.',
+      formSub: 'Share the context and we\u2019ll come back to discuss the shape of it.',
+      messageLabel: 'Workflow and topics',
+      messagePlaceholder: 'Your current workflow, the software in use, and the challenges you want the workshop to address.',
+      submit: 'Request a Workshop',
+      extra: { label: 'Number of participants', type: 'number', placeholder: 'e.g. 12', error: 'Enter 1 or more participants.' },
+    },
+    maintenance: {
+      service: 'Software Maintenance', label: 'Software Maintenance',
+      headline: ['Keep your software', 'ready for work.'],
+      intro: 'Explore maintenance options for keeping your software up to date and accessing support.',
+      heroCta: 'Enquire About Maintenance',
+      overviewLabel: 'What It Covers',
+      overviewLead: 'Maintenance keeps your installed software current and your team able to ask questions when something is unclear.',
+      items: [
+        { title: 'Versions and updates', body: 'Staying on a supported version, and applying the service releases issued for your product.' },
+        { title: 'User support', body: 'A route for software questions that come up during day-to-day work.' },
+        { title: 'A stable environment', body: 'Keeping the software environment consistent across the team as products change.' },
+      ],
+      qualifier: 'Available updates and support depend on your product and maintenance agreement.',
+      prepLead: 'Tell us what you run today and what you would like to discuss.',
+      prep: [
+        { title: 'Software', body: 'Which products the enquiry relates to.' },
+        { title: 'Current version', body: 'The version your team is working in now.' },
+        { title: 'Existing or new', body: 'Whether you want to discuss an agreement you already hold, or maintenance options in general.' },
+      ],
+      formHeading: 'Discuss your maintenance needs.',
+      formSub: 'Send the details and we\u2019ll review the options with you.',
+      messageLabel: 'What you\u2019d like to discuss',
+      messagePlaceholder: 'Your software, current version, and whether this concerns an existing agreement or new options.',
+      submit: 'Enquire About Maintenance',
+      extra: { label: 'Current software version', type: 'text', placeholder: 'e.g. 2025.1', error: 'Enter the current version.' },
+    },
+    consultancy: {
+      service: 'BIM Consultancy', label: 'BIM Consultancy',
+      headline: ['Move your BIM', 'workflow forward.'],
+      intro: 'Discuss how your team can deepen its BIM knowledge and improve the way its software and workflows work together.',
+      heroCta: 'Request a Consultation',
+      overviewLabel: 'What We Discuss',
+      overviewLead: 'A conversation about where your BIM workflow stands today, and what you want it to do better.',
+      items: [
+        { title: 'Your current workflow', body: 'How work moves through your team now, and where the friction sits.' },
+        { title: 'The software you use', body: 'The tools involved and how they exchange information between stages.' },
+        { title: 'Challenges and improvements', body: 'The specific changes you want to discuss and what is standing in the way.' },
+      ],
+      prepLead: 'Three things give us enough to start the conversation.',
+      prep: [
+        { title: 'Current BIM workflow', body: 'A short description of how your team works today.' },
+        { title: 'Software in use', body: 'The tools your team relies on across design and delivery.' },
+        { title: 'What you want to improve', body: 'The challenges or changes you would like to talk through.' },
+      ],
+      formHeading: 'Tell us about your BIM workflow.',
+      formSub: 'Share the outline and we\u2019ll arrange a conversation.',
+      messageLabel: 'Your BIM workflow',
+      messagePlaceholder: 'How your team works today, the software involved, and what you want to improve.',
+      submit: 'Request a Consultation',
+    },
+    demo: {
+      service: 'Request a Demo', label: 'Request a Demo',
+      headline: ['See how the software', 'fits your work.'],
+      intro: "Tell us which product you're evaluating and what you want to explore. Contact SWUT about a demonstration or software evaluation.",
+      heroCta: 'Request a Demo',
+      overviewLabel: 'Evaluating',
+      overviewLead: 'Tell us the product you are considering and the work you want to put it against — we will respond about a demonstration or an evaluation.',
+      items: [
+        { title: 'The product', body: 'IDEA StatiCa, ZWCAD, or Midas — or tell us you are still deciding and we will help narrow it down.' },
+        { title: 'What you want to see', body: 'The tasks, files, or workflows you would like the demonstration to cover.' },
+      ],
+      qualifier: 'Sending this form starts a conversation; it does not book a session or activate a trial. Evaluation terms differ between products.',
+      formHeading: 'What would you like to explore?',
+      formSub: 'A short note about the product and your work is enough.',
+      messageLabel: 'What you want to explore',
+      messagePlaceholder: 'The product you are evaluating and what you would like to see it handle.',
+      submit: 'Request a Demo',
+    },
+  };
+
+  _c() { return this._CONTENT[this.props.serviceKey] || this._CONTENT.training; }
+
+  componentDidMount() {
+    this.setState(s => ({ fields: { ...s.fields, service: this._c().service } }));
+    this._initReveal();
+    this._icons();
+    this._onDocClick = (e) => {
+      if (this.state.serviceOpen && this._svcWrap && !this._svcWrap.contains(e.target)) this.setState({ serviceOpen: false });
+      if (this.state.productOpen && this._prodWrap && !this._prodWrap.contains(e.target)) this.setState({ productOpen: false });
+    };
+    document.addEventListener('mousedown', this._onDocClick);
+    const target = sessionStorage.getItem('__swut_scroll_target');
+    if (target) {
+      sessionStorage.removeItem('__swut_scroll_target');
+      setTimeout(() => {
+        const el = document.getElementById(target);
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      }, 300);
+    }
+  }
+  componentDidUpdate() { this._icons(); }
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this._onDocClick);
+    if (this._revealSweep) { window.removeEventListener('scroll', this._revealSweep); window.removeEventListener('resize', this._revealSweep); }
+  }
+  _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  _initReveal() {
+    if (this._revealInit) return;
+    this._revealInit = true;
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fadeTargets = Array.from(document.querySelectorAll('[data-reveal="fade"]'));
+    const maskTargets = [];
+    document.querySelectorAll('[data-reveal="mask"]').forEach(h => { if (h.firstElementChild) maskTargets.push(h.firstElementChild); });
+    const colContainers = Array.from(document.querySelectorAll('[data-curtain-cols]'));
+
+    if (reduced || !('IntersectionObserver' in window)) {
+      fadeTargets.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+      maskTargets.forEach(el => { el.style.transform = 'none'; });
+      colContainers.forEach(el => {
+        const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+        if (l) l.style.clipPath = '';
+        if (r) r.style.clipPath = '';
+      });
+      return;
+    }
+
+    fadeTargets.forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1)';
+    });
+    maskTargets.forEach((el, i) => {
+      el.style.transform = 'translateY(110%)';
+      el.style.transition = `transform 0.75s cubic-bezier(0.22,1,0.36,1) ${i * 90}ms`;
+    });
+    colContainers.forEach(el => {
+      const dur = Number(el.dataset.curtainDuration) || 1000;
+      const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+      if (l) { l.style.clipPath = 'inset(0 100% 0 0)'; l.style.transition = `clip-path ${dur}ms cubic-bezier(0.22,1,0.36,1)`; }
+      if (r) { r.style.clipPath = 'inset(0 0 0 100%)'; r.style.transition = `clip-path ${dur}ms cubic-bezier(0.22,1,0.36,1)`; }
+    });
+
+    const margin = 60;
+    const inView = (el) => { const r = el.getBoundingClientRect(); return r.top < window.innerHeight + margin && r.bottom > -margin; };
+    const pending = [];
+    fadeTargets.forEach(el => pending.push({ el, reveal: () => { el.style.opacity = '1'; el.style.transform = 'none'; } }));
+    maskTargets.forEach(el => pending.push({ el, reveal: () => { el.style.transform = 'translateY(0)'; } }));
+    colContainers.forEach(el => pending.push({ el, reveal: () => this._finishCols(el) }));
+    this._revealPending = pending;
+    const sweep = () => {
+      this._revealPending = this._revealPending.filter(item => {
+        if (!inView(item.el)) return true;
+        item.reveal();
+        return false;
+      });
+    };
+    this._revealSweep = sweep;
+    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('resize', sweep);
+    requestAnimationFrame(sweep);
+    requestAnimationFrame(() => requestAnimationFrame(sweep));
+    setTimeout(sweep, 400);
+    // safety: if anything above fails to fire, make everything visible
+    setTimeout(() => { if (this._revealPending && this._revealPending.length) sweep(); }, 2500);
+  }
+
+  _finishCols(el) {
+    const dur = Number(el.dataset.curtainDuration) || 1000;
+    const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+    [l, r].forEach(n => {
+      if (!n) return;
+      n.style.clipPath = 'inset(0 0 0 0)';
+      setTimeout(() => { n.style.clipPath = ''; n.style.transition = ''; }, dur + 50);
+    });
+  }
+
+  _validate(f, c) {
+    const errors = {};
+    if (!f.name.trim()) errors.name = true;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.message.trim()) errors.message = true;
+    if (c.extra && c.extra.type === 'number' && f.extra && Number(f.extra) < 1) errors.extra = true;
+    return errors;
+  }
+
+  _focusFirstError(errors) {
+    const order = [['name', 's-name'], ['email', 's-email'], ['extra', 's-extra'], ['message', 's-message']];
+    const hit = order.find(([k]) => errors[k]);
+    if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
+  }
+
+  renderVals() {
+    const c = this._c();
+    const { fields, errors, serviceOpen, productOpen, noBackend } = this.state;
+
+    return {
+      navKey: this.props.serviceKey || 'training',
+      label: c.label,
+      headlineLines: c.headline.map(text => ({ text })),
+      intro: c.intro,
+      heroCta: c.heroCta,
+      overviewLabel: c.overviewLabel,
+      overviewLead: c.overviewLead,
+      overviewItems: c.items.map((it, i) => ({ num: String(i + 1).padStart(2, '0'), title: it.title, body: it.body })),
+      qualifier: c.qualifier || false,
+      hasPrep: !!(c.prep && c.prep.length),
+      prepLead: c.prepLead,
+      prepItems: c.prep || [],
+      formHeading: c.formHeading,
+      formSub: c.formSub,
+      messageLabel: c.messageLabel,
+      messagePlaceholder: c.messagePlaceholder,
+      submitLabel: c.submit,
+      hasExtra: !!c.extra,
+      extraLabel: c.extra ? c.extra.label : '',
+      extraType: c.extra ? c.extra.type : 'text',
+      extraPlaceholder: c.extra ? c.extra.placeholder : '',
+      extraError: c.extra ? c.extra.error : '',
+      footerServices: this._FOOTER,
+      fields, errors, serviceOpen, productOpen, noBackend,
+      serviceOptions: this._SERVICES.map(name => ({
+        name, checked: fields.service === name,
+        select: () => this.setState(s => ({ fields: { ...s.fields, service: name }, serviceOpen: false })),
+      })),
+      productOptions: this._PRODUCTS.map(name => ({
+        name, checked: fields.product === name,
+        select: () => this.setState(s => ({ fields: { ...s.fields, product: name }, productOpen: false })),
+      })),
+      svcWrapRef: (el) => { this._svcWrap = el; },
+      prodWrapRef: (el) => { this._prodWrap = el; },
+      toggleServiceOpen: () => this.setState(s => ({ serviceOpen: !s.serviceOpen, productOpen: false })),
+      toggleProductOpen: () => this.setState(s => ({ productOpen: !s.productOpen, serviceOpen: false })),
+      onServiceKeyDown: (e) => { if (e.key === 'Escape' && this.state.serviceOpen) this.setState({ serviceOpen: false }); },
+      onProductKeyDown: (e) => { if (e.key === 'Escape' && this.state.productOpen) this.setState({ productOpen: false }); },
+      forceReveal: () => { document.querySelectorAll('[data-curtain-cols]').forEach(el => this._finishCols(el)); },
+      scrollToForm: (e) => {
+        e.preventDefault();
+        const el = document.getElementById('enquiry');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      },
+      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
+      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
+      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
+      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
+      setExtra: (e) => this.setState(s => ({ fields: { ...s.fields, extra: e.target.value } })),
+      setMessage: (e) => this.setState(s => ({ fields: { ...s.fields, message: e.target.value } })),
+      handleSubmit: (e) => {
+        e.preventDefault();
+        const errs = this._validate(this.state.fields, c);
+        if (Object.keys(errs).length) {
+          this.setState({ errors: errs, noBackend: false }, () => this._focusFirstError(errs));
+          return;
+        }
+        // No submission endpoint is wired up — surfaced rather than faking success.
+        console.info('[SWUT service enquiry] no backend configured; payload not sent:', { ...this.state.fields });
+        this.setState({ errors: {}, noBackend: true });
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

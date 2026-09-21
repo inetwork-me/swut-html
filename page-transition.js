@@ -140,10 +140,15 @@
     if (!open && document.body.style.overflow === 'hidden') document.body.style.overflow = '';
   }
 
-  // Reveal-on-scroll elements sit at opacity 0 until their observer fires.
-  // Anything already on screen after a restore is shown immediately, so a
-  // missed observer callback cannot leave the view permanently blank.
+  // Reveal-on-scroll elements sit hidden until their animation runs. Anything
+  // already on screen after a restore is shown immediately, so a state frozen
+  // mid-animation cannot leave the view blank.
   function revealOnScreen() {
+    // The shared reveal engine knows every reveal kind and heals its own
+    // stuck elements; the opacity pass below only covers pages without it.
+    if (window.SWUTReveal && typeof window.SWUTReveal.sweep === 'function') {
+      try { window.SWUTReveal.sweep(); } catch (e) {}
+    }
     var els = document.querySelectorAll('[data-reveal]');
     var vh = window.innerHeight || document.documentElement.clientHeight || 0;
     for (var i = 0; i < els.length; i++) {

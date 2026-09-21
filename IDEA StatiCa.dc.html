@@ -29,6 +29,7 @@
   };
 </script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="./events-data.js"></script>
 <style>
   :root {
     --background: 1 0 0;
@@ -420,6 +421,10 @@
       <h2 data-reveal="mask" class="overflow-hidden py-1 text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
         <span class="inline-block">News &amp; Events</span>
       </h2>
+      <a href="Events.dc.html?product=IDEA%20StatiCa" data-reveal="fade" class="group mt-1 inline-flex items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground">
+        View all events
+        <i data-lucide="arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+      </a>
     </div>
 
     <div class="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -690,7 +695,30 @@ class Component extends DCLogic {
     sync();
   }
 
+  _waitForEvents() {
+    if (window.SWUTEvents) { this.forceUpdate(); return; }
+    this._evTries = (this._evTries || 0) + 1;
+    if (this._evTries > 40) return;
+    this._evTimer = setTimeout(() => this._waitForEvents(), 60);
+  }
+
+  _productEvents() {
+    const api = window.SWUTEvents;
+    if (!api) return [];
+    return api.byProduct('IDEA StatiCa').map(ev => ({
+      id: ev.slug,
+      href: ev.href,
+      title: ev.title,
+      summary: ev.summary,
+      venue: api.place(ev),
+      kindAndDate: 'Event \u2014 ' + api.dateLabel(ev),
+      isUpcoming: api.status(ev) === 'upcoming',
+      isPast: api.status(ev) === 'past',
+    }));
+  }
+
   componentDidMount() {
+    this._waitForEvents();
     Promise.all(this._THUMB_SOURCES.map(t => this._stripWhite(t.src))).then(results => {
       const map = {};
       results.forEach((url, i) => { if (url) map[this._THUMB_SOURCES[i].slot] = url; });
@@ -1027,22 +1055,7 @@ class Component extends DCLogic {
       reuseMain: reuseThumbs[0],
       reuseSideA: reuseThumbs[1],
       reuseSideB: reuseThumbs[2],
-      newsEvents: [
-        {
-          id: 'idea-statica-coffee-and-learn',
-          href: 'Event.dc.html',
-          kind: 'Event',
-          date: '2026-10-05',
-          dateLabel: '05 October 2026',
-          title: 'IDEA StatiCa Coffee & Learn',
-          venue: 'Triumph Luxury Hotel',
-          summary: 'Meet the IDEA StatiCa team for technical presentations, customer success stories, and discussions on structural design workflows.',
-        },
-      ].map(item => {
-        const today = new Date(); today.setHours(0, 0, 0, 0);
-        const upcoming = new Date(item.date + 'T00:00:00') >= today;
-        return { ...item, kindAndDate: `${item.kind} \u2014 ${item.dateLabel}`, isUpcoming: upcoming, isPast: !upcoming };
-      }),
+      newsEvents: this._productEvents(),
       facts: [
         { label: 'Category', value: 'Structural Design Software', isText: true },
         { label: 'Developed by', value: 'IDEA StatiCa', isLink: true, href: 'https://www.ideastatica.com/' },

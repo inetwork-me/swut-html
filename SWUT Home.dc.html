@@ -188,7 +188,7 @@
   </section>
 
   <!-- ===== SERVICES ===== -->
-  <section data-nav-theme="light" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="overflow: visible">
+  <section id="services" data-nav-theme="light" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="overflow: visible">
     <!-- header row: headlines left, slider arrows right -->
     <div class="flex items-end justify-between gap-6">
       <div class="flex flex-col items-start gap-5">
@@ -208,7 +208,7 @@
     <!-- slider track -->
     <div id="services-track" class="mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-1" style="overflow: hidden">
       <sc-for list="{{ services }}" as="svc" hint-placeholder-count="5" style="overflow: auto">
-        <div class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
+        <a href="{{ svc.href }}" class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
           <!-- 9:16 image, 610px tall (343 × 610 keeps the ratio) -->
           <div class="relative h-[610px] w-full overflow-hidden">
             <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
@@ -223,7 +223,7 @@
           </div>
           <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ svc.title }}</h3>
           <p class="text-sm leading-relaxed text-muted-foreground">{{ svc.desc }}</p>
-        </div>
+        </a>
       </sc-for>
     </div>
   </section>
@@ -291,6 +291,9 @@
           <li><a href="#products" class="text-sm text-white/70 transition-colors hover:text-white">Products</a></li>
           <li><a href="#services" class="text-sm text-white/70 transition-colors hover:text-white">Services</a></li>
           <li><a href="IDEA StatiCa.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">IDEA StatiCa</a></li>
+          <li><a href="Training.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Training</a></li>
+          <li><a href="Technical Support.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Technical Support</a></li>
+          <li><a href="Request a Demo.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Request a Demo</a></li>
           <li><a href="Contact.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Contact</a></li>
         </ul>
       </div>
@@ -525,16 +528,18 @@ class Component extends DCLogic {
   renderVals() {
     return {
       services: [
-        { title: 'Software Maintenance', slot: 'svc-maint', placeholder: 'service image',
-          desc: 'Ongoing updates, monitoring, and expert fixes that keep every license secure and running smoothly.' },
-        { title: 'Training', slot: 'svc-train', placeholder: 'service image',
-          desc: 'Hands-on onboarding and role-based sessions so your team masters each tool from day one.' },
-        { title: 'Finance', slot: 'svc-finance', placeholder: 'service image',
-          desc: 'Flexible licensing and payment plans that keep powerful software within your budget.' },
-        { title: 'Technical Support', slot: 'svc-support', placeholder: 'service image',
-          desc: 'Fast, expert help whenever you need it — from setup questions to complex troubleshooting.' },
-        { title: 'Trial Demo', slot: 'svc-demo', placeholder: 'service image',
-          desc: 'Try before you commit with a guided, full-feature demo tailored to your workflow.' },
+        { title: 'Training', slot: 'svc-train', placeholder: 'service image', href: 'Training.dc.html',
+          desc: 'Build confidence in your software — whether your team is starting out or sharpening existing skills.' },
+        { title: 'Technical Support', slot: 'svc-support', placeholder: 'service image', href: 'Technical Support.dc.html',
+          desc: 'Guidance on software issues when documentation and tutorials do not answer the question.' },
+        { title: 'Technical Workshops', slot: 'svc-workshop', placeholder: 'service image', href: 'Technical Workshops.dc.html',
+          desc: 'A workshop shaped around your company\u2019s software use, team needs, and BIM workflow.' },
+        { title: 'Software Maintenance', slot: 'svc-maint', placeholder: 'service image', href: 'Software Maintenance.dc.html',
+          desc: 'Options for keeping your software up to date and your team able to ask questions.' },
+        { title: 'BIM Consultancy', slot: 'svc-bim', placeholder: 'service image', href: 'BIM Consultancy.dc.html',
+          desc: 'Deepen your team\u2019s BIM knowledge and improve how software and workflows work together.' },
+        { title: 'Request a Demo', slot: 'svc-demo', placeholder: 'service image', href: 'Request a Demo.dc.html',
+          desc: 'See how a product fits your work before you commit — tell us what you want to explore.' },
       ],
       slideNext: () => this._slide(1),
       slidePrev: () => this._slide(-1),

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./page-transition.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          background: 'oklch(var(--background))',
+          foreground: 'oklch(var(--foreground))',
+          card: 'oklch(var(--card))',
+          border: 'oklch(var(--border))',
+          primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
+          muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
+        },
+        borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="./reveal.js"></script>
+<script src="./hero-motion.js"></script>
+<link rel="stylesheet" href="./swut-anim.css">
+<style>
+  :root {
+    --background: 1 0 0;
+    --foreground: 0.145 0 0;
+    --card: 1 0 0;
+    --border: 0.922 0 0;
+    --primary: 0.205 0 0;
+    --primary-foreground: 0.985 0 0;
+    --muted-foreground: 0.556 0 0;
+    --muted: 0.97 0 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  input:focus, textarea:focus, button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+</style>
+</helmet>
+
+<div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
+
+  <dc-import name="NavHeader" current-page="consultancy" quote-href="#enquiry" hint-size="100%,80px"></dc-import>
+
+  <section data-nav-theme="dark" data-screen-label="Consultancy hero" class="bg-primary text-primary-foreground">
+    <div class="grid grid-cols-1 items-center gap-10 px-6 pb-20 pt-32 sm:px-10 sm:pt-36 lg:grid-cols-12 lg:gap-16 lg:px-20 lg:py-36">
+      <div class="flex flex-col items-start gap-6 lg:col-span-5">
+        <span class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">BIM Consultancy</span>
+        <h1 class="max-w-xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+          <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">Move your BIM</span></span>
+          <span data-reveal="mask" data-reveal-delay="90" class="block overflow-hidden pb-1"><span class="block">workflow forward.</span></span>
+        </h1>
+        <p data-reveal="fade" data-reveal-delay="140" class="max-w-md text-pretty text-base leading-relaxed text-white/70 sm:text-lg">A conversation about where your workflow stands today — how drawings, models, and coordination fit together, and what you want to work better.</p>
+        <a href="#enquiry" onClick="{{ scrollToForm }}" data-reveal="fade" data-reveal-delay="200" class="group mt-3 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
+          Request a Consultation
+          <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+        </a>
+      </div>
+
+      <div data-reveal="fade" data-reveal-delay="120" data-hero-anim="running" class="h-[240px] sm:h-[340px] lg:col-span-7 lg:h-auto">
+        <svg viewBox="0 0 640 470" role="img" aria-label="Conceptual illustration: a drawing, a structural model, and a coordination view connected in sequence" class="h-full w-full lg:h-auto">
+          <g fill="none" stroke="#ffffff" stroke-width="1.5">
+            <g>
+              <rect x="32" y="120" width="150" height="215"></rect>
+              <line x1="32" y1="152" x2="182" y2="152" opacity="0.6"></line>
+              <g opacity="0.55">
+                <line x1="58" y1="196" x2="156" y2="196"></line>
+                <line x1="58" y1="196" x2="58" y2="298"></line>
+                <line x1="156" y1="196" x2="156" y2="298"></line>
+                <line x1="58" y1="298" x2="156" y2="298"></line>
+                <line x1="58" y1="196" x2="156" y2="298"></line>
+              </g>
+            </g>
+
+            <g>
+              <rect x="245" y="120" width="150" height="215" fill="#111111"></rect>
+              <rect x="245" y="120" width="150" height="215" opacity="0.4"></rect>
+              <polyline points="282,272 282,208 320,184 358,208 358,272 320,296 282,272"></polyline>
+              <line x1="320" y1="184" x2="320" y2="248"></line>
+              <line x1="320" y1="248" x2="282" y2="272"></line>
+              <line x1="320" y1="248" x2="358" y2="272"></line>
+            </g>
+
+            <g>
+              <rect x="458" y="120" width="150" height="215"></rect>
+              <line x1="458" y1="152" x2="608" y2="152" opacity="0.6"></line>
+              <g class="swut-step" style="animation-delay:0.3s">
+                <rect x="480" y="182" width="16" height="16" opacity="0.8"></rect>
+                <line x1="508" y1="190" x2="586" y2="190" opacity="0.6"></line>
+              </g>
+              <g class="swut-step" style="animation-delay:1s">
+                <rect x="480" y="226" width="16" height="16" opacity="0.8"></rect>
+                <line x1="508" y1="234" x2="572" y2="234" opacity="0.6"></line>
+              </g>
+              <g class="swut-step" style="animation-delay:1.7s">
+                <rect x="480" y="270" width="16" height="16" opacity="0.8"></rect>
+                <line x1="508" y1="278" x2="586" y2="278" opacity="0.6"></line>
+              </g>
+            </g>
+
+            <g class="swut-step" style="animation-delay:0.5s">
+              <path d="M182 228 L 245 228" stroke-dasharray="4 10" class="swut-flow"></path>
+            </g>
+            <g class="swut-step" style="animation-delay:1.4s">
+              <path d="M395 228 L 458 228" stroke-dasharray="4 10" class="swut-flow" style="animation-delay:0.5s"></path>
+            </g>
+            <line x1="32" y1="392" x2="608" y2="392" opacity="0.3"></line>
+          </g>
+          <circle cx="182" cy="228" r="4.5" fill="#ffffff" class="swut-step" style="animation-delay:0.5s"></circle>
+          <circle cx="245" cy="228" r="4.5" fill="#ffffff" class="swut-step" style="animation-delay:0.5s"></circle>
+          <circle cx="395" cy="228" r="4.5" fill="#ffffff" class="swut-step" style="animation-delay:1.4s"></circle>
+          <circle cx="458" cy="228" r="4.5" fill="#ffffff" class="swut-step" style="animation-delay:1.4s"></circle>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section data-nav-theme="light" data-screen-label="Consultancy coverage" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
+      <div class="col-span-12 lg:col-span-3">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">What We Look At</span>
+      </div>
+      <div class="col-span-12 lg:col-span-9">
+        <h2 data-reveal="lines" class="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+          A conversation about where your BIM workflow stands today, and what you would like working better.
+        </h2>
+        <div class="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-3">
+          <sc-for list="{{ features }}" as="f" hint-placeholder-count="3">
+            <div data-reveal="fade" class="flex flex-col gap-5 border-l border-border px-6 py-2">
+              <span class="flex w-fit items-center justify-center bg-muted p-2 text-foreground">
+                <i data-lucide="{{ f.icon }}" class="size-5"></i>
+              </span>
+              <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ f.title }}</h3>
+              <p class="text-sm leading-relaxed text-muted-foreground">{{ f.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="ServiceForm"
+    service="BIM Consultancy"
+    heading="Start the conversation."
+    sub="Tell us where your workflow stands today."
+    submit-label="Request a Consultation"
+    hint-size="100%,860px"></dc-import>
+
+  <dc-import name="SiteFooter" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
+class Component extends DCLogic {
+  _FEATURES = [
+    { icon: 'compass', title: 'BIM knowledge', body: 'Where your team stands today, and the concepts worth being confident about.' },
+    { icon: 'git-merge', title: 'Connected workflows', body: 'How drawings, models, and coordination fit together across a project.' },
+    { icon: 'building-2', title: 'Company needs', body: 'The constraints your company works under, and what you would like to improve first.' },
+  ];
+
+  componentDidMount() { this._icons(); }
+  componentDidUpdate() { this._icons(); }
+  _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  renderVals() {
+    return {
+      features: this._FEATURES,
+      scrollToForm: (e) => {
+        e.preventDefault();
+        const el = document.getElementById('enquiry');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

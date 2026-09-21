@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<section id="enquiry" data-screen-label="Enquiry form" data-nav-theme="light" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
+  <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
+
+    <div data-reveal="curtain-left" class="flex flex-col items-start gap-5 lg:col-span-4">
+      <h2 class="max-w-sm text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">{{ heading }}</h2>
+      <p class="max-w-sm text-base leading-relaxed text-muted-foreground">{{ sub }}</p>
+      <div class="mt-4 flex w-full max-w-xs flex-col">
+        <div class="flex flex-col gap-1 border-t border-border py-4">
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Email</span>
+          <a href="mailto:hello@swut.co" class="text-base text-foreground transition-colors hover:text-muted-foreground">hello@swut.co</a>
+        </div>
+        <div class="flex flex-col gap-1 border-b border-t border-border py-4">
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Location</span>
+          <span class="text-base text-foreground">Cairo, Egypt</span>
+        </div>
+      </div>
+    </div>
+
+    <div data-reveal="curtain-right" onFocus="{{ forceReveal }}" class="lg:col-span-8">
+      <form onSubmit="{{ handleSubmit }}" class="flex flex-col gap-6" novalidate="">
+
+        <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
+          <div role="alert" class="flex flex-col gap-2 border border-border bg-background px-5 py-4">
+            <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
+            <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. Until a form endpoint is connected, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+          </div>
+        </sc-if>
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div class="flex flex-col gap-2">
+            <label for="s-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <input id="s-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
+            <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="s-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <input id="s-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
+            <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div class="flex flex-col gap-2">
+            <label for="s-company" class="text-sm text-muted-foreground">Company</label>
+            <input id="s-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="s-phone" class="text-sm text-muted-foreground">Phone number</label>
+            <input id="s-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div class="flex flex-col gap-2" ref="{{ svcWrapRef }}" onKeyDown="{{ onSvcKey }}">
+            <label id="s-service-label" class="text-sm text-muted-foreground">Service <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <div class="relative">
+              <button type="button" id="s-service" aria-haspopup="listbox" aria-expanded="{{ svcOpen }}" aria-labelledby="s-service-label" onClick="{{ toggleSvc }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
+                <span class="truncate">{{ fields.service }}</span>
+                <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+              </button>
+              <sc-if value="{{ svcOpen }}" hint-placeholder-val="{{ false }}">
+                <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                  <sc-for list="{{ serviceOptions }}" as="opt" hint-placeholder-count="6">
+                    <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                      <input type="radio" name="s-service-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                      {{ opt.name }}
+                    </label>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProdKey }}">
+            <label id="s-product-label" class="text-sm text-muted-foreground">Product</label>
+            <div class="relative">
+              <button type="button" id="s-product" aria-haspopup="listbox" aria-expanded="{{ prodOpen }}" aria-labelledby="s-product-label" onClick="{{ toggleProd }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
+                <span class="truncate">{{ fields.product }}</span>
+                <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+              </button>
+              <sc-if value="{{ prodOpen }}" hint-placeholder-val="{{ false }}">
+                <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                  <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="4">
+                    <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                      <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                      {{ opt.name }}
+                    </label>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+
+        <sc-if value="{{ ctxPair }}" hint-placeholder-val="{{ false }}">
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+            <div class="flex flex-col gap-2" ref="{{ aWrapRef }}" onKeyDown="{{ onAKey }}">
+              <label id="s-ctxa-label" for="s-ctxa" class="text-sm text-muted-foreground">{{ ctxALabel }}</label>
+              <sc-if value="{{ ctxAIsSelect }}" hint-placeholder-val="{{ false }}">
+                <div class="relative">
+                  <button type="button" aria-haspopup="listbox" aria-expanded="{{ aOpen }}" aria-labelledby="s-ctxa-label" onClick="{{ toggleA }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
+                    <span class="truncate">{{ fields.ctxA }}</span>
+                    <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+                  </button>
+                  <sc-if value="{{ aOpen }}" hint-placeholder-val="{{ false }}">
+                    <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                      <sc-for list="{{ ctxAOptions }}" as="opt" hint-placeholder-count="3">
+                        <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                          <input type="radio" name="s-ctxa-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                          {{ opt.name }}
+                        </label>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+              <sc-if value="{{ ctxAIsInput }}" hint-placeholder-val="{{ true }}">
+                <input id="s-ctxa" type="{{ ctxAType }}" min="1" value="{{ fields.ctxA }}" onChange="{{ setA }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxAPlaceholder }}" aria-invalid="{{ errors.ctxA }}" aria-describedby="err-ctxa">
+              </sc-if>
+              <sc-if value="{{ errors.ctxA }}" hint-placeholder-val="{{ false }}"><span id="err-ctxa" class="text-sm text-red-600">Enter 1 or more.</span></sc-if>
+            </div>
+
+            <div class="flex flex-col gap-2" ref="{{ bWrapRef }}" onKeyDown="{{ onBKey }}">
+              <label id="s-ctxb-label" for="s-ctxb" class="text-sm text-muted-foreground">{{ ctxBLabel }}</label>
+              <sc-if value="{{ ctxBIsSelect }}" hint-placeholder-val="{{ false }}">
+                <div class="relative">
+                  <button type="button" aria-haspopup="listbox" aria-expanded="{{ bOpen }}" aria-labelledby="s-ctxb-label" onClick="{{ toggleB }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
+                    <span class="truncate">{{ fields.ctxB }}</span>
+                    <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+                  </button>
+                  <sc-if value="{{ bOpen }}" hint-placeholder-val="{{ false }}">
+                    <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                      <sc-for list="{{ ctxBOptions }}" as="opt" hint-placeholder-count="3">
+                        <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                          <input type="radio" name="s-ctxb-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                          {{ opt.name }}
+                        </label>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+              <sc-if value="{{ ctxBIsInput }}" hint-placeholder-val="{{ true }}">
+                <input id="s-ctxb" type="{{ ctxBType }}" min="1" value="{{ fields.ctxB }}" onChange="{{ setB }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxBPlaceholder }}" aria-invalid="{{ errors.ctxB }}" aria-describedby="err-ctxb">
+              </sc-if>
+              <sc-if value="{{ errors.ctxB }}" hint-placeholder-val="{{ false }}"><span id="err-ctxb" class="text-sm text-red-600">Enter 1 or more.</span></sc-if>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ ctxFull }}" hint-placeholder-val="{{ false }}">
+          <div class="flex flex-col gap-2">
+            <label for="s-ctxfull" class="text-sm text-muted-foreground">{{ ctxFullLabel }}</label>
+            <input id="s-ctxfull" type="text" value="{{ fields.ctxFull }}" onChange="{{ setFull }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxFullPlaceholder }}">
+          </div>
+        </sc-if>
+
+        <div class="flex flex-col gap-2">
+          <label for="s-message" class="text-sm text-muted-foreground">Message <span aria-hidden="true" style="color:#C62828">*</span></label>
+          <textarea id="s-message" required="" value="{{ fields.message }}" onChange="{{ setMessage }}" class="h-[132px] resize-y border border-border bg-transparent px-4 py-3 text-base leading-relaxed text-foreground placeholder:text-muted-foreground" placeholder="{{ messagePlaceholder }}" aria-invalid="{{ errors.message }}" aria-describedby="err-message"></textarea>
+          <sc-if value="{{ errors.message }}" hint-placeholder-val="{{ false }}"><span id="err-message" class="text-sm text-red-600">Add a few words so we can respond usefully.</span></sc-if>
+        </div>
+
+        <div class="flex pt-1">
+          <button type="submit" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90">
+            {{ submitLabel }}
+            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;service&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Training&quot;,&quot;options&quot;:[&quot;Training&quot;,&quot;Technical Support&quot;,&quot;Technical Workshops&quot;,&quot;Software Maintenance&quot;,&quot;BIM Consultancy&quot;,&quot;Request a Demo&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;product&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Not sure / Other&quot;,&quot;options&quot;:[&quot;IDEA StatiCa&quot;,&quot;ZWCAD&quot;,&quot;Midas&quot;,&quot;Not sure / Other&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;heading&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Tell us what your team wants to learn.&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sub&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Send the details and we'll come back with options.&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;messagePlaceholder&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;submitLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Send enquiry&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = {
+    fields: { name: '', email: '', company: '', phone: '', message: '', service: '', product: '', ctxA: '', ctxB: '', ctxFull: '' },
+    errors: {}, open: null, noBackend: false,
+  };
+
+  _SERVICES = ['Training', 'Technical Support', 'Technical Workshops', 'Software Maintenance', 'BIM Consultancy', 'Request a Demo'];
+  _PRODUCTS = ['IDEA StatiCa', 'ZWCAD', 'Midas', 'Not sure / Other'];
+
+  _CTX = {
+    'Software Maintenance': {
+      a: { type: 'text', label: 'Software version (optional)', ph: 'e.g. 2025.1' },
+      b: { type: 'select', label: 'Enquiry type', options: ['Existing maintenance', 'New maintenance enquiry', 'Not sure'] },
+    },
+    'Technical Support': {
+      a: { type: 'text', label: 'Software version (optional)', ph: 'e.g. 2025.1' },
+      b: { type: 'select', label: 'Topic', options: ['Software question', 'Error or issue', 'Setup', 'Other'] },
+    },
+    'Training': {
+      a: { type: 'select', label: 'Experience level', options: ['New to the software', 'Some experience', 'Working in it daily'] },
+      b: { type: 'number', label: 'Participants', ph: 'e.g. 8' },
+    },
+    'Technical Workshops': {
+      a: { type: 'text', label: 'Workshop focus', ph: 'e.g. connection design workflow' },
+      b: { type: 'number', label: 'Participants', ph: 'e.g. 8' },
+    },
+    'BIM Consultancy': {
+      full: { label: 'Current software or workflow (optional)', ph: 'The tools and process your team works in today' },
+    },
+    'Request a Demo': {
+      full: { label: 'Area of interest (optional)', ph: 'What you would like to see in the session' },
+    },
+  };
+
+  _PLACEHOLDERS = {
+    'Software Maintenance': 'Tell us what you need.',
+    'Technical Support': 'Describe the issue.',
+    'Training': 'What would you like to learn?',
+    'Technical Workshops': 'What should the workshop focus on?',
+    'BIM Consultancy': 'What would you like to improve?',
+    'Request a Demo': 'What would you like to explore?',
+  };
+
+  componentDidMount() {
+    const service = this.props.service || 'Training';
+    this.setState(s => ({
+      fields: { ...s.fields, service, product: this.props.product || 'Not sure / Other', ...this._ctxDefaults(service) },
+    }));
+    this._onDocClick = (e) => {
+      const wraps = { service: this._svcWrap, product: this._prodWrap, a: this._aWrap, b: this._bWrap };
+      const w = wraps[this.state.open];
+      if (this.state.open && w && !w.contains(e.target)) this.setState({ open: null });
+    };
+    document.addEventListener('mousedown', this._onDocClick);
+    this._icons();
+  }
+
+  componentDidUpdate(prev) {
+    if (prev.product !== this.props.product && this.props.product) {
+      this.setState(s => ({ fields: { ...s.fields, product: this.props.product } }));
+    }
+    this._icons();
+  }
+
+  componentWillUnmount() { document.removeEventListener('mousedown', this._onDocClick); }
+  _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  _cfg(service) { return this._CTX[service] || {}; }
+
+  _ctxDefaults(service) {
+    const c = this._cfg(service);
+    return {
+      ctxA: c.a && c.a.type === 'select' ? c.a.options[0] : '',
+      ctxB: c.b && c.b.type === 'select' ? c.b.options[0] : '',
+      ctxFull: '',
+    };
+  }
+
+  _validate(f) {
+    const errors = {};
+    const c = this._cfg(f.service);
+    if (!f.name.trim()) errors.name = true;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.message.trim()) errors.message = true;
+    if (c.a && c.a.type === 'number' && f.ctxA && Number(f.ctxA) < 1) errors.ctxA = true;
+    if (c.b && c.b.type === 'number' && f.ctxB && Number(f.ctxB) < 1) errors.ctxB = true;
+    return errors;
+  }
+
+  _focusFirstError(errors) {
+    const order = [['name', 's-name'], ['email', 's-email'], ['ctxA', 's-ctxa'], ['ctxB', 's-ctxb'], ['message', 's-message']];
+    const hit = order.find(([k]) => errors[k]);
+    if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
+  }
+
+  _payload(f) {
+    const c = this._cfg(f.service);
+    const out = { name: f.name, email: f.email, company: f.company, phone: f.phone, service: f.service, product: f.product, message: f.message };
+    if (c.a) out[c.a.label] = f.ctxA;
+    if (c.b) out[c.b.label] = f.ctxB;
+    if (c.full) out[c.full.label] = f.ctxFull;
+    return out;
+  }
+
+  _opts(list, key) {
+    return (list || []).map(name => ({
+      name, checked: this.state.fields[key] === name,
+      select: () => this.setState(s => ({ fields: { ...s.fields, [key]: name }, open: null })),
+    }));
+  }
+
+  renderVals() {
+    const { fields, errors, open, noBackend } = this.state;
+    const c = this._cfg(fields.service);
+    const a = c.a, b = c.b, full = c.full;
+    const esc = (key) => (e) => { if (e.key === 'Escape' && this.state.open === key) this.setState({ open: null }); };
+    const toggle = (key) => () => this.setState(s => ({ open: s.open === key ? null : key }));
+
+    return {
+      heading: this.props.heading ?? 'Tell us what you need.',
+      sub: this.props.sub ?? 'Send the details and we will come back to you.',
+      submitLabel: this.props.submitLabel ?? 'Send enquiry',
+      messagePlaceholder: this.props.messagePlaceholder || this._PLACEHOLDERS[fields.service] || 'Tell us what you need.',
+      fields, errors, noBackend,
+
+      svcOpen: open === 'service',
+      prodOpen: open === 'product',
+      aOpen: open === 'a',
+      bOpen: open === 'b',
+
+      ctxPair: !!(a && b),
+      ctxALabel: a ? a.label : '',
+      ctxAIsSelect: !!(a && a.type === 'select'),
+      ctxAIsInput: !!(a && a.type !== 'select'),
+      ctxAType: a && a.type === 'number' ? 'number' : 'text',
+      ctxAPlaceholder: (a && a.ph) || '',
+      ctxAOptions: this._opts(a && a.options, 'ctxA'),
+      ctxBLabel: b ? b.label : '',
+      ctxBIsSelect: !!(b && b.type === 'select'),
+      ctxBIsInput: !!(b && b.type !== 'select'),
+      ctxBType: b && b.type === 'number' ? 'number' : 'text',
+      ctxBPlaceholder: (b && b.ph) || '',
+      ctxBOptions: this._opts(b && b.options, 'ctxB'),
+      ctxFull: !!full,
+      ctxFullLabel: full ? full.label : '',
+      ctxFullPlaceholder: (full && full.ph) || '',
+
+      serviceOptions: this._SERVICES.map(name => ({
+        name, checked: fields.service === name,
+        select: () => this.setState(s => ({
+          fields: { ...s.fields, service: name, ...this._ctxDefaults(name) }, open: null, errors: {},
+        })),
+      })),
+      productOptions: this._opts(this._PRODUCTS, 'product'),
+
+      svcWrapRef: (el) => { this._svcWrap = el; },
+      prodWrapRef: (el) => { this._prodWrap = el; },
+      aWrapRef: (el) => { this._aWrap = el; },
+      bWrapRef: (el) => { this._bWrap = el; },
+      toggleSvc: toggle('service'),
+      toggleProd: toggle('product'),
+      toggleA: toggle('a'),
+      toggleB: toggle('b'),
+      onSvcKey: esc('service'),
+      onProdKey: esc('product'),
+      onAKey: esc('a'),
+      onBKey: esc('b'),
+
+      forceReveal: () => { if (window.SWUTReveal) window.SWUTReveal.revealAll(); },
+      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
+      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
+      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
+      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
+      setA: (e) => this.setState(s => ({ fields: { ...s.fields, ctxA: e.target.value } })),
+      setB: (e) => this.setState(s => ({ fields: { ...s.fields, ctxB: e.target.value } })),
+      setFull: (e) => this.setState(s => ({ fields: { ...s.fields, ctxFull: e.target.value } })),
+      setMessage: (e) => this.setState(s => ({ fields: { ...s.fields, message: e.target.value } })),
+      handleSubmit: (e) => {
+        e.preventDefault();
+        const errs = this._validate(this.state.fields);
+        if (Object.keys(errs).length) {
+          this.setState({ errors: errs, noBackend: false }, () => this._focusFirstError(errs));
+          return;
+        }
+        console.info('[SWUT enquiry] no backend configured; payload not sent:', this._payload(this.state.fields));
+        this.setState({ errors: {}, noBackend: true });
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
