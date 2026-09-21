@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./page-transition.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          background: 'oklch(var(--background))',
+          foreground: 'oklch(var(--foreground))',
+          card: 'oklch(var(--card))',
+          border: 'oklch(var(--border))',
+          primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
+          muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
+        },
+        borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  :root {
+    --background: 1 0 0;
+    --foreground: 0.145 0 0;
+    --card: 1 0 0;
+    --border: 0.922 0 0;
+    --primary: 0.205 0 0;
+    --primary-foreground: 0.985 0 0;
+    --muted-foreground: 0.556 0 0;
+    --muted: 0.97 0 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  html { scroll-padding-top: 96px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+</style>
+</helmet>
+
+<div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
+
+  <dc-import name="NavHeader" current-page="event" quote-href="Contact.dc.html" hint-size="100%,80px"></dc-import>
+
+  <!-- ===== HERO ===== -->
+  <section data-nav-theme="dark" data-screen-label="Event hero" class="bg-primary px-6 pb-20 pt-32 text-primary-foreground sm:px-10 lg:px-20 lg:pb-24 lg:pt-40">
+    <a href="{{ backHref }}" class="mb-10 inline-flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white">
+      <i data-lucide="arrow-left" class="size-4"></i>
+      Back to Events
+    </a>
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-end lg:gap-16">
+      <div class="flex flex-col items-start gap-6">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/50">Event</span>
+        <h1 class="text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
+          <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">{{ event.titleLine1 }}</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">{{ event.titleLine2 }}</span></span>
+        </h1>
+      </div>
+      <div data-reveal="stagger" class="flex flex-col items-start gap-6">
+        <p class="max-w-md text-base leading-relaxed text-white/65 sm:text-lg">{{ event.intro }}</p>
+        <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <a href="{{ event.registerHref }}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
+            Register for the Event
+            <i data-lucide="arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+          </a>
+          <a href="#agenda" class="inline-flex items-center gap-2 text-sm font-semibold text-white/70 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-white">View Agenda</a>
+        </div>
+        <p class="text-xs leading-relaxed text-white/40">Registration opens on the event website in a new tab.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EVENT IMAGE ===== -->
+  <section data-nav-theme="light" data-screen-label="Event image" class="bg-background px-6 py-16 sm:px-10 lg:px-20 lg:py-24">
+    <div data-reveal="curtain" class="relative aspect-[16/8] w-full overflow-hidden sm:aspect-[16/7]">
+      <div data-curtain-inner class="absolute inset-0">
+        <img src="https://files.cdn-files-a.com/uploads/12365954/2000_gi-6a9d4525d7321.jpg" alt="IDEA StatiCa Coffee &amp; Learn, Cairo" class="size-full object-cover" style="object-position:50% 40%">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FACTS ===== -->
+  <section data-nav-theme="light" data-screen-label="Event facts" class="bg-background px-6 sm:px-10 lg:px-20">
+    <div data-reveal="facts" class="grid grid-cols-1 divide-y divide-border border-t border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+      <sc-for list="{{ facts }}" as="fact" hint-placeholder-count="3">
+        <div class="overflow-hidden py-8 sm:px-10 sm:first:pl-0 sm:last:pr-0">
+          <div class="flex flex-col gap-2">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ fact.label }}</span>
+            <sc-if value="{{ fact.href }}" hint-placeholder-val="{{ false }}">
+              <a href="{{ fact.href }}" target="_blank" rel="noopener noreferrer" class="group inline-flex w-fit items-center gap-2 text-xl font-semibold tracking-tight text-foreground underline underline-offset-4 transition hover:opacity-70 sm:text-2xl">
+                {{ fact.value }}
+                <i data-lucide="arrow-up-right" class="size-4 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+              </a>
+            </sc-if>
+            <sc-if value="{{ fact.plain }}" hint-placeholder-val="{{ true }}">
+              <span class="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">{{ fact.value }}</span>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div class="border-b border-border"></div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section data-curtain-cols data-nav-theme="light" data-screen-label="About the event" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-20">
+      <h2 data-reveal="curtain-left" class="max-w-md text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">What's on the agenda.</h2>
+      <div data-reveal="curtain-right" class="flex flex-col gap-5">
+        <p class="text-base leading-relaxed text-muted-foreground sm:text-lg">Sessions run across the IDEA StatiCa workflow: BIM links, Checkbot, and connection design, followed by IDEA StatiCa Detail in both 2D and 3D.</p>
+        <p class="text-base leading-relaxed text-muted-foreground sm:text-lg">Customers share how they apply the software on real projects, and the IDEA StatiCa team presents on Stability and Model Coordinator. Q&amp;A is built into the presentation sessions, with a coffee break in the middle of the day.</p>
+        <p class="text-sm leading-relaxed text-muted-foreground">These are event topics. Availability of any individual application depends on the license held.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SPEAKERS ===== -->
+  <section data-nav-theme="light" data-screen-label="Speakers" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F4F4F4">
+    <h2 data-reveal="mask" class="mx-auto max-w-[800px] overflow-hidden py-1 text-center text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+      <span class="inline-block">Meet the IDEA StatiCa team.</span>
+    </h2>
+    <div class="mx-auto mt-14 grid w-full max-w-[380px] grid-cols-1 gap-8 sm:max-w-[800px] sm:grid-cols-2 sm:gap-10">
+      <sc-for list="{{ speakers }}" as="sp" hint-placeholder-count="2">
+        <div class="flex flex-col gap-5">
+          <div data-reveal="curtain" data-curtain-delay="{{ sp.delay }}" class="relative aspect-[4/5] w-full overflow-hidden bg-background">
+            <div data-curtain-inner class="absolute inset-0">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ sp.slot }}" shape="rect" fit="cover" src="{{ sp.src }}" placeholder="{{ sp.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%"></x-import>
+            </div>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <span class="text-lg font-semibold tracking-tight text-foreground">{{ sp.name }}</span>
+            <span class="text-sm leading-relaxed text-muted-foreground">{{ sp.role }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== AGENDA ===== -->
+  <section id="agenda" data-nav-theme="light" data-screen-label="Agenda" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+    <div class="flex flex-col items-start gap-5">
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Full Agenda</span>
+      <h2 data-reveal="mask" class="overflow-hidden py-1 text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        <span class="inline-block">Schedule for the day.</span>
+      </h2>
+    </div>
+
+    <div data-agenda-row class="mt-14 grid grid-cols-1 gap-3 border-t border-b border-border py-7 sm:grid-cols-[160px_1fr] sm:gap-10 lg:grid-cols-[200px_1fr]">
+      <span class="font-sans text-sm uppercase tracking-widest text-muted-foreground sm:pt-0.5">Event speakers</span>
+      <div class="flex flex-col gap-3">
+        <sc-for list="{{ speakers }}" as="sp" hint-placeholder-count="2">
+          <span class="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-3">
+            <span class="text-lg font-semibold tracking-tight text-foreground sm:text-xl">{{ sp.name }}</span>
+            <span class="text-sm text-muted-foreground sm:text-base">{{ sp.role }}</span>
+          </span>
+        </sc-for>
+        <span class="max-w-2xl text-sm leading-relaxed text-muted-foreground">Session assignments are not published by the organiser and are awaiting confirmation.</span>
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <sc-for list="{{ agenda }}" as="slot" hint-placeholder-count="10">
+        <div data-agenda-row class="grid grid-cols-1 gap-2 border-b border-border py-7 sm:grid-cols-[160px_1fr] sm:gap-10 lg:grid-cols-[200px_1fr]">
+          <span class="font-sans text-sm uppercase tracking-widest text-muted-foreground sm:pt-0.5">{{ slot.time }}</span>
+          <div class="flex flex-col gap-2">
+            <span class="text-lg font-semibold tracking-tight text-foreground sm:text-xl">{{ slot.title }}</span>
+            <sc-if value="{{ slot.hasSpeaker }}" hint-placeholder-val="{{ false }}">
+              <span class="text-sm text-muted-foreground">{{ slot.speaker }}</span>
+            </sc-if>
+            <sc-if value="{{ slot.hasDetail }}" hint-placeholder-val="{{ false }}">
+              <span class="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{{ slot.detail }}</span>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== VENUE + REGISTRATION ===== -->
+  <section data-nav-theme="light" data-screen-label="Venue and registration" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F4F4F4">
+    <div class="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20">
+      <div data-reveal="stagger" class="flex flex-col items-start gap-6">
+        <h2 class="max-w-md text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">Join us at Triumph Luxury Hotel.</h2>
+        <div class="flex w-full max-w-sm flex-col">
+          <div class="flex flex-col gap-1.5 border-t border-border py-5">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Venue</span>
+            <span class="text-lg text-foreground">Triumph Luxury Hotel</span>
+          </div>
+          <div class="flex flex-col items-start gap-3 border-t border-b border-border py-5">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Address</span>
+            <span class="text-lg leading-relaxed text-foreground">In front of Katameya Heights, Katameya Heights Road,<br>New Cairo 1, Cairo Governorate 11861.</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal="stagger" class="flex flex-col items-start gap-6">
+        <h2 class="max-w-md text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">Register your interest.</h2>
+        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Registration for {{ event.title }} on {{ event.dateLong }} is handled on the event website, which asks for your full name, title, company, company mail, and phone number.</p>
+        <div class="flex w-full flex-col items-stretch gap-3.5 sm:w-auto sm:flex-row sm:items-center">
+          <a href="{{ event.registerHref }}" target="_blank" rel="noopener noreferrer" class="group inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-none border border-transparent bg-primary px-6 py-3.5 text-sm font-semibold leading-none text-primary-foreground transition hover:opacity-90 sm:w-auto">
+            Register for the Event
+            <i data-lucide="arrow-up-right" class="size-4 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+          </a>
+          <a href="{{ event.mapHref }}" target="_blank" rel="noopener noreferrer" class="group inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-none border border-border bg-transparent px-6 py-3.5 text-sm font-semibold leading-none text-foreground transition hover:bg-foreground/5 sm:w-auto">
+            Open in Google Maps
+            <i data-lucide="arrow-up-right" class="size-4 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+          </a>
+        </div>
+        <p class="text-sm leading-relaxed text-muted-foreground">Opens the event website in a new tab. SWUT does not collect registrations on this page.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer data-reveal="fade" data-nav-theme="dark" data-screen-label="Footer" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
+      <div class="flex flex-col gap-4">
+        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="block h-auto w-[160px] object-contain sm:w-[190px]" style="margin-bottom:15px">
+        <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
+        <ul class="flex flex-col gap-3">
+          <li><a href="SWUT Home.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
+          <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
+          <li><a href="{{ backHref }}" class="text-sm text-white/70 transition-colors hover:text-white">Events</a></li>
+          <li><a href="Contact.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Contact</a></li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Contact</span>
+        <div class="flex flex-col gap-3 text-sm">
+          <a href="mailto:hello@swut.co" class="text-white/70 transition-colors hover:text-white">hello@swut.co</a>
+          <span class="text-white/40">Phone — awaiting confirmation</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Location</span>
+        <p class="text-sm leading-relaxed text-white/70">Cairo,<br>Egypt</p>
+      </div>
+    </div>
+    <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <span class="text-sm text-white/50">© 2026 SWUT. All rights reserved.</span>
+      <div class="flex gap-6 text-sm text-white/50">
+        <a href="#" class="transition-colors hover:text-white">Privacy Policy</a>
+        <a href="#" class="transition-colors hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
+class Component extends DCLogic {
+  // Event records live here so further events reuse this page via ?event=<id>.
+  _EVENTS = {
+    'idea-statica-coffee-and-learn': {
+      titleLine1: 'IDEA StatiCa',
+      titleLine2: 'Coffee & Learn',
+      title: 'IDEA StatiCa Coffee & Learn',
+      intro: 'Join the IDEA StatiCa team for a day of technical sessions, customer experiences, and discussion.',
+      dateLong: 'Monday, 5 October 2026',
+      time: '9:00 AM–3:00 PM',
+      venue: 'Triumph Luxury Hotel',
+      mapHref: 'https://maps.google.com/?q=Triumph+Luxury+Hotel%2C+In+front+of%D8%8C+Katameya+Heights+Rd%2C+New+Cairo+1%2C+Cairo+Governorate+11861',
+      registerHref: 'https://6a9d43e3e0678.site123.me/',
+      speakers: [
+        { name: 'Dominik Baric', role: 'Channel Manager', slot: 'speaker-dominik-baric', src: 'uploads/pasted-1789903466140-0.png', placeholder: 'Portrait of Dominik Baric' },
+        { name: 'Ondrej Balkansky', role: 'Product Engineer', slot: 'speaker-ondrej-balkansky', src: 'uploads/pasted-1789903522810-0.png', placeholder: 'Portrait of Ondrej Balkansky' },
+      ],
+      agenda: [
+        { time: '09:00–10:00', title: 'Registration' },
+        { time: '10:00–10:15', title: 'Welcome speech' },
+        { time: '10:15–11:05', title: 'First Presentation Session', detail: 'BIM link \u2192 Checkbot \u2192 Connection design for engineering consultants, including a preview of Detail and Q&A.' },
+        { time: '11:05–11:35', title: 'Customer success story' },
+        { time: '11:40–12:00', title: 'Customer success story' },
+        { time: '12:00–12:30', title: 'Coffee break' },
+        { time: '12:30–13:15', title: 'Second Presentation Session', detail: 'IDEA Detail: 3D and 2D.' },
+        { time: '13:15–13:45', title: 'Customer success story' },
+        { time: '13:45–15:00', title: 'Third Presentation Session', detail: 'Stability and Model Coordinator presentation, including Q&A.' },
+        { time: '15:00–15:05', title: 'Photo & Lunch' },
+      ],
+    },
+  };
+
+  _eventId() {
+    try {
+      const q = new URLSearchParams(window.location.search).get('event');
+      if (q && this._EVENTS[q]) return q;
+      if (window.location.hash.includes('?')) {
+        const h = new URLSearchParams(window.location.hash.split('?')[1]).get('event');
+        if (h && this._EVENTS[h]) return h;
+      }
+    } catch (e) {}
+    return 'idea-statica-coffee-and-learn';
+  }
+
+  componentDidMount() {
+    this._initReveal();
+    this._icons();
+    if (window.location.hash === '#agenda') {
+      setTimeout(() => {
+        const el = document.getElementById('agenda');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 96, behavior: 'smooth' });
+      }, 250);
+    }
+  }
+  componentDidUpdate() { this._icons(); }
+  componentWillUnmount() { (this._observers || []).forEach(o => o.disconnect()); }
+  _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  _observe(els, onEnter) {
+    if (!els.length) return;
+    try {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { onEnter(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(el => io.observe(el));
+      (this._observers = this._observers || []).push(io);
+    } catch (err) {
+      els.forEach(onEnter);
+    }
+  }
+
+  // Every observed element is a stationary, unclipped wrapper; clipping is
+  // applied to an inner child and removed once the reveal finishes.
+  _initReveal() {
+    if (this._revealInit) return;
+    this._revealInit = true;
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const q = (sel) => Array.from(document.querySelectorAll(sel));
+
+    const fades = q('[data-reveal="fade"]');
+    const staggerGroups = q('[data-reveal="stagger"]');
+    const masks = q('[data-reveal="mask"]').filter(el => el.firstElementChild);
+    const curtains = q('[data-reveal="curtain"]');
+    const colSections = q('[data-curtain-cols]');
+    const factRows = q('[data-reveal="facts"]');
+    const agendaRows = q('[data-agenda-row]');
+
+    if (reduced) return; // nothing is hidden until we hide it — content stays visible
+
+    try {
+      fades.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(24px)';
+        el.style.transition = 'opacity 800ms ease, transform 800ms cubic-bezier(0.22,1,0.36,1)';
+      });
+      this._observe(fades, el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+
+      staggerGroups.forEach(group => {
+        Array.from(group.children).forEach((child, i) => {
+          child.style.opacity = '0';
+          child.style.transform = 'translateY(24px)';
+          child.style.transition = `opacity 800ms ease ${i * 100}ms, transform 800ms cubic-bezier(0.22,1,0.36,1) ${i * 100}ms`;
+        });
+      });
+      this._observe(staggerGroups, group => {
+        Array.from(group.children).forEach(child => { child.style.opacity = '1'; child.style.transform = 'none'; });
+      });
+
+      masks.forEach((el, i) => {
+        const inner = el.firstElementChild;
+        inner.style.transform = 'translateY(115%)';
+        inner.style.transition = `transform 850ms cubic-bezier(0.22,1,0.36,1) ${i % 2 === 1 ? 100 : 0}ms`;
+      });
+      this._observe(masks, el => {
+        const inner = el.firstElementChild;
+        if (inner) { inner.style.transform = 'translateY(0)'; setTimeout(() => { el.style.overflow = 'visible'; }, 1000); }
+      });
+
+      curtains.forEach(el => {
+        const inner = el.querySelector('[data-curtain-inner]');
+        if (!inner) return;
+        const delay = Number(el.dataset.curtainDelay) || 0;
+        inner.style.clipPath = 'inset(100% 0 0 0)';
+        inner.style.transition = `clip-path 900ms cubic-bezier(0.22,1,0.36,1) ${delay}ms`;
+      });
+      this._observe(curtains, el => {
+        const inner = el.querySelector('[data-curtain-inner]');
+        if (!inner) return;
+        inner.style.clipPath = 'inset(0 0 0 0)';
+        const delay = Number(el.dataset.curtainDelay) || 0;
+        setTimeout(() => { inner.style.clipPath = ''; inner.style.transition = ''; }, delay + 950);
+      });
+
+      colSections.forEach(sec => {
+        const l = sec.querySelector('[data-reveal="curtain-left"]'), r = sec.querySelector('[data-reveal="curtain-right"]');
+        if (l) { l.style.clipPath = 'inset(0 100% 0 0)'; l.style.transition = 'clip-path 900ms cubic-bezier(0.22,1,0.36,1)'; }
+        if (r) { r.style.clipPath = 'inset(0 0 0 100%)'; r.style.transition = 'clip-path 900ms cubic-bezier(0.22,1,0.36,1) 100ms'; }
+      });
+      this._observe(colSections, sec => {
+        [sec.querySelector('[data-reveal="curtain-left"]'), sec.querySelector('[data-reveal="curtain-right"]')].forEach(n => {
+          if (!n) return;
+          n.style.clipPath = 'inset(0 0 0 0)';
+          setTimeout(() => { n.style.clipPath = ''; n.style.transition = ''; }, 1050);
+        });
+      });
+
+      factRows.forEach(group => {
+        Array.from(group.children).forEach((child, i) => {
+          const inner = child.firstElementChild;
+          if (!inner) return;
+          inner.style.opacity = '0';
+          inner.style.transform = i === 0 ? 'translateX(-40px)' : i === 2 ? 'translateX(40px)' : 'translateY(32px)';
+          inner.style.transition = 'opacity 800ms cubic-bezier(0.22,1,0.36,1), transform 800ms cubic-bezier(0.22,1,0.36,1)';
+        });
+      });
+      this._observe(factRows, group => {
+        Array.from(group.children).forEach(child => {
+          const inner = child.firstElementChild;
+          if (inner) { inner.style.opacity = '1'; inner.style.transform = 'none'; }
+        });
+      });
+
+      agendaRows.forEach((row, i) => {
+        row.style.opacity = '0';
+        row.style.transform = 'translateY(20px)';
+        row.style.transition = `opacity 700ms ease ${(i % 4) * 90}ms, transform 700ms cubic-bezier(0.22,1,0.36,1) ${(i % 4) * 90}ms`;
+      });
+      this._observe(agendaRows, row => { row.style.opacity = '1'; row.style.transform = 'none'; });
+    } catch (err) {
+      // If anything about the reveal setup fails, show everything.
+      [...fades, ...agendaRows].forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+      [...staggerGroups, ...factRows].forEach(g => Array.from(g.children).forEach(c => {
+        c.style.opacity = '1'; c.style.transform = 'none';
+        if (c.firstElementChild) { c.firstElementChild.style.opacity = '1'; c.firstElementChild.style.transform = 'none'; }
+      }));
+      masks.forEach(el => { if (el.firstElementChild) el.firstElementChild.style.transform = 'none'; });
+      curtains.forEach(el => { const i = el.querySelector('[data-curtain-inner]'); if (i) i.style.clipPath = ''; });
+    }
+  }
+
+  renderVals() {
+    const event = this._EVENTS[this._eventId()];
+    return {
+      event,
+      backHref: 'IDEA StatiCa.dc.html#news-events',
+      facts: [
+        { label: 'Date', value: event.dateLong, plain: true },
+        { label: 'Time', value: event.time, plain: true },
+        { label: 'Venue', value: event.venue, href: event.mapHref },
+      ],
+      speakers: event.speakers.map((sp, i) => ({ ...sp, delay: i * 120 })),
+      // slot.speaker renders under the title once the organiser confirms who
+      // delivers each session; unset today, so nothing is attributed by guess.
+      agenda: event.agenda.map(slot => ({ ...slot, hasDetail: !!slot.detail, hasSpeaker: !!slot.speaker })),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

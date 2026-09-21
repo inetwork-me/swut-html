@@ -41,29 +41,34 @@
     --muted: 0.97 0 0;
   }
   a { color: inherit; text-decoration: none; }
+  html { scroll-padding-top: 96px; }
+  @media (min-width: 1024px) { [data-info-grid] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
+  [data-info-rules] { --ext: 6px; }
+  [data-info-frame] { aspect-ratio: 4 / 3; width: 100%; max-width: none; min-width: 0; box-sizing: border-box; }
+  @media (min-width: 1024px) { [data-info-frame] { aspect-ratio: 4 / 5; } }
+  [data-info-grid] > * { min-width: 0; box-sizing: border-box; }
+  @media (min-width: 1024px) { [data-info-rules] { --ext: 12px; } }
   * { cursor: none; }
   @keyframes heroReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes capFillV { from { height: 0%; } to { height: 100%; } }
+  @keyframes ctaTurn { 0% { transform: rotateY(-5deg) rotateX(1.5deg) translateY(0); } 50% { transform: rotateY(5deg) rotateX(-1.5deg) translateY(-18px); } 100% { transform: rotateY(-5deg) rotateX(1.5deg) translateY(0); } }
+  @keyframes ctaSweep { 0% { transform: translateX(-60%) skewX(-12deg); } 45% { transform: translateX(160%) skewX(-12deg); } 100% { transform: translateX(160%) skewX(-12deg); } }
+  @media (prefers-reduced-motion: reduce) { [data-cta-stage], [data-cta-sweep] { animation: none !important; } }
+  [data-cta-art-side] { position: absolute; top: 50%; width: 26%; max-width: 430px; transform: translateY(-50%); }
+  [data-cta-art-side="right"] { right: -8%; }
+  [data-cta-art-side="left"] { left: -8%; }
+  [data-cta-art-side="left"] [data-cta-flip] { transform: scaleX(-1); }
+  @media (max-width: 1024px) { [data-cta-art-side] { width: 30%; max-width: 290px; } [data-cta-art-side="right"] { right: -18%; } [data-cta-art-side="left"] { left: -18%; } }
+  @media (max-width: 640px) { [data-cta-art-side] { width: 46%; max-width: 230px; } [data-cta-art-side="right"] { right: -24%; } [data-cta-art-side="left"] { left: -24%; } [data-cta-detail] { display: none; } }
   input:focus, textarea:focus, button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
-  #gal-steel::part(frame), #gal-analysis::part(frame), #gal-concrete::part(frame), #gal-anchor::part(frame), #cap-steel::part(frame), #cap-anchor::part(frame), #cap-concrete-needed::part(frame) { background: #FFFFFF; }
+  #cap-steel::part(frame), #cap-concrete-needed::part(frame), #cap-bim::part(frame) { background: #FFFFFF; }
+  #info-analysis::part(frame), #info-report::part(frame), #reuse-thumb-1::part(frame), #reuse-thumb-2::part(frame), #reuse-thumb-3::part(frame) { background: #F2F2F2; }
 </style>
 </helmet>
 
 <div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
 
-  <div id="swut-cursor" style="position:fixed;top:0;left:0;width:20px;height:20px;border:2px solid #fff;border-radius:9999px;pointer-events:none;z-index:9999;mix-blend-mode:difference;transform:translate(-100px,-100px);transition:transform 0.08s ease-out,width 0.15s ease,height 0.15s ease;will-change:transform"></div>
-
-  <!-- ===== TOP NAV ===== -->
-  <nav data-reveal="fade" class="{{ navClass }}">
-    <div class="grid h-full grid-cols-3 items-center px-6 sm:px-10 lg:px-20">
-      <a href="./" class="justify-self-start"><img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain sm:h-9"></a>
-      <button onClick="{{ toggleMenu }}" aria-label="Open menu" class="{{ burgerWrapClass }} justify-self-center">
-        <span class="{{ barTopClass }}"></span>
-        <span class="{{ barBotClass }}"></span>
-      </button>
-      <a href="#quote" onClick="{{ scrollToQuote }}" class="{{ ctaClass }} justify-self-end">Request a Quote</a>
-    </div>
-  </nav>
+  <dc-import name="NavHeader" current-page="idea-statica" quote-href="#quote" hint-size="100%,80px"></dc-import>
 
   <!-- ===== DARK TITLE BAND ===== -->
   <section data-reveal="section" data-nav-theme="dark" data-screen-label="Title band" class="sticky top-0 z-0 bg-primary px-6 pt-32 pb-14 text-primary-foreground sm:px-10 lg:px-20 lg:pt-40 lg:pb-16">
@@ -94,7 +99,17 @@
         <div class="flex flex-col gap-2 overflow-hidden py-8 sm:px-10 sm:first:pl-0 sm:last:pr-0">
          <div class="flex flex-col gap-2">
           <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ fact.label }}</span>
-          <span class="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">{{ fact.value }}</span>
+          <sc-if value="{{ fact.isText }}" hint-placeholder-val="{{ true }}">
+            <span class="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">{{ fact.value }}</span>
+          </sc-if>
+          <sc-if value="{{ fact.isLink }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ fact.href }}" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit items-center gap-2 text-xl font-semibold tracking-tight text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground sm:text-2xl">
+              {{ fact.value }}
+              <i data-lucide="arrow-up-right" class="size-4 shrink-0 text-muted-foreground"></i>
+              <span class="sr-only">(opens the official IDEA StatiCa website in a new tab)</span>
+            </a>
+          </sc-if>
+
          </div>
         </div>
       </sc-for>
@@ -134,7 +149,12 @@
               <span class="flex flex-col gap-2">
                 <span class="{{ cap.titleClass }}">{{ cap.number }} {{ cap.title }}</span>
                 <sc-if value="{{ cap.active }}" hint-placeholder-val="{{ false }}">
-                  <span class="max-w-md min-h-[4.75rem] text-base leading-relaxed text-white/60 sm:min-h-[5.5rem] sm:text-lg">{{ cap.body }}</span>
+                  <span class="flex max-w-md min-h-[4.75rem] flex-col gap-2 sm:min-h-[5.5rem]">
+                    <span class="text-base leading-relaxed text-white/60 sm:text-lg">{{ cap.body }}</span>
+                    <sc-if value="{{ cap.hasNote }}" hint-placeholder-val="{{ false }}">
+                      <span class="text-sm leading-relaxed text-white/40">{{ cap.note }}</span>
+                    </sc-if>
+                  </span>
                 </sc-if>
               </span>
             </button>
@@ -150,61 +170,323 @@
     </div>
   </section>
 
-  <!-- ===== PRODUCT GALLERY ===== -->
-  <section data-reveal="section" data-nav-theme="light" data-screen-label="Gallery" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
+  <!-- ===== PRODUCT INFORMATION — THREE EDITORIAL PANELS ===== -->
+  <section data-nav-theme="light" data-screen-label="Beyond the model" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
     <div class="flex flex-col items-start gap-5">
-      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Product Views</span>
-      <h2 data-reveal="gal-heading" class="overflow-hidden py-1.5 text-3xl font-semibold leading-[1.3] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-        <span class="inline-block">Explore IDEA StatiCa</span>
+      <span data-reveal="fade" class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Beyond the model</span>
+      <h2 class="text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+        <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">Understand the behavior.</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">Show the reasoning.</span></span>
       </h2>
     </div>
 
-    <div class="mt-14 flex flex-col gap-14">
-      <sc-for list="{{ galleryRows }}" as="row" hint-placeholder-count="2">
-        <div data-gallery-row class="grid grid-cols-1 gap-x-10 gap-y-14 sm:grid-cols-2">
-          <sc-for list="{{ row.items }}" as="img" hint-placeholder-count="2">
-            <div class="flex flex-col gap-4">
-              <div class="relative aspect-[4/3] w-full overflow-hidden bg-white p-6" style="box-sizing:border-box">
-                <div data-reveal="gal-curtain" data-gal-side="{{ img.side }}" class="absolute inset-0">
-                  <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ img.slot }}" shape="rect" fit="contain" placeholder="{{ img.placeholder }}" src="{{ img.src }}" hint-size="100%,100%" style="width:100%;height:100%"></x-import>
-                </div>
+    <div data-info-rules class="relative mt-16 lg:mt-20">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10">
+      <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] top-0 block h-px bg-border"></span>
+      <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] bottom-0 block h-px bg-border"></span>
+      <span data-grid-line="v" class="absolute left-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
+      <span data-grid-line="v" class="absolute right-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
+      <span data-grid-line="v" class="absolute left-1/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
+      <span data-grid-line="v" class="absolute left-2/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
+    </div>
+    <div class="grid grid-cols-1" style="grid-template-columns:repeat(1,minmax(0,1fr))" data-info-grid>
+
+      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
+        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">01</span>
+        <div data-curtain-container data-info-frame data-curtain-delay="0" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
+          <div data-reveal="curtain" class="absolute inset-0 flex items-center justify-center p-4">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="info-analysis" shape="rect" fit="contain" src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/549cdd9a-6811-4de8-a33f-a8e80f5d038c/Untitled%20design%20%2833%29.png?w=1200&fm=webp&lossless=false&q=85" placeholder="IDEA StatiCa visual calculation results" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
+          </div>
+        </div>
+        <div data-reveal="stagger" class="flex flex-col gap-5">
+          <h3 class="text-lg font-semibold tracking-tight text-foreground">Understand the results.</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">Review visual analysis and code-check outcomes to identify where a structural detail needs attention.</p>
+          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+        </div>
+      </div>
+
+      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
+        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">02</span>
+        <div data-curtain-container data-info-frame data-curtain-delay="120" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
+          <div data-reveal="curtain" class="absolute inset-0 flex flex-col gap-2 p-4">
+            <div class="relative min-h-0 w-full flex-[2] overflow-hidden" style="background-color:#F2F2F2">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-1" shape="rect" fit="contain" src="{{ reuseMain.src }}" placeholder="{{ reuseMain.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
+            </div>
+            <div class="flex min-h-0 w-full flex-1 gap-2">
+              <div class="relative min-w-0 flex-1 overflow-hidden" style="background-color:#F2F2F2">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-2" shape="rect" fit="contain" src="{{ reuseSideA.src }}" placeholder="{{ reuseSideA.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
               </div>
-              <div data-reveal="gal-caption" data-gal-side="{{ img.side }}" class="flex flex-col gap-1.5">
-                <span class="text-base font-semibold tracking-tight text-foreground">{{ img.title }}</span>
-                <span class="text-sm leading-relaxed text-muted-foreground">{{ img.desc }}</span>
+              <div class="relative min-w-0 flex-1 overflow-hidden" style="background-color:#F2F2F2">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-3" shape="rect" fit="contain" src="{{ reuseSideB.src }}" placeholder="{{ reuseSideB.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
               </div>
             </div>
-          </sc-for>
+          </div>
         </div>
+        <div data-reveal="stagger" class="flex flex-col gap-5">
+          <h3 class="text-lg font-semibold tracking-tight text-foreground">Build on existing details.</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">Adapt connection templates and library arrangements to reduce repeated modeling.</p>
+          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+        </div>
+      </div>
+
+      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
+        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">03</span>
+        <div data-curtain-container data-info-frame data-curtain-delay="240" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
+          <div data-reveal="curtain" class="absolute inset-0 flex items-center justify-center p-4">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="info-report" shape="rect" fit="contain" src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/29e2273d-4f3a-4dec-bb10-827d3143975f/Untitled%20design%20%2847%29.png?w=1200&fm=webp&lossless=false&q=85" placeholder="IDEA StatiCa calculation report" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
+          </div>
+        </div>
+        <div data-reveal="stagger" class="flex flex-col gap-5">
+          <h3 class="text-lg font-semibold tracking-tight text-foreground">Make your calculations clear.</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">Organize model information, checks, equations, and images into a report for engineering review.</p>
+          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <!-- ===== TRIAL / QUOTE CTA ===== -->
+  <section data-nav-theme="dark" data-screen-label="Trial CTA" class="relative isolate flex min-h-[560px] items-center overflow-hidden bg-black px-6 py-24 text-white sm:px-10 lg:h-[620px] lg:min-h-0 lg:px-20 lg:py-0">
+
+    <div data-reveal="fade" aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" style="perspective:1400px">
+      <div data-cta-art-side="left">
+        <div data-cta-flip>
+          <div data-cta-stage ref="{{ stageRef }}" class="relative" style="transform-style:preserve-3d;animation:ctaTurn 26s ease-in-out infinite;will-change:transform">
+          <svg viewBox="950 0 520 700" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g data-cta-art>
+            <!-- column: H-section, vertical -->
+            <g>
+              <path d="M1220 40 H1340 V660 H1220 Z" fill="#FFFFFF" fill-opacity="0.045"></path>
+              <path d="M1220 40 L1206.5 32 V652 L1220 660 Z" fill="#FFFFFF" fill-opacity="0.075"></path>
+              <path d="M1258.5 32 L1231.5 16 V636 L1258.5 652 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
+              <path d="M1179.5 16 L1166 8 V628 L1179.5 636 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
+              <g stroke="#B9B9B9" stroke-opacity="0.4" stroke-width="1">
+                <path d="M1258.5 32 V652 M1231.5 16 V636 M1179.5 16 V636 M1166 8 V628 M1206.5 32 V652"></path>
+              </g>
+              <!-- top H cross-section -->
+              <path d="M1220 40 H1340 L1326.5 32 H1206.5 Z" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"></path>
+              <path d="M1179.5 16 H1299.5 L1286 8 H1166 Z" fill="#FFFFFF" fill-opacity="0.08" stroke="#DDDDDD" stroke-opacity="0.4" stroke-width="1"></path>
+              <path d="M1258.5 32 H1274.5 L1247.5 16 H1231.5 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#DDDDDD" stroke-opacity="0.45" stroke-width="1"></path>
+              <!-- main silhouette -->
+              <path d="M1220 40 H1340 V660 H1220 Z" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="1.6"></path>
+              <path d="M1220 40 L1206.5 32 M1220 660 L1206.5 652 M1340 40 L1326.5 32" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.4"></path>
+            </g>
+
+            <!-- beam: I-section, horizontal into the column -->
+            <g>
+              <path d="M1010 300 H1220 V320 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
+              <path d="M1010 320 H1220 V400 H1010 Z" fill="#FFFFFF" fill-opacity="0.035"></path>
+              <path d="M1010 400 H1220 V420 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
+              <path d="M1010 300 H1220 L1166 268 H956 Z" fill="#FFFFFF" fill-opacity="0.11" stroke="#E3E3E3" stroke-opacity="0.45" stroke-width="1"></path>
+              <path d="M1010 320 L956 288 V308 L1010 340 Z" fill="#FFFFFF" fill-opacity="0.05"></path>
+              <g data-cta-detail stroke="#B9B9B9" stroke-opacity="0.38" stroke-width="1">
+                <path d="M956 268 V288 M956 288 L983 304 M983 304 V384 M983 384 L956 400 M956 400 V420 M956 420 H1010"></path>
+                <path d="M1010 320 L983 304 M1010 400 L983 384 M1010 420 L956 388"></path>
+              </g>
+              <path d="M1010 300 H1220 M1010 320 H1220 M1010 400 H1220 M1010 420 H1220" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1.2"></path>
+              <path d="M1010 300 V420" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
+            </g>
+
+            <!-- end plate with two bolt rows -->
+            <g>
+              <path d="M1220 280 L1166 248 V408 L1220 440 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
+              <path d="M1206 272 L1152 240 V400 L1206 432" fill="#FFFFFF" fill-opacity="0.06" stroke="#CFCFCF" stroke-opacity="0.45" stroke-width="1"></path>
+              <path d="M1220 280 L1206 272 M1220 440 L1206 432 M1166 248 L1152 240" stroke="#DDDDDD" stroke-opacity="0.5" stroke-width="1"></path>
+              <g fill="#FFFFFF" fill-opacity="0.5" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1">
+                <ellipse cx="1206.5" cy="292" rx="7" ry="5" transform="rotate(-30 1206.5 292)"></ellipse>
+                <ellipse cx="1206.5" cy="332" rx="7" ry="5" transform="rotate(-30 1206.5 332)"></ellipse>
+                <ellipse cx="1206.5" cy="372" rx="7" ry="5" transform="rotate(-30 1206.5 372)"></ellipse>
+                <ellipse cx="1206.5" cy="412" rx="7" ry="5" transform="rotate(-30 1206.5 412)"></ellipse>
+                <ellipse cx="1182.2" cy="277.6" rx="7" ry="5" transform="rotate(-30 1182.2 277.6)"></ellipse>
+                <ellipse cx="1182.2" cy="317.6" rx="7" ry="5" transform="rotate(-30 1182.2 317.6)"></ellipse>
+                <ellipse cx="1182.2" cy="357.6" rx="7" ry="5" transform="rotate(-30 1182.2 357.6)"></ellipse>
+                <ellipse cx="1182.2" cy="397.6" rx="7" ry="5" transform="rotate(-30 1182.2 397.6)"></ellipse>
+              </g>
+              <g data-cta-detail stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1">
+                <path d="M1206.5 292 L1182.2 277.6 M1206.5 332 L1182.2 317.6 M1206.5 372 L1182.2 357.6 M1206.5 412 L1182.2 397.6"></path>
+              </g>
+            </g>
+
+            <!-- stiffeners inside the column, behind the plate -->
+            <g data-cta-detail stroke="#A8A8A8" stroke-opacity="0.3" stroke-width="1">
+              <path d="M1220 300 L1166 268 M1220 420 L1166 388"></path>
+            </g>
+          </g>
+          </svg>
+          <div data-cta-sweep class="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent);mix-blend-mode:screen;animation:ctaSweep 14s ease-in-out infinite;will-change:transform"></div>
+          </div>
+        </div>
+      </div>
+      <div data-cta-art-side="right">
+        <div data-cta-flip>
+          <div data-cta-stage ref="{{ stageRef }}" class="relative" style="transform-style:preserve-3d;animation:ctaTurn 26s ease-in-out infinite;will-change:transform">
+          <svg viewBox="950 0 520 700" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g data-cta-art>
+            <!-- column: H-section, vertical -->
+            <g>
+              <path d="M1220 40 H1340 V660 H1220 Z" fill="#FFFFFF" fill-opacity="0.045"></path>
+              <path d="M1220 40 L1206.5 32 V652 L1220 660 Z" fill="#FFFFFF" fill-opacity="0.075"></path>
+              <path d="M1258.5 32 L1231.5 16 V636 L1258.5 652 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
+              <path d="M1179.5 16 L1166 8 V628 L1179.5 636 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
+              <g stroke="#B9B9B9" stroke-opacity="0.4" stroke-width="1">
+                <path d="M1258.5 32 V652 M1231.5 16 V636 M1179.5 16 V636 M1166 8 V628 M1206.5 32 V652"></path>
+              </g>
+              <!-- top H cross-section -->
+              <path d="M1220 40 H1340 L1326.5 32 H1206.5 Z" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"></path>
+              <path d="M1179.5 16 H1299.5 L1286 8 H1166 Z" fill="#FFFFFF" fill-opacity="0.08" stroke="#DDDDDD" stroke-opacity="0.4" stroke-width="1"></path>
+              <path d="M1258.5 32 H1274.5 L1247.5 16 H1231.5 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#DDDDDD" stroke-opacity="0.45" stroke-width="1"></path>
+              <!-- main silhouette -->
+              <path d="M1220 40 H1340 V660 H1220 Z" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="1.6"></path>
+              <path d="M1220 40 L1206.5 32 M1220 660 L1206.5 652 M1340 40 L1326.5 32" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.4"></path>
+            </g>
+
+            <!-- beam: I-section, horizontal into the column -->
+            <g>
+              <path d="M1010 300 H1220 V320 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
+              <path d="M1010 320 H1220 V400 H1010 Z" fill="#FFFFFF" fill-opacity="0.035"></path>
+              <path d="M1010 400 H1220 V420 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
+              <path d="M1010 300 H1220 L1166 268 H956 Z" fill="#FFFFFF" fill-opacity="0.11" stroke="#E3E3E3" stroke-opacity="0.45" stroke-width="1"></path>
+              <path d="M1010 320 L956 288 V308 L1010 340 Z" fill="#FFFFFF" fill-opacity="0.05"></path>
+              <g data-cta-detail stroke="#B9B9B9" stroke-opacity="0.38" stroke-width="1">
+                <path d="M956 268 V288 M956 288 L983 304 M983 304 V384 M983 384 L956 400 M956 400 V420 M956 420 H1010"></path>
+                <path d="M1010 320 L983 304 M1010 400 L983 384 M1010 420 L956 388"></path>
+              </g>
+              <path d="M1010 300 H1220 M1010 320 H1220 M1010 400 H1220 M1010 420 H1220" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1.2"></path>
+              <path d="M1010 300 V420" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
+            </g>
+
+            <!-- end plate with two bolt rows -->
+            <g>
+              <path d="M1220 280 L1166 248 V408 L1220 440 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
+              <path d="M1206 272 L1152 240 V400 L1206 432" fill="#FFFFFF" fill-opacity="0.06" stroke="#CFCFCF" stroke-opacity="0.45" stroke-width="1"></path>
+              <path d="M1220 280 L1206 272 M1220 440 L1206 432 M1166 248 L1152 240" stroke="#DDDDDD" stroke-opacity="0.5" stroke-width="1"></path>
+              <g fill="#FFFFFF" fill-opacity="0.5" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1">
+                <ellipse cx="1206.5" cy="292" rx="7" ry="5" transform="rotate(-30 1206.5 292)"></ellipse>
+                <ellipse cx="1206.5" cy="332" rx="7" ry="5" transform="rotate(-30 1206.5 332)"></ellipse>
+                <ellipse cx="1206.5" cy="372" rx="7" ry="5" transform="rotate(-30 1206.5 372)"></ellipse>
+                <ellipse cx="1206.5" cy="412" rx="7" ry="5" transform="rotate(-30 1206.5 412)"></ellipse>
+                <ellipse cx="1182.2" cy="277.6" rx="7" ry="5" transform="rotate(-30 1182.2 277.6)"></ellipse>
+                <ellipse cx="1182.2" cy="317.6" rx="7" ry="5" transform="rotate(-30 1182.2 317.6)"></ellipse>
+                <ellipse cx="1182.2" cy="357.6" rx="7" ry="5" transform="rotate(-30 1182.2 357.6)"></ellipse>
+                <ellipse cx="1182.2" cy="397.6" rx="7" ry="5" transform="rotate(-30 1182.2 397.6)"></ellipse>
+              </g>
+              <g data-cta-detail stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1">
+                <path d="M1206.5 292 L1182.2 277.6 M1206.5 332 L1182.2 317.6 M1206.5 372 L1182.2 357.6 M1206.5 412 L1182.2 397.6"></path>
+              </g>
+            </g>
+
+            <!-- stiffeners inside the column, behind the plate -->
+            <g data-cta-detail stroke="#A8A8A8" stroke-opacity="0.3" stroke-width="1">
+              <path d="M1220 300 L1166 268 M1220 420 L1166 388"></path>
+            </g>
+          </g>
+          </svg>
+          <div data-cta-sweep class="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent);mix-blend-mode:screen;animation:ctaSweep 14s ease-in-out infinite;will-change:transform"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10" style="background:radial-gradient(60% 70% at 50% 50%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.25) 75%, rgba(0,0,0,0) 100%)"></div>
+
+    <div class="relative mx-auto flex w-full max-w-3xl flex-col items-center gap-7 text-center">
+      <span data-reveal="fade" class="font-sans text-xs uppercase tracking-widest text-white/50">14-day free trial</span>
+      <h2 class="text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[72px] xl:text-[84px]">
+        <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">Your next design.</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">Starts here.</span></span>
+      </h2>
+      <div data-reveal="stagger" class="flex flex-col items-center gap-7">
+        <p class="max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">Explore IDEA StatiCa with a 14-day free trial, or request a license quote for your team.</p>
+        <div class="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
+          <a href="#quote" onClick="{{ startTrial }}" class="group inline-flex items-center justify-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
+            Request a Free Trial
+            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+          </a>
+          <a href="#quote" onClick="{{ startQuote }}" class="group inline-flex items-center justify-center gap-2 rounded-none border border-white/40 px-6 py-3.5 text-sm font-semibold text-white transition hover:border-white">
+            Get a Quote
+            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWS & EVENTS ===== -->
+  <section id="news-events" data-nav-theme="light" data-screen-label="News and events" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
+    <div class="flex flex-col items-start gap-5">
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Events</span>
+      <h2 data-reveal="mask" class="overflow-hidden py-1 text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        <span class="inline-block">News &amp; Events</span>
+      </h2>
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <sc-for list="{{ newsEvents }}" as="item" hint-placeholder-count="1">
+        <a href="{{ item.href }}" class="group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+          <div data-curtain-container class="relative aspect-[16/10] w-full overflow-hidden">
+            <div data-reveal="curtain" class="absolute inset-0">
+              <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105 group-focus-visible:scale-105">
+                <img src="https://files.cdn-files-a.com/uploads/12365954/2000_gi-6a9d4525d7321.jpg" alt="IDEA StatiCa Coffee &amp; Learn, Cairo" loading="lazy" class="absolute inset-0 size-full object-cover" style="object-position:50% 40%">
+              </div>
+            </div>
+          </div>
+          <div data-reveal="stagger" class="flex flex-col items-start gap-3 p-8">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ item.kindAndDate }}</span>
+            <span class="text-balance text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-2xl">{{ item.title }}</span>
+            <span class="text-sm leading-relaxed text-muted-foreground">{{ item.summary }}</span>
+            <span class="flex items-center gap-2 text-sm text-muted-foreground">
+              <i data-lucide="map-pin" class="size-4 shrink-0"></i>
+              {{ item.venue }}
+            </span>
+            <sc-if value="{{ item.isUpcoming }}" hint-placeholder-val="{{ true }}">
+              <span class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
+                View Event
+                <i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1"></i>
+              </span>
+            </sc-if>
+            <sc-if value="{{ item.isPast }}" hint-placeholder-val="{{ false }}">
+              <span class="mt-2 text-sm font-semibold text-muted-foreground">This event has taken place</span>
+            </sc-if>
+          </div>
+        </a>
       </sc-for>
     </div>
   </section>
-        </div>
-      </div>
+
   <!-- ===== LICENSE ENQUIRY FORM ===== -->
   <section id="quote" data-curtain-cols data-curtain-duration="900" data-nav-theme="light" data-screen-label="License enquiry" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
     <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
       <div data-reveal="curtain-left" class="flex flex-col items-start gap-5 lg:col-span-5">
         <span class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">License Enquiry</span>
-        <h2 class="max-w-lg text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">Get your IDEA StatiCa license.</h2>
-        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us what you need. Contact SWUT Solutions for a license quote for your team.</p>
+        <h2 class="max-w-lg text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">Try IDEA StatiCa<br>or request a quote.</h2>
+        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us what you need. Contact SWUT Solutions for a license quote or a 14-day free trial for your team.</p>
+        <p class="max-w-md border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">Perpetual licensing provides ongoing use of the licensed version. Maintenance and access to new versions are purchased separately.</p>
       </div>
 
       <div data-reveal="curtain-right" onFocus="{{ forceRevealCurtain }}" class="lg:col-span-7">
-        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
-          <div data-reveal="fade" role="status" class="flex flex-col gap-4 border border-border bg-muted p-8 sm:p-10">
-            <span class="inline-flex w-fit items-center gap-1.5 border border-border px-3 py-1 text-xs uppercase tracking-widest text-muted-foreground">Simulated Submission — Prototype Only</span>
-            <h3 class="text-2xl font-semibold tracking-tight text-foreground">Thanks, {{ formFirstName }}.</h3>
-            <p class="max-w-md text-base leading-relaxed text-muted-foreground">Your enquiry for {{ formSelectionsText }} license(s) has been recorded in this prototype. In the live site, SWUT would follow up at {{ formEmail }}.</p>
-            <button onClick="{{ resetForm }}" class="mt-2 inline-flex w-fit items-center gap-2 border border-border px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-background">Submit another enquiry</button>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
           <form onSubmit="{{ handleSubmit }}" class="flex flex-col gap-6" novalidate="">
-            <sc-if value="{{ submitError }}" hint-placeholder-val="{{ false }}">
-              <div role="alert" class="border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">Something went wrong submitting this prototype form. Please try again.</div>
+            <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
+              <div role="alert" class="flex flex-col gap-2 border border-border bg-muted px-5 py-4">
+                <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
+                <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. A trial request is an enquiry to SWUT, not an automatically activated vendor license. Until a form endpoint is connected, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+              </div>
             </sc-if>
+
+            <fieldset ref="{{ intentRef }}" class="flex flex-col gap-3 border-b border-border pb-6">
+              <legend class="text-sm text-muted-foreground">I'm interested in:</legend>
+              <div class="flex flex-col gap-3 sm:flex-row sm:gap-8">
+                <label class="flex cursor-pointer items-center gap-3 text-base text-foreground">
+                  <input type="radio" name="q-intent" value="quote" checked="{{ intentIsQuote }}" onChange="{{ selectQuoteIntent }}" class="size-4 rounded-full border-border accent-foreground">
+                  License quote
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 text-base text-foreground">
+                  <input type="radio" name="q-intent" value="trial" checked="{{ intentIsTrial }}" onChange="{{ selectTrialIntent }}" class="size-4 rounded-full border-border accent-foreground">
+                  14-day free trial
+                </label>
+              </div>
+            </fieldset>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div class="flex flex-col gap-2">
@@ -268,7 +550,6 @@
               <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
             </button>
           </form>
-        </sc-if>
       </div>
     </div>
   </section>
@@ -283,10 +564,11 @@
       <div class="flex flex-col gap-4">
         <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
         <ul class="flex flex-col gap-3">
-          <li><a href="./" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
-          <li><a href="./#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
+          <li><a href="SWUT Home.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
+          <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
           <li><a href="#overview" class="text-sm text-white/70 transition-colors hover:text-white">Overview</a></li>
           <li><a href="#quote" onClick="{{ scrollToQuote }}" class="text-sm text-white/70 transition-colors hover:text-white">Request a Quote</a></li>
+          <li><a href="Contact.dc.html?product=IDEA StatiCa" class="text-sm text-white/70 transition-colors hover:text-white">Contact</a></li>
         </ul>
       </div>
       <div class="flex flex-col gap-4">
@@ -311,62 +593,6 @@
   </footer>
   </div>
 
-  <!-- ===== FULL-PAGE MENU OVERLAY ===== -->
-  <div class="{{ overlayClass }}" data-menu-open="{{ menuOpen }}">
-    <div class="flex h-full flex-col px-6 sm:px-10 lg:px-20">
-      <div class="flex h-20 shrink-0 items-center justify-between">
-        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain">
-      </div>
-      <nav class="relative flex flex-1 items-center overflow-hidden pb-24">
-        <div class="{{ mainPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ submenuOpen }}" inert="{{ submenuOpen }}">
-          <sc-for list="{{ menuLinks }}" as="link" hint-placeholder-count="4">
-            <sc-if value="{{ link.isSubmenuTrigger }}" hint-placeholder-val="{{ false }}">
-              <button type="button" ref="{{ productsBtnRef }}" aria-haspopup="true" aria-expanded="{{ submenuOpen }}" onClick="{{ openProductsMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-left text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
-                <span>{{ link.label }}</span>
-                <i data-lucide="chevron-right" class="size-7 opacity-60 transition-all group-hover:opacity-100 sm:size-9"></i>
-              </button>
-            </sc-if>
-            <sc-if value="{{ link.isLink }}" hint-placeholder-val="{{ true }}">
-              <a href="{{ link.href }}" onClick="{{ link.onClick }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
-                <span>{{ link.label }}</span>
-                <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
-              </a>
-            </sc-if>
-          </sc-for>
-
-          <div class="mt-10 flex flex-col gap-1 text-sm text-muted-foreground">
-            <span class="font-mono uppercase tracking-widest text-foreground/60">Get in touch</span>
-            <a href="mailto:hello@swut.co" class="text-lg text-foreground hover:text-muted-foreground">hello@swut.co</a>
-          </div>
-        </div>
-
-        <div class="{{ subPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ subPanelHidden }}" inert="{{ subPanelHidden }}">
-          <button type="button" ref="{{ backLinkRef }}" onClick="{{ closeProductsMenu }}" class="flex items-center gap-3 py-5 text-lg font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground">
-            <i data-lucide="arrow-left" class="size-4"></i>
-            <span>Main menu</span>
-          </button>
-          <sc-for list="{{ productLinks }}" as="p" hint-placeholder-count="4">
-            <sc-if value="{{ p.isLink }}" hint-placeholder-val="{{ true }}">
-              <a href="{{ p.href }}" onClick="{{ closeMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
-                <span>{{ p.name }}</span>
-                <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
-              </a>
-            </sc-if>
-            <sc-if value="{{ p.isCurrent }}" hint-placeholder-val="{{ false }}">
-              <div aria-current="page" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-muted-foreground sm:text-5xl lg:text-6xl">
-                <span>{{ p.name }}</span>
-              </div>
-            </sc-if>
-            <sc-if value="{{ p.isComingSoon }}" hint-placeholder-val="{{ false }}">
-              <div aria-disabled="true" tabIndex="-1" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground/30 sm:text-5xl lg:text-6xl">
-                <span>{{ p.name }}</span>
-              </div>
-            </sc-if>
-          </sc-for>
-        </div>
-      </nav>
-    </div>
-  </div>
 
 </div>
 
@@ -374,27 +600,15 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
   state = {
-    menuOpen: false, navDark: true,
-    submitted: false, isSubmitting: false, submitError: false,
+    noBackend: false, intent: 'quote', thumbSrc: {},
     fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'IDEA StatiCa', licenses: '1' },
     productsOpen: false,
-    submenuOpen: false,
     errors: {},
     activeCap: 0,
     capPlaying: true, capSectionVisible: false, capHovered: false, capFocused: false, capReducedMotion: false,
   };
 
-  _PRODUCTS = ['PlanSwift', 'IDEA StatiCa', 'ZWCAD', 'Midas'];
-  _PRODUCT_LINKS = [
-    { name: 'IDEA StatiCa', href: 'IDEA StatiCa.dc.html', available: true, current: true },
-    { name: 'ZWCAD', available: false, current: false },
-    { name: 'Midas', available: false, current: false },
-    { name: 'PlanSwift', href: 'PlanSwift.dc.html', available: true, current: false },
-  ];
-  _closeOverlay() {
-    document.body.style.overflow = '';
-    this.setState({ menuOpen: false, submenuOpen: false });
-  }
+  _PRODUCTS = ['IDEA StatiCa', 'ZWCAD', 'Midas'];
 
   _capShouldPlay() {
     return this.state.capPlaying && this.state.capSectionVisible && !this.state.capHovered && !this.state.capFocused && !this.state.capReducedMotion && !document.hidden;
@@ -403,38 +617,91 @@ class Component extends DCLogic {
     if (this._capBar) this._capBar.style.animationPlayState = this._capShouldPlay() ? 'running' : 'paused';
   }
 
+  _THUMB_SOURCES = [
+    { slot: 'reuse-thumb-1', src: 'https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/159b36d0-6cc4-4bb7-ba2b-839d5e0a899d/Bolted%20gusset%20plate%20truss%20connections%20-%20Final.png?w=1200&fm=webp&lossless=false&q=85', placeholder: 'Bolted gusset plate truss connections' },
+    { slot: 'reuse-thumb-2', src: 'https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/5d97fa94-99ec-4bfd-bc11-b35a1c392c28/Column%20base%20plate%20connections%20-%20800%20x%20700.png?w=1200&fm=webp&lossless=false&q=85', placeholder: 'Column base plate connections' },
+    { slot: 'reuse-thumb-3', src: 'https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/12b4ce1c-e467-4804-8705-e7a3307990a3/Design%20-%202D%20tube%20connections%20-%20Final.png?w=1200&fm=webp&lossless=false&q=85', placeholder: 'HSS connections' },
+  ];
+
+  // The library thumbnails ship with an opaque white background. Knock only
+  // that white out to alpha so they sit on the panel gray — no recolouring,
+  // no blend mode; on any failure the original image is kept.
+  _stripWhite(src) {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        try {
+          const c = document.createElement('canvas');
+          c.width = img.naturalWidth; c.height = img.naturalHeight;
+          const ctx = c.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          const d = ctx.getImageData(0, 0, c.width, c.height);
+          const px = d.data;
+          for (let i = 0; i < px.length; i += 4) {
+            const lo = Math.min(px[i], px[i + 1], px[i + 2]);
+            if (lo >= 252) px[i + 3] = 0;
+            else if (lo >= 240) px[i + 3] = Math.round(px[i + 3] * (252 - lo) / 12);
+          }
+          ctx.putImageData(d, 0, 0);
+          resolve(c.toDataURL('image/png'));
+        } catch (e) { resolve(null); }
+      };
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+  }
+
+  _initCtaStage(el) {
+    if (!el) return;
+    this._ctaStages = (this._ctaStages || []).filter(n => n.isConnected);
+    if (this._ctaStages.includes(el)) return;
+    this._ctaStages.push(el);
+    const stages = this._ctaStages;
+    const parts = stages.reduce((acc, n) => acc.concat([n, n.querySelector('[data-cta-sweep]')]), []).filter(Boolean);
+    const sync = () => {
+      const running = this._ctaVisible && !document.hidden;
+      parts.forEach(p => { p.style.animationPlayState = running ? 'running' : 'paused'; });
+    };
+    this._ctaSync = sync;
+    this._ctaVisible = true;
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { this._ctaVisible = e.isIntersecting; sync(); });
+      }, { threshold: 0 });
+      io.observe(el.closest('section') || el);
+      (this._observers = this._observers || []).push(io);
+    }
+    document.addEventListener('visibilitychange', sync);
+    const fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (fine && !reduced) {
+      this._ctaPointer = (ev) => {
+        const host = el.closest('section');
+        if (!host) return;
+        const r = host.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        const dx = (ev.clientX - (r.left + r.width / 2)) / r.width;
+        const dy = (ev.clientY - (r.top + r.height / 2)) / r.height;
+        el.style.translate = `${(dx * 14).toFixed(1)}px ${(dy * 10).toFixed(1)}px`;
+      };
+      window.addEventListener('mousemove', this._ctaPointer, { passive: true });
+    }
+    sync();
+  }
+
   componentDidMount() {
-    this._onScroll = () => {
-      const line = 32;
-      let dark = true;
-      document.querySelectorAll('[data-nav-theme]').forEach(s => {
-        const r = s.getBoundingClientRect();
-        if (r.top <= line && r.bottom > line) dark = s.dataset.navTheme === 'dark';
-      });
-      if (dark !== this.state.navDark) this.setState({ navDark: dark });
-    };
-    window.addEventListener('scroll', this._onScroll, { passive: true });
-    requestAnimationFrame(this._onScroll);
-    this._onMove = (e) => {
-      const el = document.getElementById('swut-cursor');
-      if (el) el.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
-    };
-    window.addEventListener('mousemove', this._onMove, { passive: true });
+    Promise.all(this._THUMB_SOURCES.map(t => this._stripWhite(t.src))).then(results => {
+      const map = {};
+      results.forEach((url, i) => { if (url) map[this._THUMB_SOURCES[i].slot] = url; });
+      if (Object.keys(map).length) this.setState({ thumbSrc: map });
+    });
     this._initReveal();
     this._icons();
     this._onDocClick = (e) => {
       if (this.state.productsOpen && this._prodWrap && !this._prodWrap.contains(e.target)) this.setState({ productsOpen: false });
     };
     document.addEventListener('mousedown', this._onDocClick);
-    this._onOverlayKeyDown = (e) => {
-      if (e.key !== 'Escape' || !this.state.menuOpen) return;
-      if (this.state.submenuOpen) {
-        this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus());
-      } else {
-        this._closeOverlay();
-      }
-    };
-    document.addEventListener('keydown', this._onOverlayKeyDown);
 
     this.setState({ capReducedMotion: !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) });
     this._onVisChange = () => this._syncCapBar();
@@ -450,12 +717,13 @@ class Component extends DCLogic {
   }
   componentDidUpdate() { this._icons(); this._syncCapBar(); }
   componentWillUnmount() {
-    window.removeEventListener('scroll', this._onScroll);
-    window.removeEventListener('mousemove', this._onMove);
+    if (this._ctaSync) document.removeEventListener('visibilitychange', this._ctaSync);
+    if (this._ctaPointer) window.removeEventListener('mousemove', this._ctaPointer);
+    (this._observers || []).forEach(o => o.disconnect());
     if (this._revealIO) this._revealIO.disconnect();
     if (this._capIO) this._capIO.disconnect();
     document.removeEventListener('visibilitychange', this._onVisChange);
-    document.removeEventListener('keydown', this._onOverlayKeyDown);
+    document.removeEventListener('mousedown', this._onDocClick);
   }
 
   // Single consolidated reveal system: 'fade' (whole element), 'stagger' (direct
@@ -486,11 +754,8 @@ class Component extends DCLogic {
           wordTargets.push({ el: span, delay: i * 70 });
         });
       });
-      const maskTargets = [];
-      document.querySelectorAll('[data-reveal="mask"]').forEach(h => {
-        const inner = h.firstElementChild;
-        if (inner) maskTargets.push({ el: inner, delay: 0 });
-      });
+      const maskWrappers = Array.from(document.querySelectorAll('[data-reveal="mask"]')).filter(h => h.firstElementChild);
+      const maskTargets = maskWrappers.map(h => ({ el: h.firstElementChild, delay: 0 }));
       const sectionTargets = Array.from(document.querySelectorAll('[data-reveal="section"]'));
       const curtainTargets = Array.from(document.querySelectorAll('[data-reveal="curtain"]'));
       const curtainContainers = Array.from(document.querySelectorAll('[data-curtain-container]'));
@@ -498,7 +763,7 @@ class Component extends DCLogic {
       const factsGroups = Array.from(document.querySelectorAll('[data-reveal="facts"]'));
       const factsInnerSets = factsGroups.map(group => Array.from(group.children).map(c => c.firstElementChild).filter(Boolean));
 
-      const allEls = [...targets, ...staggerTargets.map(t => t.el), ...wordTargets.map(t => t.el), ...maskTargets.map(t => t.el), ...sectionTargets];
+      const allEls = [...targets, ...staggerTargets.map(t => t.el), ...wordTargets.map(t => t.el), ...sectionTargets];
       if (reduced || !('IntersectionObserver' in window)) {
         allEls.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
         curtainTargets.forEach(el => { el.style.clipPath = ''; });
@@ -507,10 +772,6 @@ class Component extends DCLogic {
           if (l) l.style.clipPath = ''; if (r) r.style.clipPath = '';
         });
         factsInnerSets.forEach(set => set.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; }));
-        document.querySelectorAll('[data-reveal="gal-curtain"]').forEach(el => { el.style.clipPath = ''; });
-        document.querySelectorAll('[data-reveal="gal-caption"]').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
-        const galHeadEarly = document.querySelector('[data-reveal="gal-heading"]');
-        if (galHeadEarly && galHeadEarly.firstElementChild) galHeadEarly.firstElementChild.style.transform = 'none';
         return;
       }
 
@@ -556,8 +817,9 @@ class Component extends DCLogic {
       let curtainReady = false;
       try {
         curtainTargets.forEach(el => {
+          const delay = Number((el.parentElement && el.parentElement.dataset.curtainDelay) || 0);
           el.style.clipPath = 'inset(100% 0 0 0)';
-          el.style.transition = 'clip-path 1100ms cubic-bezier(0.22,1,0.36,1)';
+          el.style.transition = `clip-path 1100ms cubic-bezier(0.22,1,0.36,1) ${delay}ms`;
         });
         curtainReady = true;
       } catch (err) {
@@ -584,8 +846,9 @@ class Component extends DCLogic {
       const revealCurtain = (container) => {
         const inner = container.querySelector('[data-reveal="curtain"]');
         if (!inner) return;
+        const delay = Number(container.dataset.curtainDelay || 0);
         inner.style.clipPath = 'inset(0 0 0 0)';
-        setTimeout(() => { inner.style.clipPath = ''; inner.style.transition = ''; }, 1150);
+        setTimeout(() => { inner.style.clipPath = ''; inner.style.transition = ''; }, delay + 1150);
       };
       try {
         if (curtainReady && curtainContainers.length) {
@@ -634,80 +897,45 @@ class Component extends DCLogic {
           if (l) { l.style.clipPath = ''; l.style.transition = ''; } if (r) { r.style.clipPath = ''; r.style.transition = ''; }
         });
       }
-      const galRows = Array.from(document.querySelectorAll('[data-gallery-row]'));
-      let galReady = false;
+      // architectural rule grid: horizontals draw L→R, verticals T→B, once
       try {
-        galRows.forEach(row => {
-          row.querySelectorAll('[data-reveal="gal-curtain"]').forEach(el => {
-            const delay = el.dataset.galSide === 'right' ? 120 : 0;
-            el.style.clipPath = 'inset(100% 0 0 0)';
-            el.style.transition = `clip-path 1000ms cubic-bezier(0.22,1,0.36,1) ${delay}ms`;
-          });
-          row.querySelectorAll('[data-reveal="gal-caption"]').forEach(el => {
-            const delay = (el.dataset.galSide === 'right' ? 120 : 0) + 1000;
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(12px)';
-            el.style.transition = `opacity 450ms ease ${delay}ms, transform 450ms cubic-bezier(0.22,1,0.36,1) ${delay}ms`;
+        const ruleHosts = Array.from(document.querySelectorAll('[data-info-rules]'));
+        ruleHosts.forEach(host => {
+          host.querySelectorAll('[data-grid-line]').forEach((line, i) => {
+            const horizontal = line.dataset.gridLine === 'h';
+            line.style.transformOrigin = horizontal ? 'left center' : 'center top';
+            line.style.transform = horizontal ? 'scaleX(0)' : 'scaleY(0)';
+            line.style.transition = `transform 800ms cubic-bezier(0.22,1,0.36,1) ${(horizontal ? 0 : 120) + i * 60}ms`;
           });
         });
-        galReady = true;
-      } catch (err) {
-        galRows.forEach(row => {
-          row.querySelectorAll('[data-reveal="gal-curtain"]').forEach(el => { el.style.clipPath = ''; });
-          row.querySelectorAll('[data-reveal="gal-caption"]').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
-        });
-      }
-      try {
-        if (galReady && galRows.length) {
-          const galIO = new IntersectionObserver((entries) => {
+        if (ruleHosts.length) {
+          const ruleIO = new IntersectionObserver((entries) => {
             entries.forEach(e => {
               if (!e.isIntersecting) return;
-              const row = e.target;
-              const curtains = row.querySelectorAll('[data-reveal="gal-curtain"]');
-              const captions = row.querySelectorAll('[data-reveal="gal-caption"]');
-              curtains.forEach(el => {
-                el.style.clipPath = 'inset(0 0 0 0)';
-                const delay = el.dataset.galSide === 'right' ? 120 : 0;
-                setTimeout(() => { el.style.clipPath = ''; el.style.transition = ''; }, delay + 1050);
-              });
-              captions.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
-              galIO.unobserve(row);
+              e.target.querySelectorAll('[data-grid-line]').forEach(line => { line.style.transform = 'none'; });
+              ruleIO.unobserve(e.target);
             });
           }, { threshold: 0, rootMargin: '0px' });
-          galRows.forEach(row => galIO.observe(row));
+          ruleHosts.forEach(el => ruleIO.observe(el));
         }
       } catch (err) {
-        galRows.forEach(row => {
-          row.querySelectorAll('[data-reveal="gal-curtain"]').forEach(el => { el.style.clipPath = ''; el.style.transition = ''; });
-          row.querySelectorAll('[data-reveal="gal-caption"]').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
-        });
+        document.querySelectorAll('[data-grid-line]').forEach(line => { line.style.transform = 'none'; line.style.transition = ''; });
       }
       allEls.forEach(el => io.observe(el));
-      const galHeading = document.querySelector('[data-reveal="gal-heading"]');
-      let galHeadReady = false;
       try {
-        if (galHeading && galHeading.firstElementChild) {
-          galHeading.firstElementChild.style.transform = 'translateY(110%)';
-          galHeading.firstElementChild.style.transition = 'transform 750ms cubic-bezier(0.22,1,0.36,1)';
-        }
-        galHeadReady = true;
-      } catch (err) {
-        if (galHeading && galHeading.firstElementChild) galHeading.firstElementChild.style.transform = 'none';
-      }
-      try {
-        if (galHeadReady && galHeading) {
-          const headIO = new IntersectionObserver((entries) => {
+        if (maskWrappers.length) {
+          const maskIO = new IntersectionObserver((entries) => {
             entries.forEach(e => {
               if (!e.isIntersecting) return;
               const inner = e.target.firstElementChild;
               if (inner) inner.style.transform = 'translateY(0)';
-              headIO.unobserve(e.target);
+              maskIO.unobserve(e.target);
             });
           }, { threshold: 0, rootMargin: '0px' });
-          headIO.observe(galHeading);
+          maskWrappers.forEach(el => maskIO.observe(el));
         }
       } catch (err) {
-        if (galHeading && galHeading.firstElementChild) galHeading.firstElementChild.style.transform = 'none';
+        maskTargets.forEach(t => { t.el.style.transform = 'none'; });
       }
     };
     // Run immediately — do not wait on fonts or any artificial delay, so
@@ -716,6 +944,19 @@ class Component extends DCLogic {
   }
 
   _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  _goToForm(intent) {
+    this.setState({ intent, fields: { ...this.state.fields, product: 'IDEA StatiCa' } });
+    if (typeof this._closeOverlay === 'function') this._closeOverlay();
+    const el = document.getElementById('quote');
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  }
+
+  _focusFirstError(errors) {
+    const order = [['name', 'q-name'], ['email', 'q-email'], ['product', 'q-product'], ['licenses', 'q-licenses']];
+    const hit = order.find(([k]) => errors[k]);
+    if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
+  }
 
   _validate(f) {
     const errors = {};
@@ -727,29 +968,10 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    const { menuOpen, navDark, submitted, isSubmitting, submitError, fields, errors, productsOpen, submenuOpen } = this.state;
-    const solid = !navDark || menuOpen;
-    const navBase = 'fixed inset-x-0 top-0 z-50 h-20 transition-colors duration-300';
-    const navClass = navBase + (solid ? ' border-b border-border bg-background/70 backdrop-blur-md' : ' bg-transparent');
-    const brandClass = 'text-xl font-bold tracking-tight transition-colors' + (solid ? ' text-foreground' : ' text-white');
-    const barColor = solid ? 'bg-foreground' : 'bg-white';
-    const burgerWrapClass = 'relative flex h-11 w-11 flex-col items-center justify-center gap-[7px] rounded-none transition hover:bg-foreground/10';
-    const barBase = 'block h-0.5 w-6 rounded-none transition-all duration-300 ' + barColor;
-    const barTopClass = barBase + (menuOpen ? ' translate-y-[4.5px] rotate-45' : '');
-    const barBotClass = barBase + (menuOpen ? ' -translate-y-[4.5px] -rotate-45' : '');
-    const ctaClass = 'hidden rounded-none bg-transparent px-5 py-2.5 text-sm font-semibold transition hover:opacity-70 sm:inline-flex' + (solid ? ' text-foreground' : ' text-white');
-    const overlayClass = 'fixed inset-0 z-40 bg-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]' + (menuOpen ? ' pointer-events-auto translate-y-0 opacity-100' : ' pointer-events-none -translate-y-4 opacity-0');
-
-    const galleryList = [
-      { slot: 'gal-steel', placeholder: 'steel connection model', title: 'Bolted beam-to-column connection', desc: 'Bolted flange plates joining beam to column.' },
-      { slot: 'gal-analysis', placeholder: 'Asset needed \u2014 connection model screenshot not yet supplied', title: 'Connection model', desc: 'A connection detail built for code-checking.' },
-      { slot: 'gal-concrete', placeholder: 'steel beam splice connection', title: 'Steel beam splice connection', desc: 'A bolted splice joining two beam sections.', src: 'uploads/steel-splice-trimmed.png' },
-      { slot: 'gal-anchor', placeholder: 'anchoring detail', title: 'Anchoring to concrete', desc: 'A base plate with anchor rods set into concrete.', src: 'uploads/membranes_images_1.webp' },
-    ].map((img, i) => ({ ...img, side: i % 2 === 0 ? 'left' : 'right', delay: i % 2 === 0 ? 0 : 120 }));
-    const galleryRows = [{ items: galleryList.slice(0, 2) }, { items: galleryList.slice(2, 4) }];
-
+    const { noBackend, intent, fields, errors, productsOpen } = this.state;
+    const reuseThumbs = this._THUMB_SOURCES.map(t => ({ ...t, src: this.state.thumbSrc[t.slot] || t.src }));
     return {
-      navClass, brandClass, burgerWrapClass, barTopClass, barBotClass, ctaClass, overlayClass,
+      stageRef: (el) => this._initCtaStage(el),
       visRef: (el) => { if (el && this._capIO) this._capIO.observe(el); },
       barRef: (el) => { this._capBar = el; if (el) el.style.animationPlayState = this._capShouldPlay() ? 'running' : 'paused'; },
       advanceCap: () => { if (!this.state.capReducedMotion) this.setState(s => ({ activeCap: (s.activeCap + 1) % 3 })); },
@@ -757,38 +979,21 @@ class Component extends DCLogic {
       onCapMouseLeave: () => this.setState({ capHovered: false }, () => this._syncCapBar()),
       onCapFocus: () => this.setState({ capFocused: true }, () => this._syncCapBar()),
       onCapBlur: () => this.setState({ capFocused: false }, () => this._syncCapBar()),
-      toggleMenu: () => this.setState(s => {
-        const menuOpen = !s.menuOpen;
-        document.body.style.overflow = menuOpen ? 'hidden' : '';
-        return { menuOpen, submenuOpen: false };
-      }),
-      closeMenu: () => this._closeOverlay(),
-      openProductsMenu: () => this.setState({ submenuOpen: true }, () => this._backLinkEl && this._backLinkEl.focus()),
-      closeProductsMenu: () => this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus()),
-      productsBtnRef: (el) => { this._productsBtnEl = el; },
-      backLinkRef: (el) => { this._backLinkEl = el; },
-      submenuOpen,
-      subPanelHidden: !submenuOpen,
-      mainPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? '-translate-x-full' : 'translate-x-0'),
-      subPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? 'translate-x-0' : 'translate-x-full'),
-      productLinks: this._PRODUCT_LINKS.map(p => ({
-        ...p,
-        isLink: p.available && !p.current,
-        isCurrent: p.available && p.current,
-        isComingSoon: !p.available,
-      })),
       scrollToQuote: (e) => {
         e.preventDefault();
-        this._closeOverlay();
+        if (typeof this._closeOverlay === 'function') this._closeOverlay();
         const el = document.getElementById('quote');
         if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
       },
-      submitted, notSubmitted: !submitted, isSubmitting, submitError,
-      fields, errors, productsOpen,
-      submitLabel: isSubmitting ? 'Submitting…' : 'Request a License Quote',
-      formFirstName: (fields.name.trim().split(/\s+/)[0]) || 'there',
-      formEmail: fields.email,
-      formSelectionsText: `${fields.licenses || '1'} \u00d7 ${fields.product}`,
+      noBackend, fields, errors, productsOpen,
+      intentIsQuote: intent === 'quote',
+      intentIsTrial: intent === 'trial',
+      submitLabel: intent === 'trial' ? 'Request a 14-Day Free Trial' : 'Request a License Quote',
+      intentRef: (el) => { this._intentEl = el; },
+      selectQuoteIntent: () => this.setState({ intent: 'quote' }),
+      selectTrialIntent: () => this.setState({ intent: 'trial' }),
+      startTrial: (e) => { e.preventDefault(); this._goToForm('trial'); },
+      startQuote: (e) => { e.preventDefault(); this._goToForm('quote'); },
       prodWrapRef: (el) => { this._prodWrap = el; },
       toggleProductsOpen: () => this.setState(s => ({ productsOpen: !s.productsOpen })),
       onProductsKeyDown: (e) => { if (e.key === 'Escape') this.setState({ productsOpen: false }); },
@@ -808,28 +1013,50 @@ class Component extends DCLogic {
       handleSubmit: (e) => {
         e.preventDefault();
         const errs = this._validate(this.state.fields);
-        if (Object.keys(errs).length) { this.setState({ errors: errs, submitError: false }); return; }
-        this.setState({ errors: {}, isSubmitting: true, submitError: false });
-        setTimeout(() => this.setState({ isSubmitting: false, submitted: true }), 700);
+        if (Object.keys(errs).length) { this.setState({ errors: errs, noBackend: false }, () => this._focusFirstError(errs)); return; }
+        const f = this.state.fields;
+        // No submission endpoint is wired up: assemble the payload, disclose that
+        // nothing was sent rather than faking a success state.
+        console.info('[SWUT IDEA StatiCa] no backend configured; payload not sent:', {
+          requestType: this.state.intent === 'trial' ? '14-day free trial' : 'License quote',
+          name: f.name, email: f.email, company: f.company, phone: f.phone,
+          product: f.product, licenses: Number(f.licenses), notes: f.notes,
+        });
+        this.setState({ errors: {}, noBackend: true });
       },
-      resetForm: () => this.setState({
-        submitted: false, isSubmitting: false, submitError: false, errors: {},
-        fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'IDEA StatiCa', licenses: '1' },
+      reuseMain: reuseThumbs[0],
+      reuseSideA: reuseThumbs[1],
+      reuseSideB: reuseThumbs[2],
+      newsEvents: [
+        {
+          id: 'idea-statica-coffee-and-learn',
+          href: 'Event.dc.html',
+          kind: 'Event',
+          date: '2026-10-05',
+          dateLabel: '05 October 2026',
+          title: 'IDEA StatiCa Coffee & Learn',
+          venue: 'Triumph Luxury Hotel',
+          summary: 'Meet the IDEA StatiCa team for technical presentations, customer success stories, and discussions on structural design workflows.',
+        },
+      ].map(item => {
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const upcoming = new Date(item.date + 'T00:00:00') >= today;
+        return { ...item, kindAndDate: `${item.kind} \u2014 ${item.dateLabel}`, isUpcoming: upcoming, isPast: !upcoming };
       }),
       facts: [
-        { label: 'Category', value: 'Structural Design Software' },
-        { label: 'Developer', value: 'IDEA StatiCa' },
-        { label: 'Purchase', value: 'License Enquiry' },
+        { label: 'Category', value: 'Structural Design Software', isText: true },
+        { label: 'Developed by', value: 'IDEA StatiCa', isLink: true, href: 'https://www.ideastatica.com/' },
+        { label: 'License types', value: 'One-time & Annual', isText: true },
       ],
       capabilities: [
-        { number: '01', title: 'Steel connections', body: 'Design bolted and welded joints, base plates, and complex connection geometries.', mediaId: 'cap-steel', placeholder: 'Steel connection model' },
-        { number: '02', title: 'Concrete design', body: 'Analyze reinforced concrete walls and regions with complex geometry, including openings and dapped ends.', mediaId: 'cap-concrete-needed', placeholder: 'Asset needed \u2014 authentic reinforced concrete model not yet supplied' },
-        { number: '03', title: 'Anchoring', body: 'Evaluate steel-to-concrete connections, including base plates, anchors, and shear transfer.', mediaId: 'cap-anchor', placeholder: 'Anchoring detail', src: 'uploads/membranes_images_1.webp' },
+        { number: '01', title: 'Steel', body: 'Design and code-check steel connections and assess member behavior, including complex joints, base plates, and anchoring details.', mediaId: 'cap-steel', placeholder: 'Steel connection model' },
+        { number: '02', title: 'Concrete', body: 'Analyze reinforced and prestressed concrete elements, including walls, beams, and regions with complex load transfer. Assess reinforcement and relevant design checks.', mediaId: 'cap-concrete-needed', placeholder: 'Asset needed \u2014 authentic reinforced concrete model not yet supplied' },
+        { number: '03', title: 'BIM & Workflows', body: 'Connect IDEA StatiCa with supported CAD and structural analysis tools to transfer model data and reduce repeated input.', note: 'Integration examples include Tekla Structures, SAP2000, ETABS, and STAAD.Pro. Support depends on the application and software version.', mediaId: 'cap-bim', placeholder: 'Asset needed \u2014 BIM import / coordination interface screenshot not yet supplied' },
       ].map((cap, i) => {
         const active = i === this.state.activeCap;
         const paused = active && (this.state.capHovered || this.state.capFocused);
         return {
-          ...cap, active,
+          ...cap, active, hasNote: !!cap.note,
           select: () => { this.setState({ activeCap: i }); },
           showProgress: active && !this.state.capReducedMotion,
           showStaticFill: active && this.state.capReducedMotion,
@@ -839,18 +1066,6 @@ class Component extends DCLogic {
           trackClass: 'relative shrink-0 transition-all duration-200 ' + (paused ? 'w-[5px] bg-white' : 'w-[2px] bg-white/15'),
         };
       }),
-      gallery: galleryList,
-      galleryRows,
-      menuLinks: [
-        { label: 'Home', href: './', isLink: true, isSubmenuTrigger: false, onClick: () => this._closeOverlay() },
-        { label: 'Products', isLink: false, isSubmenuTrigger: true },
-        { label: 'Overview', href: '#overview', isLink: true, isSubmenuTrigger: false, onClick: () => this._closeOverlay() },
-        { label: 'Request a Quote', href: '#quote', isLink: true, isSubmenuTrigger: false, onClick: (e) => {
-          e.preventDefault();
-          this._closeOverlay();
-          document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } },
-      ],
     };
   }
 }

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<div id="swut-cursor" style="position:fixed;top:0;left:0;width:20px;height:20px;border:2px solid #fff;border-radius:9999px;pointer-events:none;z-index:9999;mix-blend-mode:difference;transform:translate(-100px,-100px);transition:transform 0.08s ease-out;will-change:transform"></div>
+
+<nav class="{{ navClass }}">
+  <div class="grid h-full grid-cols-3 items-center px-6 sm:px-10 lg:px-20">
+    <a href="{{ homeHref }}" onClick="{{ onHomeClick }}" class="justify-self-start"><img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain sm:h-9"></a>
+    <button onClick="{{ toggleMenu }}" aria-label="Open menu" class="{{ burgerWrapClass }} justify-self-center">
+      <span class="{{ barTopClass }}"></span>
+      <span class="{{ barBotClass }}"></span>
+    </button>
+    <a href="{{ quoteHref }}" onClick="{{ onQuoteClick }}" class="{{ ctaClass }} justify-self-end">Request a Quote</a>
+  </div>
+</nav>
+
+<div class="{{ overlayClass }}" data-menu-open="{{ menuOpen }}">
+  <div class="flex h-full flex-col px-6 sm:px-10 lg:px-20">
+    <div class="flex h-20 shrink-0 items-center justify-between">
+      <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="h-8 w-auto object-contain">
+    </div>
+    <nav class="relative flex flex-1 items-center overflow-hidden pb-24">
+      <div class="{{ mainPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ submenuOpen }}" inert="{{ submenuOpen }}">
+        <sc-for list="{{ menuLinks }}" as="link" hint-placeholder-count="5">
+          <sc-if value="{{ link.isSubmenuTrigger }}" hint-placeholder-val="{{ false }}">
+            <button type="button" ref="{{ productsBtnRef }}" aria-haspopup="true" aria-expanded="{{ submenuOpen }}" onClick="{{ openProductsMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-left text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+              <span>{{ link.label }}</span>
+              <i data-lucide="chevron-right" class="size-7 opacity-60 transition-all group-hover:opacity-100 sm:size-9"></i>
+            </button>
+          </sc-if>
+          <sc-if value="{{ link.isLink }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ link.href }}" onClick="{{ link.onClick }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+              <span>{{ link.label }}</span>
+              <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
+            </a>
+          </sc-if>
+        </sc-for>
+
+        <div class="mt-10 flex flex-col gap-1 text-sm text-muted-foreground">
+          <span class="font-mono uppercase tracking-widest text-foreground/60">Get in touch</span>
+          <a href="mailto:hello@swut.co" class="text-lg text-foreground hover:text-muted-foreground">hello@swut.co</a>
+        </div>
+      </div>
+
+      <div class="{{ subPanelClass }} absolute inset-x-0 top-0 flex h-full flex-col justify-center gap-2 pb-24" aria-hidden="{{ subPanelHidden }}" inert="{{ subPanelHidden }}">
+        <button type="button" ref="{{ backLinkRef }}" onClick="{{ closeProductsMenu }}" class="flex items-center gap-3 py-5 text-lg font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground">
+          <i data-lucide="arrow-left" class="size-4"></i>
+          <span>Main menu</span>
+        </button>
+        <sc-for list="{{ productLinks }}" as="p" hint-placeholder-count="4">
+          <sc-if value="{{ p.isLink }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ p.href }}" onClick="{{ closeMenu }}" class="group flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-5xl lg:text-6xl">
+              <span>{{ p.name }}</span>
+              <i data-lucide="arrow-up-right" class="size-7 opacity-0 transition-all group-hover:opacity-100 sm:size-9"></i>
+            </a>
+          </sc-if>
+          <sc-if value="{{ p.isCurrent }}" hint-placeholder-val="{{ false }}">
+            <div aria-current="page" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-muted-foreground sm:text-5xl lg:text-6xl">
+              <span>{{ p.name }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ p.isComingSoon }}" hint-placeholder-val="{{ false }}">
+            <div aria-disabled="true" tabIndex="-1" class="flex w-full items-center justify-between border-b border-border py-5 text-4xl font-semibold tracking-tight text-foreground/30 sm:text-5xl lg:text-6xl">
+              <span>{{ p.name }}</span>
+            </div>
+          </sc-if>
+        </sc-for>
+      </div>
+    </nav>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:600},&quot;currentPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;idea-statica&quot;,&quot;contact&quot;,&quot;event&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;quoteHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#quote&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { menuOpen: false, navDark: true, submenuOpen: false };
+
+  _PAGES = {
+    'home': 'SWUT Home.dc.html',
+    'idea-statica': 'IDEA StatiCa.dc.html',
+    'contact': 'Contact.dc.html',
+    'event': 'Event.dc.html',
+  };
+  _PRODUCT_LINKS = [
+    { name: 'IDEA StatiCa', page: 'idea-statica', available: true },
+    { name: 'ZWCAD', available: false },
+    { name: 'Midas', available: false },
+  ];
+
+  _closeOverlay() {
+    document.body.style.overflow = '';
+    this.setState({ menuOpen: false, submenuOpen: false });
+  }
+
+  // Cross-page section link: if we're already on the target page, just
+  // smooth-scroll; otherwise stash the target and do a real navigation (the
+  // shared page-transition curtain handles the animated crossfade), and the
+  // destination page picks the pending target back up on mount.
+  _goToSection(targetPage, sectionId) {
+    return (e) => {
+      e.preventDefault();
+      this._closeOverlay();
+      const current = this.props.currentPage;
+      if (targetPage === current) {
+        const el = document.getElementById(sectionId);
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+        return;
+      }
+      sessionStorage.setItem('__swut_scroll_target', sectionId);
+      window.location.href = this._PAGES[targetPage];
+    };
+  }
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const line = 32;
+      let dark = true;
+      document.querySelectorAll('[data-nav-theme]').forEach(s => {
+        const r = s.getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) dark = s.dataset.navTheme === 'dark';
+      });
+      if (dark !== this.state.navDark) this.setState({ navDark: dark });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    requestAnimationFrame(this._onScroll);
+    this._onMove = (e) => {
+      const el = document.getElementById('swut-cursor');
+      if (el) el.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+    };
+    window.addEventListener('mousemove', this._onMove, { passive: true });
+    this._onKeyDown = (e) => {
+      if (e.key !== 'Escape' || !this.state.menuOpen) return;
+      if (this.state.submenuOpen) this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus());
+      else this._closeOverlay();
+    };
+    document.addEventListener('keydown', this._onKeyDown);
+    this._icons();
+  }
+  componentDidUpdate() { this._icons(); }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('mousemove', this._onMove);
+    document.removeEventListener('keydown', this._onKeyDown);
+  }
+  _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  renderVals() {
+    const { menuOpen, navDark, submenuOpen } = this.state;
+    const current = this.props.currentPage || 'home';
+    const quoteHref = this.props.quoteHref || '#quote';
+    const solid = !navDark || menuOpen;
+    const navBase = 'fixed inset-x-0 top-0 z-50 h-20 transition-colors duration-300';
+    const navClass = navBase + (solid ? ' border-b border-border bg-background/70 backdrop-blur-md' : ' bg-transparent');
+    const barColor = solid ? 'bg-foreground' : 'bg-white';
+    const burgerWrapClass = 'relative flex h-11 w-11 flex-col items-center justify-center gap-[7px] rounded-none transition hover:bg-foreground/10';
+    const barBase = 'block h-0.5 w-6 rounded-none transition-all duration-300 ' + barColor;
+    const barTopClass = barBase + (menuOpen ? ' translate-y-[4.5px] rotate-45' : '');
+    const barBotClass = barBase + (menuOpen ? ' -translate-y-[4.5px] -rotate-45' : '');
+    const ctaClass = 'hidden rounded-none bg-transparent px-5 py-2.5 text-sm font-semibold transition hover:opacity-70 sm:inline-flex' + (solid ? ' text-foreground' : ' text-white');
+    const overlayClass = 'fixed inset-0 z-40 bg-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]' + (menuOpen ? ' pointer-events-auto translate-y-0 opacity-100' : ' pointer-events-none -translate-y-4 opacity-0');
+
+    const homeHref = current === 'home' ? '#' : this._PAGES.home;
+    const onHomeClick = (e) => { if (current === 'home') { e.preventDefault(); this._closeOverlay(); window.scrollTo({ top: 0, behavior: 'smooth' }); } else { this._closeOverlay(); } };
+    const onQuoteClick = (e) => {
+      // in-page anchor (starts with '#', not a route) — just close + smooth scroll
+      if (quoteHref.startsWith('#') && quoteHref.length > 1) {
+        e.preventDefault();
+        this._closeOverlay();
+        const el = document.getElementById(quoteHref.slice(1));
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      } else {
+        this._closeOverlay();
+      }
+    };
+
+    const menuLinks = [
+      { label: 'Home', isLink: true, href: homeHref, onClick: onHomeClick },
+      { label: 'Products', isSubmenuTrigger: true },
+      { label: 'Services', isLink: true, href: current === 'home' ? '#services' : this._PAGES.home, onClick: this._goToSection('home', 'services') },
+      { label: 'About', isLink: true, href: '#', onClick: (e) => { e.preventDefault(); this._closeOverlay(); } },
+      { label: 'Contact', isLink: true, href: current === 'contact' ? '#enquiry' : this._PAGES.contact, onClick: (e) => {
+        if (current !== 'contact') { this._closeOverlay(); return; }
+        e.preventDefault();
+        this._closeOverlay();
+        const el = document.getElementById('enquiry');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      } },
+    ];
+
+    return {
+      navClass, burgerWrapClass, barTopClass, barBotClass, ctaClass, overlayClass,
+      homeHref, onHomeClick, quoteHref, onQuoteClick,
+      menuOpen, submenuOpen,
+      subPanelHidden: !submenuOpen,
+      mainPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? '-translate-x-full' : 'translate-x-0'),
+      subPanelClass: 'transition-transform duration-[350ms] ease-out ' + (submenuOpen ? 'translate-x-0' : 'translate-x-full'),
+      menuLinks,
+      productLinks: this._PRODUCT_LINKS.map(p => ({
+        name: p.name,
+        href: p.available ? this._PAGES[p.page] : undefined,
+        isLink: p.available && p.page !== current,
+        isCurrent: p.available && p.page === current,
+        isComingSoon: !p.available,
+      })),
+      toggleMenu: () => this.setState(s => {
+        const menuOpen = !s.menuOpen;
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+        return { menuOpen, submenuOpen: false };
+      }),
+      closeMenu: () => this._closeOverlay(),
+      openProductsMenu: () => this.setState({ submenuOpen: true }, () => this._backLinkEl && this._backLinkEl.focus()),
+      closeProductsMenu: () => this.setState({ submenuOpen: false }, () => this._productsBtnEl && this._productsBtnEl.focus()),
+      productsBtnRef: (el) => { this._productsBtnEl = el; },
+      backLinkRef: (el) => { this._backLinkEl = el; },
+    };
+  }
+}
+</script>
+</body>
+</html>

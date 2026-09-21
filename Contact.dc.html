@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./page-transition.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          background: 'oklch(var(--background))',
+          foreground: 'oklch(var(--foreground))',
+          card: 'oklch(var(--card))',
+          border: 'oklch(var(--border))',
+          primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
+          muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
+        },
+        borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  :root {
+    --background: 1 0 0;
+    --foreground: 0.145 0 0;
+    --card: 1 0 0;
+    --border: 0.922 0 0;
+    --primary: 0.205 0 0;
+    --primary-foreground: 0.985 0 0;
+    --muted-foreground: 0.556 0 0;
+    --muted: 0.97 0 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  input:focus, textarea:focus, button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+</style>
+</helmet>
+
+<div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
+
+  <dc-import name="NavHeader" current-page="contact" quote-href="#enquiry" hint-size="100%,80px"></dc-import>
+
+  <!-- ===== PAGE TITLE ===== -->
+  <section data-nav-theme="dark" data-screen-label="Contact title" class="bg-primary px-6 pb-16 pt-32 text-primary-foreground sm:px-10 sm:pb-20 sm:pt-36 lg:px-20">
+    <div class="flex flex-col items-start gap-6">
+      <span class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Contact Us</span>
+      <h1 class="max-w-3xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+        <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">Let's talk about</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">your software needs.</span></span>
+      </h1>
+      <p data-reveal="fade" class="max-w-xl text-pretty text-base leading-relaxed text-white/70 sm:text-lg">Enquire about software licenses or send the SWUT team a question.</p>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT DETAILS + ENQUIRY FORM ===== -->
+  <section id="enquiry" data-curtain-cols data-curtain-duration="900" data-nav-theme="light" data-screen-label="Contact form" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-24">
+    <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
+
+      <div data-reveal="curtain-left" class="flex flex-col items-start gap-6 lg:col-span-4">
+        <h2 class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Get in touch.</h2>
+        <p class="max-w-sm text-base leading-relaxed text-muted-foreground">Reach us directly, or use the form and we'll route your enquiry to the right person.</p>
+
+        <div class="mt-2 flex w-full max-w-sm flex-col">
+          <div class="flex flex-col gap-1.5 border-t border-border py-5">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Email</span>
+            <a href="mailto:hello@swut.co" class="text-lg text-foreground transition-colors hover:text-muted-foreground">hello@swut.co</a>
+          </div>
+          <div class="flex flex-col gap-1.5 border-t border-border py-5">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Phone</span>
+            <span class="text-lg text-muted-foreground">Awaiting confirmation</span>
+            <span class="text-sm leading-relaxed text-muted-foreground">The number used in earlier drafts was placeholder content. Send us the verified line and we'll publish it as a tap-to-call link.</span>
+          </div>
+          <div class="flex flex-col gap-1.5 border-t border-b border-border py-5">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Location</span>
+            <span class="text-lg text-foreground">Cairo, Egypt</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal="curtain-right" onFocus="{{ forceReveal }}" class="lg:col-span-8">
+        <form onSubmit="{{ handleSubmit }}" class="flex flex-col gap-6" novalidate="">
+
+          <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
+            <div role="alert" class="flex flex-col gap-2 border border-border bg-muted px-5 py-4">
+              <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
+              <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. Connect a form endpoint (or an inbox forwarder) and this button will send for real. Until then, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+            </div>
+          </sc-if>
+
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="c-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="c-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
+              <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="c-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="c-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
+              <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="c-company" class="text-sm text-muted-foreground">Company</label>
+              <input id="c-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="c-phone" class="text-sm text-muted-foreground">Phone number</label>
+              <input id="c-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProductsKeyDown }}">
+              <label id="c-product-label" class="text-sm text-muted-foreground">Product / Enquiry <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <div class="relative">
+                <button type="button" id="c-product" aria-haspopup="listbox" aria-expanded="{{ productsOpen }}" aria-labelledby="c-product-label" onClick="{{ toggleProductsOpen }}" class="flex w-full items-center justify-between gap-2 border border-border bg-transparent px-4 py-3 text-left text-base text-foreground" aria-invalid="{{ errors.product }}" aria-describedby="err-product">
+                  <span class="truncate">{{ fields.product }}</span>
+                  <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
+                </button>
+                <sc-if value="{{ productsOpen }}" hint-placeholder-val="{{ false }}">
+                  <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
+                    <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="5">
+                      <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                        <input type="radio" name="c-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                        {{ opt.name }}
+                      </label>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+              <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a product or enquiry type.</span></sc-if>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="c-licenses" class="text-sm text-muted-foreground">Number of licenses</label>
+              <input id="c-licenses" type="{{ licensesType }}" min="1" disabled="{{ licensesDisabled }}" value="{{ licensesValue }}" onChange="{{ setLicenses }}" class="{{ licensesClass }}" aria-invalid="{{ errors.licenses }}" aria-describedby="err-licenses">
+              <sc-if value="{{ errors.licenses }}" hint-placeholder-val="{{ false }}"><span id="err-licenses" class="text-sm text-red-600">Enter at least 1 license.</span></sc-if>
+              <sc-if value="{{ licensesDisabled }}" hint-placeholder-val="{{ true }}"><span class="text-sm text-muted-foreground">Applies to product enquiries only.</span></sc-if>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="c-notes" class="text-sm text-muted-foreground">Message</label>
+            <textarea id="c-notes" rows="5" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Tell us what you need — licensing, training, support, or a question."></textarea>
+          </div>
+
+          <button type="submit" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90">
+            Send Enquiry
+            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer data-reveal="fade" data-nav-theme="dark" data-screen-label="Footer" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
+      <div class="flex flex-col gap-4">
+        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="block h-auto w-[160px] object-contain sm:w-[190px]" style="margin-bottom:15px">
+        <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
+        <ul class="flex flex-col gap-3">
+          <li><a href="SWUT Home.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
+          <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
+          <li><a href="IDEA StatiCa.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">IDEA StatiCa</a></li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Contact</span>
+        <div class="flex flex-col gap-3 text-sm">
+          <a href="mailto:hello@swut.co" class="text-white/70 transition-colors hover:text-white">hello@swut.co</a>
+          <span class="text-white/40">Phone — awaiting confirmation</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Location</span>
+        <p class="text-sm leading-relaxed text-white/70">Cairo,<br>Egypt</p>
+      </div>
+    </div>
+    <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <span class="text-sm text-white/50">© 2026 SWUT. All rights reserved.</span>
+      <div class="flex gap-6 text-sm text-white/50">
+        <a href="#" class="transition-colors hover:text-white">Privacy Policy</a>
+        <a href="#" class="transition-colors hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
+class Component extends DCLogic {
+  state = {
+    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'General enquiry', licenses: '1' },
+    productsOpen: false, errors: {}, noBackend: false,
+  };
+
+  _PRODUCTS = ['General enquiry', 'IDEA StatiCa', 'ZWCAD', 'Midas'];
+
+  componentDidMount() {
+    this._applyProductContext();
+    this._initReveal();
+    this._icons();
+    this._onDocClick = (e) => {
+      if (this.state.productsOpen && this._prodWrap && !this._prodWrap.contains(e.target)) this.setState({ productsOpen: false });
+    };
+    document.addEventListener('mousedown', this._onDocClick);
+    const target = sessionStorage.getItem('__swut_scroll_target');
+    if (target) {
+      sessionStorage.removeItem('__swut_scroll_target');
+      setTimeout(() => {
+        const el = document.getElementById(target);
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      }, 300);
+    }
+  }
+  componentDidUpdate() { this._icons(); }
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this._onDocClick);
+    if (this._revealSweep) { window.removeEventListener('scroll', this._revealSweep); window.removeEventListener('resize', this._revealSweep); }
+  }
+  _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  // ?product=ZWCAD or #/contact?product=ZWCAD preselects, still editable
+  _applyProductContext() {
+    let raw = null;
+    try {
+      raw = new URLSearchParams(window.location.search).get('product');
+      if (!raw && window.location.hash.includes('?')) raw = new URLSearchParams(window.location.hash.split('?')[1]).get('product');
+    } catch (e) {}
+    if (!raw) return;
+    const match = this._PRODUCTS.find(p => p.toLowerCase().replace(/\s+/g, '') === raw.toLowerCase().replace(/[\s-]+/g, ''));
+    if (match) this.setState(s => ({ fields: { ...s.fields, product: match, licenses: match === 'General enquiry' ? '1' : (s.fields.licenses || '1') } }));
+  }
+
+  _initReveal() {
+    if (this._revealInit) return;
+    this._revealInit = true;
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fadeTargets = Array.from(document.querySelectorAll('[data-reveal="fade"]'));
+    const maskTargets = [];
+    document.querySelectorAll('[data-reveal="mask"]').forEach(h => { if (h.firstElementChild) maskTargets.push(h.firstElementChild); });
+    const colContainers = Array.from(document.querySelectorAll('[data-curtain-cols]'));
+
+    if (reduced || !('IntersectionObserver' in window)) {
+      fadeTargets.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+      maskTargets.forEach(el => { el.style.transform = 'none'; });
+      colContainers.forEach(el => {
+        const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+        if (l) l.style.clipPath = '';
+        if (r) r.style.clipPath = '';
+      });
+      return;
+    }
+
+    fadeTargets.forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1)';
+    });
+    maskTargets.forEach((el, i) => {
+      el.style.transform = 'translateY(110%)';
+      el.style.transition = `transform 0.75s cubic-bezier(0.22,1,0.36,1) ${i * 90}ms`;
+    });
+    colContainers.forEach(el => {
+      const dur = Number(el.dataset.curtainDuration) || 1000;
+      const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+      if (l) { l.style.clipPath = 'inset(0 100% 0 0)'; l.style.transition = `clip-path ${dur}ms cubic-bezier(0.22,1,0.36,1)`; }
+      if (r) { r.style.clipPath = 'inset(0 0 0 100%)'; r.style.transition = `clip-path ${dur}ms cubic-bezier(0.22,1,0.36,1)`; }
+    });
+
+    const margin = 60;
+    const inView = (el) => { const r = el.getBoundingClientRect(); return r.top < window.innerHeight + margin && r.bottom > -margin; };
+    const pending = [];
+    fadeTargets.forEach(el => pending.push({ el, reveal: () => { el.style.opacity = '1'; el.style.transform = 'none'; } }));
+    maskTargets.forEach(el => pending.push({ el, reveal: () => { el.style.transform = 'translateY(0)'; } }));
+    colContainers.forEach(el => pending.push({ el, reveal: () => this._finishCols(el) }));
+    this._revealPending = pending;
+    const sweep = () => {
+      this._revealPending = this._revealPending.filter(item => {
+        if (!inView(item.el)) return true;
+        item.reveal();
+        return false;
+      });
+    };
+    this._revealSweep = sweep;
+    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('resize', sweep);
+    requestAnimationFrame(sweep);
+    requestAnimationFrame(() => requestAnimationFrame(sweep));
+    setTimeout(sweep, 400);
+  }
+
+  // clears clip-path after the reveal so dropdowns / error text aren't cut off
+  _finishCols(el) {
+    const dur = Number(el.dataset.curtainDuration) || 1000;
+    const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+    [l, r].forEach(n => {
+      if (!n) return;
+      n.style.clipPath = 'inset(0 0 0 0)';
+      setTimeout(() => { n.style.clipPath = ''; n.style.transition = ''; }, dur + 50);
+    });
+  }
+
+  _validate(f) {
+    const errors = {};
+    if (!f.name.trim()) errors.name = true;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.product) errors.product = true;
+    if (f.product !== 'General enquiry' && (!f.licenses || Number(f.licenses) < 1)) errors.licenses = true;
+    return errors;
+  }
+
+  _focusFirstError(errors) {
+    const order = [['name', 'c-name'], ['email', 'c-email'], ['product', 'c-product'], ['licenses', 'c-licenses']];
+    const hit = order.find(([k]) => errors[k]);
+    if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
+  }
+
+  renderVals() {
+    const { fields, errors, productsOpen, noBackend } = this.state;
+    const isGeneral = fields.product === 'General enquiry';
+    const licensesBase = 'border border-border px-4 py-3 text-base placeholder:text-muted-foreground';
+
+    return {
+      fields, errors, productsOpen, noBackend,
+      licensesDisabled: isGeneral,
+      licensesValue: isGeneral ? '\u2014' : fields.licenses,
+      licensesType: isGeneral ? 'text' : 'number',
+      licensesClass: licensesBase + (isGeneral ? ' cursor-not-allowed bg-muted text-muted-foreground' : ' bg-transparent text-foreground'),
+      productOptions: this._PRODUCTS.map(name => ({
+        name,
+        checked: fields.product === name,
+        select: () => this.setState(s => ({
+          fields: { ...s.fields, product: name, licenses: name === 'General enquiry' ? s.fields.licenses : (s.fields.licenses || '1') },
+          productsOpen: false,
+          errors: { ...s.errors, product: false, licenses: false },
+        })),
+      })),
+      prodWrapRef: (el) => { this._prodWrap = el; },
+      toggleProductsOpen: () => this.setState(s => ({ productsOpen: !s.productsOpen })),
+      onProductsKeyDown: (e) => { if (e.key === 'Escape' && this.state.productsOpen) this.setState({ productsOpen: false }); },
+      forceReveal: () => {
+        document.querySelectorAll('[data-curtain-cols]').forEach(el => this._finishCols(el));
+      },
+      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
+      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
+      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
+      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
+      setLicenses: (e) => this.setState(s => ({ fields: { ...s.fields, licenses: e.target.value } })),
+      setNotes: (e) => this.setState(s => ({ fields: { ...s.fields, notes: e.target.value } })),
+      handleSubmit: (e) => {
+        e.preventDefault();
+        const errs = this._validate(this.state.fields);
+        if (Object.keys(errs).length) {
+          this.setState({ errors: errs, noBackend: false }, () => this._focusFirstError(errs));
+          return;
+        }
+        // No submission endpoint is wired up. Payload is assembled but nothing
+        // is sent — we surface that rather than faking a success state.
+        const f = this.state.fields;
+        const payload = { name: f.name, email: f.email, company: f.company, phone: f.phone, product: f.product, notes: f.notes };
+        if (f.product !== 'General enquiry') payload.licenses = Number(f.licenses);
+        console.info('[SWUT contact] no backend configured; payload not sent:', payload);
+        this.setState({ errors: {}, noBackend: true });
+      },
+    };
+  }
+}
+
+</script>
+</body>
+</html>
