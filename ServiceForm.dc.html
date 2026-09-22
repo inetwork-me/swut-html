@@ -90,11 +90,34 @@
               <sc-if value="{{ prodOpen }}" hint-placeholder-val="{{ false }}">
                 <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
                   <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="4">
-                    <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
-                      <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
-                      {{ opt.name }}
-                    </label>
-                  </sc-for>
+                    <sc-if value="{{ opt.isGroup }}" hint-placeholder-val="{{ false }}">
+                          <span role="presentation" class="border-t border-border px-4 pb-1 pt-3 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ opt.name }}</span>
+                        </sc-if>
+                        <sc-if value="{{ opt.isNestedFirst }}" hint-placeholder-val="{{ false }}">
+                          <label class="flex cursor-pointer items-center gap-3 py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                        <sc-if value="{{ opt.isNested }}" hint-placeholder-val="{{ false }}">
+                          <label class="flex cursor-pointer items-center gap-3 border-t border-border py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                        <sc-if value="{{ opt.isPlainFirst }}" hint-placeholder-val="{{ true }}">
+                          <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                        <sc-if value="{{ opt.isPlain }}" hint-placeholder-val="{{ false }}">
+                          <label class="flex cursor-pointer items-center gap-3 border-t border-border px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                      </sc-for>
                 </div>
               </sc-if>
             </div>
@@ -190,7 +213,18 @@ class Component extends DCLogic {
   };
 
   _SERVICES = ['Training', 'Technical Support', 'Technical Workshops', 'Software Maintenance', 'BIM Consultancy', 'Request a Demo'];
-  _PRODUCTS = ['IDEA StatiCa', 'ZWCAD', 'Midas', 'Not sure / Other'];
+  _PRODUCT_OPTS = { notSure: true };
+
+  get _PRODUCTS() {
+    const api = window.SWUTProductOptions;
+    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'Bentley', 'Not sure / Other'];
+  }
+
+  _productRows(current, pick) {
+    const api = window.SWUTProductOptions;
+    if (api) return api.rows(this._PRODUCT_OPTS, current, pick);
+    return this._PRODUCTS.map(name => ({ name, isGroup: false, isNested: false, isPlain: true, checked: current === name, select: () => pick(name) }));
+  }
 
   _CTX = {
     'Software Maintenance': {
@@ -226,10 +260,26 @@ class Component extends DCLogic {
     'Request a Demo': 'What would you like to explore?',
   };
 
+  // ?product=MIDAS%20GEN (or #/…?product=…) preselects, still editable.
+  // Brand-only "MIDAS" names three products, so it is left for the visitor to choose.
+  _productFromUrl() {
+    let raw = null;
+    try {
+      raw = new URLSearchParams(window.location.search).get('product');
+      if (!raw && window.location.hash.includes('?')) raw = new URLSearchParams(window.location.hash.split('?')[1]).get('product');
+    } catch (e) {}
+    if (!raw) return '';
+    const api = window.SWUTProductOptions;
+    if (api) return api.isBrandOnlyMidas(raw) ? '' : api.match(raw, this._PRODUCT_OPTS);
+    const key = String(raw).toLowerCase().replace(/[\s-]+/g, '');
+    return this._PRODUCTS.find(p => p.toLowerCase().replace(/\s+/g, '') === key) || '';
+  }
+
   componentDidMount() {
+    if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
     const service = this.props.service || 'Training';
     this.setState(s => ({
-      fields: { ...s.fields, service, product: this.props.product || 'Not sure / Other', ...this._ctxDefaults(service) },
+      fields: { ...s.fields, service, product: this.props.product || this._productFromUrl() || 'Not sure / Other', ...this._ctxDefaults(service) },
     }));
     this._onDocClick = (e) => {
       const wraps = { service: this._svcWrap, product: this._prodWrap, a: this._aWrap, b: this._bWrap };
@@ -336,7 +386,9 @@ class Component extends DCLogic {
           fields: { ...s.fields, service: name, ...this._ctxDefaults(name) }, open: null, errors: {},
         })),
       })),
-      productOptions: this._opts(this._PRODUCTS, 'product'),
+      productOptions: this._productRows(fields.product, (name) => this.setState(s => ({
+        fields: { ...s.fields, product: name }, open: null, errors: { ...s.errors, product: false },
+      }))),
 
       svcWrapRef: (el) => { this._svcWrap = el; },
       prodWrapRef: (el) => { this._prodWrap = el; },

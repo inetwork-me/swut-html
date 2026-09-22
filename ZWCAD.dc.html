@@ -49,30 +49,27 @@
   @media (min-width: 1024px) { [data-info-grid] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
   [data-info-rules] { --ext: 6px; }
   [data-info-frame] { aspect-ratio: 4 / 3; width: 100%; max-width: none; min-width: 0; box-sizing: border-box; }
-  @media (min-width: 1024px) { [data-info-frame] { aspect-ratio: 4 / 5; } }
-  [data-info-grid] > * { min-width: 0; box-sizing: border-box; }
   @media (min-width: 1024px) { [data-info-rules] { --ext: 12px; } }
+  [data-info-grid] > * { min-width: 0; box-sizing: border-box; }
   * { cursor: none; }
-  @keyframes heroReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes capFillV { from { height: 0%; } to { height: 100%; } }
-  @keyframes ctaTurn { 0% { transform: rotateY(-5deg) rotateX(1.5deg) translateY(0); } 50% { transform: rotateY(5deg) rotateX(-1.5deg) translateY(-18px); } 100% { transform: rotateY(-5deg) rotateX(1.5deg) translateY(0); } }
-  @keyframes ctaSweep { 0% { transform: translateX(-60%) skewX(-12deg); } 45% { transform: translateX(160%) skewX(-12deg); } 100% { transform: translateX(160%) skewX(-12deg); } }
-  @media (prefers-reduced-motion: reduce) { [data-cta-stage], [data-cta-sweep] { animation: none !important; } }
-  [data-cta-art-side] { position: absolute; top: 50%; width: 26%; max-width: 430px; transform: translateY(-50%); }
-  [data-cta-art-side="right"] { right: -8%; }
-  [data-cta-art-side="left"] { left: -8%; }
+  @keyframes ctaDraw { 0% { stroke-dashoffset: 1; opacity: 0.25; } 8% { opacity: 1; } 45% { stroke-dashoffset: 0; } 82% { stroke-dashoffset: 0; opacity: 1; } 96% { stroke-dashoffset: 0; opacity: 0; } 100% { stroke-dashoffset: 1; opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { [data-draw] { animation: none !important; stroke-dashoffset: 0 !important; opacity: 1 !important; } }
+  [data-cta-art-side] { position: absolute; top: 50%; width: 27%; max-width: 440px; transform: translateY(-50%); }
+  [data-cta-art-side="right"] { right: -6%; }
+  [data-cta-art-side="left"] { left: -6%; }
   [data-cta-art-side="left"] [data-cta-flip] { transform: scaleX(-1); }
-  @media (max-width: 1024px) { [data-cta-art-side] { width: 30%; max-width: 290px; } [data-cta-art-side="right"] { right: -18%; } [data-cta-art-side="left"] { left: -18%; } }
-  @media (max-width: 640px) { [data-cta-art-side] { width: 46%; max-width: 230px; } [data-cta-art-side="right"] { right: -24%; } [data-cta-art-side="left"] { left: -24%; } [data-cta-detail] { display: none; } }
+  @media (max-width: 1024px) { [data-cta-art-side] { width: 32%; max-width: 300px; } [data-cta-art-side="right"] { right: -16%; } [data-cta-art-side="left"] { left: -16%; } }
+  @media (max-width: 640px) { [data-cta-art-side] { width: 48%; max-width: 240px; } [data-cta-art-side="right"] { right: -22%; } [data-cta-art-side="left"] { left: -22%; } }
   input:focus, textarea:focus, button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
-  #cap-steel::part(frame), #cap-concrete-needed::part(frame) { background: #FFFFFF; }
-  #info-analysis::part(frame), #info-report::part(frame), #reuse-thumb-1::part(frame), #reuse-thumb-2::part(frame), #reuse-thumb-3::part(frame) { background: #F2F2F2; }
+  #cap-dwg::part(frame), #cap-workspace::part(frame), #cap-api::part(frame) { background: #FFFFFF; }
+  #info-pdf::part(frame), #info-compare::part(frame), #info-sheets::part(frame) { background: #F2F2F2; }
 </style>
 </helmet>
 
 <div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
 
-  <dc-import name="NavHeader" current-page="idea-statica" quote-href="#quote" hint-size="100%,80px"></dc-import>
+  <dc-import name="NavHeader" current-page="zwcad" quote-href="#quote" hint-size="100%,80px"></dc-import>
 
   <!-- ===== DARK TITLE BAND ===== -->
   <section data-reveal="section" data-nav-theme="dark" data-screen-label="Title band" class="sticky top-0 z-0 bg-primary px-6 pt-32 pb-14 text-primary-foreground sm:px-10 lg:px-20 lg:pt-40 lg:pb-16">
@@ -80,7 +77,7 @@
       <div class="flex flex-col items-start gap-5">
         <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Software</span>
         <h1 data-reveal="mask" class="overflow-hidden text-balance text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-          <span class="inline-block">IDEA StatiCa</span>
+          <span class="inline-block">ZWCAD</span>
         </h1>
       </div>
     </div>
@@ -89,9 +86,9 @@
   <div class="relative z-10">
   <!-- ===== LARGE FEATURE IMAGE ===== -->
   <section data-reveal="section" data-nav-theme="light" data-screen-label="Feature image" class="bg-background px-6 py-16 sm:px-10 lg:px-20 lg:py-24">
-    <div data-curtain-container class="relative aspect-[16/8] w-full overflow-hidden sm:aspect-[16/7]">
+    <div data-curtain-container class="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[16/6]">
       <div data-reveal="curtain" class="absolute inset-0">
-        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="feature-image" shape="rect" fit="cover" placeholder="IDEA StatiCa — steel connection engineering model" hint-size="100%,100%" style="width:100%;height:100%"></x-import>
+        <img src="https://images.pexels.com/photos/464315/pexels-photo-464315.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Geometric glass and steel facade of a modern building" class="absolute inset-0 size-full object-cover">
       </div>
     </div>
   </section>
@@ -110,10 +107,9 @@
             <a href="{{ fact.href }}" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit items-center gap-2 text-xl font-semibold tracking-tight text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground sm:text-2xl">
               {{ fact.value }}
               <i data-lucide="arrow-up-right" class="size-4 shrink-0 text-muted-foreground"></i>
-              <span class="sr-only">(opens the official IDEA StatiCa website in a new tab)</span>
+              <span class="sr-only">(opens the official ZWSOFT website in a new tab)</span>
             </a>
           </sc-if>
-
          </div>
         </div>
       </sc-for>
@@ -124,15 +120,10 @@
   <!-- ===== EDITORIAL OVERVIEW ===== -->
   <section id="overview" data-curtain-cols data-nav-theme="dark" data-screen-label="Overview" class="bg-black px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-[11fr_9fr] lg:items-stretch lg:gap-16">
-      <div data-reveal="curtain-left" ref="{{ visRef }}" class="relative order-1 h-full min-h-[360px] w-full overflow-hidden bg-white p-8 sm:min-h-[440px] sm:p-10">
+      <div data-reveal="curtain-left" ref="{{ visRef }}" class="relative order-1 h-full min-h-[280px] w-full overflow-hidden bg-white p-8 sm:min-h-[340px] sm:p-10">
         <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="3">
           <div class="{{ cap.mediaClass }}">
-<sc-if value="{{ cap.isPhoto }}" hint-placeholder-val="{{ false }}">
-              <img src="https://images.pexels.com/photos/3862135/pexels-photo-3862135.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Engineers reviewing drawings together at a table" loading="lazy" class="absolute inset-0 size-full object-cover" style="object-position:center 35%">
-            </sc-if>
-            <sc-if value="{{ cap.isSlot }}" hint-placeholder-val="{{ true }}">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ cap.mediaId }}" shape="rect" fit="contain" placeholder="{{ cap.placeholder }}" src="{{ cap.src }}" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
-            </sc-if>
+            <img src="{{ cap.src }}" alt="{{ cap.alt }}" loading="lazy" class="absolute inset-0 size-full object-cover">
           </div>
         </sc-for>
       </div>
@@ -140,8 +131,8 @@
       <div data-reveal="curtain-right" class="order-2 flex flex-col items-start gap-6">
         <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Product Overview</span>
         <h2 class="text-balance text-5xl font-semibold leading-[1.18] tracking-tight text-white sm:text-6xl lg:text-6xl">
-          <span data-reveal="words" class="block">Understand every</span>
-          <span data-reveal="words" class="block">structural detail.</span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Your drawings.</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">A familiar workspace.</span></span>
         </h2>
 
         <div class="mt-2 flex w-full flex-col" data-reveal="stagger" onMouseEnter="{{ onCapMouseEnter }}" onMouseLeave="{{ onCapMouseLeave }}" onFocus="{{ onCapFocus }}" onBlur="{{ onCapBlur }}">
@@ -174,18 +165,18 @@
           Request a License Quote
           <i data-lucide="arrow-right" class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"></i>
         </a>
-        <p class="mt-4 text-sm leading-relaxed text-white/50">Available capabilities depend on the selected application and license.</p>
+        <p class="mt-4 text-sm leading-relaxed text-white/50">Available features and licensing options depend on the ZWCAD edition, version, and region.</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== PRODUCT INFORMATION — THREE EDITORIAL PANELS ===== -->
-  <section data-nav-theme="light" data-screen-label="Beyond the model" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+  <!-- ===== THREE ILLUSTRATED FEATURE CARDS ===== -->
+  <section data-nav-theme="light" data-screen-label="Everyday drafting" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
     <div class="flex flex-col items-start gap-5">
-      <span data-reveal="fade" class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Beyond the model</span>
+      <span data-reveal="fade" class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Drafting tools</span>
       <h2 class="text-balance text-4xl font-semibold leading-[1.18] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Understand the behavior.</span></span>
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Show the reasoning.</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Tools for everyday</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">drafting.</span></span>
       </h2>
     </div>
 
@@ -203,52 +194,42 @@
       <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
         <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">01</span>
         <div data-curtain-container data-info-frame data-curtain-delay="0" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0 flex items-center justify-center p-4">
-            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="info-analysis" shape="rect" fit="contain" src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/549cdd9a-6811-4de8-a33f-a8e80f5d038c/Untitled%20design%20%2833%29.png?w=1200&fm=webp&lossless=false&q=85" placeholder="IDEA StatiCa visual calculation results" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
+          <div data-reveal="curtain" class="absolute inset-0">
+            <img src="https://images.pexels.com/photos/6285121/pexels-photo-6285121.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Two engineers working over a printed technical drawing" loading="lazy" class="absolute inset-0 size-full object-cover">
           </div>
         </div>
         <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Understand the results.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Review visual analysis and code-check outcomes to identify where a structural detail needs attention.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+          <h3 class="text-lg font-semibold tracking-tight text-foreground">Import PDF drawings.</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">Bring PDF content into your CAD workflow, importing pages as drawing objects you can work with.</p>
+          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Feature detail: zwsoft.com</span>
         </div>
       </div>
 
       <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
         <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">02</span>
         <div data-curtain-container data-info-frame data-curtain-delay="120" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0 flex flex-col gap-2 p-4">
-            <div class="relative min-h-0 w-full flex-[2] overflow-hidden" style="background-color:#F2F2F2">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-1" shape="rect" fit="contain" src="{{ reuseMain.src }}" placeholder="{{ reuseMain.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
-            </div>
-            <div class="flex min-h-0 w-full flex-1 gap-2">
-              <div class="relative min-w-0 flex-1 overflow-hidden" style="background-color:#F2F2F2">
-                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-2" shape="rect" fit="contain" src="{{ reuseSideA.src }}" placeholder="{{ reuseSideA.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
-              </div>
-              <div class="relative min-w-0 flex-1 overflow-hidden" style="background-color:#F2F2F2">
-                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-3" shape="rect" fit="contain" src="{{ reuseSideB.src }}" placeholder="{{ reuseSideB.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
-              </div>
-            </div>
+          <div data-reveal="curtain" class="absolute inset-0">
+            <img src="https://images.pexels.com/photos/29299826/pexels-photo-29299826.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Architects comparing construction drawings on site" loading="lazy" class="absolute inset-0 size-full object-cover">
           </div>
         </div>
         <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Build on existing details.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Adapt connection templates and library arrangements to reduce repeated modeling.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+          <h3 class="text-lg font-semibold tracking-tight text-foreground">Compare revisions.</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">Identify the differences between two drawings so changes between revisions are easy to review.</p>
+          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Feature detail: zwsoft.com</span>
         </div>
       </div>
 
       <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
         <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">03</span>
         <div data-curtain-container data-info-frame data-curtain-delay="240" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0 flex items-center justify-center p-4">
-            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="info-report" shape="rect" fit="contain" src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/29e2273d-4f3a-4dec-bb10-827d3143975f/Untitled%20design%20%2847%29.png?w=1200&fm=webp&lossless=false&q=85" placeholder="IDEA StatiCa calculation report" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
+          <div data-reveal="curtain" class="absolute inset-0">
+            <img src="https://images.pexels.com/photos/17398146/pexels-photo-17398146.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Tower crane above a building under construction" loading="lazy" class="absolute inset-0 size-full object-cover">
           </div>
         </div>
         <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Make your calculations clear.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Organize model information, checks, equations, and images into a report for engineering review.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+          <h3 class="text-lg font-semibold tracking-tight text-foreground">Organize drawing sets.</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">View, access, manage, and plot multiple drawings from a single panel with Sheet Set Manager.</p>
+          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Feature detail: zwsoft.com</span>
         </div>
       </div>
 
@@ -256,143 +237,128 @@
     </div>
   </section>
 
+  <!-- ===== MOBILE COLLABORATION ===== -->
+  <section id="mobile" data-nav-theme="light" data-screen-label="Mobile collaboration" class="px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
+    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
+      <div class="col-span-12 lg:col-span-3">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">ZWCAD Mobile</span>
+      </div>
+
+      <div class="col-span-12 lg:col-span-9">
+        <h2 data-reveal="fade" class="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+          Keep your drawings within reach, with mobile tools for reviewing plans and communicating changes.
+        </h2>
+
+        <div class="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-3">
+          <sc-for list="{{ mobileFeatures }}" as="feat" hint-placeholder-count="3">
+            <div data-reveal="fade" class="flex flex-col gap-5 border-l border-border px-6 py-2">
+              <span class="flex w-fit items-center justify-center bg-muted p-2 text-foreground">
+                <i data-lucide="{{ feat.icon }}" class="size-5"></i>
+              </span>
+              <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ feat.title }}</h3>
+              <p class="text-sm leading-relaxed text-muted-foreground">{{ feat.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+
+        <div class="mt-20 flex flex-col items-start gap-6 px-6">
+          <a href="#quote" onClick="{{ askAboutMobile }}" class="group inline-flex items-center gap-2 rounded-none border border-foreground px-6 py-3.5 text-sm font-semibold text-foreground transition hover:bg-foreground hover:text-background">
+            Ask about mobile access
+            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+          </a>
+          <p class="max-w-xl text-sm leading-relaxed text-muted-foreground">ZWCAD Mobile is licensed separately from ZWCAD desktop, and its paid features are not included with a desktop license.</p>
+          <a href="https://www.zwsoft.com/product/zwcad/mobile" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground">
+            ZWCAD Mobile on zwsoft.com
+            <i data-lucide="arrow-up-right" class="size-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CUSTOMER STORIES ===== -->
+  <section id="stories" data-nav-theme="light" data-screen-label="Customer stories" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+    <div class="flex flex-col items-start gap-5">
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Customer stories from ZWSOFT</span>
+      <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-4xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+        <span class="inline-block">ZWCAD in practice.</span>
+      </h2>
+      <p class="max-w-xl text-base leading-relaxed text-muted-foreground">Organizations published by ZWSOFT as ZWCAD customers. They are not SWUT Solutions clients.</p>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+      <sc-for list="{{ stories }}" as="story" hint-placeholder-count="3">
+        <a href="{{ story.href }}" target="_blank" rel="noopener noreferrer" class="group flex flex-col border border-border focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+          <div data-curtain-container class="relative aspect-[16/10] w-full overflow-hidden" style="background-color:#F2F2F2">
+            <div data-reveal="curtain" class="absolute inset-0">
+              <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105">
+                <img src="{{ story.image }}" alt="{{ story.alt }}" loading="lazy" class="absolute inset-0 size-full object-cover">
+              </div>
+            </div>
+          </div>
+          <div data-reveal="stagger" class="flex flex-1 flex-col items-start gap-3 p-8">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ story.meta }}</span>
+            <span class="text-balance text-xl font-semibold leading-tight tracking-tight text-foreground">{{ story.company }}</span>
+            <span class="text-sm leading-relaxed text-muted-foreground">{{ story.summary }}</span>
+            <span class="mt-auto inline-flex items-center gap-2 pt-4 text-sm font-semibold text-foreground">
+              Read the story
+              <i data-lucide="arrow-up-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1"></i>
+            </span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
   <!-- ===== TRIAL / QUOTE CTA ===== -->
   <section data-nav-theme="dark" data-screen-label="Trial CTA" class="relative isolate flex min-h-[560px] items-center overflow-hidden bg-black px-6 py-24 text-white sm:px-10 lg:h-[620px] lg:min-h-0 lg:px-20 lg:py-0">
 
-    <div data-reveal="fade" aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" style="perspective:1400px">
+    <div data-reveal="fade" aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div data-cta-art-side="left">
         <div data-cta-flip>
-          <div data-cta-stage ref="{{ stageRef }}" class="relative" style="transform-style:preserve-3d;animation:ctaTurn 26s ease-in-out infinite;will-change:transform">
-          <svg viewBox="950 0 520 700" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g data-cta-art>
-            <!-- column: H-section, vertical -->
-            <g>
-              <path d="M1220 40 H1340 V660 H1220 Z" fill="#FFFFFF" fill-opacity="0.045"></path>
-              <path d="M1220 40 L1206.5 32 V652 L1220 660 Z" fill="#FFFFFF" fill-opacity="0.075"></path>
-              <path d="M1258.5 32 L1231.5 16 V636 L1258.5 652 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
-              <path d="M1179.5 16 L1166 8 V628 L1179.5 636 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
-              <g stroke="#B9B9B9" stroke-opacity="0.4" stroke-width="1">
-                <path d="M1258.5 32 V652 M1231.5 16 V636 M1179.5 16 V636 M1166 8 V628 M1206.5 32 V652"></path>
-              </g>
-              <!-- top H cross-section -->
-              <path d="M1220 40 H1340 L1326.5 32 H1206.5 Z" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"></path>
-              <path d="M1179.5 16 H1299.5 L1286 8 H1166 Z" fill="#FFFFFF" fill-opacity="0.08" stroke="#DDDDDD" stroke-opacity="0.4" stroke-width="1"></path>
-              <path d="M1258.5 32 H1274.5 L1247.5 16 H1231.5 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#DDDDDD" stroke-opacity="0.45" stroke-width="1"></path>
-              <!-- main silhouette -->
-              <path d="M1220 40 H1340 V660 H1220 Z" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="1.6"></path>
-              <path d="M1220 40 L1206.5 32 M1220 660 L1206.5 652 M1340 40 L1326.5 32" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.4"></path>
+          <div ref="{{ stageRef }}" class="relative">
+          <svg viewBox="0 0 520 720" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#FFFFFF" stroke-width="1.6" stroke-opacity="0.85" fill="none" stroke-linecap="square">
+              <path data-draw pathLength="1" d="M120 90 H430 V250 H120 Z" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 0ms"></path>
+              <path data-draw pathLength="1" d="M120 124 H430 M120 216 H430" stroke-opacity="0.45" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 500ms"></path>
+              <path data-draw pathLength="1" d="M214 90 V250 M300 90 V250" stroke-opacity="0.5" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 900ms"></path>
+              <path data-draw pathLength="1" d="M214 124 L300 216 M214 216 L300 124" stroke-opacity="0.35" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1300ms"></path>
+              <path data-draw pathLength="1" d="M120 300 H430" stroke-opacity="0.6" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1700ms"></path>
+              <path data-draw pathLength="1" d="M120 290 V310 M214 290 V310 M300 290 V310 M430 290 V310" stroke-opacity="0.6" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1900ms"></path>
+              <circle data-draw pathLength="1" cx="196" cy="450" r="92" stroke-opacity="0.7" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2300ms"></circle>
+              <circle data-draw pathLength="1" cx="196" cy="450" r="52" stroke-opacity="0.45" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2700ms"></circle>
+              <path data-draw pathLength="1" d="M76 450 H316 M196 330 V570" stroke-opacity="0.3" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3000ms"></path>
+              <path data-draw pathLength="1" d="M196 450 L268 378" stroke-opacity="0.55" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3300ms"></path>
+              <path data-draw pathLength="1" d="M330 388 H448 V512 L330 560 Z" stroke-opacity="0.7" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3600ms"></path>
+              <path data-draw pathLength="1" d="M330 412 H448 M330 488 H448" stroke-opacity="0.3" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4000ms"></path>
+              <path data-draw pathLength="1" d="M120 620 H430 M120 610 V630 M430 610 V630" stroke-opacity="0.55" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4400ms"></path>
+              <path data-draw pathLength="1" d="M156 660 H200 M236 660 H280 M316 660 H360" stroke-opacity="0.25" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4800ms"></path>
             </g>
-
-            <!-- beam: I-section, horizontal into the column -->
-            <g>
-              <path d="M1010 300 H1220 V320 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
-              <path d="M1010 320 H1220 V400 H1010 Z" fill="#FFFFFF" fill-opacity="0.035"></path>
-              <path d="M1010 400 H1220 V420 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
-              <path d="M1010 300 H1220 L1166 268 H956 Z" fill="#FFFFFF" fill-opacity="0.11" stroke="#E3E3E3" stroke-opacity="0.45" stroke-width="1"></path>
-              <path d="M1010 320 L956 288 V308 L1010 340 Z" fill="#FFFFFF" fill-opacity="0.05"></path>
-              <g data-cta-detail stroke="#B9B9B9" stroke-opacity="0.38" stroke-width="1">
-                <path d="M956 268 V288 M956 288 L983 304 M983 304 V384 M983 384 L956 400 M956 400 V420 M956 420 H1010"></path>
-                <path d="M1010 320 L983 304 M1010 400 L983 384 M1010 420 L956 388"></path>
-              </g>
-              <path d="M1010 300 H1220 M1010 320 H1220 M1010 400 H1220 M1010 420 H1220" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1.2"></path>
-              <path d="M1010 300 V420" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
-            </g>
-
-            <!-- end plate with two bolt rows -->
-            <g>
-              <path d="M1220 280 L1166 248 V408 L1220 440 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
-              <path d="M1206 272 L1152 240 V400 L1206 432" fill="#FFFFFF" fill-opacity="0.06" stroke="#CFCFCF" stroke-opacity="0.45" stroke-width="1"></path>
-              <path d="M1220 280 L1206 272 M1220 440 L1206 432 M1166 248 L1152 240" stroke="#DDDDDD" stroke-opacity="0.5" stroke-width="1"></path>
-              <g fill="#FFFFFF" fill-opacity="0.5" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1">
-                <ellipse cx="1206.5" cy="292" rx="7" ry="5" transform="rotate(-30 1206.5 292)"></ellipse>
-                <ellipse cx="1206.5" cy="332" rx="7" ry="5" transform="rotate(-30 1206.5 332)"></ellipse>
-                <ellipse cx="1206.5" cy="372" rx="7" ry="5" transform="rotate(-30 1206.5 372)"></ellipse>
-                <ellipse cx="1206.5" cy="412" rx="7" ry="5" transform="rotate(-30 1206.5 412)"></ellipse>
-                <ellipse cx="1182.2" cy="277.6" rx="7" ry="5" transform="rotate(-30 1182.2 277.6)"></ellipse>
-                <ellipse cx="1182.2" cy="317.6" rx="7" ry="5" transform="rotate(-30 1182.2 317.6)"></ellipse>
-                <ellipse cx="1182.2" cy="357.6" rx="7" ry="5" transform="rotate(-30 1182.2 357.6)"></ellipse>
-                <ellipse cx="1182.2" cy="397.6" rx="7" ry="5" transform="rotate(-30 1182.2 397.6)"></ellipse>
-              </g>
-              <g data-cta-detail stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1">
-                <path d="M1206.5 292 L1182.2 277.6 M1206.5 332 L1182.2 317.6 M1206.5 372 L1182.2 357.6 M1206.5 412 L1182.2 397.6"></path>
-              </g>
-            </g>
-
-            <!-- stiffeners inside the column, behind the plate -->
-            <g data-cta-detail stroke="#A8A8A8" stroke-opacity="0.3" stroke-width="1">
-              <path d="M1220 300 L1166 268 M1220 420 L1166 388"></path>
-            </g>
-          </g>
           </svg>
-          <div data-cta-sweep class="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent);mix-blend-mode:screen;animation:ctaSweep 14s ease-in-out infinite;will-change:transform"></div>
           </div>
         </div>
       </div>
       <div data-cta-art-side="right">
         <div data-cta-flip>
-          <div data-cta-stage ref="{{ stageRef }}" class="relative" style="transform-style:preserve-3d;animation:ctaTurn 26s ease-in-out infinite;will-change:transform">
-          <svg viewBox="950 0 520 700" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g data-cta-art>
-            <!-- column: H-section, vertical -->
-            <g>
-              <path d="M1220 40 H1340 V660 H1220 Z" fill="#FFFFFF" fill-opacity="0.045"></path>
-              <path d="M1220 40 L1206.5 32 V652 L1220 660 Z" fill="#FFFFFF" fill-opacity="0.075"></path>
-              <path d="M1258.5 32 L1231.5 16 V636 L1258.5 652 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
-              <path d="M1179.5 16 L1166 8 V628 L1179.5 636 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
-              <g stroke="#B9B9B9" stroke-opacity="0.4" stroke-width="1">
-                <path d="M1258.5 32 V652 M1231.5 16 V636 M1179.5 16 V636 M1166 8 V628 M1206.5 32 V652"></path>
-              </g>
-              <!-- top H cross-section -->
-              <path d="M1220 40 H1340 L1326.5 32 H1206.5 Z" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"></path>
-              <path d="M1179.5 16 H1299.5 L1286 8 H1166 Z" fill="#FFFFFF" fill-opacity="0.08" stroke="#DDDDDD" stroke-opacity="0.4" stroke-width="1"></path>
-              <path d="M1258.5 32 H1274.5 L1247.5 16 H1231.5 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#DDDDDD" stroke-opacity="0.45" stroke-width="1"></path>
-              <!-- main silhouette -->
-              <path d="M1220 40 H1340 V660 H1220 Z" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="1.6"></path>
-              <path d="M1220 40 L1206.5 32 M1220 660 L1206.5 652 M1340 40 L1326.5 32" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.4"></path>
+          <div ref="{{ stageRef }}" class="relative">
+          <svg viewBox="0 0 520 720" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#FFFFFF" stroke-width="1.6" stroke-opacity="0.85" fill="none" stroke-linecap="square">
+              <path data-draw pathLength="1" d="M120 90 H430 V250 H120 Z" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 200ms"></path>
+              <path data-draw pathLength="1" d="M120 124 H430 M120 216 H430" stroke-opacity="0.45" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 700ms"></path>
+              <path data-draw pathLength="1" d="M214 90 V250 M300 90 V250" stroke-opacity="0.5" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1100ms"></path>
+              <path data-draw pathLength="1" d="M214 124 L300 216 M214 216 L300 124" stroke-opacity="0.35" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1500ms"></path>
+              <path data-draw pathLength="1" d="M120 300 H430" stroke-opacity="0.6" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1900ms"></path>
+              <path data-draw pathLength="1" d="M120 290 V310 M214 290 V310 M300 290 V310 M430 290 V310" stroke-opacity="0.6" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2100ms"></path>
+              <circle data-draw pathLength="1" cx="196" cy="450" r="92" stroke-opacity="0.7" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2500ms"></circle>
+              <circle data-draw pathLength="1" cx="196" cy="450" r="52" stroke-opacity="0.45" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2900ms"></circle>
+              <path data-draw pathLength="1" d="M76 450 H316 M196 330 V570" stroke-opacity="0.3" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3200ms"></path>
+              <path data-draw pathLength="1" d="M196 450 L268 378" stroke-opacity="0.55" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3500ms"></path>
+              <path data-draw pathLength="1" d="M330 388 H448 V512 L330 560 Z" stroke-opacity="0.7" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3800ms"></path>
+              <path data-draw pathLength="1" d="M330 412 H448 M330 488 H448" stroke-opacity="0.3" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4200ms"></path>
+              <path data-draw pathLength="1" d="M120 620 H430 M120 610 V630 M430 610 V630" stroke-opacity="0.55" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4600ms"></path>
+              <path data-draw pathLength="1" d="M156 660 H200 M236 660 H280 M316 660 H360" stroke-opacity="0.25" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 5000ms"></path>
             </g>
-
-            <!-- beam: I-section, horizontal into the column -->
-            <g>
-              <path d="M1010 300 H1220 V320 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
-              <path d="M1010 320 H1220 V400 H1010 Z" fill="#FFFFFF" fill-opacity="0.035"></path>
-              <path d="M1010 400 H1220 V420 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
-              <path d="M1010 300 H1220 L1166 268 H956 Z" fill="#FFFFFF" fill-opacity="0.11" stroke="#E3E3E3" stroke-opacity="0.45" stroke-width="1"></path>
-              <path d="M1010 320 L956 288 V308 L1010 340 Z" fill="#FFFFFF" fill-opacity="0.05"></path>
-              <g data-cta-detail stroke="#B9B9B9" stroke-opacity="0.38" stroke-width="1">
-                <path d="M956 268 V288 M956 288 L983 304 M983 304 V384 M983 384 L956 400 M956 400 V420 M956 420 H1010"></path>
-                <path d="M1010 320 L983 304 M1010 400 L983 384 M1010 420 L956 388"></path>
-              </g>
-              <path d="M1010 300 H1220 M1010 320 H1220 M1010 400 H1220 M1010 420 H1220" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1.2"></path>
-              <path d="M1010 300 V420" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
-            </g>
-
-            <!-- end plate with two bolt rows -->
-            <g>
-              <path d="M1220 280 L1166 248 V408 L1220 440 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
-              <path d="M1206 272 L1152 240 V400 L1206 432" fill="#FFFFFF" fill-opacity="0.06" stroke="#CFCFCF" stroke-opacity="0.45" stroke-width="1"></path>
-              <path d="M1220 280 L1206 272 M1220 440 L1206 432 M1166 248 L1152 240" stroke="#DDDDDD" stroke-opacity="0.5" stroke-width="1"></path>
-              <g fill="#FFFFFF" fill-opacity="0.5" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1">
-                <ellipse cx="1206.5" cy="292" rx="7" ry="5" transform="rotate(-30 1206.5 292)"></ellipse>
-                <ellipse cx="1206.5" cy="332" rx="7" ry="5" transform="rotate(-30 1206.5 332)"></ellipse>
-                <ellipse cx="1206.5" cy="372" rx="7" ry="5" transform="rotate(-30 1206.5 372)"></ellipse>
-                <ellipse cx="1206.5" cy="412" rx="7" ry="5" transform="rotate(-30 1206.5 412)"></ellipse>
-                <ellipse cx="1182.2" cy="277.6" rx="7" ry="5" transform="rotate(-30 1182.2 277.6)"></ellipse>
-                <ellipse cx="1182.2" cy="317.6" rx="7" ry="5" transform="rotate(-30 1182.2 317.6)"></ellipse>
-                <ellipse cx="1182.2" cy="357.6" rx="7" ry="5" transform="rotate(-30 1182.2 357.6)"></ellipse>
-                <ellipse cx="1182.2" cy="397.6" rx="7" ry="5" transform="rotate(-30 1182.2 397.6)"></ellipse>
-              </g>
-              <g data-cta-detail stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1">
-                <path d="M1206.5 292 L1182.2 277.6 M1206.5 332 L1182.2 317.6 M1206.5 372 L1182.2 357.6 M1206.5 412 L1182.2 397.6"></path>
-              </g>
-            </g>
-
-            <!-- stiffeners inside the column, behind the plate -->
-            <g data-cta-detail stroke="#A8A8A8" stroke-opacity="0.3" stroke-width="1">
-              <path d="M1220 300 L1166 268 M1220 420 L1166 388"></path>
-            </g>
-          </g>
           </svg>
-          <div data-cta-sweep class="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent);mix-blend-mode:screen;animation:ctaSweep 14s ease-in-out infinite;will-change:transform"></div>
           </div>
         </div>
       </div>
@@ -400,17 +366,18 @@
 
     <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10" style="background:radial-gradient(60% 70% at 50% 50%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.25) 75%, rgba(0,0,0,0) 100%)"></div>
 
-    <dc-import style="width:100%" name="ProductTrialCTA" product="IDEA StatiCa" on-trial="{{ startTrial }}" on-quote="{{ startQuote }}" hint-size="100%,420px"></dc-import>
+    <dc-import style="width:100%" name="ProductTrialCTA" product="ZWCAD" on-trial="{{ startTrial }}" on-quote="{{ startQuote }}" hint-size="100%,420px"></dc-import>
   </section>
 
   <!-- ===== NEWS & EVENTS ===== -->
+  <sc-if value="{{ hasEvents }}" hint-placeholder-val="{{ false }}">
   <section id="news-events" data-nav-theme="light" data-screen-label="News and events" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
     <div class="flex flex-col items-start gap-5">
       <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Events</span>
       <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
         <span class="inline-block">News &amp; Events</span>
       </h2>
-      <a href="Events.dc.html?product=IDEA%20StatiCa" data-reveal="fade" class="group mt-1 inline-flex items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground">
+      <a href="Events.dc.html?product=ZWCAD" data-reveal="fade" class="group mt-1 inline-flex items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground">
         View all events
         <i data-lucide="arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
       </a>
@@ -421,8 +388,8 @@
         <a href="{{ item.href }}" class="group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
           <div data-curtain-container class="relative aspect-[16/10] w-full overflow-hidden">
             <div data-reveal="curtain" class="absolute inset-0">
-              <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105 group-focus-visible:scale-105">
-                <img src="https://files.cdn-files-a.com/uploads/12365954/2000_gi-6a9d4525d7321.jpg" alt="IDEA StatiCa Coffee &amp; Learn, Cairo" loading="lazy" class="absolute inset-0 size-full object-cover" style="object-position:50% 40%">
+              <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105">
+                <img src="{{ item.image }}" alt="{{ item.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover">
               </div>
             </div>
           </div>
@@ -437,7 +404,7 @@
             <sc-if value="{{ item.isUpcoming }}" hint-placeholder-val="{{ true }}">
               <span class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
                 View Event
-                <i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1"></i>
+                <i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1"></i>
               </span>
             </sc-if>
             <sc-if value="{{ item.isPast }}" hint-placeholder-val="{{ false }}">
@@ -448,15 +415,16 @@
       </sc-for>
     </div>
   </section>
+  </sc-if>
 
   <!-- ===== LICENSE ENQUIRY FORM ===== -->
   <section id="quote" data-curtain-cols data-curtain-duration="900" data-nav-theme="light" data-screen-label="License enquiry" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
     <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
       <div data-reveal="curtain-left" class="flex flex-col items-start gap-5 lg:col-span-5">
         <span class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">License Enquiry</span>
-        <h2 class="max-w-lg text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">Try IDEA StatiCa<br>or request a quote.</h2>
+        <h2 class="max-w-lg text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">Try ZWCAD<br>or request a quote.</h2>
         <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us what you need. Contact SWUT Solutions for a license quote or a 14-day free trial for your team.</p>
-        <p class="max-w-md border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">Perpetual licensing provides ongoing use of the licensed version. Maintenance and access to new versions are purchased separately.</p>
+        <p class="max-w-md border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">ZWCAD is offered with perpetual licensing, though available license types vary by region. We confirm editions, pricing, and terms before any order.</p>
       </div>
 
       <div data-reveal="curtain-right" onFocus="{{ forceRevealCurtain }}" class="lg:col-span-7">
@@ -502,7 +470,7 @@
                   </button>
                   <sc-if value="{{ productsOpen }}" hint-placeholder-val="{{ false }}">
                     <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
-                      <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="4">
+                      <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="3">
                         <sc-if value="{{ opt.isGroup }}" hint-placeholder-val="{{ false }}">
                           <span role="presentation" class="border-t border-border px-4 pb-1 pt-3 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ opt.name }}</span>
                         </sc-if>
@@ -537,7 +505,7 @@
                 <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a product.</span></sc-if>
               </div>
               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div class="flex flex-col gap-2" ref="{{ intentRef }}">
+                <div class="flex flex-col gap-2">
                   <span id="q-intent-label" class="text-sm text-muted-foreground">Enquiry type</span>
                   <div class="relative" ref="{{ intentWrapRef }}" onKeyDown="{{ onIntentKeyDown }}">
                     <button type="button" id="q-intent" aria-haspopup="listbox" aria-expanded="{{ intentOpen }}" aria-labelledby="q-intent-label" onClick="{{ toggleIntentOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 py-3 text-left text-base text-foreground">
@@ -574,8 +542,16 @@
 
             <div class="flex flex-col gap-2">
               <label for="q-notes" class="text-sm text-muted-foreground">Message — optional</label>
-              <textarea id="q-notes" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Modules you need, current tools, timeline…"></textarea>
+              <textarea id="q-notes" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Seats, current CAD tools, timeline…"></textarea>
             </div>
+
+            <label ref="{{ mobileOptRef }}" class="flex w-fit cursor-pointer items-start gap-3 text-sm text-foreground">
+              <input type="checkbox" checked="{{ fields.mobile }}" onChange="{{ setMobile }}" class="mt-0.5 size-4 border-border accent-foreground">
+              <span class="flex flex-col gap-1">
+                <span class="font-semibold">Also ask about ZWCAD Mobile access</span>
+                <span class="text-sm leading-relaxed text-muted-foreground">We'll include what the companion app covers and how it is licensed.</span>
+              </span>
+            </label>
 
             <button type="submit" disabled="{{ isSubmitting }}" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:opacity-60">
               {{ submitLabel }}
@@ -589,15 +565,14 @@
   <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
   </div>
 
-
 </div>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
   state = {
-    noBackend: false, intent: 'quote', thumbSrc: {},
-    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'IDEA StatiCa', licenses: '1' },
+    noBackend: false, intent: 'quote',
+    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'ZWCAD', licenses: '1', mobile: false },
     productsOpen: false, intentOpen: false,
     errors: {},
     activeCap: 0,
@@ -624,51 +599,16 @@ class Component extends DCLogic {
     if (this._capBar) this._capBar.style.animationPlayState = this._capShouldPlay() ? 'running' : 'paused';
   }
 
-  _THUMB_SOURCES = [
-    { slot: 'reuse-thumb-1', src: 'https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/159b36d0-6cc4-4bb7-ba2b-839d5e0a899d/Bolted%20gusset%20plate%20truss%20connections%20-%20Final.png?w=1200&fm=webp&lossless=false&q=85', placeholder: 'Bolted gusset plate truss connections' },
-    { slot: 'reuse-thumb-2', src: 'https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/5d97fa94-99ec-4bfd-bc11-b35a1c392c28/Column%20base%20plate%20connections%20-%20800%20x%20700.png?w=1200&fm=webp&lossless=false&q=85', placeholder: 'Column base plate connections' },
-    { slot: 'reuse-thumb-3', src: 'https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/12b4ce1c-e467-4804-8705-e7a3307990a3/Design%20-%202D%20tube%20connections%20-%20Final.png?w=1200&fm=webp&lossless=false&q=85', placeholder: 'HSS connections' },
-  ];
-
-  // The library thumbnails ship with an opaque white background. Knock only
-  // that white out to alpha so they sit on the panel gray — no recolouring,
-  // no blend mode; on any failure the original image is kept.
-  _stripWhite(src) {
-    return new Promise(resolve => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => {
-        try {
-          const c = document.createElement('canvas');
-          c.width = img.naturalWidth; c.height = img.naturalHeight;
-          const ctx = c.getContext('2d');
-          ctx.drawImage(img, 0, 0);
-          const d = ctx.getImageData(0, 0, c.width, c.height);
-          const px = d.data;
-          for (let i = 0; i < px.length; i += 4) {
-            const lo = Math.min(px[i], px[i + 1], px[i + 2]);
-            if (lo >= 252) px[i + 3] = 0;
-            else if (lo >= 240) px[i + 3] = Math.round(px[i + 3] * (252 - lo) / 12);
-          }
-          ctx.putImageData(d, 0, 0);
-          resolve(c.toDataURL('image/png'));
-        } catch (e) { resolve(null); }
-      };
-      img.onerror = () => resolve(null);
-      img.src = src;
-    });
-  }
-
+  // Line-drawing CAD art: pause when off-screen or tab hidden; soft pointer drift.
   _initCtaStage(el) {
     if (!el) return;
     this._ctaStages = (this._ctaStages || []).filter(n => n.isConnected);
     if (this._ctaStages.includes(el)) return;
     this._ctaStages.push(el);
     const stages = this._ctaStages;
-    const parts = stages.reduce((acc, n) => acc.concat([n, n.querySelector('[data-cta-sweep]')]), []).filter(Boolean);
     const sync = () => {
       const running = this._ctaVisible && !document.hidden;
-      parts.forEach(p => { p.style.animationPlayState = running ? 'running' : 'paused'; });
+      stages.forEach(n => n.querySelectorAll('[data-draw]').forEach(p => { p.style.animationPlayState = running ? 'running' : 'paused'; }));
     };
     this._ctaSync = sync;
     this._ctaVisible = true;
@@ -682,15 +622,15 @@ class Component extends DCLogic {
     document.addEventListener('visibilitychange', sync);
     const fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (fine && !reduced) {
+    if (fine && !reduced && !this._ctaPointer) {
       this._ctaPointer = (ev) => {
-        const host = el.closest('section');
+        const host = this._ctaStages[0] && this._ctaStages[0].closest('section');
         if (!host) return;
         const r = host.getBoundingClientRect();
         if (r.bottom < 0 || r.top > window.innerHeight) return;
         const dx = (ev.clientX - (r.left + r.width / 2)) / r.width;
         const dy = (ev.clientY - (r.top + r.height / 2)) / r.height;
-        el.style.translate = `${(dx * 14).toFixed(1)}px ${(dy * 10).toFixed(1)}px`;
+        this._ctaStages.forEach(n => { n.style.translate = `${(dx * 12).toFixed(1)}px ${(dy * 9).toFixed(1)}px`; });
       };
       window.addEventListener('mousemove', this._ctaPointer, { passive: true });
     }
@@ -707,11 +647,13 @@ class Component extends DCLogic {
   _productEvents() {
     const api = window.SWUTEvents;
     if (!api) return [];
-    return api.byProduct('IDEA StatiCa').map(ev => ({
+    return api.byProduct('ZWCAD').map(ev => ({
       id: ev.slug,
       href: ev.href,
       title: ev.title,
       summary: ev.summary,
+      image: ev.image,
+      imageAlt: ev.imageAlt || ev.title,
       venue: api.place(ev),
       kindAndDate: 'Event \u2014 ' + api.dateLabel(ev),
       isUpcoming: api.status(ev) === 'upcoming',
@@ -722,11 +664,6 @@ class Component extends DCLogic {
   componentDidMount() {
     if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
     this._waitForEvents();
-    Promise.all(this._THUMB_SOURCES.map(t => this._stripWhite(t.src))).then(results => {
-      const map = {};
-      results.forEach((url, i) => { if (url) map[this._THUMB_SOURCES[i].slot] = url; });
-      if (Object.keys(map).length) this.setState({ thumbSrc: map });
-    });
     this._initReveal();
     this._icons();
     this._onDocClick = (e) => {
@@ -742,7 +679,6 @@ class Component extends DCLogic {
       this._capIO = new IntersectionObserver((entries) => {
         entries.forEach(e => this.setState({ capSectionVisible: e.isIntersecting }, () => this._syncCapBar()));
       }, { threshold: 0.5 });
-      // capVisRef attaches this observer once the overview visual mounts.
     } else {
       this.setState({ capSectionVisible: true });
     }
@@ -754,16 +690,13 @@ class Component extends DCLogic {
     (this._observers || []).forEach(o => o.disconnect());
     if (this._revealIO) this._revealIO.disconnect();
     if (this._capIO) this._capIO.disconnect();
+    if (this._evTimer) clearTimeout(this._evTimer);
     document.removeEventListener('visibilitychange', this._onVisChange);
     document.removeEventListener('mousedown', this._onDocClick);
   }
 
-  // Single consolidated reveal system: 'fade' (whole element), 'stagger' (direct
-  // children staggered), 'words' (per-word emphasis), 'mask' (overflow-hidden
-  // clip + slide, for the hero title). Runs once at mount — no gating on any
-  // overlay/timer, so the page is interactive immediately.
   _initReveal() {
-    if (this._revealIO) return; // guard against double-init
+    if (this._revealIO) return;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const run = () => {
       const targets = Array.from(document.querySelectorAll('[data-reveal="fade"]'));
@@ -865,14 +798,9 @@ class Component extends DCLogic {
         });
       });
 
-      const reveal = (el) => {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      };
+      const reveal = (el) => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; };
       const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); }
-        });
+        entries.forEach(e => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } });
       }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
       this._revealIO = io;
       const revealCurtain = (container) => {
@@ -885,9 +813,7 @@ class Component extends DCLogic {
       try {
         if (curtainReady && curtainContainers.length) {
           const curtainIO = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-              if (e.isIntersecting) { revealCurtain(e.target); curtainIO.unobserve(e.target); }
-            });
+            entries.forEach(e => { if (e.isIntersecting) { revealCurtain(e.target); curtainIO.unobserve(e.target); } });
           }, { threshold: 0, rootMargin: '0px' });
           curtainContainers.forEach(el => curtainIO.observe(el));
         }
@@ -929,7 +855,6 @@ class Component extends DCLogic {
           if (l) { l.style.clipPath = ''; l.style.transition = ''; } if (r) { r.style.clipPath = ''; r.style.transition = ''; }
         });
       }
-      // architectural rule grid: horizontals draw L→R, verticals T→B, once
       try {
         const ruleHosts = Array.from(document.querySelectorAll('[data-info-rules]'));
         ruleHosts.forEach(host => {
@@ -970,18 +895,26 @@ class Component extends DCLogic {
         maskTargets.forEach(t => { t.el.style.transform = 'none'; });
       }
     };
-    // Run immediately — do not wait on fonts or any artificial delay, so
-    // above-the-fold elements (already intersecting) reveal on first paint.
     requestAnimationFrame(run);
   }
 
   _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
 
-  _goToForm(intent) {
-    this.setState({ intent, fields: { ...this.state.fields, product: 'IDEA StatiCa' } });
+  _scrollToQuote() {
+    // Re-measure after layout settles: lazily revealed media above the form
+    // shifts its offset, which would otherwise overshoot the landing.
+    const go = () => {
+      const el = document.getElementById('quote');
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    };
+    requestAnimationFrame(() => requestAnimationFrame(go));
+  }
+
+  // Sets intent/product only — never touches the visitor's typed message.
+  _goToForm(patch) {
+    this.setState(s => ({ ...patch, fields: { ...s.fields, product: 'ZWCAD', ...(patch.fields || {}) } }));
     if (typeof this._closeOverlay === 'function') this._closeOverlay();
-    const el = document.getElementById('quote');
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    this._scrollToQuote();
   }
 
   _focusFirstError(errors) {
@@ -999,9 +932,36 @@ class Component extends DCLogic {
     return errors;
   }
 
+  _STORIES = [
+    {
+      company: 'Consolidated Contractors Company',
+      meta: 'Construction — Greece',
+      summary: 'A construction and engineering group that expanded its ZWCAD licensing, citing price, stability, and an interface its teams needed no time to relearn.',
+      image: 'https://statics.zwsoft.com/upload/en/20230119/440f5ae5ad5a37df5840e33c7b5abce3.jpg',
+      alt: 'Consolidated Contractors Company — ZWCAD customer story',
+      href: 'https://www.zwsoft.com/zwcad/customer-story/zwcad-the-continuous-choice-for-consolidated-contractors-company',
+    },
+    {
+      company: 'Deltamarin',
+      meta: 'Ship design — Poland',
+      summary: 'A naval architecture firm that selected ZWCAD for vessel design work, pointing to its functionality, performance-to-price balance, and flexible licensing.',
+      image: 'https://statics.zwsoft.com/upload/en/20231127/ccc885e2a8364da9546e821092300d95.jpg',
+      alt: 'Deltamarin Poland — ZWCAD customer story',
+      href: 'https://www.zwsoft.com/story/mfg/2923',
+    },
+    {
+      company: 'CH. Karnchang',
+      meta: 'Infrastructure — Thailand',
+      summary: 'An infrastructure contractor using ZWCAD across major MRT projects, citing compatibility, large-drawing handling, and API add-on development.',
+      image: 'https://statics.zwsoft.com/upload/en/20240613/8a4cb497dbb26012ac4e0eac7d331b36.png',
+      alt: 'CH. Karnchang — ZWCAD customer story',
+      href: 'https://www.zwsoft.com/story/aec/2172',
+    },
+  ];
+
   renderVals() {
     const { noBackend, intent, fields, errors, productsOpen } = this.state;
-    const reuseThumbs = this._THUMB_SOURCES.map(t => ({ ...t, src: this.state.thumbSrc[t.slot] || t.src }));
+    const events = this._productEvents();
     return {
       stageRef: (el) => this._initCtaStage(el),
       visRef: (el) => { if (el && this._capIO) this._capIO.observe(el); },
@@ -1014,8 +974,7 @@ class Component extends DCLogic {
       scrollToQuote: (e) => {
         e.preventDefault();
         if (typeof this._closeOverlay === 'function') this._closeOverlay();
-        const el = document.getElementById('quote');
-        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+        this._scrollToQuote();
       },
       noBackend, fields, errors, productsOpen,
       intent,
@@ -1033,11 +992,17 @@ class Component extends DCLogic {
       intentIsQuote: intent === 'quote',
       intentIsTrial: intent === 'trial',
       submitLabel: intent === 'trial' ? 'Request a 14-Day Free Trial' : 'Request a License Quote',
-      intentRef: (el) => { this._intentEl = el; },
       selectQuoteIntent: () => this.setState({ intent: 'quote' }),
       selectTrialIntent: () => this.setState({ intent: 'trial' }),
-      startTrial: (e) => { e.preventDefault(); this._goToForm('trial'); },
-      startQuote: (e) => { e.preventDefault(); this._goToForm('quote'); },
+      startTrial: (e) => { e.preventDefault(); this._goToForm({ intent: 'trial' }); },
+      startQuote: (e) => { e.preventDefault(); this._goToForm({ intent: 'quote' }); },
+      askAboutMobile: (e) => {
+        e.preventDefault();
+        this._goToForm({ fields: { mobile: true } });
+        setTimeout(() => { if (this._mobileOpt) this._mobileOpt.focus && this._mobileOpt.focus(); }, 700);
+      },
+      mobileOptRef: (el) => { this._mobileOpt = el; },
+      setMobile: (e) => this.setState(s => ({ fields: { ...s.fields, mobile: e.target.checked } })),
       prodWrapRef: (el) => { this._prodWrap = el; },
       toggleProductsOpen: () => this.setState(s => ({ productsOpen: !s.productsOpen })),
       onProductsKeyDown: (e) => { if (e.key === 'Escape') this.setState({ productsOpen: false }); },
@@ -1059,33 +1024,35 @@ class Component extends DCLogic {
         const errs = this._validate(this.state.fields);
         if (Object.keys(errs).length) { this.setState({ errors: errs, noBackend: false }, () => this._focusFirstError(errs)); return; }
         const f = this.state.fields;
-        // No submission endpoint is wired up: assemble the payload, disclose that
-        // nothing was sent rather than faking a success state.
-        console.info('[SWUT IDEA StatiCa] no backend configured; payload not sent:', {
+        console.info('[SWUT ZWCAD] no backend configured; payload not sent:', {
           requestType: this.state.intent === 'trial' ? '14-day free trial' : 'License quote',
           name: f.name, email: f.email, company: f.company, phone: f.phone,
-          product: f.product, licenses: Number(f.licenses), notes: f.notes,
+          product: f.product, licenses: Number(f.licenses), mobileInterest: f.mobile, notes: f.notes,
         });
         this.setState({ errors: {}, noBackend: true });
       },
-      reuseMain: reuseThumbs[0],
-      reuseSideA: reuseThumbs[1],
-      reuseSideB: reuseThumbs[2],
-      newsEvents: this._productEvents(),
+      hasEvents: events.length > 0,
+      newsEvents: events,
+      stories: this._STORIES,
+      mobileFeatures: [
+        { icon: 'file-check', title: 'Open drawings', body: 'View .dwg, .dxf, .dwf(x), PDF, and image files on iOS and Android devices.' },
+        { icon: 'ruler', title: 'Measure and annotate', body: 'Check coordinates, lengths, and areas, then mark up drawings with leaders and notes.' },
+        { icon: 'share-2', title: 'Share and print', body: 'Export to PDF, DWF(x), JPG, or OBJ and print over Wi-Fi.' },
+      ],
       facts: [
-        { label: 'Category', value: 'Structural Design Software', isText: true },
-        { label: 'Developed by', value: 'IDEA StatiCa', isLink: true, href: 'https://www.ideastatica.com/' },
+        { label: 'Category', value: 'CAD Software', isText: true },
+        { label: 'Developed by', value: 'ZWSOFT', isLink: true, href: 'https://www.zwsoft.com/' },
         { label: 'License types', value: 'Perpetual & Subscription', isText: true },
       ],
       capabilities: [
-        { number: '01', title: 'Steel', body: 'Design and code-check steel connections and assess member behavior, including complex joints, base plates, and anchoring details.', mediaId: 'cap-steel', placeholder: 'Steel connection model' },
-        { number: '02', title: 'Concrete', body: 'Analyze reinforced and prestressed concrete elements, including walls, beams, and regions with complex load transfer. Assess reinforcement and relevant design checks.', mediaId: 'cap-concrete-needed', placeholder: 'Asset needed \u2014 authentic reinforced concrete model not yet supplied' },
-        { number: '03', title: 'BIM & Workflows', body: 'Connect IDEA StatiCa with supported CAD and structural analysis tools to transfer model data and reduce repeated input.', note: 'Integration examples include Tekla Structures, SAP2000, ETABS, and STAAD.Pro. Support depends on the application and software version.', mediaId: 'cap-bim', isPhoto: true },
+        { number: '01', title: 'DWG compatibility', body: 'Work with DWG, DXF, and DWT files, so drawings move between your team and your collaborators without conversion steps.', src: 'https://images.pexels.com/photos/10339602/pexels-photo-10339602.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Crisscross steel and glass facade of a high-rise building' },
+        { number: '02', title: 'Familiar workspace', body: 'Use the Classic or Ribbon interface, switch between light and dark modes, and adapt the workspace to how your team already works.', src: 'https://images.pexels.com/photos/29673302/pexels-photo-29673302.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Steel and glass roof structure seen from below' },
+        { number: '03', title: 'Flexible workflows', body: 'Extend workflows with supported APIs and migrate printers, templates, fonts, command aliases, and hatch patterns from your current CAD.', note: 'Supported APIs include LISP, VBA, ZRX, and .NET. Availability depends on the ZWCAD edition and version.', src: 'https://images.pexels.com/photos/3137051/pexels-photo-3137051.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Close-up of a steel frame and glass panel assembly' },
       ].map((cap, i) => {
         const active = i === this.state.activeCap;
         const paused = active && (this.state.capHovered || this.state.capFocused);
         return {
-          ...cap, active, isSlot: !cap.isPhoto, hasNote: !!cap.note,
+          ...cap, active, hasNote: !!cap.note,
           select: () => { this.setState({ activeCap: i }); },
           showProgress: active && !this.state.capReducedMotion,
           showStaticFill: active && this.state.capReducedMotion,

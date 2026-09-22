@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div class="relative mx-auto flex w-full max-w-4xl flex-col items-center gap-7 text-center">
+  <span data-reveal="fade" class="font-sans text-xs uppercase tracking-widest text-white/50">14-day free trial</span>
+  <h2 class="text-balance text-[32px] font-semibold leading-[1.18] tracking-tight sm:text-5xl lg:text-[60px] xl:text-[72px]">
+    <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Your next drawing.</span></span>
+    <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Starts here.</span></span>
+  </h2>
+  <div data-reveal="stagger" class="flex w-full flex-col items-center gap-7">
+    <p class="max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">Explore {{ product }} with a 14-day free trial, or request a license quote for your team.</p>
+    <div class="grid w-full max-w-sm grid-cols-1 gap-4 sm:max-w-xl sm:grid-cols-2">
+      <a href="#quote" onClick="{{ onTrial }}" class="group inline-flex h-[50px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-none bg-white px-6 text-sm font-semibold text-black transition-colors hover:bg-neutral-200">
+        Request a 14-Day Free Trial
+        <i data-lucide="arrow-right" class="size-4 text-current transition-transform group-hover:translate-x-0.5"></i>
+      </a>
+      <a href="#quote" onClick="{{ onQuote }}" class="group inline-flex h-[50px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-none border border-white bg-transparent px-6 text-sm font-semibold text-white transition-colors">
+        Get a Quote
+        <i data-lucide="arrow-right" class="size-4 text-current transition-transform group-hover:translate-x-0.5"></i>
+      </a>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:620},&quot;product&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;ZWCAD&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onTrial&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(e: MouseEvent) =&gt; void&quot;},&quot;onQuote&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(e: MouseEvent) =&gt; void&quot;}}"></script>
+</body>
+</html>

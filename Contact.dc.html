@@ -29,7 +29,10 @@
   };
 </script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<style>
+<script src="./product-options.js"></script>
+<link rel="stylesheet" href="swut-buttons.css">
+  <style>
+  [data-reveal="mask"], [data-reveal="mask"] > * { line-height: 1.18 !important; }
   :root {
     --background: 1 0 0;
     --foreground: 0.145 0 0;
@@ -53,9 +56,9 @@
   <section data-nav-theme="dark" data-screen-label="Contact title" class="bg-primary px-6 pb-16 pt-32 text-primary-foreground sm:px-10 sm:pb-20 sm:pt-36 lg:px-20">
     <div class="flex flex-col items-start gap-6">
       <span class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Contact Us</span>
-      <h1 class="max-w-3xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-        <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">Let's talk about</span></span>
-        <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">your software needs.</span></span>
+      <h1 class="max-w-3xl text-balance text-4xl font-semibold leading-[1.18] tracking-tight sm:text-5xl lg:text-6xl">
+        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Let's talk about</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">your software needs.</span></span>
       </h1>
       <p data-reveal="fade" class="max-w-xl text-pretty text-base leading-relaxed text-white/70 sm:text-lg">Enquire about software licenses or send the SWUT team a question.</p>
     </div>
@@ -70,18 +73,33 @@
         <p class="max-w-sm text-base leading-relaxed text-muted-foreground">Reach us directly, or use the form and we'll route your enquiry to the right person.</p>
 
         <div class="mt-2 flex w-full max-w-sm flex-col">
-          <div class="flex flex-col gap-1.5 border-t border-border py-5">
-            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Email</span>
-            <a href="mailto:hello@swut.co" class="text-lg text-foreground transition-colors hover:text-muted-foreground">hello@swut.co</a>
+          <div class="flex items-start gap-4 border-t border-border py-5">
+            <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center bg-muted text-foreground">
+              <i data-lucide="mail" class="size-5"></i>
+            </span>
+            <div class="flex min-w-0 flex-col gap-1.5">
+              <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Email</span>
+              <a href="mailto:hello@swut.co" class="text-lg text-foreground transition-colors hover:text-muted-foreground">hello@swut.co</a>
+            </div>
           </div>
-          <div class="flex flex-col gap-1.5 border-t border-border py-5">
-            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Phone</span>
-            <span class="text-lg text-muted-foreground">Awaiting confirmation</span>
-            <span class="text-sm leading-relaxed text-muted-foreground">The number used in earlier drafts was placeholder content. Send us the verified line and we'll publish it as a tap-to-call link.</span>
+          <div class="flex items-start gap-4 border-t border-border py-5">
+            <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center bg-muted text-foreground">
+              <i data-lucide="phone" class="size-5"></i>
+            </span>
+            <div class="flex min-w-0 flex-col gap-1.5">
+              <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Phone</span>
+              <span class="text-lg text-muted-foreground">Awaiting confirmation</span>
+              <span class="text-sm leading-relaxed text-muted-foreground">The number used in earlier drafts was placeholder content. Send us the verified line and we'll publish it as a tap-to-call link.</span>
+            </div>
           </div>
-          <div class="flex flex-col gap-1.5 border-t border-b border-border py-5">
-            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Location</span>
-            <span class="text-lg text-foreground">Cairo, Egypt</span>
+          <div class="flex items-start gap-4 border-t border-b border-border py-5">
+            <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center bg-muted text-foreground">
+              <i data-lucide="map-pin" class="size-5"></i>
+            </span>
+            <div class="flex min-w-0 flex-col gap-1.5">
+              <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Location</span>
+              <span class="text-lg text-foreground">Cairo, Egypt</span>
+            </div>
           </div>
         </div>
       </div>
@@ -120,38 +138,135 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div class="flex flex-col gap-6">
             <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProductsKeyDown }}">
-              <label id="c-product-label" class="text-sm text-muted-foreground">Product / Enquiry <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <label id="c-product-label" class="text-sm text-muted-foreground">Product</label>
               <div class="relative">
-                <button type="button" id="c-product" aria-haspopup="listbox" aria-expanded="{{ productsOpen }}" aria-labelledby="c-product-label" onClick="{{ toggleProductsOpen }}" class="flex w-full items-center justify-between gap-2 border border-border bg-transparent px-4 py-3 text-left text-base text-foreground" aria-invalid="{{ errors.product }}" aria-describedby="err-product">
-                  <span class="truncate">{{ fields.product }}</span>
+                <button type="button" id="c-product" aria-haspopup="listbox" aria-expanded="{{ productsOpen }}" aria-labelledby="c-product-label" onClick="{{ toggleProductsOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 py-3 text-left text-base text-foreground" aria-invalid="{{ errors.product }}" aria-describedby="err-product">
+                  <span class="truncate">{{ productsSummary }}</span>
                   <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
                 </button>
                 <sc-if value="{{ productsOpen }}" hint-placeholder-val="{{ false }}">
                   <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
                     <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="5">
-                      <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
-                        <input type="radio" name="c-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
-                        {{ opt.name }}
-                      </label>
-                    </sc-for>
+                      <sc-if value="{{ opt.isGroup }}" hint-placeholder-val="{{ false }}">
+                          <span role="presentation" class="border-t border-border px-4 pb-1 pt-3 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ opt.name }}</span>
+                        </sc-if>
+                        <sc-if value="{{ opt.isNestedFirst }}" hint-placeholder-val="{{ false }}">
+                          <label class="flex cursor-pointer items-center gap-3 py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="c-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                        <sc-if value="{{ opt.isNested }}" hint-placeholder-val="{{ false }}">
+                          <label class="flex cursor-pointer items-center gap-3 border-t border-border py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="c-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                        <sc-if value="{{ opt.isPlainFirst }}" hint-placeholder-val="{{ true }}">
+                          <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="c-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                        <sc-if value="{{ opt.isPlain }}" hint-placeholder-val="{{ false }}">
+                          <label class="flex cursor-pointer items-center gap-3 border-t border-border px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="c-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                      </sc-for>
                   </div>
                 </sc-if>
               </div>
-              <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a product or enquiry type.</span></sc-if>
+                      <sc-if value="{{ midasNeedsChoice }}" hint-placeholder-val="{{ false }}"><span class="text-sm leading-relaxed text-muted-foreground">Your link named MIDAS — choose GEN, CIVIL NX, or GTS NX.</span></sc-if>
+                    <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">{{ productError }}</span></sc-if>
             </div>
-            <div class="flex flex-col gap-2">
-              <label for="c-licenses" class="text-sm text-muted-foreground">Number of licenses</label>
-              <input id="c-licenses" type="{{ licensesType }}" min="1" disabled="{{ licensesDisabled }}" value="{{ licensesValue }}" onChange="{{ setLicenses }}" class="{{ licensesClass }}" aria-invalid="{{ errors.licenses }}" aria-describedby="err-licenses">
-              <sc-if value="{{ errors.licenses }}" hint-placeholder-val="{{ false }}"><span id="err-licenses" class="text-sm text-red-600">Enter at least 1 license.</span></sc-if>
-              <sc-if value="{{ licensesDisabled }}" hint-placeholder-val="{{ true }}"><span class="text-sm text-muted-foreground">Applies to product enquiries only.</span></sc-if>
-            </div>
+            <sc-if value="{{ ctxPair }}" hint-placeholder-val="{{ false }}">
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div class="flex flex-col gap-2">
+                  <span id="c-intent-label" class="text-sm text-muted-foreground">Enquiry type</span>
+                  <div class="relative" ref="{{ intentWrapRef }}" onKeyDown="{{ onIntentKeyDown }}">
+                    <button type="button" id="c-intent" aria-haspopup="listbox" aria-expanded="{{ intentOpen }}" aria-labelledby="c-intent-label" onClick="{{ toggleIntentOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 py-3 text-left text-base text-foreground">
+                      <span class="truncate">{{ intentSummary }}</span>
+                      <i data-lucide="chevron-down" aria-hidden="true" class="size-4 shrink-0 text-muted-foreground"></i>
+                    </button>
+                    <sc-if value="{{ intentOpen }}" hint-placeholder-val="{{ false }}">
+                      <div role="listbox" aria-labelledby="c-intent-label" class="absolute inset-x-0 top-full z-30 mt-1 flex max-h-[min(320px,60vh)] flex-col overflow-y-auto border border-border bg-background shadow-sm">
+                        <sc-for list="{{ intentOptions }}" as="opt" hint-placeholder-count="9">
+                          <sc-if value="{{ opt.isGroupFirst }}" hint-placeholder-val="{{ false }}">
+                            <span role="presentation" class="px-4 pb-1 pt-3 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ opt.name }}</span>
+                          </sc-if>
+                          <sc-if value="{{ opt.isGroup }}" hint-placeholder-val="{{ false }}">
+                            <span role="presentation" class="border-t border-border px-4 pb-1 pt-3 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ opt.name }}</span>
+                          </sc-if>
+                          <sc-if value="{{ opt.isItemFirst }}" hint-placeholder-val="{{ true }}">
+                            <label class="flex cursor-pointer items-center gap-3 py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                              <input type="radio" name="c-intent-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                              {{ opt.name }}
+                            </label>
+                          </sc-if>
+                          <sc-if value="{{ opt.isItem }}" hint-placeholder-val="{{ false }}">
+                            <label class="flex cursor-pointer items-center gap-3 border-t border-border py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                              <input type="radio" name="c-intent-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                              {{ opt.name }}
+                            </label>
+                          </sc-if>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                  <sc-if value="{{ trialNote }}" hint-placeholder-val="{{ false }}"><span class="text-sm leading-relaxed text-muted-foreground">{{ trialNote }}</span></sc-if>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="c-ctx" class="text-sm text-muted-foreground">{{ ctxLabel }}</label>
+                  <input id="c-ctx" type="{{ ctxType }}" min="1" value="{{ ctxValue }}" onChange="{{ setCtx }}" class="h-[50px] border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxPlaceholder }}" aria-invalid="{{ errors.ctx }}" aria-describedby="err-ctx">
+                  <sc-if value="{{ errors.ctx }}" hint-placeholder-val="{{ false }}"><span id="err-ctx" class="text-sm text-red-600">{{ ctxError }}</span></sc-if>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ ctxSolo }}" hint-placeholder-val="{{ true }}">
+              <div class="flex flex-col gap-2">
+                <span id="c-intent-label" class="text-sm text-muted-foreground">Enquiry type</span>
+                <div class="relative" ref="{{ intentWrapRef }}" onKeyDown="{{ onIntentKeyDown }}">
+                    <button type="button" id="c-intent" aria-haspopup="listbox" aria-expanded="{{ intentOpen }}" aria-labelledby="c-intent-label" onClick="{{ toggleIntentOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 py-3 text-left text-base text-foreground">
+                      <span class="truncate">{{ intentSummary }}</span>
+                      <i data-lucide="chevron-down" aria-hidden="true" class="size-4 shrink-0 text-muted-foreground"></i>
+                    </button>
+                    <sc-if value="{{ intentOpen }}" hint-placeholder-val="{{ false }}">
+                      <div role="listbox" aria-labelledby="c-intent-label" class="absolute inset-x-0 top-full z-30 mt-1 flex max-h-[min(320px,60vh)] flex-col overflow-y-auto border border-border bg-background shadow-sm">
+                        <sc-for list="{{ intentOptions }}" as="opt" hint-placeholder-count="9">
+                          <sc-if value="{{ opt.isGroupFirst }}" hint-placeholder-val="{{ false }}">
+                            <span role="presentation" class="px-4 pb-1 pt-3 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ opt.name }}</span>
+                          </sc-if>
+                          <sc-if value="{{ opt.isGroup }}" hint-placeholder-val="{{ false }}">
+                            <span role="presentation" class="border-t border-border px-4 pb-1 pt-3 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ opt.name }}</span>
+                          </sc-if>
+                          <sc-if value="{{ opt.isItemFirst }}" hint-placeholder-val="{{ true }}">
+                            <label class="flex cursor-pointer items-center gap-3 py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                              <input type="radio" name="c-intent-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                              {{ opt.name }}
+                            </label>
+                          </sc-if>
+                          <sc-if value="{{ opt.isItem }}" hint-placeholder-val="{{ false }}">
+                            <label class="flex cursor-pointer items-center gap-3 border-t border-border py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                              <input type="radio" name="c-intent-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                              {{ opt.name }}
+                            </label>
+                          </sc-if>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                <sc-if value="{{ trialNote }}" hint-placeholder-val="{{ false }}"><span class="text-sm leading-relaxed text-muted-foreground">{{ trialNote }}</span></sc-if>
+              </div>
+            </sc-if>
           </div>
 
           <div class="flex flex-col gap-2">
             <label for="c-notes" class="text-sm text-muted-foreground">Message</label>
-            <textarea id="c-notes" rows="5" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Tell us what you need — licensing, training, support, or a question."></textarea>
+            <textarea id="c-notes" rows="5" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="How can we help?"></textarea>
           </div>
 
           <button type="submit" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90">
@@ -163,41 +278,7 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer data-reveal="fade" data-nav-theme="dark" data-screen-label="Footer" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
-    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
-      <div class="flex flex-col gap-4">
-        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="block h-auto w-[160px] object-contain sm:w-[190px]" style="margin-bottom:15px">
-        <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
-      </div>
-      <div class="flex flex-col gap-4">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
-        <ul class="flex flex-col gap-3">
-          <li><a href="SWUT Home.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
-          <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
-          <li><a href="IDEA StatiCa.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">IDEA StatiCa</a></li>
-        </ul>
-      </div>
-      <div class="flex flex-col gap-4">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Contact</span>
-        <div class="flex flex-col gap-3 text-sm">
-          <a href="mailto:hello@swut.co" class="text-white/70 transition-colors hover:text-white">hello@swut.co</a>
-          <span class="text-white/40">Phone — awaiting confirmation</span>
-        </div>
-      </div>
-      <div class="flex flex-col gap-4">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Location</span>
-        <p class="text-sm leading-relaxed text-white/70">Cairo,<br>Egypt</p>
-      </div>
-    </div>
-    <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-      <span class="text-sm text-white/50">© 2026 SWUT. All rights reserved.</span>
-      <div class="flex gap-6 text-sm text-white/50">
-        <a href="#" class="transition-colors hover:text-white">Privacy Policy</a>
-        <a href="#" class="transition-colors hover:text-white">Terms of Service</a>
-      </div>
-    </div>
-  </footer>
+  <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
 
 </div>
 
@@ -205,18 +286,35 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
   state = {
-    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'General enquiry', licenses: '1' },
+    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'Not sure / Not applicable', licenses: '1', participants: '', version: '' },
+    intent: 'general',
+    intentOpen: false,
     productsOpen: false, errors: {}, noBackend: false,
   };
 
-  _PRODUCTS = ['General enquiry', 'IDEA StatiCa', 'ZWCAD', 'Midas'];
+  _PRODUCT_OPTS = { notApplicable: true };
+
+  get _PRODUCTS() {
+    const api = window.SWUTProductOptions;
+    return api ? api.names(this._PRODUCT_OPTS) : ['General enquiry', 'IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'Bentley'];
+  }
+
+  _productRows(current, pick) {
+    const api = window.SWUTProductOptions;
+    if (api) return api.rows(this._PRODUCT_OPTS, current, pick);
+    return this._PRODUCTS.map(name => ({ name, isGroup: false, isNested: false, isPlain: true, checked: current === name, select: () => pick(name) }));
+  }
 
   componentDidMount() {
+    if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
     this._applyProductContext();
+    this._applyIntentContext();
+    this._applyServiceContext();
     this._initReveal();
     this._icons();
     this._onDocClick = (e) => {
       if (this.state.productsOpen && this._prodWrap && !this._prodWrap.contains(e.target)) this.setState({ productsOpen: false });
+      if (this.state.intentOpen && this._intentWrap && !this._intentWrap.contains(e.target)) this.setState({ intentOpen: false });
     };
     document.addEventListener('mousedown', this._onDocClick);
     const target = sessionStorage.getItem('__swut_scroll_target');
@@ -236,6 +334,53 @@ class Component extends DCLogic {
   _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
 
   // ?product=ZWCAD or #/contact?product=ZWCAD preselects, still editable
+  _TRIAL_14 = ['IDEA StatiCa', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX'];
+  _TRIALS = { 'IDEA StatiCa': '14-day', 'ZWCAD': '14-day', 'MIDAS GEN': '14-day', 'MIDAS CIVIL NX': '14-day', 'MIDAS GTS NX': '14-day' };
+  _NO_PRODUCT = 'Not sure / Not applicable';
+  _INTENTS = {
+    general: { label: 'General enquiry' },
+    quote: { label: 'License quote', needsProduct: true, ctx: { key: 'licenses', label: 'Number of licenses', type: 'number', ph: '1', error: 'Enter at least 1 license.' } },
+    trial: { label: '14-day free trial', needsTrialProduct: true },
+    training: { label: 'Training', service: true, ctx: { key: 'participants', label: 'Number of participants', type: 'number', ph: 'e.g. 6', error: 'Enter at least 1 participant.' } },
+    support: { label: 'Technical Support', service: true, ctx: { key: 'version', label: 'Current software version — optional', type: 'text', ph: 'e.g. 2025.1' } },
+    workshops: { label: 'Technical Workshops', service: true, ctx: { key: 'participants', label: 'Number of participants', type: 'number', ph: 'e.g. 6', error: 'Enter at least 1 participant.' } },
+    maintenance: { label: 'Software Maintenance', service: true, ctx: { key: 'version', label: 'Current software version — optional', type: 'text', ph: 'e.g. 2025.1' } },
+    bim: { label: 'BIM Consultancy', service: true },
+    demo: { label: 'Request a Demo', service: true },
+  };
+  _INTENT_GROUPS = [
+    { group: 'General', items: ['general'] },
+    { group: 'Product enquiries', items: ['quote', 'trial'] },
+    { group: 'Services', items: ['training', 'support', 'workshops', 'maintenance', 'bim', 'demo'] },
+  ];
+  _SERVICE_KEYS = { 'training': 'training', 'technical support': 'support', 'technical workshops': 'workshops', 'software maintenance': 'maintenance', 'bim consultancy': 'bim', 'request a demo': 'demo', 'demo': 'demo' };
+
+  // ?intent=trial arrives from the homepage 14-day trial CTA.
+  _applyIntentContext() {
+    let raw = null;
+    try {
+      raw = new URLSearchParams(window.location.search).get('intent');
+      if (!raw && window.location.hash.includes('?')) raw = new URLSearchParams(window.location.hash.split('?')[1]).get('intent');
+    } catch (e) {}
+    if (!raw) return;
+    const key = String(raw).trim().toLowerCase();
+    if (this._INTENTS[key]) { this.setState({ intent: key }); return; }
+    const svc = this._SERVICE_KEYS[key];
+    if (svc) this.setState({ intent: svc });
+  }
+
+  // ?service=Training preselects a service enquiry from service CTAs.
+  _applyServiceContext() {
+    let raw = null;
+    try {
+      raw = new URLSearchParams(window.location.search).get('service');
+      if (!raw && window.location.hash.includes('?')) raw = new URLSearchParams(window.location.hash.split('?')[1]).get('service');
+    } catch (e) {}
+    if (!raw) return;
+    const svc = this._SERVICE_KEYS[String(raw).trim().toLowerCase()];
+    if (svc) this.setState({ intent: svc });
+  }
+
   _applyProductContext() {
     let raw = null;
     try {
@@ -243,8 +388,11 @@ class Component extends DCLogic {
       if (!raw && window.location.hash.includes('?')) raw = new URLSearchParams(window.location.hash.split('?')[1]).get('product');
     } catch (e) {}
     if (!raw) return;
-    const match = this._PRODUCTS.find(p => p.toLowerCase().replace(/\s+/g, '') === raw.toLowerCase().replace(/[\s-]+/g, ''));
-    if (match) this.setState(s => ({ fields: { ...s.fields, product: match, licenses: match === 'General enquiry' ? '1' : (s.fields.licenses || '1') } }));
+    const api = window.SWUTProductOptions;
+    const match = api ? api.match(raw, this._PRODUCT_OPTS) : this._PRODUCTS.find(p => p.toLowerCase().replace(/\s+/g, '') === raw.toLowerCase().replace(/[\s-]+/g, ''));
+    if (match) { this.setState(s => ({ fields: { ...s.fields, product: match, licenses: match === 'General enquiry' ? '1' : (s.fields.licenses || '1') }, midasNeedsChoice: false })); return; }
+    // Brand-only "MIDAS" names three products; ask rather than guess.
+    if (!api || api.isBrandOnlyMidas(raw)) this.setState(s => ({ fields: { ...s.fields, product: '' }, midasNeedsChoice: true }));
   }
 
   _initReveal() {
@@ -316,40 +464,76 @@ class Component extends DCLogic {
   }
 
   _validate(f) {
+    const cfg = this._INTENTS[this.state.intent] || this._INTENTS.general;
     const errors = {};
     if (!f.name.trim()) errors.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
-    if (!f.product) errors.product = true;
-    if (f.product !== 'General enquiry' && (!f.licenses || Number(f.licenses) < 1)) errors.licenses = true;
+    // A product is only required where the enquiry is about specific software.
+    const hasProduct = f.product && f.product !== this._NO_PRODUCT;
+    if (cfg.needsProduct && !hasProduct) errors.product = true;
+    if (cfg.needsTrialProduct && !this._TRIALS[f.product]) errors.product = true;
+    // Only the field actually shown can fail validation.
+    if (cfg.ctx && cfg.ctx.type === 'number') {
+      const v = f[cfg.ctx.key];
+      const required = cfg.ctx.key === 'licenses';
+      if (required ? (!v || Number(v) < 1) : (v !== '' && Number(v) < 1)) errors.ctx = true;
+    }
     return errors;
   }
 
   _focusFirstError(errors) {
-    const order = [['name', 'c-name'], ['email', 'c-email'], ['product', 'c-product'], ['licenses', 'c-licenses']];
+    const order = [['name', 'c-name'], ['email', 'c-email'], ['product', 'c-product'], ['ctx', 'c-ctx']];
     const hit = order.find(([k]) => errors[k]);
     if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
   }
 
   renderVals() {
     const { fields, errors, productsOpen, noBackend } = this.state;
-    const isGeneral = fields.product === 'General enquiry';
-    const licensesBase = 'border border-border px-4 py-3 text-base placeholder:text-muted-foreground';
+    const intent = this.state.intent;
+    const cfg = this._INTENTS[intent] || this._INTENTS.general;
+    const ctx = cfg.ctx || null;
+    const trialFor = this._TRIALS[fields.product];
 
     return {
       fields, errors, productsOpen, noBackend,
-      licensesDisabled: isGeneral,
-      licensesValue: isGeneral ? '\u2014' : fields.licenses,
-      licensesType: isGeneral ? 'text' : 'number',
-      licensesClass: licensesBase + (isGeneral ? ' cursor-not-allowed bg-muted text-muted-foreground' : ' bg-transparent text-foreground'),
-      productOptions: this._PRODUCTS.map(name => ({
-        name,
-        checked: fields.product === name,
-        select: () => this.setState(s => ({
-          fields: { ...s.fields, product: name, licenses: name === 'General enquiry' ? s.fields.licenses : (s.fields.licenses || '1') },
-          productsOpen: false,
-          errors: { ...s.errors, product: false, licenses: false },
-        })),
-      })),
+      productsSummary: fields.product || 'Select a product',
+      midasNeedsChoice: !!this.state.midasNeedsChoice,
+      intent,
+      intentOpen: this.state.intentOpen,
+      intentSummary: cfg.label,
+      intentWrapRef: (el) => { this._intentWrap = el; },
+      toggleIntentOpen: () => this.setState(s => ({ intentOpen: !s.intentOpen })),
+      onIntentKeyDown: (e) => { if (e.key === 'Escape' && this.state.intentOpen) { this.setState({ intentOpen: false }); const b = document.getElementById('c-intent'); if (b) b.focus(); } },
+      intentOptions: (() => {
+        const rows = [];
+        this._INTENT_GROUPS.forEach((g, gi) => {
+          rows.push({ name: g.group, isGroupFirst: gi === 0, isGroup: gi > 0, isItemFirst: false, isItem: false, checked: false, select: () => {} });
+          g.items.forEach((key, ii) => rows.push({
+            name: this._INTENTS[key].label,
+            isGroupFirst: false, isGroup: false, isItemFirst: ii === 0, isItem: ii > 0,
+            checked: intent === key,
+            select: () => this.setState({ intent: key, intentOpen: false, errors: {} }),
+          }));
+        });
+        return rows;
+      })(),
+      ctxPair: !!ctx,
+      ctxSolo: !ctx,
+      ctxLabel: ctx ? ctx.label : '',
+      ctxType: ctx ? ctx.type : 'text',
+      ctxPlaceholder: ctx ? ctx.ph : '',
+      ctxValue: ctx ? (fields[ctx.key] || '') : '',
+      ctxError: ctx && ctx.error ? ctx.error : '',
+      setCtx: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, [ctx ? ctx.key : 'licenses']: v }, errors: { ...s.errors, ctx: false } })); },
+      trialNote: intent !== 'trial' ? '' : trialFor
+        ? trialFor + ' free trial for ' + fields.product + ' — a request, not an activation.'
+        : '14-day free trials are available for IDEA StatiCa, ZWCAD, and the MIDAS products. Pick one above.',
+      productError: cfg.needsTrialProduct ? 'Choose a product with a trial — IDEA StatiCa, ZWCAD, or a MIDAS product.' : 'Select the product this enquiry is about.',
+      productOptions: this._productRows(fields.product, (name) => this.setState(s => ({
+        fields: { ...s.fields, product: name },
+        productsOpen: false, productOpen: false, open: null,
+        errors: { ...s.errors, product: false },
+      }))),
       prodWrapRef: (el) => { this._prodWrap = el; },
       toggleProductsOpen: () => this.setState(s => ({ productsOpen: !s.productsOpen })),
       onProductsKeyDown: (e) => { if (e.key === 'Escape' && this.state.productsOpen) this.setState({ productsOpen: false }); },
@@ -360,7 +544,6 @@ class Component extends DCLogic {
       setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
       setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
       setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
-      setLicenses: (e) => this.setState(s => ({ fields: { ...s.fields, licenses: e.target.value } })),
       setNotes: (e) => this.setState(s => ({ fields: { ...s.fields, notes: e.target.value } })),
       handleSubmit: (e) => {
         e.preventDefault();
@@ -372,8 +555,17 @@ class Component extends DCLogic {
         // No submission endpoint is wired up. Payload is assembled but nothing
         // is sent — we surface that rather than faking a success state.
         const f = this.state.fields;
-        const payload = { name: f.name, email: f.email, company: f.company, phone: f.phone, product: f.product, notes: f.notes };
-        if (f.product !== 'General enquiry') payload.licenses = Number(f.licenses);
+        const cfg = this._INTENTS[this.state.intent] || this._INTENTS.general;
+        const payload = {
+          name: f.name, email: f.email, company: f.company, phone: f.phone,
+          enquiryType: cfg.label,
+          service: cfg.service ? cfg.label : null,
+          product: !f.product || f.product === this._NO_PRODUCT ? null : f.product,
+          notes: f.notes,
+        };
+        // Only the field shown for this enquiry type travels with the payload.
+        if (cfg.ctx && f[cfg.ctx.key] !== '') payload[cfg.ctx.key] = cfg.ctx.type === 'number' ? Number(f[cfg.ctx.key]) : f[cfg.ctx.key];
+        if (this.state.intent === 'trial') payload.trialDuration = this._TRIALS[f.product] || null;
         console.info('[SWUT contact] no backend configured; payload not sent:', payload);
         this.setState({ errors: {}, noBackend: true });
       },

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./page-transition.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          background: 'oklch(var(--background))',
+          foreground: 'oklch(var(--foreground))',
+          card: 'oklch(var(--card))',
+          border: 'oklch(var(--border))',
+          primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
+          muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
+        },
+        borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="./product-options.js"></script>
+<link rel="stylesheet" href="swut-buttons.css">
+  <style>
+  [data-reveal="mask"], [data-reveal="mask"] > * { line-height: 1.18 !important; }
+  [data-reveal="mask"][data-revealed] { overflow: visible !important; }
+  :root {
+    --background: 1 0 0;
+    --foreground: 0.145 0 0;
+    --card: 1 0 0;
+    --border: 0.922 0 0;
+    --primary: 0.205 0 0;
+    --primary-foreground: 0.985 0 0;
+    --muted-foreground: 0.556 0 0;
+    --muted: 0.97 0 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  html { scroll-padding-top: 96px; }
+  * { cursor: none; }
+  input:focus, textarea:focus, button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+  [data-info-rules] { --ext: 6px; }
+  @media (min-width: 1024px) { [data-info-rules] { --ext: 12px; } }
+  @keyframes faqOpen { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { [data-faq-panel] { animation: none !important; } }
+</style>
+</helmet>
+
+<div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
+
+  <dc-import name="NavHeader" current-page="about" quote-href="Contact.dc.html" hint-size="100%,80px"></dc-import>
+
+  <!-- ===== COMPACT DARK HERO ===== -->
+  <section data-nav-theme="dark" data-screen-label="About hero" class="bg-primary px-6 pt-32 pb-16 text-primary-foreground sm:px-10 lg:px-20 lg:pt-40 lg:pb-20">
+    <div class="flex flex-col items-start gap-5">
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">About SWUT</span>
+      <h1 class="max-w-3xl text-balance text-4xl font-semibold leading-[1.18] tracking-tight sm:text-5xl lg:text-6xl">
+        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Engineering software.</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Human support.</span></span>
+      </h1>
+      <p data-reveal="fade" class="max-w-xl text-pretty text-base leading-relaxed text-white/70 sm:text-lg">We help engineering teams choose the right software, develop their skills, and connect their workflows.</p>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT THE COMPANY ===== -->
+  <section data-curtain-cols data-nav-theme="light" data-screen-label="About the company" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div data-reveal="curtain-left" data-curtain-container class="relative aspect-[4/3] w-full overflow-hidden" style="background-color:#F2F2F2">
+        <div data-reveal="curtain" class="absolute inset-0">
+          <img src="uploads/eduard-galitsky-pdcR2kN-NDI-unsplash.jpg" alt="Upward view of the sky between two tall buildings" loading="lazy" class="absolute inset-0 size-full object-cover" style="object-position:center center">
+        </div>
+      </div>
+
+      <div data-reveal="curtain-right" class="flex flex-col items-start gap-6">
+        <h2 class="max-w-lg text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Built around</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">collaboration.</span></span>
+        </h2>
+        <p class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">SWUT Solutions specializes in engineering software and BIM workflows. We bring together software, training, consultancy, and technical support to help teams work confidently across their projects.</p>
+        <p class="max-w-xl border-t border-border pt-6 text-base leading-relaxed text-foreground">Our approach is simple: understand your work, connect you with suitable tools, and support a lasting working relationship.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OUR CLIENTS ===== -->
+  <section id="clients" data-nav-theme="light" data-screen-label="Our clients" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
+    <div class="flex flex-col items-start gap-5">
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Trusted by</span>
+      <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        <span class="inline-block">Our Clients</span>
+      </h2>
+    </div>
+
+    <div data-info-rules class="relative mt-14">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10 hidden lg:block">
+        <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] top-0 block h-px bg-border"></span>
+        <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] block h-px bg-border" style="top:50%"></span>
+        <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] bottom-0 block h-px bg-border"></span>
+        <span data-grid-line="v" class="absolute left-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
+        <span data-grid-line="v" class="absolute right-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
+        <span data-grid-line="v" class="absolute top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border" style="left:20%"></span>
+        <span data-grid-line="v" class="absolute top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border" style="left:40%"></span>
+        <span data-grid-line="v" class="absolute top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border" style="left:60%"></span>
+        <span data-grid-line="v" class="absolute top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border" style="left:80%"></span>
+      </div>
+      <div class="grid grid-cols-2 border-l border-t border-r border-border sm:grid-cols-3 sm:border-r-0 lg:grid-cols-5 lg:border-0">
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-gieco.png" alt="GIECO" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-enppi.png" alt="Enppi" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-hassan-allam.png" alt="Hassan Allam Holding" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-orascom.png" alt="Orascom Construction" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-petrojet.png" alt="Petrojet" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-thyssenkrupp.png" alt="thyssenkrupp" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-zamil-steel.png" alt="Zamil Steel" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-elsewedy-electric.png" alt="Elsewedy Electric" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-alexform.png" alt="Alexform" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-aic-steel.png" alt="AIC Steel" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CLIENT REVIEWS (shared homepage testimonials) ===== -->
+  <section data-nav-theme="light" data-screen-label="Client reviews" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
+    <div class="flex flex-col items-center gap-5 text-center">
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Real Reviews</span>
+      <h2 data-reveal="fade" class="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">Testimonials</h2>
+    </div>
+
+    <div id="testi-track" class="mt-16 flex gap-6 overflow-hidden" style="overflow: hidden">
+      <sc-for list="{{ testiLoop }}" as="t" hint-placeholder-count="8">
+        <div class="flex aspect-[4/5] w-[340px] max-w-[82vw] shrink-0 flex-col border border-border bg-card p-8">
+          <i data-lucide="quote" fill="currentColor" stroke-width="0" class="size-11 text-black/15"></i>
+          <div class="mt-auto flex flex-col items-start gap-5">
+            <p class="text-pretty text-base leading-relaxed text-foreground">{{ t.quote }}</p>
+            <div class="flex flex-col">
+              <span class="font-semibold tracking-tight text-foreground">{{ t.name }}</span>
+              <span class="text-sm text-muted-foreground">{{ t.role }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== FAQS ===== -->
+  <section id="faqs" data-nav-theme="light" data-screen-label="FAQs" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[4fr_7fr] lg:gap-20">
+      <div class="flex flex-col items-start gap-5">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">FAQs</span>
+        <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">
+          <span class="inline-block">Common questions.</span>
+        </h2>
+      </div>
+
+      <div class="flex flex-col border-t border-border">
+        <sc-for list="{{ faqs }}" as="item" hint-placeholder-count="5">
+          <div class="border-b border-border">
+            <h3>
+              <button type="button" id="{{ item.buttonId }}" aria-expanded="{{ item.expanded }}" aria-controls="{{ item.panelId }}" onClick="{{ item.toggle }}" class="flex w-full items-start justify-between gap-6 bg-transparent py-6 text-left">
+                <span class="text-base font-semibold leading-snug tracking-tight text-foreground sm:text-lg">{{ item.q }}</span>
+                <span aria-hidden="true" class="mt-0.5 flex size-5 shrink-0 items-center justify-center text-muted-foreground transition-transform duration-200" style="transform:rotate({{ item.rot }}deg)">
+                  <i data-lucide="plus" class="size-5"></i>
+                </span>
+              </button>
+            </h3>
+            <sc-if value="{{ item.open }}" hint-placeholder-val="{{ false }}">
+              <div data-faq-panel id="{{ item.panelId }}" role="region" aria-labelledby="{{ item.buttonId }}" class="pb-7 pr-10" style="animation:faqOpen 260ms cubic-bezier(0.22,1,0.36,1) both">
+                <p class="max-w-2xl text-base leading-relaxed text-muted-foreground">{{ item.a }}</p>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
+class Component extends DCLogic {
+  state = { openFaq: 0 };
+
+  // Same testimonials as the homepage — kept verbatim so both pages stay in step.
+  _testimonials = [
+    { quote: 'SWUT sorted our entire licensing stack in weeks — software audits are no longer something we dread.', name: 'Lina Farouk', role: 'Operations Director, Delta Structures' },
+    { quote: 'Their training turned a complex toolset into something my whole team actually uses every day.', name: 'Marcus Reid', role: 'BIM Manager, Northline Engineering' },
+    { quote: 'Fast, knowledgeable support. Whenever we hit a wall, SWUT had an answer the same day.', name: 'Priya Nair', role: 'Project Lead, Vantage Consultants' },
+    { quote: 'The trial demo made the decision easy — we saw the value before spending a single dirham.', name: 'Omar Haddad', role: 'Managing Partner, Cornerstone Design' },
+  ];
+
+  componentDidMount() {
+    this._icons();
+    this._initReveal();
+    this._startTesti();
+  }
+
+  _startTesti() {
+    const track = document.getElementById('testi-track');
+    if (!track) return;
+    this._testiPaused = false;
+    track.addEventListener('mouseenter', () => { this._testiPaused = true; });
+    track.addEventListener('mouseleave', () => { this._testiPaused = false; });
+    const tick = () => {
+      if (track.isConnected) {
+        if (!this._testiPaused && track.scrollWidth > track.clientWidth) {
+          track.scrollLeft += 0.6;
+          const half = track.scrollWidth / 2; // list is duplicated for a seamless loop
+          if (track.scrollLeft >= half) track.scrollLeft -= half;
+        }
+        this._testiRaf = requestAnimationFrame(tick);
+      }
+    };
+    this._testiRaf = requestAnimationFrame(tick);
+  }
+  componentDidUpdate() { this._icons(); }
+  componentWillUnmount() {
+    if (this._testiRaf) cancelAnimationFrame(this._testiRaf);
+    if (this._sweep) { window.removeEventListener('scroll', this._sweep); window.removeEventListener('resize', this._sweep); }
+  }
+
+  _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
+
+  _initReveal() {
+    if (this._revealInit) return;
+    this._revealInit = true;
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fades = Array.from(document.querySelectorAll('[data-reveal="fade"]'));
+    const masks = Array.from(document.querySelectorAll('[data-reveal="mask"]')).map(h => h.firstElementChild).filter(Boolean);
+    const cols = Array.from(document.querySelectorAll('[data-curtain-cols]'));
+    const curtains = Array.from(document.querySelectorAll('[data-reveal="curtain"]'));
+    const ruleHosts = Array.from(document.querySelectorAll('[data-info-rules]'));
+
+    const showAll = () => {
+      fades.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+      masks.forEach(el => { el.style.transform = 'none'; if (el.parentElement) el.parentElement.setAttribute('data-revealed', ''); });
+      curtains.forEach(el => { el.style.clipPath = ''; });
+      ruleHosts.forEach(h => h.querySelectorAll('[data-grid-line]').forEach(l => { l.style.transform = 'none'; }));
+      cols.forEach(el => {
+        const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+        if (l) l.style.clipPath = ''; if (r) r.style.clipPath = '';
+      });
+    };
+    if (reduced) { showAll(); return; }
+
+    fades.forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1)';
+    });
+    masks.forEach(el => {
+      el.style.transform = 'translateY(110%)';
+      el.style.transition = 'transform 0.75s cubic-bezier(0.22,1,0.36,1)';
+    });
+    curtains.forEach(el => {
+      el.style.clipPath = 'inset(100% 0 0 0)';
+      el.style.transition = 'clip-path 1100ms cubic-bezier(0.22,1,0.36,1)';
+    });
+    cols.forEach(el => {
+      const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+      if (l) { l.style.clipPath = 'inset(0 100% 0 0)'; l.style.transition = 'clip-path 1000ms cubic-bezier(0.22,1,0.36,1)'; }
+      if (r) { r.style.clipPath = 'inset(0 0 0 100%)'; r.style.transition = 'clip-path 1000ms cubic-bezier(0.22,1,0.36,1)'; }
+    });
+
+    ruleHosts.forEach(host => {
+      host.querySelectorAll('[data-grid-line]').forEach((line, i) => {
+        const horizontal = line.dataset.gridLine === 'h';
+        line.style.transformOrigin = horizontal ? 'left center' : 'center top';
+        line.style.transform = horizontal ? 'scaleX(0)' : 'scaleY(0)';
+        line.style.transition = 'transform 800ms cubic-bezier(0.22,1,0.36,1) ' + ((horizontal ? 0 : 120) + i * 60) + 'ms';
+      });
+    });
+
+    const margin = 60;
+    const inView = (el) => { const r = el.getBoundingClientRect(); return r.top < window.innerHeight + margin && r.bottom > -margin; };
+    let pending = [];
+    fades.forEach(el => pending.push({ el, reveal: () => { el.style.opacity = '1'; el.style.transform = 'none'; } }));
+    masks.forEach(el => pending.push({ el, reveal: () => {
+      el.style.transform = 'translateY(0)';
+      const host = el.parentElement;
+      if (host) setTimeout(() => { host.setAttribute('data-revealed', ''); }, 820);
+    } }));
+    curtains.forEach(el => pending.push({ el, reveal: () => {
+      el.style.clipPath = 'inset(0 0 0 0)';
+      setTimeout(() => { el.style.clipPath = ''; el.style.transition = ''; }, 1150);
+    } }));
+    cols.forEach(el => pending.push({ el, reveal: () => {
+      const l = el.querySelector('[data-reveal="curtain-left"]'), r = el.querySelector('[data-reveal="curtain-right"]');
+      [l, r].forEach(n => { if (!n) return; n.style.clipPath = 'inset(0 0 0 0)'; setTimeout(() => { n.style.clipPath = ''; n.style.transition = ''; }, 1050); });
+    } }));
+
+    ruleHosts.forEach(host => pending.push({ el: host, reveal: () => {
+      host.querySelectorAll('[data-grid-line]').forEach(line => { line.style.transform = 'none'; });
+    } }));
+
+    const sweep = () => { pending = pending.filter(i => { if (!inView(i.el)) return true; i.reveal(); return false; }); };
+    this._sweep = sweep;
+    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('resize', sweep);
+    requestAnimationFrame(sweep);
+    requestAnimationFrame(() => requestAnimationFrame(sweep));
+    setTimeout(sweep, 400);
+  }
+
+  // Draft answers, drawn only from facts already published across this site
+  // (product line-up, trial durations, license types, service scope).
+  _FAQS = [
+    { q: 'Which software does SWUT supply?', a: 'IDEA StatiCa, ZWCAD from ZWSOFT, the MIDAS products — GEN, CIVIL NX, and GTS NX — and Bentley engineering applications such as STAAD.Pro, PLAXIS 2D, and OpenRoads Designer.' },
+    { q: 'Do you offer free trials?', a: 'Yes, for most products: 14 days for IDEA StatiCa, ZWCAD, and the MIDAS products. A trial request is an enquiry rather than an automatic activation — we confirm availability with you first.' },
+    { q: 'What license types are available?', a: 'Perpetual and subscription licensing, depending on the product. Bentley applications are licensed individually, and the three MIDAS products are licensed separately, so we confirm the product, licensing, and terms before any order.' },
+    { q: 'What services do you provide alongside the software?', a: 'Training, technical support, technical workshops, software maintenance, BIM consultancy, and product demonstrations — each available as its own enquiry.' },
+    { q: 'Can you help us decide which product fits our work?', a: 'Yes. Tell us the structures, drawings, or ground conditions you work with and we will point you to the product that fits, or tell you when a different tool is the better answer.' },
+  ];
+
+  renderVals() {
+    const open = this.state.openFaq;
+    return {
+      testiLoop: [...this._testimonials, ...this._testimonials],
+      faqs: this._FAQS.map((f, i) => ({
+        q: f.q, a: f.a,
+        buttonId: 'faq-btn-' + i,
+        panelId: 'faq-panel-' + i,
+        open: open === i,
+        closed: open !== i,
+        expanded: open === i ? 'true' : 'false',
+        rot: open === i ? 45 : 0,
+        toggle: () => this.setState(s => ({ openFaq: s.openFaq === i ? null : i })),
+      })),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -22,7 +22,7 @@
     },
   ];
 
-  var PRODUCTS = ['IDEA StatiCa', 'ZWCAD', 'Midas'];
+  var PRODUCTS = ['IDEA StatiCa', 'ZWCAD', 'MIDAS', 'Bentley'];
 
   function endTime(ev) { return new Date(ev.end + (ev.utcOffset || 'Z')).getTime(); }
   function startTime(ev) { return new Date(ev.start + (ev.utcOffset || 'Z')).getTime(); }

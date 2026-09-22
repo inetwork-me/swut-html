@@ -15,13 +15,13 @@
   <section data-nav-theme="dark" data-screen-label="Service hero" class="bg-primary px-6 pb-16 pt-32 text-primary-foreground sm:px-10 sm:pb-20 sm:pt-36 lg:px-20">
     <div class="flex flex-col items-start gap-6">
       <span class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">{{ label }}</span>
-      <h1 class="max-w-3xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+      <h1 class="max-w-3xl text-balance text-4xl font-semibold leading-[1.18] tracking-tight sm:text-5xl lg:text-6xl">
         <sc-for list="{{ headlineLines }}" as="line" hint-placeholder-count="2">
-          <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">{{ line.text }}</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">{{ line.text }}</span></span>
         </sc-for>
       </h1>
       <p data-reveal="fade" class="max-w-xl text-pretty text-base leading-relaxed text-white/70 sm:text-lg">{{ intro }}</p>
-      <a href="#enquiry" onClick="{{ scrollToForm }}" data-reveal="fade" class="group mt-4 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
+      <a href="#enquiry" onClick="{{ scrollToForm }}" data-reveal="fade" class="group mt-4 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-neutral-200">
         {{ heroCta }}
         <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
       </a>
@@ -165,11 +165,34 @@
                 <sc-if value="{{ productOpen }}" hint-placeholder-val="{{ false }}">
                   <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
                     <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="4">
-                      <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
-                        <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
-                        {{ opt.name }}
-                      </label>
-                    </sc-for>
+                      <sc-if value="{{ opt.isGroup }}" hint-placeholder-val="{{ false }}">
+                          <span role="presentation" class="border-t border-border px-4 pb-1 pt-3 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ opt.name }}</span>
+                        </sc-if>
+                        <sc-if value="{{ opt.isNestedFirst }}" hint-placeholder-val="{{ false }}">
+                          <label class="flex cursor-pointer items-center gap-3 py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                        <sc-if value="{{ opt.isNested }}" hint-placeholder-val="{{ false }}">
+                          <label class="flex cursor-pointer items-center gap-3 border-t border-border py-2.5 pl-9 pr-4 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                        <sc-if value="{{ opt.isPlainFirst }}" hint-placeholder-val="{{ true }}">
+                          <label class="flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                        <sc-if value="{{ opt.isPlain }}" hint-placeholder-val="{{ false }}">
+                          <label class="flex cursor-pointer items-center gap-3 border-t border-border px-4 py-2.5 text-sm text-foreground hover:bg-muted">
+                            <input type="radio" name="s-product-radio" checked="{{ opt.checked }}" onChange="{{ opt.select }}" class="size-4 rounded-full border-border accent-foreground">
+                            {{ opt.name }}
+                          </label>
+                        </sc-if>
+                      </sc-for>
                   </div>
                 </sc-if>
               </div>
@@ -201,45 +224,7 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer data-reveal="fade" data-nav-theme="dark" data-screen-label="Footer" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
-    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
-      <div class="flex flex-col gap-4">
-        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="block h-auto w-[160px] object-contain sm:w-[190px]" style="margin-bottom:15px">
-        <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
-      </div>
-      <div class="flex flex-col gap-4">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
-        <ul class="flex flex-col gap-3">
-          <li><a href="SWUT Home.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
-          <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
-          <li><a href="SWUT Home.dc.html#services" class="text-sm text-white/70 transition-colors hover:text-white">All Services</a></li>
-        </ul>
-      </div>
-      <div class="flex flex-col gap-4">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Services</span>
-        <ul class="flex flex-col gap-3">
-          <sc-for list="{{ footerServices }}" as="f" hint-placeholder-count="6">
-            <li><a href="{{ f.href }}" class="text-sm text-white/70 transition-colors hover:text-white">{{ f.name }}</a></li>
-          </sc-for>
-        </ul>
-      </div>
-      <div class="flex flex-col gap-4">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Contact</span>
-        <div class="flex flex-col gap-3 text-sm">
-          <a href="mailto:hello@swut.co" class="text-white/70 transition-colors hover:text-white">hello@swut.co</a>
-          <span class="text-white/40">Cairo, Egypt</span>
-        </div>
-      </div>
-    </div>
-    <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-      <span class="text-sm text-white/50">© 2026 SWUT. All rights reserved.</span>
-      <div class="flex gap-6 text-sm text-white/50">
-        <a href="#" class="transition-colors hover:text-white">Privacy Policy</a>
-        <a href="#" class="transition-colors hover:text-white">Terms of Service</a>
-      </div>
-    </div>
-  </footer>
+  <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
 
 </div>
 </x-dc>
@@ -251,7 +236,18 @@ class Component extends DCLogic {
   };
 
   _SERVICES = ['Training', 'Technical Support', 'Technical Workshops', 'Software Maintenance', 'BIM Consultancy', 'Request a Demo'];
-  _PRODUCTS = ['IDEA StatiCa', 'ZWCAD', 'Midas', 'Not sure / Other'];
+  _PRODUCT_OPTS = { notSure: true };
+
+  get _PRODUCTS() {
+    const api = window.SWUTProductOptions;
+    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'Bentley', 'Not sure / Other'];
+  }
+
+  _productRows(current, pick) {
+    const api = window.SWUTProductOptions;
+    if (api) return api.rows(this._PRODUCT_OPTS, current, pick);
+    return this._PRODUCTS.map(name => ({ name, isGroup: false, isNested: false, isPlain: true, checked: current === name, select: () => pick(name) }));
+  }
   _FOOTER = [
     { name: 'Training', href: 'Training.dc.html' },
     { name: 'Technical Support', href: 'Technical Support.dc.html' },
@@ -398,7 +394,7 @@ class Component extends DCLogic {
       overviewLabel: 'Evaluating',
       overviewLead: 'Tell us the product you are considering and the work you want to put it against — we will respond about a demonstration or an evaluation.',
       items: [
-        { title: 'The product', body: 'IDEA StatiCa, ZWCAD, or Midas — or tell us you are still deciding and we will help narrow it down.' },
+        { title: 'The product', body: 'IDEA StatiCa, ZWCAD, MIDAS, or Bentley — or tell us you are still deciding and we will help narrow it down.' },
         { title: 'What you want to see', body: 'The tasks, files, or workflows you would like the demonstration to cover.' },
       ],
       qualifier: 'Sending this form starts a conversation; it does not book a session or activate a trial. Evaluation terms differ between products.',
@@ -413,6 +409,7 @@ class Component extends DCLogic {
   _c() { return this._CONTENT[this.props.serviceKey] || this._CONTENT.training; }
 
   componentDidMount() {
+    if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
     this.setState(s => ({ fields: { ...s.fields, service: this._c().service } }));
     this._initReveal();
     this._icons();
@@ -554,10 +551,11 @@ class Component extends DCLogic {
         name, checked: fields.service === name,
         select: () => this.setState(s => ({ fields: { ...s.fields, service: name }, serviceOpen: false })),
       })),
-      productOptions: this._PRODUCTS.map(name => ({
-        name, checked: fields.product === name,
-        select: () => this.setState(s => ({ fields: { ...s.fields, product: name }, productOpen: false })),
-      })),
+      productOptions: this._productRows(fields.product, (name) => this.setState(s => ({
+        fields: { ...s.fields, product: name, licenses: name === 'General enquiry' ? '1' : (s.fields.licenses || '1') },
+        productsOpen: false, productOpen: false, open: null,
+        errors: { ...s.errors, product: false },
+      }))),
       svcWrapRef: (el) => { this._svcWrap = el; },
       prodWrapRef: (el) => { this._prodWrap = el; },
       toggleServiceOpen: () => this.setState(s => ({ serviceOpen: !s.serviceOpen, productOpen: false })),

@@ -33,7 +33,9 @@
   };
 </script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<style>
+<script src="./product-options.js"></script>
+<link rel="stylesheet" href="swut-buttons.css">
+  <style>
   :root {
     --background: 1 0 0;
     --foreground: 0.145 0 0;
@@ -84,7 +86,7 @@
 
           <div class="pointer-events-auto flex flex-col items-end gap-6 justify-self-end text-right lg:col-span-5 lg:pb-2" style="align-items: flex-start">
             <p class="max-w-md text-pretty text-base leading-relaxed text-white/85 sm:text-lg" style="text-align: left; animation: heroReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s both">SWUT pairs certified, licensed engineers with a proven delivery record turning complex technical challenges into dependable, compliant solutions for your most demanding projects.</p>
-            <a href="Contact.dc.html" class="group inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black shadow-sm transition hover:bg-white/90" style="animation: heroReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.45s both">
+            <a href="Contact.dc.html" class="group inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black shadow-sm transition hover:bg-neutral-200" style="animation: heroReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.45s both">
               Request a Quote
               <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
             </a>
@@ -131,60 +133,97 @@
   </section>
 
   <!-- ===== PRODUCTS ===== -->
-  <section id="products" data-nav-theme="dark" class="grid min-h-screen grid-cols-1 sm:grid-cols-3 lg:h-[720px] lg:min-h-0 lg:grid-cols-3">
-    <sc-for list="{{ products }}" as="prod" hint-placeholder-count="3">
-      <sc-if value="{{ prod.href }}" hint-placeholder-val="{{ false }}">
-        <a href="{{ prod.href }}" class="group relative flex min-h-[380px] flex-col overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-inset">
-          <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ prod.slot }}" shape="rect" fit="cover" placeholder="{{ prod.placeholder }}" hint-size="100%,100%"></x-import>
-            </div>
-          </div>
-          <div class="pointer-events-none absolute inset-0 bg-black/40 transition-colors duration-500 group-hover:bg-black/30"></div>
-          <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
-            <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">{{ prod.num }}</span>
-            <h3 class="text-2xl font-semibold tracking-tight">{{ prod.name }}</h3>
-            <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">{{ prod.desc }}</p>
-            <span class="mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-              Explore product
-              <i data-lucide="arrow-right" class="size-4"></i>
-            </span>
-          </div>
-        </a>
-      </sc-if>
-      <sc-if value="{{ prod.notLinked }}" hint-placeholder-val="{{ true }}">
-        <div class="group relative flex min-h-[380px] flex-col overflow-hidden">
-          <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ prod.slot }}" shape="rect" fit="cover" placeholder="{{ prod.placeholder }}" hint-size="100%,100%"></x-import>
-            </div>
-          </div>
-          <div class="pointer-events-none absolute inset-0 bg-black/40 transition-colors duration-500 group-hover:bg-black/30"></div>
-          <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
-            <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">{{ prod.num }}</span>
-            <h3 class="text-2xl font-semibold tracking-tight">{{ prod.name }}</h3>
-            <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">{{ prod.desc }}</p>
-            <a href="#" class="pointer-events-auto mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-              Explore product
-              <i data-lucide="arrow-right" class="size-4"></i>
-            </a>
-          </div>
+  <section id="products" data-nav-theme="dark" class="grid min-h-screen grid-cols-1 sm:grid-cols-2 lg:h-[720px] lg:min-h-0 lg:grid-cols-4">
+    <a href="IDEA StatiCa.dc.html" class="group relative flex min-h-[380px] flex-col overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-inset">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
+          <img src="https://images.pexels.com/photos/3137051/pexels-photo-3137051.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="Close-up of steel roof framing on a building, seen from below" class="absolute inset-0 size-full object-cover" style="object-position:center 25%">
         </div>
-      </sc-if>
-    </sc-for>
+      </div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.82) 35%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-black/15 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+      <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
+        <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">01</span>
+        <h3 class="text-2xl font-semibold tracking-tight">IDEA StatiCa</h3>
+        <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">Design and code-check steel and concrete connections in minutes — with total confidence.</p>
+        <span class="mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          Explore product
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </span>
+      </div>
+    </a>
+    <a href="ZWCAD.dc.html" class="group relative flex min-h-[380px] flex-col overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-inset">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
+          <img src="https://images.pexels.com/photos/29673302/pexels-photo-29673302.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="Geometric steel and glass roof structure of a building" class="absolute inset-0 size-full object-cover" style="object-position:center 40%">
+        </div>
+      </div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.82) 35%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-black/15 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+      <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
+        <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">02</span>
+        <h3 class="text-2xl font-semibold tracking-tight">ZWCAD</h3>
+        <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">A fast, reliable, DWG-compatible CAD platform for 2D drafting and 3D design.</p>
+        <span class="mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          Explore product
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </span>
+      </div>
+    </a>
+    <a href="Midas.dc.html" class="group relative flex min-h-[380px] flex-col overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-inset">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
+          <img src="https://images.pexels.com/photos/34773057/pexels-photo-34773057.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="Steel truss railway bridge seen along its deck" class="absolute inset-0 size-full object-cover" style="object-position:center 50%">
+        </div>
+      </div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.82) 35%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-black/15 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+      <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
+        <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">03</span>
+        <h3 class="text-2xl font-semibold tracking-tight">MIDAS</h3>
+        <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">Structural and geotechnical analysis for buildings, bridges, and the ground beneath them.</p>
+        <span class="mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          Explore product
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </span>
+      </div>
+    </a>
+    <a href="Bentley.dc.html" class="group relative flex min-h-[380px] flex-col overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-inset">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110">
+          <img src="https://images.pexels.com/photos/35172406/pexels-photo-35172406.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="Aerial view of a highway interchange and connected urban infrastructure" class="absolute inset-0 size-full object-cover" style="object-position:center 55%">
+        </div>
+      </div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.82) 35%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-black/15 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+      <div class="prod-content pointer-events-none relative z-10 mt-auto flex flex-col items-start gap-3 p-8 text-white" style="transform:translateY(-64px);transition:transform 0.12s linear">
+        <span class="flex size-11 items-center justify-center rounded-full border border-white/70 text-sm font-medium">04</span>
+        <h3 class="text-2xl font-semibold tracking-tight">Bentley</h3>
+        <p class="max-w-xs text-sm leading-relaxed text-white/80 line-clamp-2">Infrastructure engineering applications for structures, ground, and transportation.</p>
+        <span class="mt-2 inline-flex translate-y-1 items-center gap-2 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          Explore product
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </span>
+      </div>
+    </a>
   </section>
 
   <!-- ===== OUR TECHNOLOGY ===== -->
-  <section data-nav-theme="dark" class="flex min-h-screen flex-col items-center justify-center bg-primary px-6 py-24 text-center text-primary-foreground sm:px-10 lg:h-[610px] lg:min-h-0 lg:px-20 lg:py-0">
-    <span data-reveal="fade" class="mb-10 inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Our Technology</span>
+  <section data-nav-theme="dark" class="flex flex-col items-center justify-center bg-primary px-6 py-14 text-center text-primary-foreground sm:px-10 sm:py-16 lg:h-[610px] lg:px-20 lg:py-0">
+    <span data-reveal="fade" class="mb-7 inline-flex lg:mb-10 items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Our Technology</span>
 
     <h2 data-reveal="fade" class="mx-auto max-w-5xl text-balance text-3xl font-semibold leading-[1.25] tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl">
       Our licensed<span style="display:inline-block;width:1.55em;height:0.95em;vertical-align:middle;margin:0 0.18em"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="tech-1" shape="pill" fit="cover" src="./tech-a.svg" placeholder="software UI" hint-size="110px,66px" style="display:block;width:100%;height:100%"></x-import></span>software powers<span style="display:inline-block;width:1.55em;height:0.95em;vertical-align:middle;margin:0 0.18em"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="tech-2" shape="pill" fit="cover" src="./tech-b.svg" placeholder="engineering" hint-size="110px,66px" style="display:block;width:100%;height:100%"></x-import></span>precise, compliant engineering.
     </h2>
 
-    <a href="Contact.dc.html" data-reveal="fade" class="mt-12 inline-flex items-center rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
-      Get a Quote
-    </a>
+    <div data-reveal="fade" class="mt-9 grid w-full max-w-md grid-cols-1 gap-4 sm:w-auto sm:grid-cols-2 lg:mt-12">
+      <a href="Contact.dc.html" class="inline-flex h-[50px] items-center justify-center whitespace-nowrap rounded-none border border-transparent bg-white px-6 text-sm font-semibold text-black transition hover:bg-neutral-200">
+        Get a Quote
+      </a>
+      <a href="Contact.dc.html?intent=trial" class="inline-flex h-[50px] items-center justify-center whitespace-nowrap rounded-none border border-white bg-transparent px-6 text-sm font-semibold text-white no-underline transition-colors hover:bg-white hover:text-black">
+        Request a 14-Day Free Trial
+      </a>
+    </div>
   </section>
 
   <!-- ===== SERVICES ===== -->
@@ -207,24 +246,96 @@
 
     <!-- slider track -->
     <div id="services-track" class="mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-1" style="overflow: hidden">
-      <sc-for list="{{ services }}" as="svc" hint-placeholder-count="5" style="overflow: auto">
-        <a href="{{ svc.href }}" class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
-          <!-- 9:16 image, 610px tall (343 × 610 keeps the ratio) -->
-          <div class="relative h-[610px] w-full overflow-hidden">
-            <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ svc.slot }}" shape="rect" fit="cover" placeholder="{{ svc.placeholder }}" hint-size="100%,100%"></x-import>
-            </div>
-            <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-            <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <span class="flex size-14 scale-90 items-center justify-center rounded-full border border-white/80 text-white opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
-                <i data-lucide="arrow-up-right" class="size-6"></i>
-              </span>
-            </div>
+      <a href="Training.dc.html" class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
+        <div class="relative h-[610px] w-full overflow-hidden">
+          <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
+            <img src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="Engineers at work on computers in an open-plan office" class="absolute inset-0 size-full object-cover" style="object-position:center 35%">
           </div>
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ svc.title }}</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">{{ svc.desc }}</p>
-        </a>
-      </sc-for>
+          <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span class="flex size-14 scale-90 items-center justify-center rounded-full border border-white/80 text-white opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+              <i data-lucide="arrow-up-right" class="size-6"></i>
+            </span>
+          </div>
+        </div>
+        <h3 class="text-lg font-semibold tracking-tight text-foreground">Training</h3>
+        <p class="text-sm leading-relaxed text-muted-foreground">Build confidence in your software — whether your team is starting out or sharpening existing skills.</p>
+      </a>
+      <a href="Technical Support.dc.html" class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
+        <div class="relative h-[610px] w-full overflow-hidden">
+          <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
+            <img src="https://images.pexels.com/photos/12903270/pexels-photo-12903270.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="Two colleagues working through a problem together at a computer screen" class="absolute inset-0 size-full object-cover" style="object-position:center 30%">
+          </div>
+          <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span class="flex size-14 scale-90 items-center justify-center rounded-full border border-white/80 text-white opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+              <i data-lucide="arrow-up-right" class="size-6"></i>
+            </span>
+          </div>
+        </div>
+        <h3 class="text-lg font-semibold tracking-tight text-foreground">Technical Support</h3>
+        <p class="text-sm leading-relaxed text-muted-foreground">Guidance on software issues when documentation and tutorials do not answer the question.</p>
+      </a>
+      <a href="Technical Workshops.dc.html" class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
+        <div class="relative h-[610px] w-full overflow-hidden">
+          <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
+            <img src="https://images.pexels.com/photos/3862135/pexels-photo-3862135.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="Engineers reviewing drawings together at a table" class="absolute inset-0 size-full object-cover" style="object-position:center 40%">
+          </div>
+          <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span class="flex size-14 scale-90 items-center justify-center rounded-full border border-white/80 text-white opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+              <i data-lucide="arrow-up-right" class="size-6"></i>
+            </span>
+          </div>
+        </div>
+        <h3 class="text-lg font-semibold tracking-tight text-foreground">Technical Workshops</h3>
+        <p class="text-sm leading-relaxed text-muted-foreground">A workshop shaped around your company’s software use, team needs, and BIM workflow.</p>
+      </a>
+      <a href="Software Maintenance.dc.html" class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
+        <div class="relative h-[610px] w-full overflow-hidden">
+          <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
+            <img src="https://images.pexels.com/photos/16129724/pexels-photo-16129724.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="Specialist working at a dual-monitor engineering workstation" class="absolute inset-0 size-full object-cover" style="object-position:center 40%">
+          </div>
+          <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span class="flex size-14 scale-90 items-center justify-center rounded-full border border-white/80 text-white opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+              <i data-lucide="arrow-up-right" class="size-6"></i>
+            </span>
+          </div>
+        </div>
+        <h3 class="text-lg font-semibold tracking-tight text-foreground">Software Maintenance</h3>
+        <p class="text-sm leading-relaxed text-muted-foreground">Options for keeping your software up to date and your team able to ask questions.</p>
+      </a>
+      <a href="BIM Consultancy.dc.html" class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
+        <div class="relative h-[610px] w-full overflow-hidden">
+          <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
+            <img src="https://images.pexels.com/photos/7643897/pexels-photo-7643897.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="A project team coordinating around a shared screen in a meeting room" class="absolute inset-0 size-full object-cover" style="object-position:center 35%">
+          </div>
+          <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span class="flex size-14 scale-90 items-center justify-center rounded-full border border-white/80 text-white opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+              <i data-lucide="arrow-up-right" class="size-6"></i>
+            </span>
+          </div>
+        </div>
+        <h3 class="text-lg font-semibold tracking-tight text-foreground">BIM Consultancy</h3>
+        <p class="text-sm leading-relaxed text-muted-foreground">Deepen your team’s BIM knowledge and improve how software and workflows work together.</p>
+      </a>
+      <a href="Request a Demo.dc.html" class="group flex w-[375px] max-w-[86vw] shrink-0 snap-start flex-col gap-4">
+        <div class="relative h-[610px] w-full overflow-hidden">
+          <div class="pointer-events-none absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110">
+            <img src="https://images.pexels.com/photos/8068119/pexels-photo-8068119.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop" alt="A presenter walking colleagues through software on a laptop screen" class="absolute inset-0 size-full object-cover" style="object-position:center 30%">
+          </div>
+          <div class="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span class="flex size-14 scale-90 items-center justify-center rounded-full border border-white/80 text-white opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+              <i data-lucide="arrow-up-right" class="size-6"></i>
+            </span>
+          </div>
+        </div>
+        <h3 class="text-lg font-semibold tracking-tight text-foreground">Request a Demo</h3>
+        <p class="text-sm leading-relaxed text-muted-foreground">See how a product fits your work before you commit — tell us what you want to explore.</p>
+      </a>
     </div>
   </section>
 
@@ -251,76 +362,7 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer data-nav-theme="dark" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
-    <!-- contact block -->
-    <div class="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-      <div class="flex flex-col items-start gap-6">
-        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Contact Us</span>
-        <h2 data-reveal="lines" class="max-w-2xl text-balance text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">Let's build something dependable together.</h2>
-      </div>
-      <a href="Contact.dc.html" class="group inline-flex shrink-0 items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
-        Request a Quote
-        <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
-      </a>
-    </div>
-
-    <div class="my-14 h-px w-full bg-white/10"></div>
-
-    <!-- columns -->
-    <div data-reveal="fade" class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
-      <div class="flex flex-col gap-4">
-        <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="block h-auto w-[160px] object-contain sm:w-[190px]" style="margin-bottom:15px">
-        <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
-        <div class="mt-2 flex items-center gap-3">
-          <a href="#" aria-label="Facebook" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.5-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94Z"></path></svg>
-          </a>
-          <a href="#" aria-label="Instagram" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.17.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.17-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.17.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.17.4 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.17-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.17.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.17a3.64 3.64 0 0 0-.88-1.35 3.64 3.64 0 0 0-1.35-.88c-.41-.16-1.03-.35-2.17-.4-1.24-.06-1.59-.07-4.74-.07Zm0 2.76a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6Zm0 1.62a3.68 3.68 0 1 0 0 7.36 3.68 3.68 0 0 0 0-7.36Zm5.48-2.9a1.24 1.24 0 1 1 0 2.48 1.24 1.24 0 0 1 0-2.48Z"></path></svg>
-          </a>
-          <a href="#" aria-label="LinkedIn" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"></path></svg>
-          </a>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-4">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
-        <ul class="flex flex-col gap-3">
-          <li><a href="#products" class="text-sm text-white/70 transition-colors hover:text-white">Products</a></li>
-          <li><a href="#services" class="text-sm text-white/70 transition-colors hover:text-white">Services</a></li>
-          <li><a href="IDEA StatiCa.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">IDEA StatiCa</a></li>
-          <li><a href="Training.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Training</a></li>
-          <li><a href="Technical Support.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Technical Support</a></li>
-          <li><a href="Request a Demo.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Request a Demo</a></li>
-          <li><a href="Contact.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Contact</a></li>
-        </ul>
-      </div>
-
-      <div class="flex flex-col gap-4">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Contact</span>
-        <div class="flex flex-col gap-3 text-sm">
-          <a href="mailto:hello@swut.co" class="text-white/70 transition-colors hover:text-white">hello@swut.co</a>
-          <a href="tel:+97140000000" class="text-white/70 transition-colors hover:text-white">+971 4 000 0000</a>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-4">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/40">Location</span>
-        <p class="text-sm leading-relaxed text-white/70">Cairo,<br>Egypt</p>
-      </div>
-    </div>
-
-    <!-- bottom bar -->
-    <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-      <span class="text-sm text-white/50">© 2026 SWUT. All rights reserved.</span>
-      <div class="flex gap-6 text-sm text-white/50">
-        <a href="#" class="transition-colors hover:text-white">Privacy Policy</a>
-        <a href="#" class="transition-colors hover:text-white">Terms of Service</a>
-      </div>
-    </div>
-  </footer>
+  <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
 
 
 </div>
@@ -497,7 +539,8 @@ class Component extends DCLogic {
       const outer = document.createElement('span');
       outer.style.display = 'block';
       outer.style.overflow = 'hidden';
-      outer.style.paddingBottom = '0.12em';
+      outer.style.paddingBottom = '0.22em';
+      outer.style.lineHeight = '1.18';
       const inner = document.createElement('span');
       inner.style.display = 'inline-block';
       inner.textContent = lineWords.join(' ');
@@ -517,7 +560,11 @@ class Component extends DCLogic {
       if (inner) { inner.style.clipPath = 'inset(0 0 0 0)'; setTimeout(() => { inner.style.clipPath = ''; inner.style.transition = ''; }, 950); }
       return;
     }
-    if (el.__lineInners) el.__lineInners.forEach(i => (i.style.transform = 'translateY(0)'));
+    if (el.__lineInners) el.__lineInners.forEach((i, n) => {
+      i.style.transform = 'translateY(0)';
+      const outer = i.parentElement;
+      if (outer) setTimeout(() => { outer.style.overflow = 'visible'; }, 950 + n * 90);
+    });
     else { el.style.opacity = '1'; el.style.transform = 'none'; }
   }
 
@@ -529,16 +576,22 @@ class Component extends DCLogic {
     return {
       services: [
         { title: 'Training', slot: 'svc-train', placeholder: 'service image', href: 'Training.dc.html',
+          img: 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'Engineers at work on computers in an open-plan office', pos: 'center 35%',
           desc: 'Build confidence in your software — whether your team is starting out or sharpening existing skills.' },
         { title: 'Technical Support', slot: 'svc-support', placeholder: 'service image', href: 'Technical Support.dc.html',
+          img: 'https://images.pexels.com/photos/12903270/pexels-photo-12903270.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'Two colleagues working through a problem together at a computer screen', pos: 'center 30%',
           desc: 'Guidance on software issues when documentation and tutorials do not answer the question.' },
         { title: 'Technical Workshops', slot: 'svc-workshop', placeholder: 'service image', href: 'Technical Workshops.dc.html',
+          img: 'https://images.pexels.com/photos/3862135/pexels-photo-3862135.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'Engineers reviewing drawings together at a table', pos: 'center 40%',
           desc: 'A workshop shaped around your company\u2019s software use, team needs, and BIM workflow.' },
         { title: 'Software Maintenance', slot: 'svc-maint', placeholder: 'service image', href: 'Software Maintenance.dc.html',
+          img: 'https://images.pexels.com/photos/16129724/pexels-photo-16129724.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'Specialist working at a dual-monitor engineering workstation', pos: 'center 40%',
           desc: 'Options for keeping your software up to date and your team able to ask questions.' },
         { title: 'BIM Consultancy', slot: 'svc-bim', placeholder: 'service image', href: 'BIM Consultancy.dc.html',
+          img: 'https://images.pexels.com/photos/7643897/pexels-photo-7643897.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'A project team coordinating around a shared screen in a meeting room', pos: 'center 35%',
           desc: 'Deepen your team\u2019s BIM knowledge and improve how software and workflows work together.' },
         { title: 'Request a Demo', slot: 'svc-demo', placeholder: 'service image', href: 'Request a Demo.dc.html',
+          img: 'https://images.pexels.com/photos/8068119/pexels-photo-8068119.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'A presenter walking colleagues through software on a laptop screen', pos: 'center 30%',
           desc: 'See how a product fits your work before you commit — tell us what you want to explore.' },
       ],
       slideNext: () => this._slide(1),
@@ -546,11 +599,17 @@ class Component extends DCLogic {
       testiLoop: [...this._testimonials, ...this._testimonials],
       products: [
         { num: '01', name: 'IDEA StatiCa', slot: 'prod-idea', placeholder: 'IDEA StatiCa image', href: 'IDEA StatiCa.dc.html', notLinked: false,
+          img: 'https://images.pexels.com/photos/3137051/pexels-photo-3137051.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'Close-up of steel roof framing on a building, seen from below', pos: 'center 25%',
           desc: 'Design and code-check steel and concrete connections in minutes — with total confidence.' },
-        { num: '02', name: 'ZWCAD', slot: 'prod-zwcad', placeholder: 'ZWCAD image', notLinked: true,
+        { num: '02', name: 'ZWCAD', slot: 'prod-zwcad', placeholder: 'ZWCAD image', href: 'ZWCAD.dc.html', notLinked: false,
+          img: 'https://images.pexels.com/photos/29673302/pexels-photo-29673302.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'Geometric steel and glass roof structure of a building', pos: 'center 40%',
           desc: 'A fast, reliable, DWG-compatible CAD platform for 2D drafting and 3D design.' },
-        { num: '03', name: 'Midas', slot: 'prod-midas', placeholder: 'Midas image', notLinked: true,
-          desc: 'Advanced structural and geotechnical analysis for the most complex projects.' },
+        { num: '03', name: 'MIDAS', slot: 'prod-midas', placeholder: 'MIDAS image', href: 'Midas.dc.html', notLinked: false,
+          img: 'https://images.pexels.com/photos/34773057/pexels-photo-34773057.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'Steel truss railway bridge seen along its deck', pos: 'center 50%',
+          desc: 'Structural and geotechnical analysis for buildings, bridges, and the ground beneath them.' },
+        { num: '04', name: 'Bentley', slot: 'prod-bentley', placeholder: 'Bentley image', href: 'Bentley.dc.html', notLinked: false,
+          img: 'https://images.pexels.com/photos/35172406/pexels-photo-35172406.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop', alt: 'Aerial view of a highway interchange and connected urban infrastructure', pos: 'center 55%',
+          desc: 'Software for infrastructure design, analysis, and project delivery.' },
       ],
       processCards: [
         { icon: 'key-round', title: 'Software Licenses',

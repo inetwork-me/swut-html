@@ -7,40 +7,71 @@
 </head>
 <body>
 <x-dc>
-<footer data-reveal="fade" data-nav-theme="dark" data-screen-label="Footer" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
-  <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
+<helmet><link rel="stylesheet" href="swut-buttons.css">
+  <style>
+  [data-quote-cta]:hover { background: #e5e5e5; color: #000; }
+  [data-quote-cta]:focus-visible { outline: 2px solid #000; outline-offset: 3px; color: #000; }
+  [data-quote-cta]:active { background: #d4d4d4; color: #000; }
+</style></helmet>
+<footer data-nav-theme="dark" data-screen-label="Footer" class="bg-primary px-6 py-20 text-primary-foreground sm:px-10 lg:px-20 lg:py-24">
+  <div class="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+    <div class="flex flex-col items-start gap-6">
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Contact Us</span>
+      <h2 data-reveal="lines" class="max-w-2xl text-balance text-4xl font-semibold leading-[1.18] tracking-tight sm:text-5xl lg:text-6xl">Let's build something dependable together.</h2>
+    </div>
+    <a href="Contact.dc.html" data-quote-cta class="group inline-flex shrink-0 items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition-colors hover:bg-neutral-200 hover:text-black focus-visible:text-black active:bg-neutral-300">
+      Request a Quote
+      <i data-lucide="arrow-right" class="size-4 text-current transition-transform group-hover:translate-x-0.5"></i>
+    </a>
+  </div>
+
+  <div class="my-14 h-px w-full bg-white/10"></div>
+
+  <div data-reveal="fade" class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
     <div class="flex flex-col gap-4">
       <img src="uploads/swuatlogo-3.png" alt="SWUT Solutions" class="block h-auto w-[160px] object-contain sm:w-[190px]" style="margin-bottom:15px">
       <p class="max-w-xs text-sm leading-relaxed text-white/55">Licensed engineering software, training, and support — delivered with confidence.</p>
+      <div class="mt-2 flex items-center gap-3">
+        <a href="#" aria-label="Facebook" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.5-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94Z"></path></svg>
+        </a>
+        <a href="#" aria-label="Instagram" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.17.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.17-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.17.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.17.4 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.17-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.17.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.17a3.64 3.64 0 0 0-.88-1.35 3.64 3.64 0 0 0-1.35-.88c-.41-.16-1.03-.35-2.17-.4-1.24-.06-1.59-.07-4.74-.07Zm0 2.76a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6Zm0 1.62a3.68 3.68 0 1 0 0 7.36 3.68 3.68 0 0 0 0-7.36Zm5.48-2.9a1.24 1.24 0 1 1 0 2.48 1.24 1.24 0 0 1 0-2.48Z"></path></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn" class="flex size-10 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"></path></svg>
+        </a>
+      </div>
     </div>
+
     <div class="flex flex-col gap-4">
       <span class="font-sans text-xs uppercase tracking-widest text-white/40">Explore</span>
       <ul class="flex flex-col gap-3">
-        <li><a href="SWUT Home.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Home</a></li>
-        <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">All Products</a></li>
-        <li><a href="SWUT Home.dc.html#services" class="text-sm text-white/70 transition-colors hover:text-white">All Services</a></li>
+        <li><a href="SWUT Home.dc.html#products" class="text-sm text-white/70 transition-colors hover:text-white">Products</a></li>
+        <li><a href="SWUT Home.dc.html#services" class="text-sm text-white/70 transition-colors hover:text-white">Services</a></li>
+        <li><a href="About.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">About Us</a></li>
         <li><a href="Events.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Events</a></li>
-      </ul>
-    </div>
-    <div class="flex flex-col gap-4">
-      <span class="font-sans text-xs uppercase tracking-widest text-white/40">Services</span>
-      <ul class="flex flex-col gap-3">
         <li><a href="Training.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Training</a></li>
         <li><a href="Technical Support.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Technical Support</a></li>
-        <li><a href="Technical Workshops.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Technical Workshops</a></li>
-        <li><a href="Software Maintenance.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Software Maintenance</a></li>
-        <li><a href="BIM Consultancy.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">BIM Consultancy</a></li>
         <li><a href="Request a Demo.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Request a Demo</a></li>
+        <li><a href="Contact.dc.html" class="text-sm text-white/70 transition-colors hover:text-white">Contact</a></li>
       </ul>
     </div>
+
     <div class="flex flex-col gap-4">
       <span class="font-sans text-xs uppercase tracking-widest text-white/40">Contact</span>
       <div class="flex flex-col gap-3 text-sm">
         <a href="mailto:hello@swut.co" class="text-white/70 transition-colors hover:text-white">hello@swut.co</a>
-        <span class="text-white/40">Cairo, Egypt</span>
+        <a href="tel:+97140000000" class="text-white/70 transition-colors hover:text-white">+971 4 000 0000</a>
       </div>
     </div>
+
+    <div class="flex flex-col gap-4">
+      <span class="font-sans text-xs uppercase tracking-widest text-white/40">Location</span>
+      <p class="text-sm leading-relaxed text-white/70">Cairo,<br>Egypt</p>
+    </div>
   </div>
+
   <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
     <span class="text-sm text-white/50">© 2026 SWUT. All rights reserved.</span>
     <div class="flex gap-6 text-sm text-white/50">
@@ -50,6 +81,6 @@
   </div>
 </footer>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:600}}"></script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}"></script>
 </body>
 </html>

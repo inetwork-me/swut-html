@@ -29,10 +29,13 @@
   };
 </script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="./product-options.js"></script>
 <script src="./reveal.js"></script>
 <script src="./hero-motion.js"></script>
 <link rel="stylesheet" href="./swut-anim.css">
-<style>
+<link rel="stylesheet" href="swut-buttons.css">
+  <style>
+  [data-reveal="mask"], [data-reveal="mask"] > * { line-height: 1.18 !important; }
   :root {
     --background: 1 0 0;
     --foreground: 0.145 0 0;
@@ -44,7 +47,6 @@
     --muted: 0.97 0 0;
   }
   a { color: inherit; text-decoration: none; }
-  a:hover { color: inherit; }
   input:focus, textarea:focus, button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 </style>
 </helmet>
@@ -57,12 +59,12 @@
     <div class="grid grid-cols-1 items-center gap-10 px-6 pb-20 pt-32 sm:px-10 sm:pt-36 lg:grid-cols-12 lg:gap-16 lg:px-20 lg:py-36">
       <div class="flex flex-col items-start gap-6 lg:col-span-5">
         <span class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Request a Demo</span>
-        <h1 class="max-w-xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-          <span data-reveal="mask" class="block overflow-hidden pb-1"><span class="block">See how the software</span></span>
-          <span data-reveal="mask" data-reveal-delay="90" class="block overflow-hidden pb-1"><span class="block">fits your work.</span></span>
+        <h1 class="max-w-xl text-balance text-4xl font-semibold leading-[1.18] tracking-tight sm:text-5xl lg:text-6xl">
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">See how the software</span></span>
+          <span data-reveal="mask" data-reveal-delay="90" class="block overflow-hidden pb-[0.2em]"><span class="block">fits your work.</span></span>
         </h1>
         <p data-reveal="fade" data-reveal-delay="140" class="max-w-md text-pretty text-base leading-relaxed text-white/70 sm:text-lg">Pick the product you are evaluating, tell us what you want to put it against, and we will come back to you.</p>
-        <a href="#enquiry" onClick="{{ scrollToForm }}" data-reveal="fade" data-reveal-delay="200" class="group mt-3 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90">
+        <a href="#enquiry" onClick="{{ scrollToForm }}" data-reveal="fade" data-reveal-delay="200" class="group mt-3 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-neutral-200">
           Request a Demo
           <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
         </a>
@@ -151,13 +153,13 @@
     submit-label="Request a Demo"
     hint-size="100%,860px"></dc-import>
 
-  <dc-import name="SiteFooter" hint-size="100%,520px"></dc-import>
+  <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
   _FEATURES = [
-    { icon: 'mouse-pointer-click', title: 'Choose your product', body: 'IDEA StatiCa, ZWCAD, or Midas — or tell us you are still deciding between them.' },
+    { icon: 'mouse-pointer-click', title: 'Choose your product', body: 'IDEA StatiCa, ZWCAD, MIDAS, or Bentley — or tell us you are still deciding between them.' },
     { icon: 'eye', title: 'Explore relevant tools', body: 'A look at the parts of the software closest to the work your team actually does.' },
     { icon: 'message-square', title: 'Discuss your requirements', body: 'Bring the project, model, or constraint you want to put the software against.' },
   ];

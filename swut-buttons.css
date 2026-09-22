@@ -1,0 +1,36 @@
+/* SWUT shared button states — single source for filled/outlined buttons.
+   Pages define a global `a:hover { color: inherit }`, which outranks Tailwind's
+   text-* class on hover and washed button labels out. These rules restore a
+   readable pair for both button families and keep icons on the label color. */
+
+/* White filled button on a dark section */
+[class~="bg-white"][class~="text-black"]:hover,
+[class~="bg-white"][class~="text-black"]:focus-visible,
+[class~="bg-white"][class~="text-black"]:active {
+  color: #000 !important;
+}
+[class~="bg-white"][class~="text-black"]:hover { background-color: #e5e5e5 !important; }
+[class~="bg-white"][class~="text-black"]:active { background-color: #d4d4d4 !important; }
+[class~="bg-white"][class~="text-black"]:focus-visible {
+  background-color: #fff !important;
+  outline: 2px solid #000;
+  outline-offset: 3px;
+}
+[class~="bg-white"][class~="text-black"] i,
+[class~="bg-white"][class~="text-black"] svg { color: currentColor; }
+
+/* White outlined secondary button on a dark section */
+[class~="border-white"][class~="text-white"]:hover,
+[class~="border-white"][class~="text-white"]:active {
+  background-color: #fff !important;
+  border-color: #fff !important;
+  color: #000 !important;
+}
+[class~="border-white"][class~="text-white"]:active { background-color: #e5e5e5 !important; }
+[class~="border-white"][class~="text-white"]:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+  color: #fff !important;
+}
+[class~="border-white"][class~="text-white"] i,
+[class~="border-white"][class~="text-white"] svg { color: currentColor; }

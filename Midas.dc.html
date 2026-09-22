@@ -29,8 +29,8 @@
   };
 </script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<script src="./product-options.js"></script>
 <script src="./events-data.js"></script>
+<script src="./product-options.js"></script>
 <link rel="stylesheet" href="swut-buttons.css">
   <style>
   [data-reveal="mask"], [data-reveal="mask"] > * { line-height: 1.18 !important; }
@@ -48,31 +48,30 @@
   html { scroll-padding-top: 96px; }
   @media (min-width: 1024px) { [data-info-grid] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
   [data-info-rules] { --ext: 6px; }
+  @media (min-width: 1024px) { [data-card-desc] { min-height: 3.25rem; } }
   [data-info-frame] { aspect-ratio: 4 / 3; width: 100%; max-width: none; min-width: 0; box-sizing: border-box; }
-  @media (min-width: 1024px) { [data-info-frame] { aspect-ratio: 4 / 5; } }
-  [data-info-grid] > * { min-width: 0; box-sizing: border-box; }
   @media (min-width: 1024px) { [data-info-rules] { --ext: 12px; } }
+  [data-info-grid] > * { min-width: 0; box-sizing: border-box; }
   * { cursor: none; }
-  @keyframes heroReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes capFillV { from { height: 0%; } to { height: 100%; } }
-  @keyframes ctaTurn { 0% { transform: rotateY(-5deg) rotateX(1.5deg) translateY(0); } 50% { transform: rotateY(5deg) rotateX(-1.5deg) translateY(-18px); } 100% { transform: rotateY(-5deg) rotateX(1.5deg) translateY(0); } }
-  @keyframes ctaSweep { 0% { transform: translateX(-60%) skewX(-12deg); } 45% { transform: translateX(160%) skewX(-12deg); } 100% { transform: translateX(160%) skewX(-12deg); } }
-  @media (prefers-reduced-motion: reduce) { [data-cta-stage], [data-cta-sweep] { animation: none !important; } }
-  [data-cta-art-side] { position: absolute; top: 50%; width: 26%; max-width: 430px; transform: translateY(-50%); }
-  [data-cta-art-side="right"] { right: -8%; }
-  [data-cta-art-side="left"] { left: -8%; }
+  @keyframes ctaDraw { 0% { stroke-dashoffset: 1; opacity: 0.25; } 8% { opacity: 1; } 45% { stroke-dashoffset: 0; } 82% { stroke-dashoffset: 0; opacity: 1; } 96% { stroke-dashoffset: 0; opacity: 0; } 100% { stroke-dashoffset: 1; opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { [data-card-zoom] { transition: none !important; transform: none !important; } }
+  @media (prefers-reduced-motion: reduce) { [data-draw] { animation: none !important; stroke-dashoffset: 0 !important; opacity: 1 !important; } }
+  [data-cta-art-side] { position: absolute; top: 50%; width: 27%; max-width: 440px; transform: translateY(-50%); }
+  [data-cta-art-side="right"] { right: -6%; }
+  [data-cta-art-side="left"] { left: -6%; }
   [data-cta-art-side="left"] [data-cta-flip] { transform: scaleX(-1); }
-  @media (max-width: 1024px) { [data-cta-art-side] { width: 30%; max-width: 290px; } [data-cta-art-side="right"] { right: -18%; } [data-cta-art-side="left"] { left: -18%; } }
-  @media (max-width: 640px) { [data-cta-art-side] { width: 46%; max-width: 230px; } [data-cta-art-side="right"] { right: -24%; } [data-cta-art-side="left"] { left: -24%; } [data-cta-detail] { display: none; } }
+  @media (max-width: 1024px) { [data-cta-art-side] { width: 32%; max-width: 300px; } [data-cta-art-side="right"] { right: -16%; } [data-cta-art-side="left"] { left: -16%; } }
+  @media (max-width: 640px) { [data-cta-art-side] { width: 48%; max-width: 240px; } [data-cta-art-side="right"] { right: -22%; } [data-cta-art-side="left"] { left: -22%; } }
   input:focus, textarea:focus, button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
-  #cap-steel::part(frame), #cap-concrete-needed::part(frame) { background: #FFFFFF; }
-  #info-analysis::part(frame), #info-report::part(frame), #reuse-thumb-1::part(frame), #reuse-thumb-2::part(frame), #reuse-thumb-3::part(frame) { background: #F2F2F2; }
+  #cap-dwg::part(frame), #cap-workspace::part(frame), #cap-api::part(frame) { background: #FFFFFF; }
+  #info-pdf::part(frame), #info-compare::part(frame), #info-sheets::part(frame) { background: #F2F2F2; }
 </style>
 </helmet>
 
 <div class="relative min-h-screen bg-background text-foreground font-sans antialiased">
 
-  <dc-import name="NavHeader" current-page="idea-statica" quote-href="#quote" hint-size="100%,80px"></dc-import>
+  <dc-import name="NavHeader" current-page="midas" quote-href="#quote" hint-size="100%,80px"></dc-import>
 
   <!-- ===== DARK TITLE BAND ===== -->
   <section data-reveal="section" data-nav-theme="dark" data-screen-label="Title band" class="sticky top-0 z-0 bg-primary px-6 pt-32 pb-14 text-primary-foreground sm:px-10 lg:px-20 lg:pt-40 lg:pb-16">
@@ -80,7 +79,7 @@
       <div class="flex flex-col items-start gap-5">
         <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Software</span>
         <h1 data-reveal="mask" class="overflow-hidden text-balance text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-          <span class="inline-block">IDEA StatiCa</span>
+          <span class="inline-block">MIDAS</span>
         </h1>
       </div>
     </div>
@@ -89,9 +88,9 @@
   <div class="relative z-10">
   <!-- ===== LARGE FEATURE IMAGE ===== -->
   <section data-reveal="section" data-nav-theme="light" data-screen-label="Feature image" class="bg-background px-6 py-16 sm:px-10 lg:px-20 lg:py-24">
-    <div data-curtain-container class="relative aspect-[16/8] w-full overflow-hidden sm:aspect-[16/7]">
+    <div data-curtain-container class="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[16/6]">
       <div data-reveal="curtain" class="absolute inset-0">
-        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="feature-image" shape="rect" fit="cover" placeholder="IDEA StatiCa — steel connection engineering model" hint-size="100%,100%" style="width:100%;height:100%"></x-import>
+        <img src="https://images.pexels.com/photos/681347/pexels-photo-681347.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Aerial view of a concrete highway bridge and interchange" class="absolute inset-0 size-full object-cover">
       </div>
     </div>
   </section>
@@ -110,10 +109,9 @@
             <a href="{{ fact.href }}" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit items-center gap-2 text-xl font-semibold tracking-tight text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground sm:text-2xl">
               {{ fact.value }}
               <i data-lucide="arrow-up-right" class="size-4 shrink-0 text-muted-foreground"></i>
-              <span class="sr-only">(opens the official IDEA StatiCa website in a new tab)</span>
+              <span class="sr-only">(opens the official MIDAS website in a new tab)</span>
             </a>
           </sc-if>
-
          </div>
         </div>
       </sc-for>
@@ -124,15 +122,10 @@
   <!-- ===== EDITORIAL OVERVIEW ===== -->
   <section id="overview" data-curtain-cols data-nav-theme="dark" data-screen-label="Overview" class="bg-black px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-[11fr_9fr] lg:items-stretch lg:gap-16">
-      <div data-reveal="curtain-left" ref="{{ visRef }}" class="relative order-1 h-full min-h-[360px] w-full overflow-hidden bg-white p-8 sm:min-h-[440px] sm:p-10">
+      <div data-reveal="curtain-left" ref="{{ visRef }}" class="relative order-1 h-full min-h-[280px] w-full overflow-hidden bg-white p-8 sm:min-h-[340px] sm:p-10">
         <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="3">
           <div class="{{ cap.mediaClass }}">
-<sc-if value="{{ cap.isPhoto }}" hint-placeholder-val="{{ false }}">
-              <img src="https://images.pexels.com/photos/3862135/pexels-photo-3862135.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Engineers reviewing drawings together at a table" loading="lazy" class="absolute inset-0 size-full object-cover" style="object-position:center 35%">
-            </sc-if>
-            <sc-if value="{{ cap.isSlot }}" hint-placeholder-val="{{ true }}">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ cap.mediaId }}" shape="rect" fit="contain" placeholder="{{ cap.placeholder }}" src="{{ cap.src }}" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
-            </sc-if>
+            <img src="{{ cap.src }}" alt="{{ cap.alt }}" loading="lazy" class="absolute inset-0 size-full object-cover">
           </div>
         </sc-for>
       </div>
@@ -140,8 +133,8 @@
       <div data-reveal="curtain-right" class="order-2 flex flex-col items-start gap-6">
         <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Product Overview</span>
         <h2 class="text-balance text-5xl font-semibold leading-[1.18] tracking-tight text-white sm:text-6xl lg:text-6xl">
-          <span data-reveal="words" class="block">Understand every</span>
-          <span data-reveal="words" class="block">structural detail.</span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Buildings. Bridges.</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">The ground beneath.</span></span>
         </h2>
 
         <div class="mt-2 flex w-full flex-col" data-reveal="stagger" onMouseEnter="{{ onCapMouseEnter }}" onMouseLeave="{{ onCapMouseLeave }}" onFocus="{{ onCapFocus }}" onBlur="{{ onCapBlur }}">
@@ -171,22 +164,22 @@
         </div>
 
         <a href="#quote" onClick="{{ scrollToQuote }}" class="group mt-2 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3.5 text-sm font-semibold text-black transition duration-200 hover:bg-neutral-200">
-          Request a License Quote
+          Discuss Your Requirements
           <i data-lucide="arrow-right" class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"></i>
         </a>
-        <p class="mt-4 text-sm leading-relaxed text-white/50">Available capabilities depend on the selected application and license.</p>
+        <p class="mt-4 text-sm leading-relaxed text-white/50">GEN, CIVIL NX, and GTS NX are licensed separately. Tell us the structures or ground conditions you work with and we will confirm which product fits.</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== PRODUCT INFORMATION — THREE EDITORIAL PANELS ===== -->
-  <section data-nav-theme="light" data-screen-label="Beyond the model" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+  <!-- ===== THREE ILLUSTRATED FEATURE CARDS ===== -->
+  <section data-nav-theme="light" data-screen-label="Everyday drafting" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
     <div class="flex flex-col items-start gap-5">
-      <span data-reveal="fade" class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Beyond the model</span>
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Three specialist products</span>
       <h2 class="text-balance text-4xl font-semibold leading-[1.18] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Understand the behavior.</span></span>
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Show the reasoning.</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Buildings. Bridges. Ground.</span></span>
       </h2>
+      <p data-reveal="fade" class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">Find the MIDAS product for your engineering work.</p>
     </div>
 
     <div data-info-rules class="relative mt-16 lg:mt-20">
@@ -199,56 +192,70 @@
       <span data-grid-line="v" class="absolute left-2/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
     </div>
     <div class="grid grid-cols-1" style="grid-template-columns:repeat(1,minmax(0,1fr))" data-info-grid>
+      <!-- The three MIDAS products SWUT supplies. Capabilities follow each product's own documentation. -->
 
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">01</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="0" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0 flex items-center justify-center p-4">
-            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="info-analysis" shape="rect" fit="contain" src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/549cdd9a-6811-4de8-a33f-a8e80f5d038c/Untitled%20design%20%2833%29.png?w=1200&fm=webp&lossless=false&q=85" placeholder="IDEA StatiCa visual calculation results" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
+      <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
+        <div class="flex items-baseline justify-between gap-4">
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">01</span>
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Buildings &amp; structures</span>
+        </div>
+        <div data-curtain-container data-info-frame data-curtain-delay="0" class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
+          <div data-reveal="curtain" class="absolute inset-0">
+            <img data-card-zoom src="https://images.pexels.com/photos/3137051/pexels-photo-3137051.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Steel frame structure of a building under construction" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
           </div>
         </div>
         <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Understand the results.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Review visual analysis and code-check outcomes to identify where a structural detail needs attention.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+          <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">MIDAS GEN</h3>
+          <p data-card-desc class="text-base leading-relaxed text-muted-foreground">Analyze and design building structures in one connected workflow.</p>
+          <ul class="flex flex-col gap-3 border-t border-border pt-5">
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Structural modeling</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Static, dynamic &amp; seismic analysis</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Steel &amp; concrete design checks</span></li>
+          </ul>
         </div>
       </div>
 
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">02</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="120" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0 flex flex-col gap-2 p-4">
-            <div class="relative min-h-0 w-full flex-[2] overflow-hidden" style="background-color:#F2F2F2">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-1" shape="rect" fit="contain" src="{{ reuseMain.src }}" placeholder="{{ reuseMain.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
-            </div>
-            <div class="flex min-h-0 w-full flex-1 gap-2">
-              <div class="relative min-w-0 flex-1 overflow-hidden" style="background-color:#F2F2F2">
-                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-2" shape="rect" fit="contain" src="{{ reuseSideA.src }}" placeholder="{{ reuseSideA.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
-              </div>
-              <div class="relative min-w-0 flex-1 overflow-hidden" style="background-color:#F2F2F2">
-                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-3" shape="rect" fit="contain" src="{{ reuseSideB.src }}" placeholder="{{ reuseSideB.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
-              </div>
-            </div>
+
+      <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
+        <div class="flex items-baseline justify-between gap-4">
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">02</span>
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Bridges &amp; civil structures</span>
+        </div>
+        <div data-curtain-container data-info-frame data-curtain-delay="120" class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
+          <div data-reveal="curtain" class="absolute inset-0">
+            <img data-card-zoom src="https://images.pexels.com/photos/34773057/pexels-photo-34773057.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Steel truss railway bridge spanning a river" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
           </div>
         </div>
         <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Build on existing details.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Adapt connection templates and library arrangements to reduce repeated modeling.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+          <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">MIDAS CIVIL NX</h3>
+          <p data-card-desc class="text-base leading-relaxed text-muted-foreground">Analyze bridge behavior through construction and service.</p>
+          <ul class="flex flex-col gap-3 border-t border-border pt-5">
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Bridge modeling</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Construction-stage analysis</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Moving-load analysis</span></li>
+          </ul>
         </div>
       </div>
 
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">03</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="240" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0 flex items-center justify-center p-4">
-            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="info-report" shape="rect" fit="contain" src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/29e2273d-4f3a-4dec-bb10-827d3143975f/Untitled%20design%20%2847%29.png?w=1200&fm=webp&lossless=false&q=85" placeholder="IDEA StatiCa calculation report" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
+
+      <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
+        <div class="flex items-baseline justify-between gap-4">
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">03</span>
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Geotechnical engineering</span>
+        </div>
+        <div data-curtain-container data-info-frame data-curtain-delay="240" class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
+          <div data-reveal="curtain" class="absolute inset-0">
+            <img data-card-zoom src="https://images.pexels.com/photos/13098128/pexels-photo-13098128.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Excavator carrying out earthworks in a deep excavation" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
           </div>
         </div>
         <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Make your calculations clear.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Organize model information, checks, equations, and images into a report for engineering review.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+          <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">MIDAS GTS NX</h3>
+          <p data-card-desc class="text-base leading-relaxed text-muted-foreground">Analyze how soil, rock, and structures interact across complex ground engineering projects.</p>
+          <ul class="flex flex-col gap-3 border-t border-border pt-5">
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>3D geotechnical modeling</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Deformation, stability &amp; seepage</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Excavations, tunnels &amp; foundations</span></li>
+          </ul>
         </div>
       </div>
 
@@ -256,143 +263,128 @@
     </div>
   </section>
 
+  <!-- ===== MOBILE COLLABORATION ===== -->
+  <section id="requirements" data-nav-theme="light" data-screen-label="Your requirements" class="px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
+    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
+      <div class="col-span-12 lg:col-span-3">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Your requirements</span>
+      </div>
+
+      <div class="col-span-12 lg:col-span-9">
+        <h2 data-reveal="fade" class="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+          Start with the structure — or the ground. Find the MIDAS product that fits.
+        </h2>
+
+        <div class="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-3">
+          <sc-for list="{{ requirementSteps }}" as="feat" hint-placeholder-count="3">
+            <div data-reveal="fade" class="flex flex-col gap-5 border-l border-border px-6 py-2">
+              <span class="flex w-fit items-center justify-center bg-muted p-2 text-foreground">
+                <i data-lucide="{{ feat.icon }}" class="size-5"></i>
+              </span>
+              <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ feat.title }}</h3>
+              <p class="text-sm leading-relaxed text-muted-foreground">{{ feat.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VIDEO GALLERY ===== -->
+  <section id="videos" data-nav-theme="light" data-screen-label="Videos" class="bg-background px-6 pt-20 pb-12 sm:px-10 lg:px-20 lg:pt-28 lg:pb-16">
+    <div class="flex flex-col items-start gap-4">
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Video</span>
+      <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">
+        <span class="inline-block">See MIDAS in action.</span>
+      </h2>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10">
+      <sc-for list="{{ videos }}" as="v" hint-placeholder-count="2">
+        <div class="flex flex-col gap-4">
+          <button type="button" onClick="{{ v.open }}" class="group relative block w-full overflow-hidden border border-border bg-muted transition-colors hover:border-foreground focus-visible:border-foreground" style="aspect-ratio:16/9">
+            <img src="{{ v.thumb }}" alt="{{ v.thumbAlt }}" loading="lazy" onError="{{ v.thumbError }}" class="absolute inset-0 size-full object-cover">
+            <span aria-hidden="true" class="absolute inset-0 bg-black/20 transition-colors duration-300 group-hover:bg-black/35"></span>
+            <span aria-hidden="true" class="absolute left-1/2 top-1/2 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white/90 text-black transition duration-300 group-hover:bg-white group-focus-visible:bg-white">
+              <i data-lucide="play" class="size-5"></i>
+            </span>
+            <span class="sr-only">{{ v.aria }}</span>
+          </button>
+          <div class="flex flex-col items-start gap-1.5">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ v.product }}</span>
+            <h3 class="text-balance text-lg font-semibold leading-snug tracking-tight text-foreground">{{ v.title }}</h3>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-if value="{{ videoOpen }}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-modal="true" aria-label="{{ videoTitle }}" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8" style="background:rgba(0,0,0,0.88)">
+      <button type="button" aria-label="Close video" onClick="{{ closeVideo }}" class="absolute inset-0 size-full cursor-default" style="background:transparent"></button>
+      <div class="relative flex w-full max-w-5xl flex-col gap-4">
+        <button type="button" ref="{{ videoCloseRef }}" onClick="{{ closeVideo }}" class="inline-flex w-fit items-center gap-2 self-end text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white">
+          Close
+          <i data-lucide="x" class="size-4"></i>
+        </button>
+        <div class="relative w-full overflow-hidden bg-black" style="aspect-ratio:16/9">
+          <iframe src="{{ videoSrc }}" title="{{ videoTitle }}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" class="absolute inset-0 size-full" style="border:0"></iframe>
+        </div>
+        <p class="text-sm leading-relaxed text-white/60">If the video does not play here, <a href="{{ videoHref }}" target="_blank" rel="noopener noreferrer" class="underline decoration-white/40 underline-offset-4">open it on YouTube</a>.</p>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- ===== TRIAL / QUOTE CTA ===== -->
   <section data-nav-theme="dark" data-screen-label="Trial CTA" class="relative isolate flex min-h-[560px] items-center overflow-hidden bg-black px-6 py-24 text-white sm:px-10 lg:h-[620px] lg:min-h-0 lg:px-20 lg:py-0">
 
-    <div data-reveal="fade" aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" style="perspective:1400px">
+    <div data-reveal="fade" aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div data-cta-art-side="left">
         <div data-cta-flip>
-          <div data-cta-stage ref="{{ stageRef }}" class="relative" style="transform-style:preserve-3d;animation:ctaTurn 26s ease-in-out infinite;will-change:transform">
-          <svg viewBox="950 0 520 700" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g data-cta-art>
-            <!-- column: H-section, vertical -->
-            <g>
-              <path d="M1220 40 H1340 V660 H1220 Z" fill="#FFFFFF" fill-opacity="0.045"></path>
-              <path d="M1220 40 L1206.5 32 V652 L1220 660 Z" fill="#FFFFFF" fill-opacity="0.075"></path>
-              <path d="M1258.5 32 L1231.5 16 V636 L1258.5 652 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
-              <path d="M1179.5 16 L1166 8 V628 L1179.5 636 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
-              <g stroke="#B9B9B9" stroke-opacity="0.4" stroke-width="1">
-                <path d="M1258.5 32 V652 M1231.5 16 V636 M1179.5 16 V636 M1166 8 V628 M1206.5 32 V652"></path>
-              </g>
-              <!-- top H cross-section -->
-              <path d="M1220 40 H1340 L1326.5 32 H1206.5 Z" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"></path>
-              <path d="M1179.5 16 H1299.5 L1286 8 H1166 Z" fill="#FFFFFF" fill-opacity="0.08" stroke="#DDDDDD" stroke-opacity="0.4" stroke-width="1"></path>
-              <path d="M1258.5 32 H1274.5 L1247.5 16 H1231.5 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#DDDDDD" stroke-opacity="0.45" stroke-width="1"></path>
-              <!-- main silhouette -->
-              <path d="M1220 40 H1340 V660 H1220 Z" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="1.6"></path>
-              <path d="M1220 40 L1206.5 32 M1220 660 L1206.5 652 M1340 40 L1326.5 32" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.4"></path>
+          <div ref="{{ stageRef }}" class="relative">
+          <svg viewBox="0 0 520 720" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#FFFFFF" stroke-width="1.6" stroke-opacity="0.85" fill="none" stroke-linecap="square">
+              <path data-draw pathLength="1" d="M120 96 H400 M120 96 V352 M400 96 V352 M120 352 H400" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 0ms"></path>
+              <path data-draw pathLength="1" d="M120 160 H400 M120 224 H400 M120 288 H400" stroke-opacity="0.45" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 400ms"></path>
+              <path data-draw pathLength="1" d="M190 96 V352 M260 96 V352 M330 96 V352" stroke-opacity="0.5" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 800ms"></path>
+              <path data-draw pathLength="1" d="M120 160 L190 224 M260 160 L330 224 M330 288 L400 352" stroke-opacity="0.3" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1200ms"></path>
+              <path data-draw pathLength="1" d="M104 352 H416" stroke-opacity="0.6" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1500ms"></path>
+              <path data-draw pathLength="1" d="M70 500 H450" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1900ms"></path>
+              <path data-draw pathLength="1" d="M70 512 H450" stroke-opacity="0.4" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2200ms"></path>
+              <path data-draw pathLength="1" d="M260 404 V500" stroke-opacity="0.7" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2500ms"></path>
+              <path data-draw pathLength="1" d="M260 404 L120 500 M260 404 L400 500 M260 428 L170 500 M260 428 L350 500" stroke-opacity="0.35" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2800ms"></path>
+              <path data-draw pathLength="1" d="M120 500 V546 M400 500 V546" stroke-opacity="0.5" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3200ms"></path>
+              <path data-draw pathLength="1" d="M60 596 C150 584 200 616 292 604 S404 580 460 592" stroke-opacity="0.45" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3600ms"></path>
+              <path data-draw pathLength="1" d="M60 632 C150 620 200 652 292 640 S404 616 460 628" stroke-opacity="0.3" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3900ms"></path>
+              <path data-draw pathLength="1" d="M60 668 C150 656 200 688 292 676 S404 652 460 664" stroke-opacity="0.22" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4200ms"></path>
+              <path data-draw pathLength="1" d="M292 604 V676 M292 600 L286 610 M292 600 L298 610" stroke-opacity="0.35" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4500ms"></path>
             </g>
-
-            <!-- beam: I-section, horizontal into the column -->
-            <g>
-              <path d="M1010 300 H1220 V320 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
-              <path d="M1010 320 H1220 V400 H1010 Z" fill="#FFFFFF" fill-opacity="0.035"></path>
-              <path d="M1010 400 H1220 V420 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
-              <path d="M1010 300 H1220 L1166 268 H956 Z" fill="#FFFFFF" fill-opacity="0.11" stroke="#E3E3E3" stroke-opacity="0.45" stroke-width="1"></path>
-              <path d="M1010 320 L956 288 V308 L1010 340 Z" fill="#FFFFFF" fill-opacity="0.05"></path>
-              <g data-cta-detail stroke="#B9B9B9" stroke-opacity="0.38" stroke-width="1">
-                <path d="M956 268 V288 M956 288 L983 304 M983 304 V384 M983 384 L956 400 M956 400 V420 M956 420 H1010"></path>
-                <path d="M1010 320 L983 304 M1010 400 L983 384 M1010 420 L956 388"></path>
-              </g>
-              <path d="M1010 300 H1220 M1010 320 H1220 M1010 400 H1220 M1010 420 H1220" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1.2"></path>
-              <path d="M1010 300 V420" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
-            </g>
-
-            <!-- end plate with two bolt rows -->
-            <g>
-              <path d="M1220 280 L1166 248 V408 L1220 440 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
-              <path d="M1206 272 L1152 240 V400 L1206 432" fill="#FFFFFF" fill-opacity="0.06" stroke="#CFCFCF" stroke-opacity="0.45" stroke-width="1"></path>
-              <path d="M1220 280 L1206 272 M1220 440 L1206 432 M1166 248 L1152 240" stroke="#DDDDDD" stroke-opacity="0.5" stroke-width="1"></path>
-              <g fill="#FFFFFF" fill-opacity="0.5" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1">
-                <ellipse cx="1206.5" cy="292" rx="7" ry="5" transform="rotate(-30 1206.5 292)"></ellipse>
-                <ellipse cx="1206.5" cy="332" rx="7" ry="5" transform="rotate(-30 1206.5 332)"></ellipse>
-                <ellipse cx="1206.5" cy="372" rx="7" ry="5" transform="rotate(-30 1206.5 372)"></ellipse>
-                <ellipse cx="1206.5" cy="412" rx="7" ry="5" transform="rotate(-30 1206.5 412)"></ellipse>
-                <ellipse cx="1182.2" cy="277.6" rx="7" ry="5" transform="rotate(-30 1182.2 277.6)"></ellipse>
-                <ellipse cx="1182.2" cy="317.6" rx="7" ry="5" transform="rotate(-30 1182.2 317.6)"></ellipse>
-                <ellipse cx="1182.2" cy="357.6" rx="7" ry="5" transform="rotate(-30 1182.2 357.6)"></ellipse>
-                <ellipse cx="1182.2" cy="397.6" rx="7" ry="5" transform="rotate(-30 1182.2 397.6)"></ellipse>
-              </g>
-              <g data-cta-detail stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1">
-                <path d="M1206.5 292 L1182.2 277.6 M1206.5 332 L1182.2 317.6 M1206.5 372 L1182.2 357.6 M1206.5 412 L1182.2 397.6"></path>
-              </g>
-            </g>
-
-            <!-- stiffeners inside the column, behind the plate -->
-            <g data-cta-detail stroke="#A8A8A8" stroke-opacity="0.3" stroke-width="1">
-              <path d="M1220 300 L1166 268 M1220 420 L1166 388"></path>
-            </g>
-          </g>
           </svg>
-          <div data-cta-sweep class="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent);mix-blend-mode:screen;animation:ctaSweep 14s ease-in-out infinite;will-change:transform"></div>
           </div>
         </div>
       </div>
       <div data-cta-art-side="right">
         <div data-cta-flip>
-          <div data-cta-stage ref="{{ stageRef }}" class="relative" style="transform-style:preserve-3d;animation:ctaTurn 26s ease-in-out infinite;will-change:transform">
-          <svg viewBox="950 0 520 700" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g data-cta-art>
-            <!-- column: H-section, vertical -->
-            <g>
-              <path d="M1220 40 H1340 V660 H1220 Z" fill="#FFFFFF" fill-opacity="0.045"></path>
-              <path d="M1220 40 L1206.5 32 V652 L1220 660 Z" fill="#FFFFFF" fill-opacity="0.075"></path>
-              <path d="M1258.5 32 L1231.5 16 V636 L1258.5 652 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
-              <path d="M1179.5 16 L1166 8 V628 L1179.5 636 Z" fill="#FFFFFF" fill-opacity="0.03"></path>
-              <g stroke="#B9B9B9" stroke-opacity="0.4" stroke-width="1">
-                <path d="M1258.5 32 V652 M1231.5 16 V636 M1179.5 16 V636 M1166 8 V628 M1206.5 32 V652"></path>
-              </g>
-              <!-- top H cross-section -->
-              <path d="M1220 40 H1340 L1326.5 32 H1206.5 Z" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1"></path>
-              <path d="M1179.5 16 H1299.5 L1286 8 H1166 Z" fill="#FFFFFF" fill-opacity="0.08" stroke="#DDDDDD" stroke-opacity="0.4" stroke-width="1"></path>
-              <path d="M1258.5 32 H1274.5 L1247.5 16 H1231.5 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#DDDDDD" stroke-opacity="0.45" stroke-width="1"></path>
-              <!-- main silhouette -->
-              <path d="M1220 40 H1340 V660 H1220 Z" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="1.6"></path>
-              <path d="M1220 40 L1206.5 32 M1220 660 L1206.5 652 M1340 40 L1326.5 32" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.4"></path>
+          <div ref="{{ stageRef }}" class="relative">
+          <svg viewBox="0 0 520 720" preserveAspectRatio="xMidYMid meet" class="block h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#FFFFFF" stroke-width="1.6" stroke-opacity="0.85" fill="none" stroke-linecap="square">
+              <path data-draw pathLength="1" d="M120 96 H400 M120 96 V352 M400 96 V352 M120 352 H400" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 200ms"></path>
+              <path data-draw pathLength="1" d="M120 160 H400 M120 224 H400 M120 288 H400" stroke-opacity="0.45" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 600ms"></path>
+              <path data-draw pathLength="1" d="M190 96 V352 M260 96 V352 M330 96 V352" stroke-opacity="0.5" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1000ms"></path>
+              <path data-draw pathLength="1" d="M120 160 L190 224 M260 160 L330 224 M330 288 L400 352" stroke-opacity="0.3" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1400ms"></path>
+              <path data-draw pathLength="1" d="M104 352 H416" stroke-opacity="0.6" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 1700ms"></path>
+              <path data-draw pathLength="1" d="M70 500 H450" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2100ms"></path>
+              <path data-draw pathLength="1" d="M70 512 H450" stroke-opacity="0.4" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2400ms"></path>
+              <path data-draw pathLength="1" d="M260 404 V500" stroke-opacity="0.7" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 2700ms"></path>
+              <path data-draw pathLength="1" d="M260 404 L120 500 M260 404 L400 500 M260 428 L170 500 M260 428 L350 500" stroke-opacity="0.35" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3000ms"></path>
+              <path data-draw pathLength="1" d="M120 500 V546 M400 500 V546" stroke-opacity="0.5" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3400ms"></path>
+              <path data-draw pathLength="1" d="M60 596 C150 584 200 616 292 604 S404 580 460 592" stroke-opacity="0.45" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 3800ms"></path>
+              <path data-draw pathLength="1" d="M60 632 C150 620 200 652 292 640 S404 616 460 628" stroke-opacity="0.3" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4100ms"></path>
+              <path data-draw pathLength="1" d="M60 668 C150 656 200 688 292 676 S404 652 460 664" stroke-opacity="0.22" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4400ms"></path>
+              <path data-draw pathLength="1" d="M292 604 V676 M292 600 L286 610 M292 600 L298 610" stroke-opacity="0.35" stroke-width="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:ctaDraw 18s ease-in-out infinite 4700ms"></path>
             </g>
-
-            <!-- beam: I-section, horizontal into the column -->
-            <g>
-              <path d="M1010 300 H1220 V320 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
-              <path d="M1010 320 H1220 V400 H1010 Z" fill="#FFFFFF" fill-opacity="0.035"></path>
-              <path d="M1010 400 H1220 V420 H1010 Z" fill="#FFFFFF" fill-opacity="0.07"></path>
-              <path d="M1010 300 H1220 L1166 268 H956 Z" fill="#FFFFFF" fill-opacity="0.11" stroke="#E3E3E3" stroke-opacity="0.45" stroke-width="1"></path>
-              <path d="M1010 320 L956 288 V308 L1010 340 Z" fill="#FFFFFF" fill-opacity="0.05"></path>
-              <g data-cta-detail stroke="#B9B9B9" stroke-opacity="0.38" stroke-width="1">
-                <path d="M956 268 V288 M956 288 L983 304 M983 304 V384 M983 384 L956 400 M956 400 V420 M956 420 H1010"></path>
-                <path d="M1010 320 L983 304 M1010 400 L983 384 M1010 420 L956 388"></path>
-              </g>
-              <path d="M1010 300 H1220 M1010 320 H1220 M1010 400 H1220 M1010 420 H1220" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1.2"></path>
-              <path d="M1010 300 V420" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
-            </g>
-
-            <!-- end plate with two bolt rows -->
-            <g>
-              <path d="M1220 280 L1166 248 V408 L1220 440 Z" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.5"></path>
-              <path d="M1206 272 L1152 240 V400 L1206 432" fill="#FFFFFF" fill-opacity="0.06" stroke="#CFCFCF" stroke-opacity="0.45" stroke-width="1"></path>
-              <path d="M1220 280 L1206 272 M1220 440 L1206 432 M1166 248 L1152 240" stroke="#DDDDDD" stroke-opacity="0.5" stroke-width="1"></path>
-              <g fill="#FFFFFF" fill-opacity="0.5" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1">
-                <ellipse cx="1206.5" cy="292" rx="7" ry="5" transform="rotate(-30 1206.5 292)"></ellipse>
-                <ellipse cx="1206.5" cy="332" rx="7" ry="5" transform="rotate(-30 1206.5 332)"></ellipse>
-                <ellipse cx="1206.5" cy="372" rx="7" ry="5" transform="rotate(-30 1206.5 372)"></ellipse>
-                <ellipse cx="1206.5" cy="412" rx="7" ry="5" transform="rotate(-30 1206.5 412)"></ellipse>
-                <ellipse cx="1182.2" cy="277.6" rx="7" ry="5" transform="rotate(-30 1182.2 277.6)"></ellipse>
-                <ellipse cx="1182.2" cy="317.6" rx="7" ry="5" transform="rotate(-30 1182.2 317.6)"></ellipse>
-                <ellipse cx="1182.2" cy="357.6" rx="7" ry="5" transform="rotate(-30 1182.2 357.6)"></ellipse>
-                <ellipse cx="1182.2" cy="397.6" rx="7" ry="5" transform="rotate(-30 1182.2 397.6)"></ellipse>
-              </g>
-              <g data-cta-detail stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1">
-                <path d="M1206.5 292 L1182.2 277.6 M1206.5 332 L1182.2 317.6 M1206.5 372 L1182.2 357.6 M1206.5 412 L1182.2 397.6"></path>
-              </g>
-            </g>
-
-            <!-- stiffeners inside the column, behind the plate -->
-            <g data-cta-detail stroke="#A8A8A8" stroke-opacity="0.3" stroke-width="1">
-              <path d="M1220 300 L1166 268 M1220 420 L1166 388"></path>
-            </g>
-          </g>
           </svg>
-          <div data-cta-sweep class="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent);mix-blend-mode:screen;animation:ctaSweep 14s ease-in-out infinite;will-change:transform"></div>
           </div>
         </div>
       </div>
@@ -400,17 +392,18 @@
 
     <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10" style="background:radial-gradient(60% 70% at 50% 50%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.25) 75%, rgba(0,0,0,0) 100%)"></div>
 
-    <dc-import style="width:100%" name="ProductTrialCTA" product="IDEA StatiCa" on-trial="{{ startTrial }}" on-quote="{{ startQuote }}" hint-size="100%,420px"></dc-import>
+    <dc-import style="width:100%" name="ProductTrialCTA" product="MIDAS" on-trial="{{ startTrial }}" on-quote="{{ startQuote }}" hint-size="100%,420px"></dc-import>
   </section>
 
   <!-- ===== NEWS & EVENTS ===== -->
+  <sc-if value="{{ hasEvents }}" hint-placeholder-val="{{ false }}">
   <section id="news-events" data-nav-theme="light" data-screen-label="News and events" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
     <div class="flex flex-col items-start gap-5">
       <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Events</span>
       <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
         <span class="inline-block">News &amp; Events</span>
       </h2>
-      <a href="Events.dc.html?product=IDEA%20StatiCa" data-reveal="fade" class="group mt-1 inline-flex items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground">
+      <a href="Events.dc.html?product=MIDAS" data-reveal="fade" class="group mt-1 inline-flex items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground">
         View all events
         <i data-lucide="arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
       </a>
@@ -421,8 +414,8 @@
         <a href="{{ item.href }}" class="group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
           <div data-curtain-container class="relative aspect-[16/10] w-full overflow-hidden">
             <div data-reveal="curtain" class="absolute inset-0">
-              <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105 group-focus-visible:scale-105">
-                <img src="https://files.cdn-files-a.com/uploads/12365954/2000_gi-6a9d4525d7321.jpg" alt="IDEA StatiCa Coffee &amp; Learn, Cairo" loading="lazy" class="absolute inset-0 size-full object-cover" style="object-position:50% 40%">
+              <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105">
+                <img src="{{ item.image }}" alt="{{ item.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover">
               </div>
             </div>
           </div>
@@ -437,7 +430,7 @@
             <sc-if value="{{ item.isUpcoming }}" hint-placeholder-val="{{ true }}">
               <span class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
                 View Event
-                <i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1"></i>
+                <i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1"></i>
               </span>
             </sc-if>
             <sc-if value="{{ item.isPast }}" hint-placeholder-val="{{ false }}">
@@ -448,15 +441,16 @@
       </sc-for>
     </div>
   </section>
+  </sc-if>
 
   <!-- ===== LICENSE ENQUIRY FORM ===== -->
   <section id="quote" data-curtain-cols data-curtain-duration="900" data-nav-theme="light" data-screen-label="License enquiry" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
     <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
       <div data-reveal="curtain-left" class="flex flex-col items-start gap-5 lg:col-span-5">
         <span class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">License Enquiry</span>
-        <h2 class="max-w-lg text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">Try IDEA StatiCa<br>or request a quote.</h2>
-        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us what you need. Contact SWUT Solutions for a license quote or a 14-day free trial for your team.</p>
-        <p class="max-w-md border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">Perpetual licensing provides ongoing use of the licensed version. Maintenance and access to new versions are purchased separately.</p>
+        <h2 class="max-w-lg text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">Tell us what you’re<br>designing.</h2>
+        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us about the project and which MIDAS product you’re interested in.</p>
+        <p class="max-w-md border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">GEN, CIVIL NX, and GTS NX are licensed individually. A trial request is an enquiry, not an activation — we confirm the product, licensing, and terms before any trial or order.</p>
       </div>
 
       <div data-reveal="curtain-right" onFocus="{{ forceRevealCurtain }}" class="lg:col-span-7">
@@ -464,7 +458,7 @@
             <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
               <div role="alert" class="flex flex-col gap-2 border border-border bg-muted px-5 py-4">
                 <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
-                <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. A trial request is an enquiry to SWUT, not an automatically activated vendor license. Until a form endpoint is connected, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+                <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. An enquiry goes to SWUT and is not an order or a vendor license. Until a form endpoint is connected, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
               </div>
             </sc-if>
 
@@ -502,7 +496,7 @@
                   </button>
                   <sc-if value="{{ productsOpen }}" hint-placeholder-val="{{ false }}">
                     <div role="listbox" class="absolute inset-x-0 top-full z-20 mt-1 flex flex-col border border-border bg-background shadow-sm">
-                      <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="4">
+                      <sc-for list="{{ productOptions }}" as="opt" hint-placeholder-count="3">
                         <sc-if value="{{ opt.isGroup }}" hint-placeholder-val="{{ false }}">
                           <span role="presentation" class="border-t border-border px-4 pb-1 pt-3 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ opt.name }}</span>
                         </sc-if>
@@ -534,10 +528,10 @@
                     </div>
                   </sc-if>
                 </div>
-                <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a product.</span></sc-if>
+                <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a MIDAS product — GEN, CIVIL NX, or GTS NX.</span></sc-if>
               </div>
               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div class="flex flex-col gap-2" ref="{{ intentRef }}">
+                <div class="flex flex-col gap-2">
                   <span id="q-intent-label" class="text-sm text-muted-foreground">Enquiry type</span>
                   <div class="relative" ref="{{ intentWrapRef }}" onKeyDown="{{ onIntentKeyDown }}">
                     <button type="button" id="q-intent" aria-haspopup="listbox" aria-expanded="{{ intentOpen }}" aria-labelledby="q-intent-label" onClick="{{ toggleIntentOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 py-3 text-left text-base text-foreground">
@@ -574,7 +568,7 @@
 
             <div class="flex flex-col gap-2">
               <label for="q-notes" class="text-sm text-muted-foreground">Message — optional</label>
-              <textarea id="q-notes" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Modules you need, current tools, timeline…"></textarea>
+              <textarea id="q-notes" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Tell us about your project and software needs."></textarea>
             </div>
 
             <button type="submit" disabled="{{ isSubmitting }}" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:opacity-60">
@@ -589,15 +583,15 @@
   <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
   </div>
 
-
 </div>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
   state = {
-    noBackend: false, intent: 'quote', thumbSrc: {},
-    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'IDEA StatiCa', licenses: '1' },
+    noBackend: false, intent: 'quote',
+    fields: { name: '', email: '', company: '', phone: '', notes: '', product: '', licenses: '1' },
+    videoOpen: null,
     productsOpen: false, intentOpen: false,
     errors: {},
     activeCap: 0,
@@ -605,10 +599,16 @@ class Component extends DCLogic {
   };
 
   _PRODUCT_OPTS = {};
+  _MIDAS = ['MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX'];
+
+  _VIDEOS = [
+    { id: 'Aqs8u49VqMI', start: 109, product: 'GTS NX', title: 'Geotechnical analysis, from ground model to results', href: 'https://www.youtube.com/watch?v=Aqs8u49VqMI&t=109s' },
+    { id: 'yelsHcIL8Gg', start: 0, product: 'CIVIL NX', title: 'Bridge modeling, analysis, and design in one workflow', href: 'https://www.youtube.com/watch?v=yelsHcIL8Gg' },
+  ];
 
   get _PRODUCTS() {
     const api = window.SWUTProductOptions;
-    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'Bentley'];
+    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD'].concat(this._MIDAS, ['Bentley']);
   }
 
   _productRows(current, pick) {
@@ -624,51 +624,16 @@ class Component extends DCLogic {
     if (this._capBar) this._capBar.style.animationPlayState = this._capShouldPlay() ? 'running' : 'paused';
   }
 
-  _THUMB_SOURCES = [
-    { slot: 'reuse-thumb-1', src: 'https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/159b36d0-6cc4-4bb7-ba2b-839d5e0a899d/Bolted%20gusset%20plate%20truss%20connections%20-%20Final.png?w=1200&fm=webp&lossless=false&q=85', placeholder: 'Bolted gusset plate truss connections' },
-    { slot: 'reuse-thumb-2', src: 'https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/5d97fa94-99ec-4bfd-bc11-b35a1c392c28/Column%20base%20plate%20connections%20-%20800%20x%20700.png?w=1200&fm=webp&lossless=false&q=85', placeholder: 'Column base plate connections' },
-    { slot: 'reuse-thumb-3', src: 'https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/12b4ce1c-e467-4804-8705-e7a3307990a3/Design%20-%202D%20tube%20connections%20-%20Final.png?w=1200&fm=webp&lossless=false&q=85', placeholder: 'HSS connections' },
-  ];
-
-  // The library thumbnails ship with an opaque white background. Knock only
-  // that white out to alpha so they sit on the panel gray — no recolouring,
-  // no blend mode; on any failure the original image is kept.
-  _stripWhite(src) {
-    return new Promise(resolve => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => {
-        try {
-          const c = document.createElement('canvas');
-          c.width = img.naturalWidth; c.height = img.naturalHeight;
-          const ctx = c.getContext('2d');
-          ctx.drawImage(img, 0, 0);
-          const d = ctx.getImageData(0, 0, c.width, c.height);
-          const px = d.data;
-          for (let i = 0; i < px.length; i += 4) {
-            const lo = Math.min(px[i], px[i + 1], px[i + 2]);
-            if (lo >= 252) px[i + 3] = 0;
-            else if (lo >= 240) px[i + 3] = Math.round(px[i + 3] * (252 - lo) / 12);
-          }
-          ctx.putImageData(d, 0, 0);
-          resolve(c.toDataURL('image/png'));
-        } catch (e) { resolve(null); }
-      };
-      img.onerror = () => resolve(null);
-      img.src = src;
-    });
-  }
-
+  // Line-drawing CAD art: pause when off-screen or tab hidden; soft pointer drift.
   _initCtaStage(el) {
     if (!el) return;
     this._ctaStages = (this._ctaStages || []).filter(n => n.isConnected);
     if (this._ctaStages.includes(el)) return;
     this._ctaStages.push(el);
     const stages = this._ctaStages;
-    const parts = stages.reduce((acc, n) => acc.concat([n, n.querySelector('[data-cta-sweep]')]), []).filter(Boolean);
     const sync = () => {
       const running = this._ctaVisible && !document.hidden;
-      parts.forEach(p => { p.style.animationPlayState = running ? 'running' : 'paused'; });
+      stages.forEach(n => n.querySelectorAll('[data-draw]').forEach(p => { p.style.animationPlayState = running ? 'running' : 'paused'; }));
     };
     this._ctaSync = sync;
     this._ctaVisible = true;
@@ -682,15 +647,15 @@ class Component extends DCLogic {
     document.addEventListener('visibilitychange', sync);
     const fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (fine && !reduced) {
+    if (fine && !reduced && !this._ctaPointer) {
       this._ctaPointer = (ev) => {
-        const host = el.closest('section');
+        const host = this._ctaStages[0] && this._ctaStages[0].closest('section');
         if (!host) return;
         const r = host.getBoundingClientRect();
         if (r.bottom < 0 || r.top > window.innerHeight) return;
         const dx = (ev.clientX - (r.left + r.width / 2)) / r.width;
         const dy = (ev.clientY - (r.top + r.height / 2)) / r.height;
-        el.style.translate = `${(dx * 14).toFixed(1)}px ${(dy * 10).toFixed(1)}px`;
+        this._ctaStages.forEach(n => { n.style.translate = `${(dx * 12).toFixed(1)}px ${(dy * 9).toFixed(1)}px`; });
       };
       window.addEventListener('mousemove', this._ctaPointer, { passive: true });
     }
@@ -707,11 +672,13 @@ class Component extends DCLogic {
   _productEvents() {
     const api = window.SWUTEvents;
     if (!api) return [];
-    return api.byProduct('IDEA StatiCa').map(ev => ({
+    return api.byProduct('MIDAS').map(ev => ({
       id: ev.slug,
       href: ev.href,
       title: ev.title,
       summary: ev.summary,
+      image: ev.image,
+      imageAlt: ev.imageAlt || ev.title,
       venue: api.place(ev),
       kindAndDate: 'Event \u2014 ' + api.dateLabel(ev),
       isUpcoming: api.status(ev) === 'upcoming',
@@ -719,14 +686,32 @@ class Component extends DCLogic {
     }));
   }
 
+  // Card descriptions share one height by construction, not by copy length:
+  // measure all three at the current column width and level them to the tallest.
+  _syncDescHeights() {
+    const els = Array.from(document.querySelectorAll('[data-card-desc]'));
+    if (!els.length) return;
+    els.forEach(el => { el.style.minHeight = ''; });
+    if (window.innerWidth < 1024) return;
+    const max = els.reduce((m, el) => Math.max(m, el.getBoundingClientRect().height), 0);
+    if (max > 0) els.forEach(el => { el.style.minHeight = Math.ceil(max) + 'px'; });
+  }
+
+  _queueDescSync() {
+    if (this._descRaf) cancelAnimationFrame(this._descRaf);
+    this._descRaf = requestAnimationFrame(() => { this._descRaf = null; this._syncDescHeights(); });
+  }
+
   componentDidMount() {
+    this._onResize = () => this._queueDescSync();
+    window.addEventListener('resize', this._onResize);
+    this._queueDescSync();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this._queueDescSync());
     if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
+    if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
+    this._onKeyDown = (e) => { if (e.key === 'Escape' && this.state.videoOpen) this.setState({ videoOpen: null }); };
+    document.addEventListener('keydown', this._onKeyDown);
     this._waitForEvents();
-    Promise.all(this._THUMB_SOURCES.map(t => this._stripWhite(t.src))).then(results => {
-      const map = {};
-      results.forEach((url, i) => { if (url) map[this._THUMB_SOURCES[i].slot] = url; });
-      if (Object.keys(map).length) this.setState({ thumbSrc: map });
-    });
     this._initReveal();
     this._icons();
     this._onDocClick = (e) => {
@@ -742,28 +727,27 @@ class Component extends DCLogic {
       this._capIO = new IntersectionObserver((entries) => {
         entries.forEach(e => this.setState({ capSectionVisible: e.isIntersecting }, () => this._syncCapBar()));
       }, { threshold: 0.5 });
-      // capVisRef attaches this observer once the overview visual mounts.
     } else {
       this.setState({ capSectionVisible: true });
     }
   }
-  componentDidUpdate() { this._icons(); this._syncCapBar(); }
+  componentDidUpdate() { this._icons(); this._syncCapBar(); this._queueDescSync(); }
   componentWillUnmount() {
     if (this._ctaSync) document.removeEventListener('visibilitychange', this._ctaSync);
     if (this._ctaPointer) window.removeEventListener('mousemove', this._ctaPointer);
     (this._observers || []).forEach(o => o.disconnect());
     if (this._revealIO) this._revealIO.disconnect();
     if (this._capIO) this._capIO.disconnect();
+    if (this._evTimer) clearTimeout(this._evTimer);
     document.removeEventListener('visibilitychange', this._onVisChange);
     document.removeEventListener('mousedown', this._onDocClick);
+    document.removeEventListener('keydown', this._onKeyDown);
+    window.removeEventListener('resize', this._onResize);
+    if (this._descRaf) cancelAnimationFrame(this._descRaf);
   }
 
-  // Single consolidated reveal system: 'fade' (whole element), 'stagger' (direct
-  // children staggered), 'words' (per-word emphasis), 'mask' (overflow-hidden
-  // clip + slide, for the hero title). Runs once at mount — no gating on any
-  // overlay/timer, so the page is interactive immediately.
   _initReveal() {
-    if (this._revealIO) return; // guard against double-init
+    if (this._revealIO) return;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const run = () => {
       const targets = Array.from(document.querySelectorAll('[data-reveal="fade"]'));
@@ -865,14 +849,9 @@ class Component extends DCLogic {
         });
       });
 
-      const reveal = (el) => {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      };
+      const reveal = (el) => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; };
       const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); }
-        });
+        entries.forEach(e => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } });
       }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
       this._revealIO = io;
       const revealCurtain = (container) => {
@@ -885,9 +864,7 @@ class Component extends DCLogic {
       try {
         if (curtainReady && curtainContainers.length) {
           const curtainIO = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-              if (e.isIntersecting) { revealCurtain(e.target); curtainIO.unobserve(e.target); }
-            });
+            entries.forEach(e => { if (e.isIntersecting) { revealCurtain(e.target); curtainIO.unobserve(e.target); } });
           }, { threshold: 0, rootMargin: '0px' });
           curtainContainers.forEach(el => curtainIO.observe(el));
         }
@@ -929,7 +906,6 @@ class Component extends DCLogic {
           if (l) { l.style.clipPath = ''; l.style.transition = ''; } if (r) { r.style.clipPath = ''; r.style.transition = ''; }
         });
       }
-      // architectural rule grid: horizontals draw L→R, verticals T→B, once
       try {
         const ruleHosts = Array.from(document.querySelectorAll('[data-info-rules]'));
         ruleHosts.forEach(host => {
@@ -970,18 +946,27 @@ class Component extends DCLogic {
         maskTargets.forEach(t => { t.el.style.transform = 'none'; });
       }
     };
-    // Run immediately — do not wait on fonts or any artificial delay, so
-    // above-the-fold elements (already intersecting) reveal on first paint.
     requestAnimationFrame(run);
   }
 
   _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
 
-  _goToForm(intent) {
-    this.setState({ intent, fields: { ...this.state.fields, product: 'IDEA StatiCa' } });
+  _scrollToQuote() {
+    // Re-measure after layout settles: lazily revealed media above the form
+    // shifts its offset, which would otherwise overshoot the landing.
+    const go = () => {
+      const el = document.getElementById('quote');
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    };
+    requestAnimationFrame(() => requestAnimationFrame(go));
+  }
+
+  // Sets intent/product only — never touches the visitor's typed message.
+  _goToForm(patch) {
+    // A general MIDAS CTA leaves the product unset so the visitor chooses one.
+    this.setState(s => ({ ...patch, fields: { ...s.fields, ...(patch.fields || {}) } }));
     if (typeof this._closeOverlay === 'function') this._closeOverlay();
-    const el = document.getElementById('quote');
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    this._scrollToQuote();
   }
 
   _focusFirstError(errors) {
@@ -990,18 +975,26 @@ class Component extends DCLogic {
     if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
   }
 
+  // Sets the product only; typed details are preserved.
+  _enquireProduct(e, product) {
+    if (e) e.preventDefault();
+    this.setState(s => ({ errors: { ...s.errors, product: false } }));
+    this._goToForm({ fields: { product } });
+  }
+
   _validate(f) {
     const errors = {};
     if (!f.name.trim()) errors.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
-    if (!f.product) errors.product = true;
+    if (!this._MIDAS.includes(f.product)) errors.product = true;
     if (!f.licenses || Number(f.licenses) < 1) errors.licenses = true;
     return errors;
   }
 
   renderVals() {
     const { noBackend, intent, fields, errors, productsOpen } = this.state;
-    const reuseThumbs = this._THUMB_SOURCES.map(t => ({ ...t, src: this.state.thumbSrc[t.slot] || t.src }));
+    const video = this._VIDEOS.find(v => v.id === this.state.videoOpen) || null;
+    const events = this._productEvents();
     return {
       stageRef: (el) => this._initCtaStage(el),
       visRef: (el) => { if (el && this._capIO) this._capIO.observe(el); },
@@ -1014,8 +1007,7 @@ class Component extends DCLogic {
       scrollToQuote: (e) => {
         e.preventDefault();
         if (typeof this._closeOverlay === 'function') this._closeOverlay();
-        const el = document.getElementById('quote');
-        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+        this._scrollToQuote();
       },
       noBackend, fields, errors, productsOpen,
       intent,
@@ -1023,29 +1015,54 @@ class Component extends DCLogic {
       intentWrapRef: (el) => { this._intentWrap = el; },
       toggleIntentOpen: () => this.setState(s => ({ intentOpen: !s.intentOpen })),
       onIntentKeyDown: (e) => { if (e.key === 'Escape' && this.state.intentOpen) { this.setState({ intentOpen: false }); const b = document.getElementById('q-intent'); if (b) b.focus(); } },
-      intentSummary: ([{ value: 'quote', label: 'License quote' }, { value: 'trial', label: '14-day free trial' }].find(o => o.value === intent) || {}).label || '',
-      intentOptions: [{ value: 'quote', label: 'License quote' }, { value: 'trial', label: '14-day free trial' }].map((o, i) => ({
+      intentSummary: ([{ value: 'quote', label: 'License quote' }, { value: 'demo', label: 'Demo enquiry' }, { value: 'trial', label: '14-day free trial' }].find(o => o.value === intent) || {}).label || '',
+      intentOptions: [{ value: 'quote', label: 'License quote' }, { value: 'demo', label: 'Demo enquiry' }, { value: 'trial', label: '14-day free trial' }].map((o, i) => ({
         ...o,
         isItemFirst: i === 0, isItem: i > 0,
         checked: intent === o.value,
         select: () => this.setState({ intent: o.value, intentOpen: false }),
       })),
       intentIsQuote: intent === 'quote',
+      intentIsDemo: intent === 'demo',
       intentIsTrial: intent === 'trial',
-      submitLabel: intent === 'trial' ? 'Request a 14-Day Free Trial' : 'Request a License Quote',
-      intentRef: (el) => { this._intentEl = el; },
+      submitLabel: intent === 'trial' ? 'Request a 14-Day Free Trial' : intent === 'demo' ? 'Request a Demo' : 'Request a License Quote',
       selectQuoteIntent: () => this.setState({ intent: 'quote' }),
+      selectDemoIntent: () => this.setState({ intent: 'demo' }),
       selectTrialIntent: () => this.setState({ intent: 'trial' }),
-      startTrial: (e) => { e.preventDefault(); this._goToForm('trial'); },
-      startQuote: (e) => { e.preventDefault(); this._goToForm('quote'); },
+      startDemo: (e) => { e.preventDefault(); this._goToForm({ intent: 'demo' }); },
+      startQuote: (e) => { e.preventDefault(); this._goToForm({ intent: 'quote' }); },
+      // A request for a trial — not an activation. Product and typed details are preserved.
+      startTrial: (e) => { e.preventDefault(); this._goToForm({ intent: 'trial' }); },
+      enquireGen: (e) => this._enquireProduct(e, 'MIDAS GEN'),
+      enquireCivil: (e) => this._enquireProduct(e, 'MIDAS CIVIL NX'),
+      enquireGts: (e) => this._enquireProduct(e, 'MIDAS GTS NX'),
+      trainingHref: 'Training.dc.html?product=' + encodeURIComponent(fields.product || 'MIDAS'),
+      videos: this._VIDEOS.map(v => ({
+        product: v.product,
+        title: v.title,
+        href: v.href,
+        thumb: 'https://i.ytimg.com/vi/' + v.id + '/maxresdefault.jpg',
+        thumbAlt: 'Video still — ' + v.title,
+        aria: 'Play the video: ' + v.title,
+        thumbError: (e) => {
+          const img = e.currentTarget;
+          if (img && !img.dataset.fallback) { img.dataset.fallback = '1'; img.src = 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg'; }
+        },
+        open: () => this.setState({ videoOpen: v.id }),
+      })),
+      videoOpen: !!video,
+      videoTitle: video ? video.title : '',
+      videoHref: video ? video.href : '',
+      // Plain youtube.com/embed + a referrer-sending policy: nocookie/no-referrer setups are what trigger error 153.
+      videoSrc: video ? 'https://www.youtube.com/embed/' + video.id + '?autoplay=1&rel=0' + (video.start ? '&start=' + video.start : '') : '',
+      closeVideo: () => this.setState({ videoOpen: null }),
+      videoCloseRef: (el) => { if (el && el.focus) el.focus(); },
       prodWrapRef: (el) => { this._prodWrap = el; },
       toggleProductsOpen: () => this.setState(s => ({ productsOpen: !s.productsOpen })),
       onProductsKeyDown: (e) => { if (e.key === 'Escape') this.setState({ productsOpen: false }); },
-      productsSummary: fields.product || 'Select a product',
+      productsSummary: fields.product || 'Select a MIDAS product',
       productOptions: this._productRows(fields.product, (name) => this.setState(s => ({
-        fields: { ...s.fields, product: name, licenses: name === 'General enquiry' ? '1' : (s.fields.licenses || '1') },
-        productsOpen: false, productOpen: false, open: null,
-        errors: { ...s.errors, product: false },
+        fields: { ...s.fields, product: name }, productsOpen: false, errors: { ...s.errors, product: false },
       }))),
       forceRevealCurtain: (e) => { const el = e.currentTarget; el.style.clipPath = ''; el.style.transition = ''; },
       setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
@@ -1059,33 +1076,35 @@ class Component extends DCLogic {
         const errs = this._validate(this.state.fields);
         if (Object.keys(errs).length) { this.setState({ errors: errs, noBackend: false }, () => this._focusFirstError(errs)); return; }
         const f = this.state.fields;
-        // No submission endpoint is wired up: assemble the payload, disclose that
-        // nothing was sent rather than faking a success state.
-        console.info('[SWUT IDEA StatiCa] no backend configured; payload not sent:', {
-          requestType: this.state.intent === 'trial' ? '14-day free trial' : 'License quote',
+        console.info('[SWUT MIDAS] no backend configured; payload not sent:', {
+          requestType: this.state.intent === 'trial' ? '14-day free trial request' : this.state.intent === 'demo' ? 'Demo enquiry' : 'License quote',
           name: f.name, email: f.email, company: f.company, phone: f.phone,
-          product: f.product, licenses: Number(f.licenses), notes: f.notes,
+          product: f.product, licenses: Number(f.licenses),
+          notes: f.notes,
         });
         this.setState({ errors: {}, noBackend: true });
       },
-      reuseMain: reuseThumbs[0],
-      reuseSideA: reuseThumbs[1],
-      reuseSideB: reuseThumbs[2],
-      newsEvents: this._productEvents(),
+      hasEvents: events.length > 0,
+      newsEvents: events,
+      requirementSteps: [
+        { icon: 'compass', title: 'What you analyse', body: 'Buildings and general structures, bridges and civil structures, or the ground itself.' },
+        { icon: 'layers', title: 'Modeling and analysis needs', body: 'The structure types, analysis, and design codes your work has to cover.' },
+        { icon: 'file-text', title: 'License enquiry', body: 'Which of the three products you need, and how many licenses.' },
+      ],
       facts: [
-        { label: 'Category', value: 'Structural Design Software', isText: true },
-        { label: 'Developed by', value: 'IDEA StatiCa', isLink: true, href: 'https://www.ideastatica.com/' },
+        { label: 'Category', value: 'Structural & Geotechnical Software', isText: true },
+        { label: 'Developed by', value: 'MIDAS', isLink: true, href: 'https://www.midasuser.com/' },
         { label: 'License types', value: 'Perpetual & Subscription', isText: true },
       ],
       capabilities: [
-        { number: '01', title: 'Steel', body: 'Design and code-check steel connections and assess member behavior, including complex joints, base plates, and anchoring details.', mediaId: 'cap-steel', placeholder: 'Steel connection model' },
-        { number: '02', title: 'Concrete', body: 'Analyze reinforced and prestressed concrete elements, including walls, beams, and regions with complex load transfer. Assess reinforcement and relevant design checks.', mediaId: 'cap-concrete-needed', placeholder: 'Asset needed \u2014 authentic reinforced concrete model not yet supplied' },
-        { number: '03', title: 'BIM & Workflows', body: 'Connect IDEA StatiCa with supported CAD and structural analysis tools to transfer model data and reduce repeated input.', note: 'Integration examples include Tekla Structures, SAP2000, ETABS, and STAAD.Pro. Support depends on the application and software version.', mediaId: 'cap-bim', isPhoto: true },
+        { number: '01', title: 'MIDAS GEN', body: 'Structural analysis and design for buildings and general structures.', src: 'https://images.pexels.com/photos/29673302/pexels-photo-29673302.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Steel and glass roof structure of a building seen from below' },
+        { number: '02', title: 'MIDAS CIVIL NX', body: 'Analysis and design for bridges and civil structures.', src: 'https://images.pexels.com/photos/35172406/pexels-photo-35172406.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Aerial view of a highway interchange' },
+        { number: '03', title: 'MIDAS GTS NX', body: 'Geotechnical analysis for ground engineering problems.', note: 'Each product is licensed separately. Tell us the discipline and we will confirm what fits.', src: 'https://images.pexels.com/photos/13098128/pexels-photo-13098128.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Excavator carrying out earthworks at a construction site' },
       ].map((cap, i) => {
         const active = i === this.state.activeCap;
         const paused = active && (this.state.capHovered || this.state.capFocused);
         return {
-          ...cap, active, isSlot: !cap.isPhoto, hasNote: !!cap.note,
+          ...cap, active, hasNote: !!cap.note,
           select: () => { this.setState({ activeCap: i }); },
           showProgress: active && !this.state.capReducedMotion,
           showStaticFill: active && this.state.capReducedMotion,

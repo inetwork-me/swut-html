@@ -87,6 +87,10 @@ class Component extends DCLogic {
   _PAGES = {
     'home': 'SWUT Home.dc.html',
     'idea-statica': 'IDEA StatiCa.dc.html',
+    'zwcad': 'ZWCAD.dc.html',
+    'midas': 'Midas.dc.html',
+    'about': 'About.dc.html',
+    'bentley': 'Bentley.dc.html',
     'contact': 'Contact.dc.html',
     'event': 'Event.dc.html',
     'events': 'Events.dc.html',
@@ -99,8 +103,9 @@ class Component extends DCLogic {
   };
   _PRODUCT_LINKS = [
     { name: 'IDEA StatiCa', page: 'idea-statica', available: true },
-    { name: 'ZWCAD', available: false },
-    { name: 'Midas', available: false },
+    { name: 'ZWCAD', page: 'zwcad', available: true },
+    { name: 'MIDAS', page: 'midas', available: true },
+    { name: 'Bentley', page: 'bentley', available: true },
   ];
   _SERVICE_LINKS = [
     { name: 'Training', page: 'training', available: true },
@@ -212,7 +217,12 @@ class Component extends DCLogic {
         this._closeOverlay();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } },
-      { label: 'About', isLink: true, href: '#', onClick: (e) => { e.preventDefault(); this._closeOverlay(); } },
+      { label: 'About', isLink: true, href: current === 'about' ? '#' : this._PAGES.about, onClick: (e) => {
+        this._closeOverlay();
+        if (current !== 'about') return;
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } },
       { label: 'Contact', isLink: true, href: current === 'contact' ? '#enquiry' : this._PAGES.contact, onClick: (e) => {
         if (current !== 'contact') { this._closeOverlay(); return; }
         e.preventDefault();
