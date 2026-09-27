@@ -608,7 +608,7 @@ class Component extends DCLogic {
 
   get _PRODUCTS() {
     const api = window.SWUTProductOptions;
-    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD'].concat(this._MIDAS, ['Bentley']);
+    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD'].concat(this._MIDAS, ['STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer']);
   }
 
   _productRows(current, pick) {

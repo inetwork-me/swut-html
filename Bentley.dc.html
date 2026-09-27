@@ -48,12 +48,14 @@
   html { scroll-padding-top: 96px; }
   @media (min-width: 1024px) { [data-info-grid] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
   [data-info-rules] { --ext: 6px; }
+  @media (min-width: 1024px) { [data-card-desc] { min-height: 3.25rem; } }
   [data-info-frame] { aspect-ratio: 4 / 3; width: 100%; max-width: none; min-width: 0; box-sizing: border-box; }
   @media (min-width: 1024px) { [data-info-rules] { --ext: 12px; } }
   [data-info-grid] > * { min-width: 0; box-sizing: border-box; }
   * { cursor: none; }
   @keyframes capFillV { from { height: 0%; } to { height: 100%; } }
   @keyframes ctaDraw { 0% { stroke-dashoffset: 1; opacity: 0.25; } 8% { opacity: 1; } 45% { stroke-dashoffset: 0; } 82% { stroke-dashoffset: 0; opacity: 1; } 96% { stroke-dashoffset: 0; opacity: 0; } 100% { stroke-dashoffset: 1; opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { [data-card-zoom] { transition: none !important; transform: none !important; } }
   @media (prefers-reduced-motion: reduce) { [data-draw] { animation: none !important; stroke-dashoffset: 0 !important; opacity: 1 !important; } }
   [data-cta-art-side] { position: absolute; top: 50%; width: 27%; max-width: 440px; transform: translateY(-50%); }
   [data-cta-art-side="right"] { right: -6%; }
@@ -131,8 +133,8 @@
       <div data-reveal="curtain-right" class="order-2 flex flex-col items-start gap-6">
         <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Product Overview</span>
         <h2 class="text-balance text-5xl font-semibold leading-[1.18] tracking-tight text-white sm:text-6xl lg:text-6xl">
-          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Engineering tools for</span></span>
-          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">the built world.</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Structures. Ground.</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">The roads between.</span></span>
         </h2>
 
         <div class="mt-2 flex w-full flex-col" data-reveal="stagger" onMouseEnter="{{ onCapMouseEnter }}" onMouseLeave="{{ onCapMouseLeave }}" onFocus="{{ onCapFocus }}" onBlur="{{ onCapBlur }}">
@@ -165,19 +167,19 @@
           Discuss Your Requirements
           <i data-lucide="arrow-right" class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"></i>
         </a>
-        <p class="mt-4 text-sm leading-relaxed text-white/50">Bentley Systems publishes many infrastructure applications, each licensed separately. Tell us the task and we will confirm which application fits.</p>
+        <p class="mt-4 text-sm leading-relaxed text-white/50">STAAD.Pro, PLAXIS 2D, and OpenRoads Designer are licensed separately. Tell us the structures, ground conditions, or road projects you work with and we will confirm which product fits.</p>
       </div>
     </div>
   </section>
 
   <!-- ===== THREE ILLUSTRATED FEATURE CARDS ===== -->
-  <section data-nav-theme="light" data-screen-label="Everyday drafting" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+  <section data-nav-theme="light" data-screen-label="Products" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
     <div class="flex flex-col items-start gap-5">
-      <span data-reveal="fade" class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Applications</span>
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Three specialist products</span>
       <h2 class="text-balance text-4xl font-semibold leading-[1.18] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Find your</span></span>
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">starting point.</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Structures. Ground. Roads.</span></span>
       </h2>
+      <p data-reveal="fade" class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">Find the Bentley product for your engineering work.</p>
     </div>
 
     <div data-info-rules class="relative mt-16 lg:mt-20">
@@ -190,56 +192,70 @@
       <span data-grid-line="v" class="absolute left-2/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
     </div>
     <div class="grid grid-cols-1" style="grid-template-columns:repeat(1,minmax(0,1fr))" data-info-grid>
-      <!-- Applications SWUT can discuss and quote; availability confirmed per enquiry. -->
+      <!-- The three Bentley products SWUT supplies. Names, descriptions, and images follow bentley.com. -->
 
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">01</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="0" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
+      <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
+        <div class="flex items-baseline justify-between gap-4">
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">01</span>
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Structural analysis &amp; design</span>
+        </div>
+        <div data-curtain-container data-info-frame data-curtain-delay="0" class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
           <div data-reveal="curtain" class="absolute inset-0">
-            <img src="https://images.pexels.com/photos/3137051/pexels-photo-3137051.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Close-up of a steel frame structure on a building" loading="lazy" class="absolute inset-0 size-full object-cover">
+            <img data-card-zoom src="https://www.bentley.com/cdn-cgi/image/width=1200,height=900,fit=cover,sharpen=0.25,quality=80,format=webp/globalassets/product-pages/staad-pro-hero.webp" alt="3D structural model of a two-tower suspension bridge in STAAD.Pro" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
           </div>
         </div>
         <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">STAAD.Pro</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Structural analysis and design. Model, analyze, and design steel, concrete, or timber structures, with static, dynamic, wind, seismic, and moving-load analysis and international code checks.</p>
-          <button type="button" onClick="{{ enquireStaad }}" class="group inline-flex w-fit items-center gap-2 text-sm font-semibold text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground">
-            Enquire about this application
-            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
-          </button>
+          <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">STAAD.Pro</h3>
+          <p data-card-desc class="text-base leading-relaxed text-muted-foreground">Model, analyze, and design steel, concrete, or timber structures.</p>
+          <ul class="flex flex-col gap-3 border-t border-border pt-5">
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>3D structural analysis &amp; design</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Static, dynamic, wind, seismic &amp; moving-load analysis</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>International design code checks</span></li>
+          </ul>
         </div>
       </div>
 
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">02</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="120" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
+
+      <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
+        <div class="flex items-baseline justify-between gap-4">
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">02</span>
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Geotechnical analysis</span>
+        </div>
+        <div data-curtain-container data-info-frame data-curtain-delay="120" class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
           <div data-reveal="curtain" class="absolute inset-0">
-            <img src="https://images.pexels.com/photos/13098128/pexels-photo-13098128.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Excavator carrying out earthworks at a construction site" loading="lazy" class="absolute inset-0 size-full object-cover">
+            <img data-card-zoom src="https://www.bentley.com/cdn-cgi/image/width=1200,height=900,fit=cover,sharpen=0.25,quality=80,format=webp/globalassets/product-pages/plaxis-2d-hero.webp" alt="PLAXIS 2D finite element model of an excavation support system with displacement vectors" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
           </div>
         </div>
         <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">PLAXIS 2D</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Geotechnical analysis. A finite-element application for 2D analysis of deformation and stability in soil and rock — from excavations, embankments, and foundations to tunnelling and mining.</p>
-          <button type="button" onClick="{{ enquirePlaxis }}" class="group inline-flex w-fit items-center gap-2 text-sm font-semibold text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground">
-            Enquire about this application
-            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
-          </button>
+          <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">PLAXIS 2D</h3>
+          <p data-card-desc class="text-base leading-relaxed text-muted-foreground">Run 2D finite-element analysis of deformation and stability in soil and rock.</p>
+          <ul class="flex flex-col gap-3 border-t border-border pt-5">
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Staged construction &amp; excavation</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Soil–structure interaction</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Slope stability safety analysis</span></li>
+          </ul>
         </div>
       </div>
 
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">03</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="240" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
+
+      <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
+        <div class="flex items-baseline justify-between gap-4">
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">03</span>
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Road design</span>
+        </div>
+        <div data-curtain-container data-info-frame data-curtain-delay="240" class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
           <div data-reveal="curtain" class="absolute inset-0">
-            <img src="https://images.pexels.com/photos/1046227/pexels-photo-1046227.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Aerial view of an asphalt road through open landscape" loading="lazy" class="absolute inset-0 size-full object-cover">
+            <img data-card-zoom src="https://www.bentley.com/cdn-cgi/image/width=1200,height=900,fit=cover,sharpen=0.25,quality=80,format=webp/globalassets/product-pages/openroads-designer-hero.webp" alt="OpenRoads Designer plan of a highway overpass and intersection" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
           </div>
         </div>
         <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">OpenRoads Designer</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Roadway design. Model-based detailed design for road and highway projects, covering survey, geometry, drainage, subsurface utilities, and the plans and cross-sections drawn from the model.</p>
-          <button type="button" onClick="{{ enquireOpenroads }}" class="group inline-flex w-fit items-center gap-2 text-sm font-semibold text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground">
-            Enquire about this application
-            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
-          </button>
+          <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">OpenRoads Designer</h3>
+          <p data-card-desc class="text-base leading-relaxed text-muted-foreground">Design, model, and document road projects in one 3D model.</p>
+          <ul class="flex flex-col gap-3 border-t border-border pt-5">
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Survey &amp; terrain modeling</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Corridor modeling &amp; drainage design</span></li>
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Plans, profiles &amp; cross-sections from the model</span></li>
+          </ul>
         </div>
       </div>
 
@@ -256,7 +272,7 @@
 
       <div class="col-span-12 lg:col-span-9">
         <h2 data-reveal="fade" class="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-          Start with your engineering task. Find the application that fits.
+          Start with the structure, the ground, or the road. Find the Bentley product that fits.
         </h2>
 
         <div class="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-3">
@@ -388,8 +404,8 @@
       <div data-reveal="curtain-left" class="flex flex-col items-start gap-5 lg:col-span-5">
         <span class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">License Enquiry</span>
         <h2 class="max-w-lg text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">Discuss Bentley software<br>for your team.</h2>
-        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us about your work and the application you’re interested in.</p>
-        <p class="max-w-md border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">Bentley applications are licensed individually, and availability varies by application and region. We confirm the application, licensing, and terms before any order.</p>
+        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us about the project and which Bentley product you’re interested in.</p>
+        <p class="max-w-md border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">STAAD.Pro, PLAXIS 2D, and OpenRoads Designer are licensed individually. A trial request is an enquiry, not an activation — we confirm the product, licensing, and terms before any trial or order.</p>
       </div>
 
       <div data-reveal="curtain-right" onFocus="{{ forceRevealCurtain }}" class="lg:col-span-7">
@@ -467,7 +483,7 @@
                     </div>
                   </sc-if>
                 </div>
-                <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a product.</span></sc-if>
+                <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a Bentley product — STAAD.Pro, PLAXIS 2D, or OpenRoads Designer.</span></sc-if>
               </div>
               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2">
@@ -506,26 +522,6 @@
             </div>
 
             <div class="flex flex-col gap-2">
-              <label for="q-app" class="text-sm text-muted-foreground">Application of interest</label>
-              <div class="relative">
-                <select data-chevron-wrapped id="q-app" ref="{{ appRef }}" value="{{ fields.app }}" onChange="{{ setApp }}" class="h-[50px] w-full appearance-none border border-border bg-transparent py-3 pl-4 pr-11 text-base text-foreground">
-                  <option value="">Select an application</option>
-                  <sc-for list="{{ appOptions }}" as="opt" hint-placeholder-count="5">
-                    <option value="{{ opt }}">{{ opt }}</option>
-                  </sc-for>
-                </select>
-                <i data-lucide="chevron-down" aria-hidden="true" class="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"></i>
-              </div>
-            </div>
-
-            <sc-if value="{{ appIsOther }}" hint-placeholder-val="{{ false }}">
-              <div class="flex flex-col gap-2">
-                <label for="q-app-other" class="text-sm text-muted-foreground">Which Bentley application?</label>
-                <input id="q-app-other" type="text" value="{{ fields.appOther }}" onChange="{{ setAppOther }}" class="w-full border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Application name">
-              </div>
-            </sc-if>
-
-            <div class="flex flex-col gap-2">
               <label for="q-notes" class="text-sm text-muted-foreground">Message — optional</label>
               <textarea id="q-notes" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Tell us about your project and software needs."></textarea>
             </div>
@@ -549,7 +545,7 @@
 class Component extends DCLogic {
   state = {
     noBackend: false, intent: 'quote',
-    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'Bentley', licenses: '1', app: '', appOther: '' },
+    fields: { name: '', email: '', company: '', phone: '', notes: '', product: '', licenses: '1' },
     productsOpen: false, intentOpen: false,
     errors: {},
     activeCap: 0,
@@ -560,7 +556,7 @@ class Component extends DCLogic {
 
   get _PRODUCTS() {
     const api = window.SWUTProductOptions;
-    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'Bentley'];
+    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer'];
   }
 
   _productRows(current, pick) {
@@ -569,7 +565,7 @@ class Component extends DCLogic {
     return this._PRODUCTS.map(name => ({ name, isGroup: false, isNested: false, isPlain: true, checked: current === name, select: () => pick(name) }));
   }
 
-  _APPS = ['STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer', 'Other Bentley application', 'Not sure yet'];
+  _BENTLEY = ['STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer'];
 
   _capShouldPlay() {
     return this.state.capPlaying && this.state.capSectionVisible && !this.state.capHovered && !this.state.capFocused && !this.state.capReducedMotion && !document.hidden;
@@ -641,6 +637,10 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
+    this._onResize = () => this._queueDescSync();
+    window.addEventListener('resize', this._onResize);
+    this._queueDescSync();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this._queueDescSync());
     if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
     this._waitForEvents();
     this._initReveal();
@@ -662,7 +662,7 @@ class Component extends DCLogic {
       this.setState({ capSectionVisible: true });
     }
   }
-  componentDidUpdate() { this._icons(); this._syncCapBar(); }
+  componentDidUpdate() { this._icons(); this._syncCapBar(); this._queueDescSync(); }
   componentWillUnmount() {
     if (this._ctaSync) document.removeEventListener('visibilitychange', this._ctaSync);
     if (this._ctaPointer) window.removeEventListener('mousemove', this._ctaPointer);
@@ -672,6 +672,8 @@ class Component extends DCLogic {
     if (this._evTimer) clearTimeout(this._evTimer);
     document.removeEventListener('visibilitychange', this._onVisChange);
     document.removeEventListener('mousedown', this._onDocClick);
+    window.removeEventListener('resize', this._onResize);
+    if (this._descRaf) cancelAnimationFrame(this._descRaf);
   }
 
   _initReveal() {
@@ -891,7 +893,7 @@ class Component extends DCLogic {
 
   // Sets intent/product only — never touches the visitor's typed message.
   _goToForm(patch) {
-    this.setState(s => ({ ...patch, fields: { ...s.fields, product: 'Bentley', ...(patch.fields || {}) } }));
+    this.setState(s => ({ ...patch, fields: { ...s.fields, ...(patch.fields || {}) } }));
     if (typeof this._closeOverlay === 'function') this._closeOverlay();
     this._scrollToQuote();
   }
@@ -902,18 +904,25 @@ class Component extends DCLogic {
     if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
   }
 
-  // Sets the application of interest only; typed details are preserved.
-  _enquireApp(e, app) {
-    if (e) e.preventDefault();
-    this._goToForm({ fields: { app } });
-    setTimeout(() => { if (this._appSelect && this._appSelect.focus) this._appSelect.focus(); }, 700);
+  // Card descriptions share one height: level all three to the tallest at the current width.
+  _syncDescHeights() {
+    const els = Array.from(document.querySelectorAll('[data-card-desc]'));
+    if (!els.length) return;
+    els.forEach(el => { el.style.minHeight = ''; });
+    if (window.innerWidth < 1024) return;
+    const max = els.reduce((m, el) => Math.max(m, el.getBoundingClientRect().height), 0);
+    if (max > 0) els.forEach(el => { el.style.minHeight = Math.ceil(max) + 'px'; });
+  }
+  _queueDescSync() {
+    if (this._descRaf) cancelAnimationFrame(this._descRaf);
+    this._descRaf = requestAnimationFrame(() => { this._descRaf = null; this._syncDescHeights(); });
   }
 
   _validate(f) {
     const errors = {};
     if (!f.name.trim()) errors.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
-    if (!f.product) errors.product = true;
+    if (!this._BENTLEY.includes(f.product)) errors.product = true;
     if (!f.licenses || Number(f.licenses) < 1) errors.licenses = true;
     return errors;
   }
@@ -958,18 +967,10 @@ class Component extends DCLogic {
       startQuote: (e) => { e.preventDefault(); this._goToForm({ intent: 'quote' }); },
       // A trial request — an enquiry, not an activation. Typed details are preserved.
       startTrial: (e) => { e.preventDefault(); this._goToForm({ intent: 'trial' }); },
-      enquireStaad: (e) => this._enquireApp(e, 'STAAD.Pro'),
-      enquirePlaxis: (e) => this._enquireApp(e, 'PLAXIS 2D'),
-      enquireOpenroads: (e) => this._enquireApp(e, 'OpenRoads Designer'),
-      appRef: (el) => { this._appSelect = el; },
-      appOptions: this._APPS,
-      appIsOther: fields.app === 'Other Bentley application',
-      setApp: (e) => this.setState(s => ({ fields: { ...s.fields, app: e.target.value } })),
-      setAppOther: (e) => this.setState(s => ({ fields: { ...s.fields, appOther: e.target.value } })),
       prodWrapRef: (el) => { this._prodWrap = el; },
       toggleProductsOpen: () => this.setState(s => ({ productsOpen: !s.productsOpen })),
       onProductsKeyDown: (e) => { if (e.key === 'Escape') this.setState({ productsOpen: false }); },
-      productsSummary: fields.product || 'Select a product',
+      productsSummary: fields.product || 'Select a Bentley product',
       productOptions: this._productRows(fields.product, (name) => this.setState(s => ({
         fields: { ...s.fields, product: name, licenses: name === 'General enquiry' ? '1' : (s.fields.licenses || '1') },
         productsOpen: false, productOpen: false, open: null,
@@ -991,7 +992,6 @@ class Component extends DCLogic {
           requestType: this.state.intent === 'trial' ? '14-day free trial request' : this.state.intent === 'demo' ? 'Demo enquiry' : 'License quote',
           name: f.name, email: f.email, company: f.company, phone: f.phone,
           product: f.product, licenses: Number(f.licenses),
-          application: f.app === 'Other Bentley application' ? (f.appOther || 'Other Bentley application') : f.app,
           notes: f.notes,
         });
         this.setState({ errors: {}, noBackend: true });
@@ -999,9 +999,9 @@ class Component extends DCLogic {
       hasEvents: events.length > 0,
       newsEvents: events,
       requirementSteps: [
-        { icon: 'compass', title: 'Engineering discipline', body: 'Tell us whether your work involves structures, ground engineering, transportation, or another field.' },
-        { icon: 'layers', title: 'Application needs', body: 'Share the tools and capabilities your team is looking for.' },
-        { icon: 'file-text', title: 'License enquiry', body: 'Discuss the application and number of licenses you need.' },
+        { icon: 'compass', title: 'What you design', body: 'Structures and buildings, ground and foundations, or roads and highways.' },
+        { icon: 'layers', title: 'Modeling and analysis needs', body: 'The structure types, analysis, and design deliverables your work has to cover.' },
+        { icon: 'file-text', title: 'License enquiry', body: 'Which of the three products you need, and how many licenses.' },
       ],
       facts: [
         { label: 'Category', value: 'Infrastructure Engineering Software', isText: true },
@@ -1009,9 +1009,9 @@ class Component extends DCLogic {
         { label: 'License types', value: 'Perpetual & Subscription', isText: true },
       ],
       capabilities: [
-        { number: '01', title: 'Structural engineering', body: 'Explore software for analyzing and designing structures — steel, concrete, and timber, with code-compliant design checks.', src: 'https://images.pexels.com/photos/34773057/pexels-photo-34773057.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Steel truss railway bridge' },
-        { number: '02', title: 'Ground engineering', body: 'Explore tools for understanding ground behavior and geotechnical conditions, from excavations and foundations to tunnelling.', src: 'https://images.pexels.com/photos/13098128/pexels-photo-13098128.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Excavator working at a construction site' },
-        { number: '03', title: 'Transportation design', body: 'Explore software for roadway design and infrastructure development, with survey, drainage, and utility data in one model.', note: 'Applications are licensed individually. Tell us the discipline and we will confirm what fits.', src: 'https://images.pexels.com/photos/681347/pexels-photo-681347.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Aerial view of a concrete highway bridge and interchange' },
+        { number: '01', title: 'STAAD.Pro', body: 'Structural analysis and design for steel, concrete, and timber structures.', src: 'https://www.bentley.com/cdn-cgi/image/width=1200,height=900,fit=cover,sharpen=0.25,quality=80,format=webp/globalassets/product-pages/staad-pro-benefits.webp', alt: 'STAAD.Pro analysis model of a suspension bridge with a detailed finite element mesh' },
+        { number: '02', title: 'PLAXIS 2D', body: 'Geotechnical finite-element analysis of deformation, stability, and soil–structure interaction.', src: 'https://www.bentley.com/cdn-cgi/image/width=1200,height=900,fit=cover,sharpen=0.25,quality=80,format=webp/globalassets/product-pages/plaxis-2d-benefits.webp', alt: 'PLAXIS 2D interface showing soil layers, structural loading, and safety factor charts' },
+        { number: '03', title: 'OpenRoads Designer', body: 'Road design, modeling, and documentation in one 3D model.', note: 'Each product is licensed separately. Tell us the discipline and we will confirm what fits.', src: 'https://www.bentley.com/cdn-cgi/image/width=1200,height=900,fit=cover,sharpen=0.25,quality=80,format=webp/globalassets/product-pages/openroads-designer-benefits.webp', alt: 'OpenRoads Designer 3D model of a highway overpass and intersection' },
       ].map((cap, i) => {
         const active = i === this.state.activeCap;
         const paused = active && (this.state.capHovered || this.state.capFocused);
