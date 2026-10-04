@@ -125,7 +125,8 @@
       <div data-reveal="curtain-left" ref="{{ visRef }}" class="relative order-1 h-full min-h-[280px] w-full overflow-hidden bg-white p-8 sm:min-h-[340px] sm:p-10">
         <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="3">
           <div class="{{ cap.mediaClass }}">
-            <img src="{{ cap.src }}" alt="{{ cap.alt }}" loading="lazy" class="absolute inset-0 size-full object-cover">
+            <img src="{{ cap.src }}" alt="" aria-hidden="true" loading="lazy" class="{{ cap.backdropClass }}">
+            <img src="{{ cap.src }}" alt="{{ cap.alt }}" loading="lazy" class="{{ cap.imgClass }}">
           </div>
         </sc-for>
       </div>
@@ -177,7 +178,7 @@
     <div class="flex flex-col items-start gap-5">
       <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Three specialist products</span>
       <h2 class="text-balance text-4xl font-semibold leading-[1.18] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Buildings. Bridges. Ground.</span></span>
+        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">See MIDAS in action.</span></span>
       </h2>
       <p data-reveal="fade" class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">Find the MIDAS product for your engineering work.</p>
     </div>
@@ -186,155 +187,35 @@
     <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10">
       <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] top-0 block h-px bg-border"></span>
       <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] bottom-0 block h-px bg-border"></span>
+      <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] top-1/3 hidden h-px bg-border sm:block lg:hidden"></span>
+      <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] top-2/3 hidden h-px bg-border sm:block lg:hidden"></span>
+      <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] top-1/2 hidden h-px bg-border lg:block"></span>
       <span data-grid-line="v" class="absolute left-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
       <span data-grid-line="v" class="absolute right-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
+      <span data-grid-line="v" class="absolute left-1/2 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border sm:block lg:hidden"></span>
       <span data-grid-line="v" class="absolute left-1/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
       <span data-grid-line="v" class="absolute left-2/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
     </div>
-    <div class="grid grid-cols-1" style="grid-template-columns:repeat(1,minmax(0,1fr))" data-info-grid>
-      <!-- The three MIDAS products SWUT supplies. Capabilities follow each product's own documentation. -->
-
-      <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <div class="flex items-baseline justify-between gap-4">
-          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">01</span>
-          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Buildings &amp; structures</span>
-        </div>
-        <div data-curtain-container data-info-frame data-curtain-delay="0" class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0">
-            <img data-card-zoom src="https://images.pexels.com/photos/3137051/pexels-photo-3137051.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Steel frame structure of a building under construction" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
-          </div>
-        </div>
-        <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">MIDAS GEN</h3>
-          <p data-card-desc class="text-base leading-relaxed text-muted-foreground">Analyze and design building structures in one connected workflow.</p>
-          <ul class="flex flex-col gap-3 border-t border-border pt-5">
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Structural modeling</span></li>
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Static, dynamic &amp; seismic analysis</span></li>
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Steel &amp; concrete design checks</span></li>
-          </ul>
-        </div>
-      </div>
-
-
-      <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <div class="flex items-baseline justify-between gap-4">
-          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">02</span>
-          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Bridges &amp; civil structures</span>
-        </div>
-        <div data-curtain-container data-info-frame data-curtain-delay="120" class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0">
-            <img data-card-zoom src="https://images.pexels.com/photos/34773057/pexels-photo-34773057.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Steel truss railway bridge spanning a river" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
-          </div>
-        </div>
-        <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">MIDAS CIVIL NX</h3>
-          <p data-card-desc class="text-base leading-relaxed text-muted-foreground">Analyze bridge behavior through construction and service.</p>
-          <ul class="flex flex-col gap-3 border-t border-border pt-5">
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Bridge modeling</span></li>
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Construction-stage analysis</span></li>
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Moving-load analysis</span></li>
-          </ul>
-        </div>
-      </div>
-
-
-      <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <div class="flex items-baseline justify-between gap-4">
-          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">03</span>
-          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Geotechnical engineering</span>
-        </div>
-        <div data-curtain-container data-info-frame data-curtain-delay="240" class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0">
-            <img data-card-zoom src="https://images.pexels.com/photos/13098128/pexels-photo-13098128.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Excavator carrying out earthworks in a deep excavation" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
-          </div>
-        </div>
-        <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">MIDAS GTS NX</h3>
-          <p data-card-desc class="text-base leading-relaxed text-muted-foreground">Analyze how soil, rock, and structures interact across complex ground engineering projects.</p>
-          <ul class="flex flex-col gap-3 border-t border-border pt-5">
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>3D geotechnical modeling</span></li>
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Deformation, stability &amp; seepage</span></li>
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-foreground"><i data-lucide="chevron-right" aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-muted-foreground"></i><span>Excavations, tunnels &amp; foundations</span></li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-    </div>
-  </section>
-
-  <!-- ===== MOBILE COLLABORATION ===== -->
-  <section id="requirements" data-nav-theme="light" data-screen-label="Your requirements" class="px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
-    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
-      <div class="col-span-12 lg:col-span-3">
-        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Your requirements</span>
-      </div>
-
-      <div class="col-span-12 lg:col-span-9">
-        <h2 data-reveal="fade" class="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-          Start with the structure — or the ground. Find the MIDAS product that fits.
-        </h2>
-
-        <div class="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-3">
-          <sc-for list="{{ requirementSteps }}" as="feat" hint-placeholder-count="3">
-            <div data-reveal="fade" class="flex flex-col gap-5 border-l border-border px-6 py-2">
-              <span class="flex w-fit items-center justify-center bg-muted p-2 text-foreground">
-                <i data-lucide="{{ feat.icon }}" class="size-5"></i>
-              </span>
-              <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ feat.title }}</h3>
-              <p class="text-sm leading-relaxed text-muted-foreground">{{ feat.body }}</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2" data-info-grid>
+      <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+        <div class="flex h-full w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-10 first:border-t-0 sm:border-t-0 lg:px-10 lg:py-12">
+          <div data-curtain-container data-info-frame class="group relative w-full overflow-hidden" style="background-color:#F2F2F2">
+            <div data-reveal="curtain" class="absolute inset-0">
+              <img data-card-zoom src="{{ p.image }}" alt="{{ p.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
             </div>
-          </sc-for>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== VIDEO GALLERY ===== -->
-  <section id="videos" data-nav-theme="light" data-screen-label="Videos" class="bg-background px-6 pt-20 pb-12 sm:px-10 lg:px-20 lg:pt-28 lg:pb-16">
-    <div class="flex flex-col items-start gap-4">
-      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Video</span>
-      <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">
-        <span class="inline-block">See MIDAS in action.</span>
-      </h2>
-    </div>
-
-    <div class="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10">
-      <sc-for list="{{ videos }}" as="v" hint-placeholder-count="2">
-        <div class="flex flex-col gap-4">
-          <button type="button" onClick="{{ v.open }}" class="group relative block w-full overflow-hidden border border-border bg-muted transition-colors hover:border-foreground focus-visible:border-foreground" style="aspect-ratio:16/9">
-            <img src="{{ v.thumb }}" alt="{{ v.thumbAlt }}" loading="lazy" onError="{{ v.thumbError }}" class="absolute inset-0 size-full object-cover">
-            <span aria-hidden="true" class="absolute inset-0 bg-black/20 transition-colors duration-300 group-hover:bg-black/35"></span>
-            <span aria-hidden="true" class="absolute left-1/2 top-1/2 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white/90 text-black transition duration-300 group-hover:bg-white group-focus-visible:bg-white">
-              <i data-lucide="play" class="size-5"></i>
+          </div>
+          <div data-reveal="stagger" class="flex flex-col gap-3">
+            <h3 class="text-balance text-2xl font-semibold leading-tight tracking-tight text-foreground">{{ p.title }}</h3>
+            <span class="flex items-center gap-2 text-sm text-muted-foreground">
+              <i data-lucide="map-pin" aria-hidden="true" class="size-4 shrink-0"></i>
+              {{ p.location }}
             </span>
-            <span class="sr-only">{{ v.aria }}</span>
-          </button>
-          <div class="flex flex-col items-start gap-1.5">
-            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ v.product }}</span>
-            <h3 class="text-balance text-lg font-semibold leading-snug tracking-tight text-foreground">{{ v.title }}</h3>
           </div>
         </div>
       </sc-for>
     </div>
-  </section>
-
-  <sc-if value="{{ videoOpen }}" hint-placeholder-val="{{ false }}">
-    <div role="dialog" aria-modal="true" aria-label="{{ videoTitle }}" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8" style="background:rgba(0,0,0,0.88)">
-      <button type="button" aria-label="Close video" onClick="{{ closeVideo }}" class="absolute inset-0 size-full cursor-default" style="background:transparent"></button>
-      <div class="relative flex w-full max-w-5xl flex-col gap-4">
-        <button type="button" ref="{{ videoCloseRef }}" onClick="{{ closeVideo }}" class="inline-flex w-fit items-center gap-2 self-end text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white">
-          Close
-          <i data-lucide="x" class="size-4"></i>
-        </button>
-        <div class="relative w-full overflow-hidden bg-black" style="aspect-ratio:16/9">
-          <iframe src="{{ videoSrc }}" title="{{ videoTitle }}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" class="absolute inset-0 size-full" style="border:0"></iframe>
-        </div>
-        <p class="text-sm leading-relaxed text-white/60">If the video does not play here, <a href="{{ videoHref }}" target="_blank" rel="noopener noreferrer" class="underline decoration-white/40 underline-offset-4">open it on YouTube</a>.</p>
-      </div>
     </div>
-  </sc-if>
+  </section>
 
   <!-- ===== TRIAL / QUOTE CTA ===== -->
   <section data-nav-theme="dark" data-screen-label="Trial CTA" class="relative isolate flex min-h-[560px] items-center overflow-hidden bg-black px-6 py-24 text-white sm:px-10 lg:h-[620px] lg:min-h-0 lg:px-20 lg:py-0">
@@ -458,33 +339,37 @@
             <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
               <div role="alert" class="flex flex-col gap-2 border border-border bg-muted px-5 py-4">
                 <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
-                <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. An enquiry goes to SWUT and is not an order or a vendor license. Until a form endpoint is connected, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+                <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. An enquiry goes to SWUT and is not an order or a vendor license. Until a form endpoint is connected, email <a href="mailto:info@swutsolutions.com" class="underline">info@swutsolutions.com</a> directly.</span>
               </div>
             </sc-if>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 sm:col-span-2">
                 <label for="q-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
                 <input id="q-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
                 <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
               </div>
-              <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2">
                 <label for="q-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
                 <input id="q-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
                 <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
               </div>
-            </div>
-
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div class="flex flex-col gap-2">
-                <label for="q-company" class="text-sm text-muted-foreground">Company</label>
-                <input id="q-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
+<div class="flex flex-col gap-2">
+                <label for="q-phone" class="text-sm text-muted-foreground">Phone number <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <input id="q-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="+20 10 0000 0000" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
+<sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span id="err-phone" class="text-sm text-red-600">Enter your phone number.</span></sc-if>
               </div>
-              <div class="flex flex-col gap-2">
-                <label for="q-phone" class="text-sm text-muted-foreground">Phone number</label>
-                <input id="q-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="+971 4 000 0000">
-              </div>
+<div class="flex flex-col gap-2">
+              <label for="q-title" class="text-sm text-muted-foreground">Title <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="q-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="e.g. Senior Structural Engineer" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
+              <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><span id="err-title" class="text-sm text-red-600">Enter your title.</span></sc-if>
             </div>
+<div class="flex flex-col gap-2">
+                <label for="q-company" class="text-sm text-muted-foreground">Company <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <input id="q-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
+<sc-if value="{{ errors.company }}" hint-placeholder-val="{{ false }}"><span id="err-company" class="text-sm text-red-600">Enter your company name.</span></sc-if>
+              </div>
+</div>
 
             <div class="flex flex-col gap-6">
               <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProductsKeyDown }}">
@@ -532,7 +417,7 @@
               </div>
               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2">
-                  <span id="q-intent-label" class="text-sm text-muted-foreground">Enquiry type</span>
+                  <span id="q-intent-label" class="text-sm text-muted-foreground">Enquiry type <span aria-hidden="true" style="color:#C62828">*</span></span>
                   <div class="relative" ref="{{ intentWrapRef }}" onKeyDown="{{ onIntentKeyDown }}">
                     <button type="button" id="q-intent" aria-haspopup="listbox" aria-expanded="{{ intentOpen }}" aria-labelledby="q-intent-label" onClick="{{ toggleIntentOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 py-3 text-left text-base text-foreground">
                       <span class="truncate">{{ intentSummary }}</span>
@@ -559,7 +444,7 @@
                   </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                  <label for="q-licenses" class="text-sm text-muted-foreground">Number of licenses</label>
+                  <label for="q-licenses" class="text-sm text-muted-foreground">Number of licenses <span aria-hidden="true" style="color:#C62828">*</span></label>
                   <input id="q-licenses" type="number" min="1" value="{{ fields.licenses }}" onChange="{{ setLicenses }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" aria-invalid="{{ errors.licenses }}" aria-describedby="err-licenses">
                   <sc-if value="{{ errors.licenses }}" hint-placeholder-val="{{ false }}"><span id="err-licenses" class="text-sm text-red-600">Enter at least 1 license.</span></sc-if>
                 </div>
@@ -567,8 +452,9 @@
             </div>
 
             <div class="flex flex-col gap-2">
-              <label for="q-notes" class="text-sm text-muted-foreground">Message — optional</label>
-              <textarea id="q-notes" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Tell us about your project and software needs."></textarea>
+              <label for="q-notes" class="text-sm text-muted-foreground">Message <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <textarea id="q-notes" required="" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Tell us about your project and software needs." aria-invalid="{{ errors.notes }}" aria-describedby="err-notes"></textarea>
+<sc-if value="{{ errors.notes }}" hint-placeholder-val="{{ false }}"><span id="err-notes" class="text-sm text-red-600">Add a short message so we can respond usefully.</span></sc-if>
             </div>
 
             <button type="submit" disabled="{{ isSubmitting }}" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:opacity-60">
@@ -588,9 +474,10 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
+  _td() { const p = this.state && this.state.fields && this.state.fields.product; return p === 'ZWCAD' || p === 'ZW3D' ? '30' : '14'; }
   state = {
     noBackend: false, intent: 'quote',
-    fields: { name: '', email: '', company: '', phone: '', notes: '', product: '', licenses: '1' },
+    fields: { name: '', email: '', title: '', company: '', phone: '', notes: '', product: '', licenses: '1' },
     videoOpen: null,
     productsOpen: false, intentOpen: false,
     errors: {},
@@ -598,7 +485,7 @@ class Component extends DCLogic {
     capPlaying: true, capSectionVisible: false, capHovered: false, capFocused: false, capReducedMotion: false,
   };
 
-  _PRODUCT_OPTS = {};
+  _PRODUCT_OPTS = { only: 'MIDAS' };
   _MIDAS = ['MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX'];
 
   _VIDEOS = [
@@ -608,7 +495,7 @@ class Component extends DCLogic {
 
   get _PRODUCTS() {
     const api = window.SWUTProductOptions;
-    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD'].concat(this._MIDAS, ['STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer']);
+    return api ? api.names(this._PRODUCT_OPTS) : ['MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX'];
   }
 
   _productRows(current, pick) {
@@ -970,7 +857,7 @@ class Component extends DCLogic {
   }
 
   _focusFirstError(errors) {
-    const order = [['name', 'q-name'], ['email', 'q-email'], ['product', 'q-product'], ['licenses', 'q-licenses']];
+    const order = [['name', 'q-name'], ['email', 'q-email'], ['phone', 'q-phone'], ['title', 'q-title'], ['company', 'q-company'], ['product', 'q-product'], ['licenses', 'q-licenses'], ['notes', 'q-notes']];
     const hit = order.find(([k]) => errors[k]);
     if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
   }
@@ -986,6 +873,10 @@ class Component extends DCLogic {
     const errors = {};
     if (!f.name.trim()) errors.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.title.trim()) errors.title = true;
+    if (!f.company.trim()) errors.company = true;
+    if (!f.phone.trim()) errors.phone = true;
+    if (!f.notes.trim()) errors.notes = true;
     if (!this._MIDAS.includes(f.product)) errors.product = true;
     if (!f.licenses || Number(f.licenses) < 1) errors.licenses = true;
     return errors;
@@ -996,6 +887,7 @@ class Component extends DCLogic {
     const video = this._VIDEOS.find(v => v.id === this.state.videoOpen) || null;
     const events = this._productEvents();
     return {
+      projects: [{"title":"Third Orbital Expressway","location":"Doha, Qatar","image":"https://resource.midasuser.com/hubfs/EN_MIDAS%20BRIDGE/04.%20Customers%20(%EC%82%AC%EC%97%85%ED%8C%80%EC%A0%91%EA%B7%BCX)/02.%20Content%20Images/Project%20Application/Civil_Third%20Orbital%20Expressway_QA-1.png","imageAlt":"Third Orbital Expressway"},{"title":"North Road Corridor Flyover Interchange","location":"Doha, Qatar","image":"https://resource.midasuser.com/hubfs/EN_MIDAS%20BRIDGE/04.%20Customers%20(%EC%82%AC%EC%97%85%ED%8C%80%EC%A0%91%EA%B7%BCX)/02.%20Content%20Images/Project%20Application/North%20Road%20Corridor%20Flyover%20Interchange/Civil_North%20Road%20Corridor%20Flyover%20Interchange_QA-2.jpg","imageAlt":"North Road Corridor Flyover Interchange"},{"title":"Lusail Marina Interchange","location":"Lusail, Qatar","image":"https://resource.midasuser.com/hubfs/EN_MIDAS%20BRIDGE/04.%20Customers%20(%EC%82%AC%EC%97%85%ED%8C%80%EC%A0%91%EA%B7%BCX)/02.%20Content%20Images/Project%20Application/78%20Lusail%20Marina%20Interchange/Civil_Lusail%20Marina%20Interchange_QA-2.png","imageAlt":"Lusail Marina Interchange"},{"title":"Bedew Bridge","location":"Ashgabat, Turkmenistan","image":"https://resource.midasuser.com/hubfs/EN_MIDAS%20BRIDGE/04.%20Customers%20(%EC%82%AC%EC%97%85%ED%8C%80%EC%A0%91%EA%B7%BCX)/02.%20Content%20Images/Project%20Application/26%20Bedew%20Bridge/Civil_Bedew%20Bridge_TM-5.png","imageAlt":"Bedew Bridge"},{"title":"Buttim Bridge","location":"Bursa, Turkey","image":"https://resource.midasuser.com/hubfs/EN_MIDAS%20BRIDGE/04.%20Customers%20(%EC%82%AC%EC%97%85%ED%8C%80%EC%A0%91%EA%B7%BCX)/02.%20Content%20Images/Project%20Application/29%20Buttim%20Bridge/Civil_Buttim%20Bridge_TR-4.png","imageAlt":"Buttim Bridge"},{"title":"Lee Roy Selmon Flyovers","location":"Florida, USA","image":"https://resource.midasuser.com/hubfs/EN_MIDAS%20BRIDGE/04.%20Customers%20(%EC%82%AC%EC%97%85%ED%8C%80%EC%A0%91%EA%B7%BCX)/02.%20Content%20Images/Project%20Application/Civil_Lee%20Roy%20Selmon%20Flyovers_US-14.jpg","imageAlt":"Lee Roy Selmon Flyovers"}],
       stageRef: (el) => this._initCtaStage(el),
       visRef: (el) => { if (el && this._capIO) this._capIO.observe(el); },
       barRef: (el) => { this._capBar = el; if (el) el.style.animationPlayState = this._capShouldPlay() ? 'running' : 'paused'; },
@@ -1015,8 +907,8 @@ class Component extends DCLogic {
       intentWrapRef: (el) => { this._intentWrap = el; },
       toggleIntentOpen: () => this.setState(s => ({ intentOpen: !s.intentOpen })),
       onIntentKeyDown: (e) => { if (e.key === 'Escape' && this.state.intentOpen) { this.setState({ intentOpen: false }); const b = document.getElementById('q-intent'); if (b) b.focus(); } },
-      intentSummary: ([{ value: 'quote', label: 'License quote' }, { value: 'demo', label: 'Demo enquiry' }, { value: 'trial', label: '14-day free trial' }].find(o => o.value === intent) || {}).label || '',
-      intentOptions: [{ value: 'quote', label: 'License quote' }, { value: 'demo', label: 'Demo enquiry' }, { value: 'trial', label: '14-day free trial' }].map((o, i) => ({
+      intentSummary: ([{ value: 'quote', label: 'License quote' }, { value: 'demo', label: 'Demo enquiry' }, { value: 'trial', label: this._td() + '-day free trial' }].find(o => o.value === intent) || {}).label || '',
+      intentOptions: [{ value: 'quote', label: 'License quote' }, { value: 'demo', label: 'Demo enquiry' }, { value: 'trial', label: this._td() + '-day free trial' }].map((o, i) => ({
         ...o,
         isItemFirst: i === 0, isItem: i > 0,
         checked: intent === o.value,
@@ -1025,7 +917,7 @@ class Component extends DCLogic {
       intentIsQuote: intent === 'quote',
       intentIsDemo: intent === 'demo',
       intentIsTrial: intent === 'trial',
-      submitLabel: intent === 'trial' ? 'Request a 14-Day Free Trial' : intent === 'demo' ? 'Request a Demo' : 'Request a License Quote',
+      submitLabel: intent === 'trial' ? 'Request a ' + this._td() + '-Day Free Trial' : intent === 'demo' ? 'Request a Demo' : 'Request a License Quote',
       selectQuoteIntent: () => this.setState({ intent: 'quote' }),
       selectDemoIntent: () => this.setState({ intent: 'demo' }),
       selectTrialIntent: () => this.setState({ intent: 'trial' }),
@@ -1065,20 +957,21 @@ class Component extends DCLogic {
         fields: { ...s.fields, product: name }, productsOpen: false, errors: { ...s.errors, product: false },
       }))),
       forceRevealCurtain: (e) => { const el = e.currentTarget; el.style.clipPath = ''; el.style.transition = ''; },
-      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
-      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
-      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
-      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
-      setLicenses: (e) => this.setState(s => ({ fields: { ...s.fields, licenses: e.target.value } })),
-      setNotes: (e) => this.setState(s => ({ fields: { ...s.fields, notes: e.target.value } })),
+      setName: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, name: v }, errors: { ...s.errors, name: false } })); },
+      setTitle: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, title: v }, errors: { ...s.errors, title: false } })); },
+      setEmail: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, email: v }, errors: { ...s.errors, email: false } })); },
+      setCompany: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, company: v }, errors: { ...s.errors, company: false } })); },
+      setPhone: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, phone: v }, errors: { ...s.errors, phone: false } })); },
+      setLicenses: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, licenses: v }, errors: { ...s.errors, licenses: false } })); },
+      setNotes: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, notes: v }, errors: { ...s.errors, notes: false } })); },
       handleSubmit: (e) => {
         e.preventDefault();
         const errs = this._validate(this.state.fields);
         if (Object.keys(errs).length) { this.setState({ errors: errs, noBackend: false }, () => this._focusFirstError(errs)); return; }
         const f = this.state.fields;
         console.info('[SWUT MIDAS] no backend configured; payload not sent:', {
-          requestType: this.state.intent === 'trial' ? '14-day free trial request' : this.state.intent === 'demo' ? 'Demo enquiry' : 'License quote',
-          name: f.name, email: f.email, company: f.company, phone: f.phone,
+          requestType: this.state.intent === 'trial' ? this._td() + '-day free trial request' : this.state.intent === 'demo' ? 'Demo enquiry' : 'License quote',
+          name: f.name, title: f.title, email: f.email, company: f.company, phone: f.phone,
           product: f.product, licenses: Number(f.licenses),
           notes: f.notes,
         });
@@ -1097,9 +990,9 @@ class Component extends DCLogic {
         { label: 'License types', value: 'Perpetual & Subscription', isText: true },
       ],
       capabilities: [
-        { number: '01', title: 'MIDAS GEN', body: 'Structural analysis and design for buildings and general structures.', src: 'https://images.pexels.com/photos/29673302/pexels-photo-29673302.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Steel and glass roof structure of a building seen from below' },
-        { number: '02', title: 'MIDAS CIVIL NX', body: 'Analysis and design for bridges and civil structures.', src: 'https://images.pexels.com/photos/35172406/pexels-photo-35172406.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Aerial view of a highway interchange' },
-        { number: '03', title: 'MIDAS GTS NX', body: 'Geotechnical analysis for ground engineering problems.', note: 'Each product is licensed separately. Tell us the discipline and we will confirm what fits.', src: 'https://images.pexels.com/photos/13098128/pexels-photo-13098128.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Excavator carrying out earthworks at a construction site' },
+        { number: '01', title: 'MIDAS GEN', body: 'Structural analysis and design for buildings and general structures.', src: 'assets/midas-gen.png', alt: 'Twisting high-rise tower overlaid with a blue structural analysis wireframe' },
+        { number: '02', title: 'MIDAS CIVIL NX', body: 'Analysis and design for bridges and civil structures.', src: 'assets/midas-civil-nx.webp', alt: 'Cable-stayed bridge over the sea overlaid with a colour stress analysis' },
+        { number: '03', title: 'MIDAS GTS NX', body: 'Geotechnical analysis for ground engineering problems.', note: 'Each product is licensed separately. Tell us the discipline and we will confirm what fits.', src: 'assets/midas-gts-nx.webp', contain: true, alt: 'Road tunnel portal with a colour geotechnical analysis overlay on the slope' },
       ].map((cap, i) => {
         const active = i === this.state.activeCap;
         const paused = active && (this.state.capHovered || this.state.capFocused);
@@ -1108,7 +1001,9 @@ class Component extends DCLogic {
           select: () => { this.setState({ activeCap: i }); },
           showProgress: active && !this.state.capReducedMotion,
           showStaticFill: active && this.state.capReducedMotion,
-          mediaClass: 'absolute inset-0 transition-all duration-500 ease-out ' + (active ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-2 pointer-events-none'),
+          imgClass: cap.contain ? 'absolute inset-0 size-full object-contain object-center' : 'absolute inset-0 size-full object-cover',
+          backdropClass: cap.contain ? 'absolute inset-0 size-full scale-110 object-cover blur-2xl opacity-60' : 'hidden',
+          mediaClass: 'absolute inset-0 overflow-hidden transition-all duration-500 ease-out ' + (active ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-2 pointer-events-none'),
           titleClass: 'text-2xl font-semibold tracking-tight transition-colors duration-200 sm:text-3xl ' + (active ? 'text-white' : 'text-white/40'),
           rowClass: 'flex w-full items-stretch gap-6 py-6 text-left',
           trackClass: 'relative shrink-0 transition-all duration-200 ' + (paused ? 'w-[5px] bg-white' : 'w-[2px] bg-white/15'),

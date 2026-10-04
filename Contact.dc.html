@@ -79,7 +79,7 @@
             </span>
             <div class="flex min-w-0 flex-col gap-1.5">
               <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Email</span>
-              <a href="mailto:hello@swut.co" class="text-lg text-foreground transition-colors hover:text-muted-foreground">hello@swut.co</a>
+              <a href="mailto:info@swutsolutions.com" class="text-lg text-foreground transition-colors hover:text-muted-foreground">info@swutsolutions.com</a>
             </div>
           </div>
           <div class="flex items-start gap-4 border-t border-border py-5">
@@ -88,8 +88,7 @@
             </span>
             <div class="flex min-w-0 flex-col gap-1.5">
               <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Phone</span>
-              <span class="text-lg text-muted-foreground">Awaiting confirmation</span>
-              <span class="text-sm leading-relaxed text-muted-foreground">The number used in earlier drafts was placeholder content. Send us the verified line and we'll publish it as a tap-to-call link.</span>
+              <a href="tel:+201211112737" class="text-lg text-foreground transition-colors hover:text-muted-foreground">+2 012 1111 27 37</a>
             </div>
           </div>
           <div class="flex items-start gap-4 border-t border-b border-border py-5">
@@ -110,37 +109,41 @@
           <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
             <div role="alert" class="flex flex-col gap-2 border border-border bg-muted px-5 py-4">
               <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
-              <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. Connect a form endpoint (or an inbox forwarder) and this button will send for real. Until then, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+              <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. Connect a form endpoint (or an inbox forwarder) and this button will send for real. Until then, email <a href="mailto:info@swutsolutions.com" class="underline">info@swutsolutions.com</a> directly.</span>
             </div>
           </sc-if>
 
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 sm:col-span-2">
               <label for="c-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
               <input id="c-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
               <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
             </div>
-            <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2">
               <label for="c-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
               <input id="c-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
               <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
             </div>
-          </div>
-
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div class="flex flex-col gap-2">
-              <label for="c-company" class="text-sm text-muted-foreground">Company</label>
-              <input id="c-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
+<div class="flex flex-col gap-2">
+              <label for="c-phone" class="text-sm text-muted-foreground">Phone number <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="c-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
+<sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span id="err-phone" class="text-sm text-red-600">Enter your phone number.</span></sc-if>
             </div>
-            <div class="flex flex-col gap-2">
-              <label for="c-phone" class="text-sm text-muted-foreground">Phone number</label>
-              <input id="c-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code">
-            </div>
+<div class="flex flex-col gap-2">
+            <label for="c-title" class="text-sm text-muted-foreground">Title <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <input id="c-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="e.g. Senior Structural Engineer" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
+            <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><span id="err-title" class="text-sm text-red-600">Enter your title.</span></sc-if>
           </div>
+<div class="flex flex-col gap-2">
+              <label for="c-company" class="text-sm text-muted-foreground">Company <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="c-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
+<sc-if value="{{ errors.company }}" hint-placeholder-val="{{ false }}"><span id="err-company" class="text-sm text-red-600">Enter your company name.</span></sc-if>
+            </div>
+</div>
 
           <div class="flex flex-col gap-6">
             <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProductsKeyDown }}">
-              <label id="c-product-label" class="text-sm text-muted-foreground">Product</label>
+              <label id="c-product-label" class="text-sm text-muted-foreground">Product <span aria-hidden="true" style="color:#C62828">*</span></label>
               <div class="relative">
                 <button type="button" id="c-product" aria-haspopup="listbox" aria-expanded="{{ productsOpen }}" aria-labelledby="c-product-label" onClick="{{ toggleProductsOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 py-3 text-left text-base text-foreground" aria-invalid="{{ errors.product }}" aria-describedby="err-product">
                   <span class="truncate">{{ productsSummary }}</span>
@@ -186,7 +189,7 @@
             <sc-if value="{{ ctxPair }}" hint-placeholder-val="{{ false }}">
               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2">
-                  <span id="c-intent-label" class="text-sm text-muted-foreground">Enquiry type</span>
+                  <span id="c-intent-label" class="text-sm text-muted-foreground">Enquiry type <span aria-hidden="true" style="color:#C62828">*</span></span>
                   <div class="relative" ref="{{ intentWrapRef }}" onKeyDown="{{ onIntentKeyDown }}">
                     <button type="button" id="c-intent" aria-haspopup="listbox" aria-expanded="{{ intentOpen }}" aria-labelledby="c-intent-label" onClick="{{ toggleIntentOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 py-3 text-left text-base text-foreground">
                       <span class="truncate">{{ intentSummary }}</span>
@@ -220,15 +223,15 @@
                   <sc-if value="{{ trialNote }}" hint-placeholder-val="{{ false }}"><span class="text-sm leading-relaxed text-muted-foreground">{{ trialNote }}</span></sc-if>
                 </div>
                 <div class="flex flex-col gap-2">
-                  <label for="c-ctx" class="text-sm text-muted-foreground">{{ ctxLabel }}</label>
-                  <input id="c-ctx" type="{{ ctxType }}" min="1" value="{{ ctxValue }}" onChange="{{ setCtx }}" class="h-[50px] border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxPlaceholder }}" aria-invalid="{{ errors.ctx }}" aria-describedby="err-ctx">
+                  <label for="c-ctx" class="text-sm text-muted-foreground">{{ ctxLabel }} <span aria-hidden="true" style="color:#C62828">*</span></label>
+                  <input id="c-ctx" required="" type="{{ ctxType }}" min="1" value="{{ ctxValue }}" onChange="{{ setCtx }}" class="h-[50px] border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxPlaceholder }}" aria-invalid="{{ errors.ctx }}" aria-describedby="err-ctx">
                   <sc-if value="{{ errors.ctx }}" hint-placeholder-val="{{ false }}"><span id="err-ctx" class="text-sm text-red-600">{{ ctxError }}</span></sc-if>
                 </div>
               </div>
             </sc-if>
             <sc-if value="{{ ctxSolo }}" hint-placeholder-val="{{ true }}">
               <div class="flex flex-col gap-2">
-                <span id="c-intent-label" class="text-sm text-muted-foreground">Enquiry type</span>
+                <span id="c-intent-label" class="text-sm text-muted-foreground">Enquiry type <span aria-hidden="true" style="color:#C62828">*</span></span>
                 <div class="relative" ref="{{ intentWrapRef }}" onKeyDown="{{ onIntentKeyDown }}">
                     <button type="button" id="c-intent" aria-haspopup="listbox" aria-expanded="{{ intentOpen }}" aria-labelledby="c-intent-label" onClick="{{ toggleIntentOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 py-3 text-left text-base text-foreground">
                       <span class="truncate">{{ intentSummary }}</span>
@@ -265,8 +268,9 @@
           </div>
 
           <div class="flex flex-col gap-2">
-            <label for="c-notes" class="text-sm text-muted-foreground">Message</label>
-            <textarea id="c-notes" rows="5" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="How can we help?"></textarea>
+            <label for="c-notes" class="text-sm text-muted-foreground">Message <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <textarea id="c-notes" required="" rows="5" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="How can we help?" aria-invalid="{{ errors.notes }}" aria-describedby="err-notes"></textarea>
+<sc-if value="{{ errors.notes }}" hint-placeholder-val="{{ false }}"><span id="err-notes" class="text-sm text-red-600">Add a short message so we can respond usefully.</span></sc-if>
           </div>
 
           <button type="submit" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90">
@@ -285,8 +289,9 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
+  _td() { const p = this.state && this.state.fields && this.state.fields.product; return p === 'ZWCAD' || p === 'ZW3D' ? '30' : '14'; }
   state = {
-    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'Not sure / Not applicable', licenses: '1', participants: '', version: '' },
+    fields: { name: '', email: '', title: '', company: '', phone: '', notes: '', product: 'Not sure / Not applicable', licenses: '1', participants: '', version: '' },
     intent: 'general',
     intentOpen: false,
     productsOpen: false, errors: {}, noBackend: false,
@@ -296,7 +301,7 @@ class Component extends DCLogic {
 
   get _PRODUCTS() {
     const api = window.SWUTProductOptions;
-    return api ? api.names(this._PRODUCT_OPTS) : ['General enquiry', 'IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer'];
+    return api ? api.names(this._PRODUCT_OPTS) : ['General enquiry', 'IDEA StatiCa Steel', 'IDEA StatiCa Concrete', 'IDEA StatiCa Complete Edition', 'ZWCAD', 'ZW3D', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'STAAD.Pro', 'PLAXIS 2D', 'SYNCHRO 4D', 'Other Bentley Products'];
   }
 
   _productRows(current, pick) {
@@ -334,26 +339,23 @@ class Component extends DCLogic {
   _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
 
   // ?product=ZWCAD or #/contact?product=ZWCAD preselects, still editable
-  _TRIAL_14 = ['IDEA StatiCa', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX'];
-  _TRIALS = { 'IDEA StatiCa': '14-day', 'ZWCAD': '14-day', 'MIDAS GEN': '14-day', 'MIDAS CIVIL NX': '14-day', 'MIDAS GTS NX': '14-day' };
+  _TRIAL_14 = ['IDEA StatiCa Steel', 'IDEA StatiCa Concrete', 'IDEA StatiCa Complete Edition', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX'];
+  _TRIALS = { 'IDEA StatiCa Steel': '14-day', 'IDEA StatiCa Concrete': '14-day', 'IDEA StatiCa Complete Edition': '14-day', 'ZWCAD': '30-day', 'ZW3D': '30-day', 'MIDAS GEN': '14-day', 'MIDAS CIVIL NX': '14-day', 'MIDAS GTS NX': '14-day' };
   _NO_PRODUCT = 'Not sure / Not applicable';
+  _label(key) { const k = this._INTENTS[key] ? key : 'general'; return k === 'trial' ? this._td() + '-day free trial' : this._INTENTS[k].label; }
   _INTENTS = {
     general: { label: 'General enquiry' },
     quote: { label: 'License quote', needsProduct: true, ctx: { key: 'licenses', label: 'Number of licenses', type: 'number', ph: '1', error: 'Enter at least 1 license.' } },
     trial: { label: '14-day free trial', needsTrialProduct: true },
-    training: { label: 'Training', service: true, ctx: { key: 'participants', label: 'Number of participants', type: 'number', ph: 'e.g. 6', error: 'Enter at least 1 participant.' } },
-    support: { label: 'Technical Support', service: true, ctx: { key: 'version', label: 'Current software version — optional', type: 'text', ph: 'e.g. 2025.1' } },
-    workshops: { label: 'Technical Workshops', service: true, ctx: { key: 'participants', label: 'Number of participants', type: 'number', ph: 'e.g. 6', error: 'Enter at least 1 participant.' } },
-    maintenance: { label: 'Software Maintenance', service: true, ctx: { key: 'version', label: 'Current software version — optional', type: 'text', ph: 'e.g. 2025.1' } },
-    bim: { label: 'BIM Consultancy', service: true },
-    demo: { label: 'Request a Demo', service: true },
+    licenses: { label: 'Software Licenses', service: true, needsProduct: true, ctx: { key: 'licenses', label: 'Number of licenses', type: 'number', ph: '1', error: 'Enter at least 1 license.' } },
+    training: { label: 'Training & Technical Workshops', service: true, ctx: { key: 'participants', label: 'Number of participants', type: 'number', ph: 'e.g. 6', error: 'Enter at least 1 participant.' } },
   };
   _INTENT_GROUPS = [
     { group: 'General', items: ['general'] },
     { group: 'Product enquiries', items: ['quote', 'trial'] },
-    { group: 'Services', items: ['training', 'support', 'workshops', 'maintenance', 'bim', 'demo'] },
+    { group: 'Services', items: ['licenses', 'training'] },
   ];
-  _SERVICE_KEYS = { 'training': 'training', 'technical support': 'support', 'technical workshops': 'workshops', 'software maintenance': 'maintenance', 'bim consultancy': 'bim', 'request a demo': 'demo', 'demo': 'demo' };
+  _SERVICE_KEYS = { 'software licenses': 'licenses', 'licenses': 'licenses', 'training': 'training', 'technical workshops': 'training', 'workshops': 'training', 'training & technical workshops': 'training' };
 
   // ?intent=trial arrives from the homepage 14-day trial CTA.
   _applyIntentContext() {
@@ -468,21 +470,25 @@ class Component extends DCLogic {
     const errors = {};
     if (!f.name.trim()) errors.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.title.trim()) errors.title = true;
+    if (!f.company.trim()) errors.company = true;
+    if (!f.phone.trim()) errors.phone = true;
+    if (!f.product) errors.product = true;
+    if (!f.notes.trim()) errors.notes = true;
     // A product is only required where the enquiry is about specific software.
     const hasProduct = f.product && f.product !== this._NO_PRODUCT;
     if (cfg.needsProduct && !hasProduct) errors.product = true;
     if (cfg.needsTrialProduct && !this._TRIALS[f.product]) errors.product = true;
     // Only the field actually shown can fail validation.
-    if (cfg.ctx && cfg.ctx.type === 'number') {
-      const v = f[cfg.ctx.key];
-      const required = cfg.ctx.key === 'licenses';
-      if (required ? (!v || Number(v) < 1) : (v !== '' && Number(v) < 1)) errors.ctx = true;
+    if (cfg.ctx) {
+      const v = String(f[cfg.ctx.key] || '').trim();
+      if (cfg.ctx.type === 'number' ? (!v || Number(v) < 1) : !v) errors.ctx = true;
     }
     return errors;
   }
 
   _focusFirstError(errors) {
-    const order = [['name', 'c-name'], ['email', 'c-email'], ['product', 'c-product'], ['ctx', 'c-ctx']];
+    const order = [['name', 'c-name'], ['email', 'c-email'], ['phone', 'c-phone'], ['title', 'c-title'], ['company', 'c-company'], ['product', 'c-product'], ['ctx', 'c-ctx'], ['notes', 'c-notes']];
     const hit = order.find(([k]) => errors[k]);
     if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
   }
@@ -500,7 +506,7 @@ class Component extends DCLogic {
       midasNeedsChoice: !!this.state.midasNeedsChoice,
       intent,
       intentOpen: this.state.intentOpen,
-      intentSummary: cfg.label,
+      intentSummary: this._label(intent),
       intentWrapRef: (el) => { this._intentWrap = el; },
       toggleIntentOpen: () => this.setState(s => ({ intentOpen: !s.intentOpen })),
       onIntentKeyDown: (e) => { if (e.key === 'Escape' && this.state.intentOpen) { this.setState({ intentOpen: false }); const b = document.getElementById('c-intent'); if (b) b.focus(); } },
@@ -509,7 +515,7 @@ class Component extends DCLogic {
         this._INTENT_GROUPS.forEach((g, gi) => {
           rows.push({ name: g.group, isGroupFirst: gi === 0, isGroup: gi > 0, isItemFirst: false, isItem: false, checked: false, select: () => {} });
           g.items.forEach((key, ii) => rows.push({
-            name: this._INTENTS[key].label,
+            name: this._label(key),
             isGroupFirst: false, isGroup: false, isItemFirst: ii === 0, isItem: ii > 0,
             checked: intent === key,
             select: () => this.setState({ intent: key, intentOpen: false, errors: {} }),
@@ -527,8 +533,8 @@ class Component extends DCLogic {
       setCtx: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, [ctx ? ctx.key : 'licenses']: v }, errors: { ...s.errors, ctx: false } })); },
       trialNote: intent !== 'trial' ? '' : trialFor
         ? trialFor + ' free trial for ' + fields.product + ' — a request, not an activation.'
-        : '14-day free trials are available for IDEA StatiCa, ZWCAD, and the MIDAS products. Pick one above.',
-      productError: cfg.needsTrialProduct ? 'Choose a product with a trial — IDEA StatiCa, ZWCAD, or a MIDAS product.' : 'Select the product this enquiry is about.',
+        : 'Free trials are available for the ZWSOFT products (30-day), IDEA StatiCa and the MIDAS products (14-day). Pick one above.',
+      productError: cfg.needsTrialProduct ? 'Choose a product with a trial — IDEA StatiCa, a ZWSOFT product, or a MIDAS product.' : 'Select the product this enquiry is about.',
       productOptions: this._productRows(fields.product, (name) => this.setState(s => ({
         fields: { ...s.fields, product: name },
         productsOpen: false, productOpen: false, open: null,
@@ -540,11 +546,12 @@ class Component extends DCLogic {
       forceReveal: () => {
         document.querySelectorAll('[data-curtain-cols]').forEach(el => this._finishCols(el));
       },
-      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
-      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
-      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
-      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
-      setNotes: (e) => this.setState(s => ({ fields: { ...s.fields, notes: e.target.value } })),
+      setName: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, name: v }, errors: { ...s.errors, name: false } })); },
+      setTitle: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, title: v }, errors: { ...s.errors, title: false } })); },
+      setEmail: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, email: v }, errors: { ...s.errors, email: false } })); },
+      setCompany: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, company: v }, errors: { ...s.errors, company: false } })); },
+      setPhone: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, phone: v }, errors: { ...s.errors, phone: false } })); },
+      setNotes: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, notes: v }, errors: { ...s.errors, notes: false } })); },
       handleSubmit: (e) => {
         e.preventDefault();
         const errs = this._validate(this.state.fields);
@@ -557,8 +564,8 @@ class Component extends DCLogic {
         const f = this.state.fields;
         const cfg = this._INTENTS[this.state.intent] || this._INTENTS.general;
         const payload = {
-          name: f.name, email: f.email, company: f.company, phone: f.phone,
-          enquiryType: cfg.label,
+          name: f.name, title: f.title, email: f.email, company: f.company, phone: f.phone,
+          enquiryType: this._label(this.state.intent),
           service: cfg.service ? cfg.label : null,
           product: !f.product || f.product === this._NO_PRODUCT ? null : f.product,
           notes: f.notes,

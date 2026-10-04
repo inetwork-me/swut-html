@@ -77,7 +77,7 @@
       <div class="flex flex-col items-start gap-5">
         <span data-reveal="fade" class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Software</span>
         <h1 data-reveal="mask" class="overflow-hidden text-balance text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-          <span class="inline-block">ZWCAD</span>
+          <span class="inline-block">ZWSOFT</span>
         </h1>
       </div>
     </div>
@@ -121,7 +121,7 @@
   <section id="overview" data-curtain-cols data-nav-theme="dark" data-screen-label="Overview" class="bg-black px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-[11fr_9fr] lg:items-stretch lg:gap-16">
       <div data-reveal="curtain-left" ref="{{ visRef }}" class="relative order-1 h-full min-h-[280px] w-full overflow-hidden bg-white p-8 sm:min-h-[340px] sm:p-10">
-        <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="3">
+        <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="2">
           <div class="{{ cap.mediaClass }}">
             <img src="{{ cap.src }}" alt="{{ cap.alt }}" loading="lazy" class="absolute inset-0 size-full object-cover">
           </div>
@@ -136,7 +136,7 @@
         </h2>
 
         <div class="mt-2 flex w-full flex-col" data-reveal="stagger" onMouseEnter="{{ onCapMouseEnter }}" onMouseLeave="{{ onCapMouseLeave }}" onFocus="{{ onCapFocus }}" onBlur="{{ onCapBlur }}">
-          <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="3">
+          <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="2">
             <button onClick="{{ cap.select }}" class="{{ cap.rowClass }}">
               <span class="{{ cap.trackClass }}">
                 <sc-if value="{{ cap.showProgress }}" hint-placeholder-val="{{ false }}">
@@ -170,143 +170,59 @@
     </div>
   </section>
 
-  <!-- ===== THREE ILLUSTRATED FEATURE CARDS ===== -->
-  <section data-nav-theme="light" data-screen-label="Everyday drafting" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+  <!-- ===== CLIENTS ===== -->
+  <section id="clients" data-nav-theme="light" data-screen-label="Trusted by industry leaders" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
     <div class="flex flex-col items-start gap-5">
-      <span data-reveal="fade" class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Drafting tools</span>
-      <h2 class="text-balance text-4xl font-semibold leading-[1.18] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Tools for everyday</span></span>
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">drafting.</span></span>
+      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">SWUT Clients</span>
+      <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        <span class="inline-block">Existing Clients</span>
       </h2>
     </div>
 
-    <div data-info-rules class="relative mt-16 lg:mt-20">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10">
-      <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] top-0 block h-px bg-border"></span>
-      <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] bottom-0 block h-px bg-border"></span>
-      <span data-grid-line="v" class="absolute left-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
-      <span data-grid-line="v" class="absolute right-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
-      <span data-grid-line="v" class="absolute left-1/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
-      <span data-grid-line="v" class="absolute left-2/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
-    </div>
-    <div class="grid grid-cols-1" style="grid-template-columns:repeat(1,minmax(0,1fr))" data-info-grid>
-
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">01</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="0" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0">
-            <img src="https://images.pexels.com/photos/6285121/pexels-photo-6285121.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Two engineers working over a printed technical drawing" loading="lazy" class="absolute inset-0 size-full object-cover">
-          </div>
+    <div data-info-rules class="relative mt-14">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10 hidden lg:block">
+        <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] top-0 block h-px bg-border"></span>
+        <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] block h-px bg-border" style="top:50%"></span>
+        <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] bottom-0 block h-px bg-border"></span>
+        <span data-grid-line="v" class="absolute left-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
+        <span data-grid-line="v" class="absolute right-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
+        <span data-grid-line="v" class="absolute top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border" style="left:20%"></span>
+        <span data-grid-line="v" class="absolute top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border" style="left:40%"></span>
+        <span data-grid-line="v" class="absolute top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border" style="left:60%"></span>
+        <span data-grid-line="v" class="absolute top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border" style="left:80%"></span>
+      </div>
+      <div class="grid grid-cols-2 border-l border-t border-r border-border sm:grid-cols-3 sm:border-r-0 lg:grid-cols-5 lg:border-0">
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-gieco.png" alt="GIECO" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
         </div>
-        <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Import PDF drawings.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Bring PDF content into your CAD workflow, importing pages as drawing objects you can work with.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Feature detail: zwsoft.com</span>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-enppi.png" alt="Enppi" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-hassan-allam.png" alt="Hassan Allam Holding" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-orascom.png" alt="Orascom Construction" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-petrojet.png" alt="Petrojet" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-thyssenkrupp.png" alt="thyssenkrupp" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-zamil-steel.png" alt="Zamil Steel" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-elsewedy-electric.png" alt="Elsewedy Electric" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-alexform.png" alt="Alexform" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
+        </div>
+        <div class="flex min-h-[150px] w-full min-w-0 items-center justify-center border-b border-r border-border px-6 py-10 sm:min-h-[170px] lg:border-0 lg:px-8">
+          <img src="assets/client-aic-steel.png" alt="AIC Steel" loading="lazy" class="block h-auto max-h-[56px] w-full max-w-[170px] object-contain">
         </div>
       </div>
-
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">02</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="120" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0">
-            <img src="https://images.pexels.com/photos/29299826/pexels-photo-29299826.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Architects comparing construction drawings on site" loading="lazy" class="absolute inset-0 size-full object-cover">
-          </div>
-        </div>
-        <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Compare revisions.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Identify the differences between two drawings so changes between revisions are easy to review.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Feature detail: zwsoft.com</span>
-        </div>
-      </div>
-
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">03</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="240" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0">
-            <img src="https://images.pexels.com/photos/17398146/pexels-photo-17398146.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Tower crane above a building under construction" loading="lazy" class="absolute inset-0 size-full object-cover">
-          </div>
-        </div>
-        <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Organize drawing sets.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">View, access, manage, and plot multiple drawings from a single panel with Sheet Set Manager.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Feature detail: zwsoft.com</span>
-        </div>
-      </div>
-
-    </div>
-    </div>
-  </section>
-
-  <!-- ===== MOBILE COLLABORATION ===== -->
-  <section id="mobile" data-nav-theme="light" data-screen-label="Mobile collaboration" class="px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
-    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
-      <div class="col-span-12 lg:col-span-3">
-        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">ZWCAD Mobile</span>
-      </div>
-
-      <div class="col-span-12 lg:col-span-9">
-        <h2 data-reveal="fade" class="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-          Keep your drawings within reach, with mobile tools for reviewing plans and communicating changes.
-        </h2>
-
-        <div class="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-3">
-          <sc-for list="{{ mobileFeatures }}" as="feat" hint-placeholder-count="3">
-            <div data-reveal="fade" class="flex flex-col gap-5 border-l border-border px-6 py-2">
-              <span class="flex w-fit items-center justify-center bg-muted p-2 text-foreground">
-                <i data-lucide="{{ feat.icon }}" class="size-5"></i>
-              </span>
-              <h3 class="text-lg font-semibold tracking-tight text-foreground">{{ feat.title }}</h3>
-              <p class="text-sm leading-relaxed text-muted-foreground">{{ feat.body }}</p>
-            </div>
-          </sc-for>
-        </div>
-
-        <div class="mt-20 flex flex-col items-start gap-6 px-6">
-          <a href="#quote" onClick="{{ askAboutMobile }}" class="group inline-flex items-center gap-2 rounded-none border border-foreground px-6 py-3.5 text-sm font-semibold text-foreground transition hover:bg-foreground hover:text-background">
-            Ask about mobile access
-            <i data-lucide="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
-          </a>
-          <p class="max-w-xl text-sm leading-relaxed text-muted-foreground">ZWCAD Mobile is licensed separately from ZWCAD desktop, and its paid features are not included with a desktop license.</p>
-          <a href="https://www.zwsoft.com/product/zwcad/mobile" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground">
-            ZWCAD Mobile on zwsoft.com
-            <i data-lucide="arrow-up-right" class="size-4"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CUSTOMER STORIES ===== -->
-  <section id="stories" data-nav-theme="light" data-screen-label="Customer stories" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
-    <div class="flex flex-col items-start gap-5">
-      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Customer stories from ZWSOFT</span>
-      <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-4xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-        <span class="inline-block">ZWCAD in practice.</span>
-      </h2>
-      <p class="max-w-xl text-base leading-relaxed text-muted-foreground">Organizations published by ZWSOFT as ZWCAD customers. They are not SWUT Solutions clients.</p>
-    </div>
-
-    <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-      <sc-for list="{{ stories }}" as="story" hint-placeholder-count="3">
-        <a href="{{ story.href }}" target="_blank" rel="noopener noreferrer" class="group flex flex-col border border-border focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
-          <div data-curtain-container class="relative aspect-[16/10] w-full overflow-hidden" style="background-color:#F2F2F2">
-            <div data-reveal="curtain" class="absolute inset-0">
-              <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105">
-                <img src="{{ story.image }}" alt="{{ story.alt }}" loading="lazy" class="absolute inset-0 size-full object-cover">
-              </div>
-            </div>
-          </div>
-          <div data-reveal="stagger" class="flex flex-1 flex-col items-start gap-3 p-8">
-            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ story.meta }}</span>
-            <span class="text-balance text-xl font-semibold leading-tight tracking-tight text-foreground">{{ story.company }}</span>
-            <span class="text-sm leading-relaxed text-muted-foreground">{{ story.summary }}</span>
-            <span class="mt-auto inline-flex items-center gap-2 pt-4 text-sm font-semibold text-foreground">
-              Read the story
-              <i data-lucide="arrow-up-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1"></i>
-            </span>
-          </div>
-        </a>
-      </sc-for>
     </div>
   </section>
 
@@ -366,7 +282,7 @@
 
     <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10" style="background:radial-gradient(60% 70% at 50% 50%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.25) 75%, rgba(0,0,0,0) 100%)"></div>
 
-    <dc-import style="width:100%" name="ProductTrialCTA" product="ZWCAD" on-trial="{{ startTrial }}" on-quote="{{ startQuote }}" hint-size="100%,420px"></dc-import>
+    <dc-import style="width:100%" name="ProductTrialCTA" product="ZWCAD" trial-days="30" on-trial="{{ startTrial }}" on-quote="{{ startQuote }}" hint-size="100%,420px"></dc-import>
   </section>
 
   <!-- ===== NEWS & EVENTS ===== -->
@@ -422,8 +338,8 @@
     <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
       <div data-reveal="curtain-left" class="flex flex-col items-start gap-5 lg:col-span-5">
         <span class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">License Enquiry</span>
-        <h2 class="max-w-lg text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">Try ZWCAD<br>or request a quote.</h2>
-        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us what you need. Contact SWUT Solutions for a license quote or a 14-day free trial for your team.</p>
+        <h2 class="max-w-lg text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">Explore ZWSOFT products<br>or request a quote.</h2>
+        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Tell us what you need. Contact SWUT Solutions for a license quote or a 30-day free trial for your team.</p>
         <p class="max-w-md border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">ZWCAD is offered with perpetual licensing, though available license types vary by region. We confirm editions, pricing, and terms before any order.</p>
       </div>
 
@@ -432,33 +348,37 @@
             <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
               <div role="alert" class="flex flex-col gap-2 border border-border bg-muted px-5 py-4">
                 <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
-                <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. A trial request is an enquiry to SWUT, not an automatically activated vendor license. Until a form endpoint is connected, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+                <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. A trial request is an enquiry to SWUT, not an automatically activated vendor license. Until a form endpoint is connected, email <a href="mailto:info@swutsolutions.com" class="underline">info@swutsolutions.com</a> directly.</span>
               </div>
             </sc-if>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 sm:col-span-2">
                 <label for="q-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
                 <input id="q-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
                 <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
               </div>
-              <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2">
                 <label for="q-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
                 <input id="q-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
                 <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
               </div>
-            </div>
-
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div class="flex flex-col gap-2">
-                <label for="q-company" class="text-sm text-muted-foreground">Company</label>
-                <input id="q-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
+<div class="flex flex-col gap-2">
+                <label for="q-phone" class="text-sm text-muted-foreground">Phone number <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <input id="q-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="+20 10 0000 0000" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
+<sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span id="err-phone" class="text-sm text-red-600">Enter your phone number.</span></sc-if>
               </div>
-              <div class="flex flex-col gap-2">
-                <label for="q-phone" class="text-sm text-muted-foreground">Phone number</label>
-                <input id="q-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="+971 4 000 0000">
-              </div>
+<div class="flex flex-col gap-2">
+              <label for="q-title" class="text-sm text-muted-foreground">Title <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="q-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="e.g. Senior Structural Engineer" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
+              <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><span id="err-title" class="text-sm text-red-600">Enter your title.</span></sc-if>
             </div>
+<div class="flex flex-col gap-2">
+                <label for="q-company" class="text-sm text-muted-foreground">Company <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <input id="q-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
+<sc-if value="{{ errors.company }}" hint-placeholder-val="{{ false }}"><span id="err-company" class="text-sm text-red-600">Enter your company name.</span></sc-if>
+              </div>
+</div>
 
             <div class="flex flex-col gap-6">
               <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProductsKeyDown }}">
@@ -506,7 +426,7 @@
               </div>
               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2">
-                  <span id="q-intent-label" class="text-sm text-muted-foreground">Enquiry type</span>
+                  <span id="q-intent-label" class="text-sm text-muted-foreground">Enquiry type <span aria-hidden="true" style="color:#C62828">*</span></span>
                   <div class="relative" ref="{{ intentWrapRef }}" onKeyDown="{{ onIntentKeyDown }}">
                     <button type="button" id="q-intent" aria-haspopup="listbox" aria-expanded="{{ intentOpen }}" aria-labelledby="q-intent-label" onClick="{{ toggleIntentOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 py-3 text-left text-base text-foreground">
                       <span class="truncate">{{ intentSummary }}</span>
@@ -533,7 +453,7 @@
                   </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                  <label for="q-licenses" class="text-sm text-muted-foreground">Number of licenses</label>
+                  <label for="q-licenses" class="text-sm text-muted-foreground">Number of licenses <span aria-hidden="true" style="color:#C62828">*</span></label>
                   <input id="q-licenses" type="number" min="1" value="{{ fields.licenses }}" onChange="{{ setLicenses }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" aria-invalid="{{ errors.licenses }}" aria-describedby="err-licenses">
                   <sc-if value="{{ errors.licenses }}" hint-placeholder-val="{{ false }}"><span id="err-licenses" class="text-sm text-red-600">Enter at least 1 license.</span></sc-if>
                 </div>
@@ -541,17 +461,10 @@
             </div>
 
             <div class="flex flex-col gap-2">
-              <label for="q-notes" class="text-sm text-muted-foreground">Message — optional</label>
-              <textarea id="q-notes" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Seats, current CAD tools, timeline…"></textarea>
+              <label for="q-notes" class="text-sm text-muted-foreground">Message <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <textarea id="q-notes" required="" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Seats, current CAD tools, timeline…" aria-invalid="{{ errors.notes }}" aria-describedby="err-notes"></textarea>
+<sc-if value="{{ errors.notes }}" hint-placeholder-val="{{ false }}"><span id="err-notes" class="text-sm text-red-600">Add a short message so we can respond usefully.</span></sc-if>
             </div>
-
-            <label ref="{{ mobileOptRef }}" class="flex w-fit cursor-pointer items-start gap-3 text-sm text-foreground">
-              <input type="checkbox" checked="{{ fields.mobile }}" onChange="{{ setMobile }}" class="mt-0.5 size-4 border-border accent-foreground">
-              <span class="flex flex-col gap-1">
-                <span class="font-semibold">Also ask about ZWCAD Mobile access</span>
-                <span class="text-sm leading-relaxed text-muted-foreground">We'll include what the companion app covers and how it is licensed.</span>
-              </span>
-            </label>
 
             <button type="submit" disabled="{{ isSubmitting }}" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:opacity-60">
               {{ submitLabel }}
@@ -570,20 +483,21 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
+  _td() { const p = this.state && this.state.fields && this.state.fields.product; return p === 'ZWCAD' || p === 'ZW3D' ? '30' : '14'; }
   state = {
     noBackend: false, intent: 'quote',
-    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'ZWCAD', licenses: '1', mobile: false },
+    fields: { name: '', email: '', title: '', company: '', phone: '', notes: '', product: 'ZWCAD', licenses: '1' },
     productsOpen: false, intentOpen: false,
     errors: {},
     activeCap: 0,
     capPlaying: true, capSectionVisible: false, capHovered: false, capFocused: false, capReducedMotion: false,
   };
 
-  _PRODUCT_OPTS = {};
+  _PRODUCT_OPTS = { only: 'ZWSOFT' };
 
   get _PRODUCTS() {
     const api = window.SWUTProductOptions;
-    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer'];
+    return api ? api.names(this._PRODUCT_OPTS) : ['ZWCAD', 'ZW3D'];
   }
 
   _productRows(current, pick) {
@@ -912,13 +826,13 @@ class Component extends DCLogic {
 
   // Sets intent/product only — never touches the visitor's typed message.
   _goToForm(patch) {
-    this.setState(s => ({ ...patch, fields: { ...s.fields, product: 'ZWCAD', ...(patch.fields || {}) } }));
+    this.setState(s => ({ ...patch, fields: { ...s.fields, product: ['ZWCAD', 'ZW3D'].includes(s.fields.product) ? s.fields.product : 'ZWCAD', ...(patch.fields || {}) } }));
     if (typeof this._closeOverlay === 'function') this._closeOverlay();
     this._scrollToQuote();
   }
 
   _focusFirstError(errors) {
-    const order = [['name', 'q-name'], ['email', 'q-email'], ['product', 'q-product'], ['licenses', 'q-licenses']];
+    const order = [['name', 'q-name'], ['email', 'q-email'], ['phone', 'q-phone'], ['title', 'q-title'], ['company', 'q-company'], ['product', 'q-product'], ['licenses', 'q-licenses'], ['notes', 'q-notes']];
     const hit = order.find(([k]) => errors[k]);
     if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
   }
@@ -927,6 +841,10 @@ class Component extends DCLogic {
     const errors = {};
     if (!f.name.trim()) errors.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.title.trim()) errors.title = true;
+    if (!f.company.trim()) errors.company = true;
+    if (!f.phone.trim()) errors.phone = true;
+    if (!f.notes.trim()) errors.notes = true;
     if (!f.product) errors.product = true;
     if (!f.licenses || Number(f.licenses) < 1) errors.licenses = true;
     return errors;
@@ -966,7 +884,7 @@ class Component extends DCLogic {
       stageRef: (el) => this._initCtaStage(el),
       visRef: (el) => { if (el && this._capIO) this._capIO.observe(el); },
       barRef: (el) => { this._capBar = el; if (el) el.style.animationPlayState = this._capShouldPlay() ? 'running' : 'paused'; },
-      advanceCap: () => { if (!this.state.capReducedMotion) this.setState(s => ({ activeCap: (s.activeCap + 1) % 3 })); },
+      advanceCap: () => { if (!this.state.capReducedMotion) this.setState(s => ({ activeCap: (s.activeCap + 1) % 2 })); },
       onCapMouseEnter: () => this.setState({ capHovered: true }, () => this._syncCapBar()),
       onCapMouseLeave: () => this.setState({ capHovered: false }, () => this._syncCapBar()),
       onCapFocus: () => this.setState({ capFocused: true }, () => this._syncCapBar()),
@@ -982,8 +900,8 @@ class Component extends DCLogic {
       intentWrapRef: (el) => { this._intentWrap = el; },
       toggleIntentOpen: () => this.setState(s => ({ intentOpen: !s.intentOpen })),
       onIntentKeyDown: (e) => { if (e.key === 'Escape' && this.state.intentOpen) { this.setState({ intentOpen: false }); const b = document.getElementById('q-intent'); if (b) b.focus(); } },
-      intentSummary: ([{ value: 'quote', label: 'License quote' }, { value: 'trial', label: '14-day free trial' }].find(o => o.value === intent) || {}).label || '',
-      intentOptions: [{ value: 'quote', label: 'License quote' }, { value: 'trial', label: '14-day free trial' }].map((o, i) => ({
+      intentSummary: ([{ value: 'quote', label: 'License quote' }, { value: 'trial', label: this._td() + '-day free trial' }].find(o => o.value === intent) || {}).label || '',
+      intentOptions: [{ value: 'quote', label: 'License quote' }, { value: 'trial', label: this._td() + '-day free trial' }].map((o, i) => ({
         ...o,
         isItemFirst: i === 0, isItem: i > 0,
         checked: intent === o.value,
@@ -991,18 +909,11 @@ class Component extends DCLogic {
       })),
       intentIsQuote: intent === 'quote',
       intentIsTrial: intent === 'trial',
-      submitLabel: intent === 'trial' ? 'Request a 14-Day Free Trial' : 'Request a License Quote',
+      submitLabel: intent === 'trial' ? 'Request a ' + this._td() + '-Day Free Trial' : 'Request a License Quote',
       selectQuoteIntent: () => this.setState({ intent: 'quote' }),
       selectTrialIntent: () => this.setState({ intent: 'trial' }),
       startTrial: (e) => { e.preventDefault(); this._goToForm({ intent: 'trial' }); },
       startQuote: (e) => { e.preventDefault(); this._goToForm({ intent: 'quote' }); },
-      askAboutMobile: (e) => {
-        e.preventDefault();
-        this._goToForm({ fields: { mobile: true } });
-        setTimeout(() => { if (this._mobileOpt) this._mobileOpt.focus && this._mobileOpt.focus(); }, 700);
-      },
-      mobileOptRef: (el) => { this._mobileOpt = el; },
-      setMobile: (e) => this.setState(s => ({ fields: { ...s.fields, mobile: e.target.checked } })),
       prodWrapRef: (el) => { this._prodWrap = el; },
       toggleProductsOpen: () => this.setState(s => ({ productsOpen: !s.productsOpen })),
       onProductsKeyDown: (e) => { if (e.key === 'Escape') this.setState({ productsOpen: false }); },
@@ -1013,21 +924,22 @@ class Component extends DCLogic {
         errors: { ...s.errors, product: false },
       }))),
       forceRevealCurtain: (e) => { const el = e.currentTarget; el.style.clipPath = ''; el.style.transition = ''; },
-      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
-      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
-      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
-      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
-      setLicenses: (e) => this.setState(s => ({ fields: { ...s.fields, licenses: e.target.value } })),
-      setNotes: (e) => this.setState(s => ({ fields: { ...s.fields, notes: e.target.value } })),
+      setName: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, name: v }, errors: { ...s.errors, name: false } })); },
+      setTitle: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, title: v }, errors: { ...s.errors, title: false } })); },
+      setEmail: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, email: v }, errors: { ...s.errors, email: false } })); },
+      setCompany: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, company: v }, errors: { ...s.errors, company: false } })); },
+      setPhone: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, phone: v }, errors: { ...s.errors, phone: false } })); },
+      setLicenses: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, licenses: v }, errors: { ...s.errors, licenses: false } })); },
+      setNotes: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, notes: v }, errors: { ...s.errors, notes: false } })); },
       handleSubmit: (e) => {
         e.preventDefault();
         const errs = this._validate(this.state.fields);
         if (Object.keys(errs).length) { this.setState({ errors: errs, noBackend: false }, () => this._focusFirstError(errs)); return; }
         const f = this.state.fields;
         console.info('[SWUT ZWCAD] no backend configured; payload not sent:', {
-          requestType: this.state.intent === 'trial' ? '14-day free trial' : 'License quote',
-          name: f.name, email: f.email, company: f.company, phone: f.phone,
-          product: f.product, licenses: Number(f.licenses), mobileInterest: f.mobile, notes: f.notes,
+          requestType: this.state.intent === 'trial' ? this._td() + '-day free trial' : 'License quote',
+          name: f.name, title: f.title, email: f.email, company: f.company, phone: f.phone,
+          product: f.product, licenses: Number(f.licenses), notes: f.notes,
         });
         this.setState({ errors: {}, noBackend: true });
       },
@@ -1045,9 +957,8 @@ class Component extends DCLogic {
         { label: 'License types', value: 'Perpetual & Subscription', isText: true },
       ],
       capabilities: [
-        { number: '01', title: 'DWG compatibility', body: 'Work with DWG, DXF, and DWT files, so drawings move between your team and your collaborators without conversion steps.', src: 'https://images.pexels.com/photos/10339602/pexels-photo-10339602.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Crisscross steel and glass facade of a high-rise building' },
-        { number: '02', title: 'Familiar workspace', body: 'Use the Classic or Ribbon interface, switch between light and dark modes, and adapt the workspace to how your team already works.', src: 'https://images.pexels.com/photos/29673302/pexels-photo-29673302.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Steel and glass roof structure seen from below' },
-        { number: '03', title: 'Flexible workflows', body: 'Extend workflows with supported APIs and migrate printers, templates, fonts, command aliases, and hatch patterns from your current CAD.', note: 'Supported APIs include LISP, VBA, ZRX, and .NET. Availability depends on the ZWCAD edition and version.', src: 'https://images.pexels.com/photos/3137051/pexels-photo-3137051.jpeg?auto=compress&cs=tinysrgb&w=1400', alt: 'Close-up of a steel frame and glass panel assembly' },
+        { number: '01', title: 'ZWCAD', body: 'Professional 2D CAD software that’s fast, compatible, and affordable — trusted by millions worldwide.', src: 'https://zwcdn.zwsoft.com/web/index/en/images/da5.jpg', alt: 'ZWCAD shown on a laptop — official ZWSOFT product image' },
+        { number: '02', title: 'ZW3D', body: 'Professional 2D CAD software that’s fast, compatible, and affordable — trusted by millions worldwide.', src: 'https://zwcdn.zwsoft.com/web/index/en/images/da6.jpg', alt: 'ZW3D shown on a laptop — official ZWSOFT product image' },
       ].map((cap, i) => {
         const active = i === this.state.activeCap;
         const paused = active && (this.state.capHovered || this.state.capFocused);

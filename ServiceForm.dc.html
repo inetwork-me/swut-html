@@ -7,7 +7,7 @@
 </head>
 <body>
 <x-dc>
-<section id="enquiry" data-screen-label="Enquiry form" data-nav-theme="light" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
+<section id="enquiry" data-screen-label="Enquiry form" data-nav-theme="light" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:{{ sectionBg }}">
   <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
 
     <div data-reveal="curtain-left" class="flex flex-col items-start gap-5 lg:col-span-4">
@@ -16,7 +16,11 @@
       <div class="mt-4 flex w-full max-w-xs flex-col">
         <div class="flex flex-col gap-1 border-t border-border py-4">
           <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Email</span>
-          <a href="mailto:hello@swut.co" class="text-base text-foreground transition-colors hover:text-muted-foreground">hello@swut.co</a>
+          <a href="mailto:info@swutsolutions.com" class="text-base text-foreground transition-colors hover:text-muted-foreground">info@swutsolutions.com</a>
+        </div>
+        <div class="flex flex-col gap-1 border-t border-border py-4">
+          <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Phone</span>
+          <a href="tel:+201211112737" class="text-base text-foreground transition-colors hover:text-muted-foreground">+2 012 1111 27 37</a>
         </div>
         <div class="flex flex-col gap-1 border-b border-t border-border py-4">
           <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Location</span>
@@ -31,36 +35,40 @@
         <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
           <div role="alert" class="flex flex-col gap-2 border border-border bg-background px-5 py-4">
             <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
-            <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. Until a form endpoint is connected, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+            <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. Until a form endpoint is connected, email <a href="mailto:info@swutsolutions.com" class="underline">info@swutsolutions.com</a> directly.</span>
           </div>
         </sc-if>
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 sm:col-span-2">
             <label for="s-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
             <input id="s-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
             <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
           </div>
-          <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2">
             <label for="s-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
             <input id="s-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
             <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
           </div>
+<div class="flex flex-col gap-2">
+            <label for="s-phone" class="text-sm text-muted-foreground">Phone number <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <input id="s-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
+<sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span id="err-phone" class="text-sm text-red-600">Enter your phone number.</span></sc-if>
+          </div>
+<div class="flex flex-col gap-2">
+          <label for="s-title" class="text-sm text-muted-foreground">Title <span aria-hidden="true" style="color:#C62828">*</span></label>
+          <input id="s-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="e.g. Senior Structural Engineer" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
+          <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><span id="err-title" class="text-sm text-red-600">Enter your title.</span></sc-if>
         </div>
+<div class="flex flex-col gap-2">
+            <label for="s-company" class="text-sm text-muted-foreground">Company <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <input id="s-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
+<sc-if value="{{ errors.company }}" hint-placeholder-val="{{ false }}"><span id="err-company" class="text-sm text-red-600">Enter your company name.</span></sc-if>
+          </div>
+</div>
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div class="flex flex-col gap-2">
-            <label for="s-company" class="text-sm text-muted-foreground">Company</label>
-            <input id="s-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
-          </div>
-          <div class="flex flex-col gap-2">
-            <label for="s-phone" class="text-sm text-muted-foreground">Phone number</label>
-            <input id="s-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div class="flex flex-col gap-2" ref="{{ svcWrapRef }}" onKeyDown="{{ onSvcKey }}">
+          <div class="{{ svcFieldClass }}" ref="{{ svcWrapRef }}" onKeyDown="{{ onSvcKey }}">
             <label id="s-service-label" class="text-sm text-muted-foreground">Service <span aria-hidden="true" style="color:#C62828">*</span></label>
             <div class="relative">
               <button type="button" id="s-service" aria-haspopup="listbox" aria-expanded="{{ svcOpen }}" aria-labelledby="s-service-label" onClick="{{ toggleSvc }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
@@ -80,10 +88,11 @@
             </div>
           </div>
 
+          <sc-if value="{{ showProduct }}" hint-placeholder-val="{{ true }}">
           <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProdKey }}">
-            <label id="s-product-label" class="text-sm text-muted-foreground">Product</label>
+            <label id="s-product-label" class="text-sm text-muted-foreground">Product <span aria-hidden="true" style="color:#C62828">*</span></label>
             <div class="relative">
-              <button type="button" id="s-product" aria-haspopup="listbox" aria-expanded="{{ prodOpen }}" aria-labelledby="s-product-label" onClick="{{ toggleProd }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
+              <button type="button" id="s-product" aria-haspopup="listbox" aria-expanded="{{ prodOpen }}" aria-labelledby="s-product-label" onClick="{{ toggleProd }}" aria-invalid="{{ errors.product }}" aria-describedby="err-product" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
                 <span class="truncate">{{ fields.product }}</span>
                 <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
               </button>
@@ -121,14 +130,16 @@
                 </div>
               </sc-if>
             </div>
+            <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a product.</span></sc-if>
           </div>
+          </sc-if>
         </div>
 
         <sc-if value="{{ ctxPair }}" hint-placeholder-val="{{ false }}">
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
 
             <div class="flex flex-col gap-2" ref="{{ aWrapRef }}" onKeyDown="{{ onAKey }}">
-              <label id="s-ctxa-label" for="s-ctxa" class="text-sm text-muted-foreground">{{ ctxALabel }}</label>
+              <label id="s-ctxa-label" for="s-ctxa" class="text-sm text-muted-foreground">{{ ctxALabel }} <span aria-hidden="true" style="color:#C62828">*</span></label>
               <sc-if value="{{ ctxAIsSelect }}" hint-placeholder-val="{{ false }}">
                 <div class="relative">
                   <button type="button" aria-haspopup="listbox" aria-expanded="{{ aOpen }}" aria-labelledby="s-ctxa-label" onClick="{{ toggleA }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
@@ -148,13 +159,13 @@
                 </div>
               </sc-if>
               <sc-if value="{{ ctxAIsInput }}" hint-placeholder-val="{{ true }}">
-                <input id="s-ctxa" type="{{ ctxAType }}" min="1" value="{{ fields.ctxA }}" onChange="{{ setA }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxAPlaceholder }}" aria-invalid="{{ errors.ctxA }}" aria-describedby="err-ctxa">
+                <input id="s-ctxa" required="" type="{{ ctxAType }}" min="1" value="{{ fields.ctxA }}" onChange="{{ setA }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxAPlaceholder }}" aria-invalid="{{ errors.ctxA }}" aria-describedby="err-ctxa">
               </sc-if>
-              <sc-if value="{{ errors.ctxA }}" hint-placeholder-val="{{ false }}"><span id="err-ctxa" class="text-sm text-red-600">Enter 1 or more.</span></sc-if>
+              <sc-if value="{{ errors.ctxA }}" hint-placeholder-val="{{ false }}"><span id="err-ctxa" class="text-sm text-red-600">{{ ctxAError }}</span></sc-if>
             </div>
 
             <div class="flex flex-col gap-2" ref="{{ bWrapRef }}" onKeyDown="{{ onBKey }}">
-              <label id="s-ctxb-label" for="s-ctxb" class="text-sm text-muted-foreground">{{ ctxBLabel }}</label>
+              <label id="s-ctxb-label" for="s-ctxb" class="text-sm text-muted-foreground">{{ ctxBLabel }} <span aria-hidden="true" style="color:#C62828">*</span></label>
               <sc-if value="{{ ctxBIsSelect }}" hint-placeholder-val="{{ false }}">
                 <div class="relative">
                   <button type="button" aria-haspopup="listbox" aria-expanded="{{ bOpen }}" aria-labelledby="s-ctxb-label" onClick="{{ toggleB }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
@@ -174,17 +185,18 @@
                 </div>
               </sc-if>
               <sc-if value="{{ ctxBIsInput }}" hint-placeholder-val="{{ true }}">
-                <input id="s-ctxb" type="{{ ctxBType }}" min="1" value="{{ fields.ctxB }}" onChange="{{ setB }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxBPlaceholder }}" aria-invalid="{{ errors.ctxB }}" aria-describedby="err-ctxb">
+                <input id="s-ctxb" required="" type="{{ ctxBType }}" min="1" value="{{ fields.ctxB }}" onChange="{{ setB }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxBPlaceholder }}" aria-invalid="{{ errors.ctxB }}" aria-describedby="err-ctxb">
               </sc-if>
-              <sc-if value="{{ errors.ctxB }}" hint-placeholder-val="{{ false }}"><span id="err-ctxb" class="text-sm text-red-600">Enter 1 or more.</span></sc-if>
+              <sc-if value="{{ errors.ctxB }}" hint-placeholder-val="{{ false }}"><span id="err-ctxb" class="text-sm text-red-600">{{ ctxBError }}</span></sc-if>
             </div>
           </div>
         </sc-if>
 
         <sc-if value="{{ ctxFull }}" hint-placeholder-val="{{ false }}">
           <div class="flex flex-col gap-2">
-            <label for="s-ctxfull" class="text-sm text-muted-foreground">{{ ctxFullLabel }}</label>
-            <input id="s-ctxfull" type="text" value="{{ fields.ctxFull }}" onChange="{{ setFull }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxFullPlaceholder }}">
+            <label for="s-ctxfull" class="text-sm text-muted-foreground">{{ ctxFullLabel }} <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <input id="s-ctxfull" required="" type="text" value="{{ fields.ctxFull }}" onChange="{{ setFull }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ ctxFullPlaceholder }}" aria-invalid="{{ errors.ctxFull }}" aria-describedby="err-ctxFull">
+<sc-if value="{{ errors.ctxFull }}" hint-placeholder-val="{{ false }}"><span id="err-ctxFull" class="text-sm text-red-600">Complete this field.</span></sc-if>
           </div>
         </sc-if>
 
@@ -205,19 +217,19 @@
   </div>
 </section>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;service&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Training&quot;,&quot;options&quot;:[&quot;Training&quot;,&quot;Technical Support&quot;,&quot;Technical Workshops&quot;,&quot;Software Maintenance&quot;,&quot;BIM Consultancy&quot;,&quot;Request a Demo&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;product&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Not sure / Other&quot;,&quot;options&quot;:[&quot;IDEA StatiCa&quot;,&quot;ZWCAD&quot;,&quot;Midas&quot;,&quot;Not sure / Other&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;heading&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Tell us what your team wants to learn.&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sub&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Send the details and we'll come back with options.&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;messagePlaceholder&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;submitLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Send enquiry&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;service&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Training &amp; Technical Workshops&quot;,&quot;options&quot;:[&quot;Software Licenses&quot;,&quot;Training &amp; Technical Workshops&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;product&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Not sure / Other&quot;,&quot;options&quot;:[&quot;IDEA StatiCa&quot;,&quot;ZWCAD&quot;,&quot;Midas&quot;,&quot;Not sure / Other&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;heading&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Tell us what your team wants to learn.&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sub&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Send the details and we'll come back with options.&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;messagePlaceholder&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;submitLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Send enquiry&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
   state = {
-    fields: { name: '', email: '', company: '', phone: '', message: '', service: '', product: '', ctxA: '', ctxB: '', ctxFull: '' },
+    fields: { name: '', email: '', title: '', company: '', phone: '', message: '', service: '', product: '', ctxA: '', ctxB: '', ctxFull: '' },
     errors: {}, open: null, noBackend: false,
   };
 
-  _SERVICES = ['Training', 'Technical Support', 'Technical Workshops', 'Software Maintenance', 'BIM Consultancy', 'Request a Demo'];
+  _SERVICES = ['Software Licenses', 'Training & Technical Workshops'];
   _PRODUCT_OPTS = { notSure: true };
 
   get _PRODUCTS() {
     const api = window.SWUTProductOptions;
-    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer', 'Not sure / Other'];
+    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa Steel', 'IDEA StatiCa Concrete', 'IDEA StatiCa Complete Edition', 'ZWCAD', 'ZW3D', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'STAAD.Pro', 'PLAXIS 2D', 'SYNCHRO 4D', 'Other Bentley Products', 'Not sure / Other'];
   }
 
   _productRows(current, pick) {
@@ -227,38 +239,21 @@ class Component extends DCLogic {
   }
 
   _CTX = {
-    'Software Maintenance': {
-      a: { type: 'text', label: 'Software version (optional)', ph: 'e.g. 2025.1' },
-      b: { type: 'select', label: 'Enquiry type', options: ['Existing maintenance', 'New maintenance enquiry', 'Not sure'] },
+    'Software Licenses': {
+      a: { type: 'number', label: 'Number of licenses', ph: 'e.g. 5' },
+      b: { type: 'select', label: 'Enquiry type', options: ['New licenses', 'Renewal', 'Additional seats', 'Not sure'] },
     },
-    'Technical Support': {
-      a: { type: 'text', label: 'Software version (optional)', ph: 'e.g. 2025.1' },
-      b: { type: 'select', label: 'Topic', options: ['Software question', 'Error or issue', 'Setup', 'Other'] },
-    },
-    'Training': {
+    'Training & Technical Workshops': {
       a: { type: 'select', label: 'Experience level', options: ['New to the software', 'Some experience', 'Working in it daily'] },
       b: { type: 'number', label: 'Participants', ph: 'e.g. 8' },
-    },
-    'Technical Workshops': {
-      a: { type: 'text', label: 'Workshop focus', ph: 'e.g. connection design workflow' },
-      b: { type: 'number', label: 'Participants', ph: 'e.g. 8' },
-    },
-    'BIM Consultancy': {
-      full: { label: 'Current software or workflow (optional)', ph: 'The tools and process your team works in today' },
-    },
-    'Request a Demo': {
-      full: { label: 'Area of interest (optional)', ph: 'What you would like to see in the session' },
     },
   };
 
   _PLACEHOLDERS = {
-    'Software Maintenance': 'Tell us what you need.',
-    'Technical Support': 'Describe the issue.',
-    'Training': 'What would you like to learn?',
-    'Technical Workshops': 'What should the workshop focus on?',
-    'BIM Consultancy': 'What would you like to improve?',
-    'Request a Demo': 'What would you like to explore?',
+    'Software Licenses': 'Tell us which software and how your team will use it.',
+    'Training & Technical Workshops': 'What should the training or workshop focus on?',
   };
+  _normService(v) { return v === 'Training' || v === 'Technical Workshops' ? 'Training & Technical Workshops' : (this._SERVICES.includes(v) ? v : 'Training & Technical Workshops'); }
 
   // ?product=MIDAS%20GEN (or #/…?product=…) preselects, still editable.
   // Brand-only "MIDAS" names three products, so it is left for the visitor to choose.
@@ -277,7 +272,7 @@ class Component extends DCLogic {
 
   componentDidMount() {
     if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
-    const service = this.props.service || 'Training';
+    const service = this._normService(this.props.service);
     this.setState(s => ({
       fields: { ...s.fields, service, product: this.props.product || this._productFromUrl() || 'Not sure / Other', ...this._ctxDefaults(service) },
     }));
@@ -316,21 +311,29 @@ class Component extends DCLogic {
     const c = this._cfg(f.service);
     if (!f.name.trim()) errors.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.title.trim()) errors.title = true;
+    if (!f.company.trim()) errors.company = true;
+    if (!f.phone.trim()) errors.phone = true;
+    if (!f.service) errors.service = true;
+    if (!this.props.hideProduct && !f.product) errors.product = true;
     if (!f.message.trim()) errors.message = true;
-    if (c.a && c.a.type === 'number' && f.ctxA && Number(f.ctxA) < 1) errors.ctxA = true;
-    if (c.b && c.b.type === 'number' && f.ctxB && Number(f.ctxB) < 1) errors.ctxB = true;
+    const need = (d, v) => { const t = String(v || '').trim(); return !!d && (d.type === 'number' ? (!t || Number(t) < 1) : !t); };
+    if (need(c.a, f.ctxA)) errors.ctxA = true;
+    if (need(c.b, f.ctxB)) errors.ctxB = true;
+    if (c.full && !String(f.ctxFull || '').trim()) errors.ctxFull = true;
     return errors;
   }
 
   _focusFirstError(errors) {
-    const order = [['name', 's-name'], ['email', 's-email'], ['ctxA', 's-ctxa'], ['ctxB', 's-ctxb'], ['message', 's-message']];
+    const order = [['name', 's-name'], ['email', 's-email'], ['phone', 's-phone'], ['title', 's-title'], ['company', 's-company'], ['service', 's-service'], ['product', 's-product'], ['ctxA', 's-ctxa'], ['ctxB', 's-ctxb'], ['ctxFull', 's-ctxfull'], ['message', 's-message']];
     const hit = order.find(([k]) => errors[k]);
     if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
   }
 
   _payload(f) {
     const c = this._cfg(f.service);
-    const out = { name: f.name, email: f.email, company: f.company, phone: f.phone, service: f.service, product: f.product, message: f.message };
+    const out = { name: f.name, title: f.title, email: f.email, company: f.company, phone: f.phone, service: f.service, message: f.message };
+    if (!this.props.hideProduct) out.product = f.product;
     if (c.a) out[c.a.label] = f.ctxA;
     if (c.b) out[c.b.label] = f.ctxB;
     if (c.full) out[c.full.label] = f.ctxFull;
@@ -340,11 +343,12 @@ class Component extends DCLogic {
   _opts(list, key) {
     return (list || []).map(name => ({
       name, checked: this.state.fields[key] === name,
-      select: () => this.setState(s => ({ fields: { ...s.fields, [key]: name }, open: null })),
+      select: () => this.setState(s => ({ fields: { ...s.fields, [key]: name }, open: null, errors: { ...s.errors, [key]: false } })),
     }));
   }
 
   renderVals() {
+    const sectionBg = this.props.background === 'white' ? '#FFFFFF' : '#F8F8F8';
     const { fields, errors, open, noBackend } = this.state;
     const c = this._cfg(fields.service);
     const a = c.a, b = c.b, full = c.full;
@@ -352,6 +356,7 @@ class Component extends DCLogic {
     const toggle = (key) => () => this.setState(s => ({ open: s.open === key ? null : key }));
 
     return {
+      sectionBg,
       heading: this.props.heading ?? 'Tell us what you need.',
       sub: this.props.sub ?? 'Send the details and we will come back to you.',
       submitLabel: this.props.submitLabel ?? 'Send enquiry',
@@ -360,6 +365,8 @@ class Component extends DCLogic {
 
       svcOpen: open === 'service',
       prodOpen: open === 'product',
+      showProduct: !this.props.hideProduct,
+      svcFieldClass: this.props.hideProduct ? 'flex flex-col gap-2 sm:col-span-2' : 'flex flex-col gap-2',
       aOpen: open === 'a',
       bOpen: open === 'b',
 
@@ -376,6 +383,8 @@ class Component extends DCLogic {
       ctxBType: b && b.type === 'number' ? 'number' : 'text',
       ctxBPlaceholder: (b && b.ph) || '',
       ctxBOptions: this._opts(b && b.options, 'ctxB'),
+      ctxAError: a && a.type === 'number' ? 'Enter 1 or more.' : 'Complete this field.',
+      ctxBError: b && b.type === 'number' ? 'Enter 1 or more.' : 'Complete this field.',
       ctxFull: !!full,
       ctxFullLabel: full ? full.label : '',
       ctxFullPlaceholder: (full && full.ph) || '',
@@ -404,14 +413,15 @@ class Component extends DCLogic {
       onBKey: esc('b'),
 
       forceReveal: () => { if (window.SWUTReveal) window.SWUTReveal.revealAll(); },
-      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
-      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
-      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
-      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
-      setA: (e) => this.setState(s => ({ fields: { ...s.fields, ctxA: e.target.value } })),
-      setB: (e) => this.setState(s => ({ fields: { ...s.fields, ctxB: e.target.value } })),
-      setFull: (e) => this.setState(s => ({ fields: { ...s.fields, ctxFull: e.target.value } })),
-      setMessage: (e) => this.setState(s => ({ fields: { ...s.fields, message: e.target.value } })),
+      setName: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, name: v }, errors: { ...s.errors, name: false } })); },
+      setTitle: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, title: v }, errors: { ...s.errors, title: false } })); },
+      setEmail: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, email: v }, errors: { ...s.errors, email: false } })); },
+      setCompany: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, company: v }, errors: { ...s.errors, company: false } })); },
+      setPhone: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, phone: v }, errors: { ...s.errors, phone: false } })); },
+      setA: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, ctxA: v }, errors: { ...s.errors, ctxA: false } })); },
+      setB: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, ctxB: v }, errors: { ...s.errors, ctxB: false } })); },
+      setFull: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, ctxFull: v }, errors: { ...s.errors, ctxFull: false } })); },
+      setMessage: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, message: v }, errors: { ...s.errors, message: false } })); },
       handleSubmit: (e) => {
         e.preventDefault();
         const errs = this._validate(this.state.fields);

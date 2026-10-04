@@ -161,6 +161,28 @@
 
     <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       <sc-for list="{{ cards }}" as="ev" hint-placeholder-count="1">
+        <sc-if value="{{ ev.isNext }}" hint-placeholder-val="{{ false }}">
+        <a href="{{ ev.href }}" onClick="{{ rememberReturn }}" class="swut-card-in group flex flex-col border border-foreground bg-foreground text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+          <div class="relative aspect-[16/10] w-full overflow-hidden">
+            <img src="{{ ev.image }}" alt="{{ ev.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" style="object-position:50% 40%">
+            <span class="absolute left-5 top-5 inline-flex items-center rounded-full border border-white bg-foreground px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-widest text-white">Upcoming</span>
+          </div>
+          <div class="flex flex-col items-start gap-3 p-7">
+            <span class="font-sans text-xs uppercase tracking-widest text-white/70">{{ ev.dateAndStatus }}</span>
+            <h2 class="text-balance text-xl font-semibold leading-tight tracking-tight text-white sm:text-2xl">{{ ev.title }}</h2>
+            <p class="line-clamp-2 text-sm leading-relaxed text-white/75">{{ ev.summary }}</p>
+            <span class="flex items-center gap-2 text-sm text-white/75">
+              <i data-lucide="map-pin" class="size-4 shrink-0"></i>
+              {{ ev.place }}
+            </span>
+            <span class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-white">
+              View event
+              <i data-lucide="arrow-up-right" class="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5"></i>
+            </span>
+          </div>
+        </a>
+        </sc-if>
+        <sc-if value="{{ ev.isStandard }}" hint-placeholder-val="{{ true }}">
         <a href="{{ ev.href }}" onClick="{{ rememberReturn }}" class="swut-card-in group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
           <div class="relative aspect-[16/10] w-full overflow-hidden">
             <img src="{{ ev.image }}" alt="{{ ev.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" style="object-position:50% 40%">
@@ -179,6 +201,7 @@
             </span>
           </div>
         </a>
+        </sc-if>
       </sc-for>
     </div>
 
@@ -203,6 +226,7 @@ class Component extends DCLogic {
   _DEFAULTS = { q: '', product: 'All products', service: 'All services', date: 'All events' };
 
   componentDidMount() {
+    this._nextTick = setInterval(() => this.forceUpdate(), 60000);
     this.setState({ ...this._fromUrl() }, () => this._restoreScroll());
     this._waitForData();
     this._onPop = () => this.setState({ ...this._fromUrl(), open: null });
@@ -219,6 +243,7 @@ class Component extends DCLogic {
   componentDidUpdate() { this._icons(); }
 
   componentWillUnmount() {
+    clearInterval(this._nextTick);
     window.removeEventListener('popstate', this._onPop);
     document.removeEventListener('mousedown', this._onDocClick);
     if (this._dataTimer) clearTimeout(this._dataTimer);
@@ -287,7 +312,10 @@ class Component extends DCLogic {
     const { q, product, service, date, open, filtersOpen } = this.state;
     const api = window.SWUTEvents;
     const list = api ? api.filter({ q, product, service, date }) : [];
-    const cards = list.map(ev => ({
+    const nextIdx = api ? list.findIndex(ev => api.status(ev) === 'upcoming') : -1;
+    const cards = list.map((ev, i) => ({
+      isNext: i === nextIdx,
+      isStandard: i !== nextIdx,
       href: ev.href,
       image: ev.image,
       imageAlt: ev.imageAlt,

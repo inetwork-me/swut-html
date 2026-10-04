@@ -130,8 +130,11 @@
 <sc-if value="{{ cap.isPhoto }}" hint-placeholder-val="{{ false }}">
               <img src="https://images.pexels.com/photos/3862135/pexels-photo-3862135.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Engineers reviewing drawings together at a table" loading="lazy" class="absolute inset-0 size-full object-cover" style="object-position:center 35%">
             </sc-if>
+            <sc-if value="{{ cap.isImg }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ cap.src }}" alt="{{ cap.alt }}" class="{{ cap.imgClass }}" />
+            </sc-if>
             <sc-if value="{{ cap.isSlot }}" hint-placeholder-val="{{ true }}">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ cap.mediaId }}" shape="rect" fit="contain" placeholder="{{ cap.placeholder }}" src="{{ cap.src }}" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ cap.mediaId }}" shape="rect" fit="{{ cap.fit }}" placeholder="{{ cap.placeholder }}" src="{{ cap.src }}" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
             </sc-if>
           </div>
         </sc-for>
@@ -179,80 +182,73 @@
     </div>
   </section>
 
-  <!-- ===== PRODUCT INFORMATION — THREE EDITORIAL PANELS ===== -->
-  <section data-nav-theme="light" data-screen-label="Beyond the model" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
-    <div class="flex flex-col items-start gap-5">
-      <span data-reveal="fade" class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Beyond the model</span>
-      <h2 class="text-balance text-4xl font-semibold leading-[1.18] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Understand the behavior.</span></span>
-        <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Show the reasoning.</span></span>
-      </h2>
-    </div>
-
-    <div data-info-rules class="relative mt-16 lg:mt-20">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10">
-      <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] top-0 block h-px bg-border"></span>
-      <span data-grid-line="h" class="absolute left-[calc(var(--ext)*-1)] right-[calc(var(--ext)*-1)] bottom-0 block h-px bg-border"></span>
-      <span data-grid-line="v" class="absolute left-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
-      <span data-grid-line="v" class="absolute right-0 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] block w-px bg-border"></span>
-      <span data-grid-line="v" class="absolute left-1/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
-      <span data-grid-line="v" class="absolute left-2/3 top-[calc(var(--ext)*-1)] bottom-[calc(var(--ext)*-1)] hidden w-px bg-border lg:block"></span>
-    </div>
-    <div class="grid grid-cols-1" style="grid-template-columns:repeat(1,minmax(0,1fr))" data-info-grid>
-
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">01</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="0" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0 flex items-center justify-center p-4">
-            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="info-analysis" shape="rect" fit="contain" src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/549cdd9a-6811-4de8-a33f-a8e80f5d038c/Untitled%20design%20%2833%29.png?w=1200&fm=webp&lossless=false&q=85" placeholder="IDEA StatiCa visual calculation results" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
-          </div>
-        </div>
-        <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Understand the results.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Review visual analysis and code-check outcomes to identify where a structural detail needs attention.</p>
+  <!-- ===== FEATURE SECTIONS (adapted from ideastatica.com) ===== -->
+  <section id="connection-design" data-curtain-cols data-nav-theme="light" data-screen-label="Feature 01 Steel" class="bg-background border-t border-border px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
+      <div data-reveal="curtain-left" class="order-1 w-full min-w-0 " style="background-color:#F2F2F2">
+        <video src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/be760560-df9d-479b-b7ac-10286ea81abb/Connection.mp4" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" disablePictureInPicture="{{ true }}" aria-label="Steel connection design animation in IDEA StatiCa" class="block h-auto w-full"></video>
+      </div>
+      <div data-reveal="curtain-right" class="order-2 flex min-w-0 flex-col items-start gap-6 ">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Steel</span>
+        <h2 class="text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Faster, more accurate</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">connection design.</span></span>
+        </h2>
+        <div data-reveal="stagger" class="flex w-full max-w-xl flex-col gap-6">
+          <p class="text-base leading-relaxed text-muted-foreground">Design and check steel connections for the details your projects demand—from bolts and welds to base plates, frames, anchoring, and shear transfer.</p>
+          <ul class="flex flex-col border-t border-border">
+            <li class="flex gap-4 border-b border-border py-4 text-sm leading-relaxed text-foreground"><span class="mt-[0.55em] block h-1.5 w-1.5 shrink-0 bg-foreground"></span><span>Reusable templates for simple connections, bulk checks and parametric design</span></li>
+            <li class="flex gap-4 border-b border-border py-4 text-sm leading-relaxed text-foreground"><span class="mt-[0.55em] block h-1.5 w-1.5 shrink-0 bg-foreground"></span><span>Visual and parametric modeling for moderate to complex joints</span></li>
+            <li class="flex gap-4 border-b border-border py-4 text-sm leading-relaxed text-foreground"><span class="mt-[0.55em] block h-1.5 w-1.5 shrink-0 bg-foreground"></span><span>Code-checked reports ready for approval</span></li>
+            <li class="flex gap-4 border-b border-border py-4 text-sm leading-relaxed text-foreground"><span class="mt-[0.55em] block h-1.5 w-1.5 shrink-0 bg-foreground"></span><span>A Connection Library of real-world joints to adapt and reuse</span></li>
+          </ul>
           <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
         </div>
       </div>
-
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">02</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="120" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0 flex flex-col gap-2 p-4">
-            <div class="relative min-h-0 w-full flex-[2] overflow-hidden" style="background-color:#F2F2F2">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-1" shape="rect" fit="contain" src="{{ reuseMain.src }}" placeholder="{{ reuseMain.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
-            </div>
-            <div class="flex min-h-0 w-full flex-1 gap-2">
-              <div class="relative min-w-0 flex-1 overflow-hidden" style="background-color:#F2F2F2">
-                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-2" shape="rect" fit="contain" src="{{ reuseSideA.src }}" placeholder="{{ reuseSideA.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
-              </div>
-              <div class="relative min-w-0 flex-1 overflow-hidden" style="background-color:#F2F2F2">
-                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="reuse-thumb-3" shape="rect" fit="contain" src="{{ reuseSideB.src }}" placeholder="{{ reuseSideB.placeholder }}" hint-size="100%,100%" style="width:100%;height:100%;background:#F2F2F2"></x-import>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Build on existing details.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Adapt connection templates and library arrangements to reduce repeated modeling.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
-        </div>
-      </div>
-
-      <div class="flex w-full min-w-0 flex-col gap-6 border-t border-border px-6 py-12 first:border-t-0 lg:border-t-0 lg:px-10 lg:py-12">
-        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">03</span>
-        <div data-curtain-container data-info-frame data-curtain-delay="240" class="relative w-full overflow-hidden" style="background-color:#F2F2F2">
-          <div data-reveal="curtain" class="absolute inset-0 flex items-center justify-center p-4">
-            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="info-report" shape="rect" fit="contain" src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/29e2273d-4f3a-4dec-bb10-827d3143975f/Untitled%20design%20%2847%29.png?w=1200&fm=webp&lossless=false&q=85" placeholder="IDEA StatiCa calculation report" hint-size="100%,100%" style="width:100%;height:100%;background:#fff"></x-import>
-          </div>
-        </div>
-        <div data-reveal="stagger" class="flex flex-col gap-5">
-          <h3 class="text-lg font-semibold tracking-tight text-foreground">Make your calculations clear.</h3>
-          <p class="text-sm leading-relaxed text-muted-foreground">Organize model information, checks, equations, and images into a report for engineering review.</p>
-          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
-        </div>
-      </div>
-
     </div>
+  </section>
+
+  <section id="walls-d-regions" data-curtain-cols data-nav-theme="light" data-screen-label="Feature 02 Concrete" class="bg-background border-t border-border px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
+      <div data-reveal="curtain-right" class="order-1 w-full min-w-0 lg:order-2" style="background-color:#F2F2F2">
+        <video src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/c700675a-d7dd-4bed-8796-59efc98878de/Untitled%20design%20%283%29.mp4" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" disablePictureInPicture="{{ true }}" aria-label="Concrete wall and D-region analysis animation in IDEA StatiCa" class="block h-auto w-full"></video>
+      </div>
+      <div data-reveal="curtain-left" class="order-2 flex min-w-0 flex-col items-start gap-6 lg:order-1">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Concrete</span>
+        <h2 class="text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Solve walls</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">and D-regions.</span></span>
+        </h2>
+        <div data-reveal="stagger" class="flex w-full max-w-xl flex-col gap-6">
+          <p class="text-base leading-relaxed text-muted-foreground">Model concrete walls and D-regions around real geometry and loads, then review reinforcement and code checks with a clear view of structural behavior.</p>
+          <ul class="flex flex-col border-t border-border">
+            <li class="flex gap-4 border-b border-border py-4 text-sm leading-relaxed text-foreground"><span class="mt-[0.55em] block h-1.5 w-1.5 shrink-0 bg-foreground"></span><span>Openings, dapped ends and irregular geometry</span></li>
+            <li class="flex gap-4 border-b border-border py-4 text-sm leading-relaxed text-foreground"><span class="mt-[0.55em] block h-1.5 w-1.5 shrink-0 bg-foreground"></span><span>Optimized reinforcement layout and material use</span></li>
+            <li class="flex gap-4 border-b border-border py-4 text-sm leading-relaxed text-foreground"><span class="mt-[0.55em] block h-1.5 w-1.5 shrink-0 bg-foreground"></span><span>Full ULS and SLS checks in one report</span></li>
+            <li class="flex gap-4 border-b border-border py-4 text-sm leading-relaxed text-foreground"><span class="mt-[0.55em] block h-1.5 w-1.5 shrink-0 bg-foreground"></span><span>Analysis data imported directly from SAP2000 and ETABS</span></li>
+          </ul>
+          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="integrations" data-curtain-cols data-nav-theme="light" data-screen-label="Feature 03 BIM & Workflows" class="bg-background border-t border-border px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
+      <div data-reveal="curtain-left" class="order-1 w-full min-w-0 " style="background-color:#F2F2F2">
+        <video src="https://assets-us-01.kc-usercontent.com/66e7a155-be94-0096-73e6-c55dfc7e5788/41bd3e72-a94b-4d96-93c2-0869a213c71c/Checkbot%20-%20Steel%20-%20Short%20video%20-%20autoplay.mp4" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" disablePictureInPicture="{{ true }}" aria-label="Checkbot BIM workflow animation in IDEA StatiCa" class="block h-auto w-full"></video>
+      </div>
+      <div data-reveal="curtain-right" class="order-2 flex min-w-0 flex-col items-start gap-6 ">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">BIM & Workflows</span>
+        <h2 class="text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">Integrate with over</span></span>
+          <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">40 FEA and CAD tools.</span></span>
+        </h2>
+        <div data-reveal="stagger" class="flex w-full max-w-xl flex-col gap-6">
+          <p class="text-base leading-relaxed text-muted-foreground">Move structural data between IDEA StatiCa and your analysis or CAD tools, reducing repeat entry and keeping design changes in sync.</p>
+          <span class="text-xs uppercase tracking-widest text-muted-foreground/70">Source: ideastatica.com</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -405,46 +401,84 @@
 
   <!-- ===== NEWS & EVENTS ===== -->
   <section id="news-events" data-nav-theme="light" data-screen-label="News and events" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
-    <div class="flex flex-col items-start gap-5">
-      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Events</span>
-      <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-        <span class="inline-block">News &amp; Events</span>
-      </h2>
-      <a href="Events.dc.html?product=IDEA%20StatiCa" data-reveal="fade" class="group mt-1 inline-flex items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground">
-        View all events
-        <i data-lucide="arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
-      </a>
+    <div class="flex items-end justify-between gap-6">
+      <div class="flex flex-col items-start gap-5">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Events</span>
+        <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          <span class="inline-block">News &amp; Events</span>
+        </h2>
+      </div>
+      <div data-reveal="fade" class="flex shrink-0 items-center gap-2 pb-[0.2em]">
+        <button type="button" onClick="{{ evPrev }}" aria-label="Previous events" class="flex size-11 items-center justify-center border border-foreground bg-background text-foreground transition-colors hover:bg-foreground hover:text-background disabled:cursor-default disabled:border-border disabled:bg-transparent disabled:text-muted-foreground/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+          <i data-lucide="arrow-left" class="size-4"></i>
+        </button>
+        <button type="button" onClick="{{ evNext }}" aria-label="Next events" class="flex size-11 items-center justify-center border border-foreground bg-background text-foreground transition-colors hover:bg-foreground hover:text-background disabled:cursor-default disabled:border-border disabled:bg-transparent disabled:text-muted-foreground/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </button>
+      </div>
     </div>
 
-    <div class="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      <sc-for list="{{ newsEvents }}" as="item" hint-placeholder-count="1">
-        <a href="{{ item.href }}" class="group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
-          <div data-curtain-container class="relative aspect-[16/10] w-full overflow-hidden">
-            <div data-reveal="curtain" class="absolute inset-0">
-              <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105 group-focus-visible:scale-105">
-                <img src="https://files.cdn-files-a.com/uploads/12365954/2000_gi-6a9d4525d7321.jpg" alt="IDEA StatiCa Coffee &amp; Learn, Cairo" loading="lazy" class="absolute inset-0 size-full object-cover" style="object-position:50% 40%">
+    <div ref="{{ evTrackRef }}" role="region" aria-label="News and events slider" class="relative mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 lg:gap-8" style="scrollbar-width:none">
+      <sc-for list="{{ newsEvents }}" as="item" hint-placeholder-count="3">
+        <div data-ev-card class="flex w-[86%] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-4rem)/3)]">
+          <sc-if value="{{ item.isUpcoming }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ item.href }}" class="group flex w-full flex-col border border-foreground bg-foreground text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+              <div class="relative aspect-[16/10] w-full overflow-hidden">
+                <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105 group-focus-visible:scale-105">
+                  <img src="https://files.cdn-files-a.com/uploads/12365954/2000_gi-6a9d4525d7321.jpg" alt="IDEA StatiCa Coffee &amp; Learn, Cairo" loading="lazy" class="absolute inset-0 size-full object-cover" style="object-position:50% 40%">
+                </div>
+                <span class="absolute left-5 top-5 inline-flex items-center rounded-full border border-white bg-foreground px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-widest text-white">Upcoming</span>
+              </div>
+              <div class="flex flex-1 flex-col items-start gap-3 p-8">
+                <span class="font-sans text-xs uppercase tracking-widest text-white/70">{{ item.kindAndDate }}</span>
+                <span class="text-balance text-xl font-semibold leading-tight tracking-tight text-white sm:text-2xl">{{ item.title }}</span>
+                <span class="text-sm leading-relaxed text-white/75">{{ item.summary }}</span>
+                <span class="flex items-center gap-2 text-sm text-white/75">
+                  <i data-lucide="map-pin" class="size-4 shrink-0"></i>
+                  {{ item.venue }}
+                </span>
+                <span class="mt-auto inline-flex items-center gap-2 pt-3 text-sm font-semibold text-white">
+                  View Event
+                  <i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1"></i>
+                </span>
+              </div>
+            </a>
+          </sc-if>
+          <sc-if value="{{ item.isPastReal }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ item.href }}" class="group flex w-full flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+              <div class="relative aspect-[16/10] w-full overflow-hidden">
+                <img src="https://files.cdn-files-a.com/uploads/12365954/2000_gi-6a9d4525d7321.jpg" alt="IDEA StatiCa Coffee &amp; Learn, Cairo" loading="lazy" class="absolute inset-0 size-full object-cover grayscale" style="object-position:50% 40%">
+              </div>
+              <div class="flex flex-1 flex-col items-start gap-3 p-8">
+                <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ item.kindAndDate }}</span>
+                <span class="text-balance text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-2xl">{{ item.title }}</span>
+                <span class="text-sm leading-relaxed text-muted-foreground">{{ item.summary }}</span>
+                <span class="flex items-center gap-2 text-sm text-muted-foreground">
+                  <i data-lucide="map-pin" class="size-4 shrink-0"></i>
+                  {{ item.venue }}
+                </span>
+                <span class="mt-auto pt-3 text-sm font-semibold text-muted-foreground">This event has taken place</span>
+              </div>
+            </a>
+          </sc-if>
+          <sc-if value="{{ item.isSample }}" hint-placeholder-val="{{ true }}">
+            <div class="flex w-full flex-col border border-border bg-background">
+              <div class="relative aspect-[16/10] w-full overflow-hidden" style="background-color:#EDEDED">
+                <img src="{{ item.img }}" alt="{{ item.imgAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover grayscale">
+              </div>
+              <div class="flex flex-1 flex-col items-start gap-3 p-8">
+                <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ item.kindAndDate }}</span>
+                <span class="text-balance text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-2xl">{{ item.title }}</span>
+                <span class="text-sm leading-relaxed text-muted-foreground">{{ item.summary }}</span>
+                <span class="flex items-center gap-2 text-sm text-muted-foreground">
+                  <i data-lucide="map-pin" class="size-4 shrink-0"></i>
+                  {{ item.venue }}
+                </span>
+                <span class="mt-auto pt-3 text-sm font-semibold text-muted-foreground">This event has taken place</span>
               </div>
             </div>
-          </div>
-          <div data-reveal="stagger" class="flex flex-col items-start gap-3 p-8">
-            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ item.kindAndDate }}</span>
-            <span class="text-balance text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-2xl">{{ item.title }}</span>
-            <span class="text-sm leading-relaxed text-muted-foreground">{{ item.summary }}</span>
-            <span class="flex items-center gap-2 text-sm text-muted-foreground">
-              <i data-lucide="map-pin" class="size-4 shrink-0"></i>
-              {{ item.venue }}
-            </span>
-            <sc-if value="{{ item.isUpcoming }}" hint-placeholder-val="{{ true }}">
-              <span class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
-                View Event
-                <i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1"></i>
-              </span>
-            </sc-if>
-            <sc-if value="{{ item.isPast }}" hint-placeholder-val="{{ false }}">
-              <span class="mt-2 text-sm font-semibold text-muted-foreground">This event has taken place</span>
-            </sc-if>
-          </div>
-        </a>
+          </sc-if>
+        </div>
       </sc-for>
     </div>
   </section>
@@ -464,33 +498,37 @@
             <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
               <div role="alert" class="flex flex-col gap-2 border border-border bg-muted px-5 py-4">
                 <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
-                <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. A trial request is an enquiry to SWUT, not an automatically activated vendor license. Until a form endpoint is connected, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+                <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. A trial request is an enquiry to SWUT, not an automatically activated vendor license. Until a form endpoint is connected, email <a href="mailto:info@swutsolutions.com" class="underline">info@swutsolutions.com</a> directly.</span>
               </div>
             </sc-if>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 sm:col-span-2">
                 <label for="q-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
                 <input id="q-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
                 <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
               </div>
-              <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2">
                 <label for="q-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
                 <input id="q-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
                 <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
               </div>
-            </div>
-
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div class="flex flex-col gap-2">
-                <label for="q-company" class="text-sm text-muted-foreground">Company</label>
-                <input id="q-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
+<div class="flex flex-col gap-2">
+                <label for="q-phone" class="text-sm text-muted-foreground">Phone number <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <input id="q-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="+20 10 0000 0000" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
+<sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span id="err-phone" class="text-sm text-red-600">Enter your phone number.</span></sc-if>
               </div>
-              <div class="flex flex-col gap-2">
-                <label for="q-phone" class="text-sm text-muted-foreground">Phone number</label>
-                <input id="q-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="+971 4 000 0000">
-              </div>
+<div class="flex flex-col gap-2">
+              <label for="q-title" class="text-sm text-muted-foreground">Title <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="q-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="e.g. Senior Structural Engineer" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
+              <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><span id="err-title" class="text-sm text-red-600">Enter your title.</span></sc-if>
             </div>
+<div class="flex flex-col gap-2">
+                <label for="q-company" class="text-sm text-muted-foreground">Company <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <input id="q-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
+<sc-if value="{{ errors.company }}" hint-placeholder-val="{{ false }}"><span id="err-company" class="text-sm text-red-600">Enter your company name.</span></sc-if>
+              </div>
+</div>
 
             <div class="flex flex-col gap-6">
               <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProductsKeyDown }}">
@@ -538,7 +576,7 @@
               </div>
               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2" ref="{{ intentRef }}">
-                  <span id="q-intent-label" class="text-sm text-muted-foreground">Enquiry type</span>
+                  <span id="q-intent-label" class="text-sm text-muted-foreground">Enquiry type <span aria-hidden="true" style="color:#C62828">*</span></span>
                   <div class="relative" ref="{{ intentWrapRef }}" onKeyDown="{{ onIntentKeyDown }}">
                     <button type="button" id="q-intent" aria-haspopup="listbox" aria-expanded="{{ intentOpen }}" aria-labelledby="q-intent-label" onClick="{{ toggleIntentOpen }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-background px-4 py-3 text-left text-base text-foreground">
                       <span class="truncate">{{ intentSummary }}</span>
@@ -565,7 +603,7 @@
                   </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                  <label for="q-licenses" class="text-sm text-muted-foreground">Number of licenses</label>
+                  <label for="q-licenses" class="text-sm text-muted-foreground">Number of licenses <span aria-hidden="true" style="color:#C62828">*</span></label>
                   <input id="q-licenses" type="number" min="1" value="{{ fields.licenses }}" onChange="{{ setLicenses }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" aria-invalid="{{ errors.licenses }}" aria-describedby="err-licenses">
                   <sc-if value="{{ errors.licenses }}" hint-placeholder-val="{{ false }}"><span id="err-licenses" class="text-sm text-red-600">Enter at least 1 license.</span></sc-if>
                 </div>
@@ -573,8 +611,9 @@
             </div>
 
             <div class="flex flex-col gap-2">
-              <label for="q-notes" class="text-sm text-muted-foreground">Message — optional</label>
-              <textarea id="q-notes" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Modules you need, current tools, timeline…"></textarea>
+              <label for="q-notes" class="text-sm text-muted-foreground">Message <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <textarea id="q-notes" required="" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Modules you need, current tools, timeline…" aria-invalid="{{ errors.notes }}" aria-describedby="err-notes"></textarea>
+<sc-if value="{{ errors.notes }}" hint-placeholder-val="{{ false }}"><span id="err-notes" class="text-sm text-red-600">Add a short message so we can respond usefully.</span></sc-if>
             </div>
 
             <button type="submit" disabled="{{ isSubmitting }}" class="group inline-flex w-fit items-center gap-2 rounded-none bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:opacity-60">
@@ -595,20 +634,21 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
+  _td() { const p = this.state && this.state.fields && this.state.fields.product; return p === 'ZWCAD' || p === 'ZW3D' ? '30' : '14'; }
   state = {
     noBackend: false, intent: 'quote', thumbSrc: {},
-    fields: { name: '', email: '', company: '', phone: '', notes: '', product: 'IDEA StatiCa', licenses: '1' },
+    fields: { name: '', email: '', title: '', company: '', phone: '', notes: '', product: '', licenses: '1' },
     productsOpen: false, intentOpen: false,
     errors: {},
     activeCap: 0,
     capPlaying: true, capSectionVisible: false, capHovered: false, capFocused: false, capReducedMotion: false,
   };
 
-  _PRODUCT_OPTS = {};
+  _PRODUCT_OPTS = { only: 'IDEA StatiCa' };
 
   get _PRODUCTS() {
     const api = window.SWUTProductOptions;
-    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer'];
+    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa Steel', 'IDEA StatiCa Concrete', 'IDEA StatiCa Complete Edition'];
   }
 
   _productRows(current, pick) {
@@ -715,13 +755,70 @@ class Component extends DCLogic {
       venue: api.place(ev),
       kindAndDate: 'Event \u2014 ' + api.dateLabel(ev),
       isUpcoming: api.status(ev) === 'upcoming',
-      isPast: api.status(ev) === 'past',
+      isPastReal: api.status(ev) === 'past',
+      isSample: false,
     }));
   }
 
+  _eventSlides() {
+    const real = this._productEvents();
+    const up = real.filter(e => e.isUpcoming), past = real.filter(e => !e.isUpcoming);
+    const samples = [
+      { id: 'past-1', kindAndDate: 'Workshop \u2014 18 June 2026', title: 'Steel Connection Design Workshop', summary: 'Hands-on session modeling bolted and welded joints, base plates and anchoring, with code-checked reports.', venue: 'Cairo, Egypt', img: 'assets/event-past-1.webp', imgAlt: 'Engineers reviewing a steel connection model on screen' },
+      { id: 'past-2', kindAndDate: 'Workshop \u2014 12 March 2026', title: 'Concrete Walls & D-Regions Workshop', summary: 'Practical walkthrough of wall and D-region design, reinforcement layout and ULS/SLS checks.', venue: 'Cairo, Egypt', img: 'assets/event-past-2.webp', imgAlt: 'Engineering workstation showing a concrete detail model' },
+      { id: 'past-3', kindAndDate: 'Workshop \u2014 20 November 2025', title: 'BIM Workflows & Checkbot Workshop', summary: 'Importing analysis and CAD models, batch code-checking connections and keeping design changes in sync.', venue: 'Cairo, Egypt', img: 'assets/event-past-3.webp', imgAlt: 'Steel connection model imported for code-checking' },
+    ].map(s => ({ ...s, href: null, isUpcoming: false, isPastReal: false, isSample: true }));
+    return [...up, ...past, ...samples];
+  }
+
+  _evUpdate() {
+    const t = this._evTrack; if (!t) return;
+    const prev = t.scrollLeft <= 4, next = t.scrollLeft + t.clientWidth >= t.scrollWidth - 4;
+    const sec = t.closest('section');
+    if (sec) sec.querySelectorAll('button[aria-label="Previous events"],button[aria-label="Next events"]').forEach(b => { b.disabled = b.getAttribute('aria-label') === 'Previous events' ? prev : next; });
+  }
+
+  _evStep(dir) {
+    const t = this._evTrack; if (!t) return;
+    const cards = Array.from(t.querySelectorAll('[data-ev-card]'));
+    if (!cards.length) return;
+    const base = cards[0].offsetLeft, offs = cards.map(c => c.offsetLeft - base);
+    const cur = t.scrollLeft, max = t.scrollWidth - t.clientWidth;
+    let target = dir > 0 ? offs.find(o => o > cur + 4) : [...offs].reverse().find(o => o < cur - 4);
+    if (target === undefined) target = dir > 0 ? max : 0;
+    t.scrollTo({ left: Math.min(Math.max(target, 0), max), behavior: 'smooth' });
+  }
+
+  _initFeatureVideos() {
+    const setup = () => {
+      const vids = Array.from(document.querySelectorAll('#connection-design video, #walls-d-regions video, #integrations video'));
+      vids.forEach(v => {
+        if (v._fvInit) return; v._fvInit = true;
+        v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
+        v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('loop', ''); v.setAttribute('autoplay', '');
+        const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+        v.addEventListener('ended', () => { v.currentTime = 0; play(); });
+        v.addEventListener('pause', () => { if (v._fvVisible !== false && !document.hidden) setTimeout(play, 60); });
+        v.addEventListener('canplay', play);
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(es => es.forEach(e => { v._fvVisible = e.isIntersecting; if (e.isIntersecting) play(); }), { threshold: 0.05 }).observe(v);
+        }
+        if (v.readyState < 2) v.load();
+        play();
+      });
+      return vids.length;
+    };
+    if (setup() < 3) { let t = 0; const iv = setInterval(() => { if (setup() >= 3 || ++t > 40) clearInterval(iv); }, 250); }
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) document.querySelectorAll('#connection-design video, #walls-d-regions video, #integrations video').forEach(v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); }); });
+    const kick = () => document.querySelectorAll('#connection-design video, #walls-d-regions video, #integrations video').forEach(v => { if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } });
+    window.addEventListener('pointerdown', kick, { once: true }); window.addEventListener('scroll', kick, { once: true, passive: true });
+  }
+
   componentDidMount() {
+    this._initFeatureVideos();
     if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
     this._waitForEvents();
+    setTimeout(() => this._evUpdate(), 300);
     Promise.all(this._THUMB_SOURCES.map(t => this._stripWhite(t.src))).then(results => {
       const map = {};
       results.forEach((url, i) => { if (url) map[this._THUMB_SOURCES[i].slot] = url; });
@@ -978,14 +1075,14 @@ class Component extends DCLogic {
   _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
 
   _goToForm(intent) {
-    this.setState({ intent, fields: { ...this.state.fields, product: 'IDEA StatiCa' } });
+    this.setState({ intent, fields: { ...this.state.fields } });
     if (typeof this._closeOverlay === 'function') this._closeOverlay();
     const el = document.getElementById('quote');
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
   }
 
   _focusFirstError(errors) {
-    const order = [['name', 'q-name'], ['email', 'q-email'], ['product', 'q-product'], ['licenses', 'q-licenses']];
+    const order = [['name', 'q-name'], ['email', 'q-email'], ['phone', 'q-phone'], ['title', 'q-title'], ['company', 'q-company'], ['product', 'q-product'], ['licenses', 'q-licenses'], ['notes', 'q-notes']];
     const hit = order.find(([k]) => errors[k]);
     if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
   }
@@ -994,6 +1091,10 @@ class Component extends DCLogic {
     const errors = {};
     if (!f.name.trim()) errors.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.title.trim()) errors.title = true;
+    if (!f.company.trim()) errors.company = true;
+    if (!f.phone.trim()) errors.phone = true;
+    if (!f.notes.trim()) errors.notes = true;
     if (!f.product) errors.product = true;
     if (!f.licenses || Number(f.licenses) < 1) errors.licenses = true;
     return errors;
@@ -1023,8 +1124,8 @@ class Component extends DCLogic {
       intentWrapRef: (el) => { this._intentWrap = el; },
       toggleIntentOpen: () => this.setState(s => ({ intentOpen: !s.intentOpen })),
       onIntentKeyDown: (e) => { if (e.key === 'Escape' && this.state.intentOpen) { this.setState({ intentOpen: false }); const b = document.getElementById('q-intent'); if (b) b.focus(); } },
-      intentSummary: ([{ value: 'quote', label: 'License quote' }, { value: 'trial', label: '14-day free trial' }].find(o => o.value === intent) || {}).label || '',
-      intentOptions: [{ value: 'quote', label: 'License quote' }, { value: 'trial', label: '14-day free trial' }].map((o, i) => ({
+      intentSummary: ([{ value: 'quote', label: 'License quote' }, { value: 'trial', label: this._td() + '-day free trial' }].find(o => o.value === intent) || {}).label || '',
+      intentOptions: [{ value: 'quote', label: 'License quote' }, { value: 'trial', label: this._td() + '-day free trial' }].map((o, i) => ({
         ...o,
         isItemFirst: i === 0, isItem: i > 0,
         checked: intent === o.value,
@@ -1032,7 +1133,7 @@ class Component extends DCLogic {
       })),
       intentIsQuote: intent === 'quote',
       intentIsTrial: intent === 'trial',
-      submitLabel: intent === 'trial' ? 'Request a 14-Day Free Trial' : 'Request a License Quote',
+      submitLabel: intent === 'trial' ? 'Request a ' + this._td() + '-Day Free Trial' : 'Request a License Quote',
       intentRef: (el) => { this._intentEl = el; },
       selectQuoteIntent: () => this.setState({ intent: 'quote' }),
       selectTrialIntent: () => this.setState({ intent: 'trial' }),
@@ -1048,12 +1149,13 @@ class Component extends DCLogic {
         errors: { ...s.errors, product: false },
       }))),
       forceRevealCurtain: (e) => { const el = e.currentTarget; el.style.clipPath = ''; el.style.transition = ''; },
-      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
-      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
-      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
-      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
-      setLicenses: (e) => this.setState(s => ({ fields: { ...s.fields, licenses: e.target.value } })),
-      setNotes: (e) => this.setState(s => ({ fields: { ...s.fields, notes: e.target.value } })),
+      setName: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, name: v }, errors: { ...s.errors, name: false } })); },
+      setTitle: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, title: v }, errors: { ...s.errors, title: false } })); },
+      setEmail: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, email: v }, errors: { ...s.errors, email: false } })); },
+      setCompany: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, company: v }, errors: { ...s.errors, company: false } })); },
+      setPhone: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, phone: v }, errors: { ...s.errors, phone: false } })); },
+      setLicenses: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, licenses: v }, errors: { ...s.errors, licenses: false } })); },
+      setNotes: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, notes: v }, errors: { ...s.errors, notes: false } })); },
       handleSubmit: (e) => {
         e.preventDefault();
         const errs = this._validate(this.state.fields);
@@ -1062,8 +1164,8 @@ class Component extends DCLogic {
         // No submission endpoint is wired up: assemble the payload, disclose that
         // nothing was sent rather than faking a success state.
         console.info('[SWUT IDEA StatiCa] no backend configured; payload not sent:', {
-          requestType: this.state.intent === 'trial' ? '14-day free trial' : 'License quote',
-          name: f.name, email: f.email, company: f.company, phone: f.phone,
+          requestType: this.state.intent === 'trial' ? this._td() + '-day free trial' : 'License quote',
+          name: f.name, title: f.title, email: f.email, company: f.company, phone: f.phone,
           product: f.product, licenses: Number(f.licenses), notes: f.notes,
         });
         this.setState({ errors: {}, noBackend: true });
@@ -1071,21 +1173,24 @@ class Component extends DCLogic {
       reuseMain: reuseThumbs[0],
       reuseSideA: reuseThumbs[1],
       reuseSideB: reuseThumbs[2],
-      newsEvents: this._productEvents(),
+      newsEvents: this._eventSlides(),
+      evTrackRef: this._evRef || (this._evRef = el => { if (el && el !== this._evTrack) { this._evTrack = el; el.addEventListener('scroll', () => this._evUpdate(), { passive: true }); requestAnimationFrame(() => this._evUpdate()); setTimeout(() => this._evUpdate(), 600); if (window.ResizeObserver) { this._evRO && this._evRO.disconnect(); this._evRO = new ResizeObserver(() => this._evUpdate()); this._evRO.observe(el); } } }),
+      evPrev: this._evPrevFn || (this._evPrevFn = () => this._evStep(-1)),
+      evNext: this._evNextFn || (this._evNextFn = () => this._evStep(1)),
       facts: [
         { label: 'Category', value: 'Structural Design Software', isText: true },
         { label: 'Developed by', value: 'IDEA StatiCa', isLink: true, href: 'https://www.ideastatica.com/' },
         { label: 'License types', value: 'Perpetual & Subscription', isText: true },
       ],
       capabilities: [
-        { number: '01', title: 'Steel', body: 'Design and code-check steel connections and assess member behavior, including complex joints, base plates, and anchoring details.', mediaId: 'cap-steel', placeholder: 'Steel connection model' },
+        { number: '01', title: 'Steel', body: 'Design and code-check steel connections and assess member behavior, including complex joints, base plates, and anchoring details.', mediaId: 'cap-steel', placeholder: 'Steel connection model', src: 'assets/idea-steel.png', alt: 'Steel connection and IDEA StatiCa stress analysis model', imgClass: 'absolute inset-0 h-full w-full object-contain bg-white p-6 sm:p-8' },
         { number: '02', title: 'Concrete', body: 'Analyze reinforced and prestressed concrete elements, including walls, beams, and regions with complex load transfer. Assess reinforcement and relevant design checks.', mediaId: 'cap-concrete-needed', placeholder: 'Asset needed \u2014 authentic reinforced concrete model not yet supplied' },
-        { number: '03', title: 'BIM & Workflows', body: 'Connect IDEA StatiCa with supported CAD and structural analysis tools to transfer model data and reduce repeated input.', note: 'Integration examples include Tekla Structures, SAP2000, ETABS, and STAAD.Pro. Support depends on the application and software version.', mediaId: 'cap-bim', isPhoto: true },
+        { number: '03', title: 'BIM & Workflows', body: 'Connect IDEA StatiCa with supported CAD and structural analysis tools to transfer model data and reduce repeated input.', note: 'Integration examples include Tekla Structures, SAP2000, ETABS, and STAAD.Pro. Support depends on the application and software version.', mediaId: 'cap-bim', src: 'assets/idea-bim.png', alt: 'BIM workflow: export connections from SAP2000 and Tekla, code-check and recalculate in IDEA StatiCa', imgClass: 'absolute inset-0 h-full w-full object-contain bg-white p-6 sm:p-8' },
       ].map((cap, i) => {
         const active = i === this.state.activeCap;
         const paused = active && (this.state.capHovered || this.state.capFocused);
         return {
-          ...cap, active, isSlot: !cap.isPhoto, hasNote: !!cap.note,
+          ...cap, fit: cap.fit || 'contain', active, isImg: !!cap.src, isSlot: !cap.isPhoto && !cap.src, hasNote: !!cap.note,
           select: () => { this.setState({ activeCap: i }); },
           showProgress: active && !this.state.capReducedMotion,
           showStaticFill: active && this.state.capReducedMotion,

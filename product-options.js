@@ -2,15 +2,27 @@
 (function () {
   var MIDAS = ['MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX'];
   // Bentley products SWUT supplies — names as published on bentley.com.
-  var BENTLEY = ['STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer'];
+  var BENTLEY = ['STAAD.Pro', 'PLAXIS 2D', 'SYNCHRO 4D', 'Other Bentley Products'];
+  var ZWSOFT = ['ZWCAD', 'ZW3D'];
+  // IDEA StatiCa editions: stored/submitted with the brand prefix, listed by edition name.
+  var IDEA = ['IDEA StatiCa Steel', 'IDEA StatiCa Concrete', 'IDEA StatiCa Complete Edition'];
+  var LABELS = { 'IDEA StatiCa Steel': 'Steel', 'IDEA StatiCa Concrete': 'Concrete', 'IDEA StatiCa Complete Edition': 'Complete Edition' };
 
   function options(o) {
     o = o || {};
     var list = [];
+    if (o.only) {
+      var fam = { 'IDEA StatiCa': IDEA, ZWSOFT: ZWSOFT, MIDAS: MIDAS, Bentley: BENTLEY }[o.only];
+      if (fam) { list.push({ group: o.only }); fam.forEach(function (n) { list.push({ name: n, nested: true }); }); }
+      else list.push({ name: o.only });
+      return list;
+    }
     if (o.general) list.push({ name: 'General enquiry' });
     if (o.notApplicable) list.push({ name: 'Not sure / Not applicable' });
-    list.push({ name: 'IDEA StatiCa' });
-    list.push({ name: 'ZWCAD' });
+    list.push({ group: 'IDEA StatiCa' });
+    IDEA.forEach(function (n) { list.push({ name: n, nested: true }); });
+    list.push({ group: 'ZWSOFT' });
+    ZWSOFT.forEach(function (n) { list.push({ name: n, nested: true }); });
     list.push({ group: 'MIDAS' });
     MIDAS.forEach(function (n) { list.push({ name: n, nested: true }); });
     list.push({ group: 'Bentley' });
@@ -31,7 +43,7 @@
         firstInGroup = true;
         return { name: it.group, isGroup: true, isNested: false, isNestedFirst: false, isPlain: false, isPlainFirst: false, checked: false, select: function () {} };
       }
-      var base = { name: it.name, isGroup: false, checked: current === it.name, select: function () { pick(it.name); } };
+      var base = { name: LABELS[it.name] || it.name, value: it.name, isGroup: false, checked: current === it.name, select: function () { pick(it.name); } };
       if (it.nested) {
         var first = firstInGroup;
         firstInGroup = false;
@@ -52,6 +64,6 @@
     return hit || '';
   }
 
-  window.SWUTProductOptions = { MIDAS: MIDAS, BENTLEY: BENTLEY, options: options, names: names, rows: rows, match: match, isBrandOnlyMidas: isBrandOnlyMidas, isBrandOnlyBentley: isBrandOnlyBentley };
+  window.SWUTProductOptions = { IDEA: IDEA, MIDAS: MIDAS, BENTLEY: BENTLEY, ZWSOFT: ZWSOFT, options: options, names: names, rows: rows, match: match, isBrandOnlyMidas: isBrandOnlyMidas, isBrandOnlyBentley: isBrandOnlyBentley };
   try { window.dispatchEvent(new Event('swut-products-ready')); } catch (e) {}
 })();

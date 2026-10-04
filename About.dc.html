@@ -156,7 +156,7 @@
 
     <div id="testi-track" class="mt-16 flex gap-6 overflow-hidden" style="overflow: hidden">
       <sc-for list="{{ testiLoop }}" as="t" hint-placeholder-count="8">
-        <div class="flex aspect-[4/5] w-[340px] max-w-[82vw] shrink-0 flex-col border border-border bg-card p-8">
+        <div class="flex min-h-[425px] w-[340px] max-w-[82vw] shrink-0 flex-col gap-8 border border-border bg-card p-8">
           <i data-lucide="quote" fill="currentColor" stroke-width="0" class="size-11 text-black/15"></i>
           <div class="mt-auto flex flex-col items-start gap-5">
             <p class="text-pretty text-base leading-relaxed text-foreground">{{ t.quote }}</p>
@@ -213,10 +213,10 @@ class Component extends DCLogic {
 
   // Same testimonials as the homepage — kept verbatim so both pages stay in step.
   _testimonials = [
-    { quote: 'SWUT sorted our entire licensing stack in weeks — software audits are no longer something we dread.', name: 'Lina Farouk', role: 'Operations Director, Delta Structures' },
-    { quote: 'Their training turned a complex toolset into something my whole team actually uses every day.', name: 'Marcus Reid', role: 'BIM Manager, Northline Engineering' },
-    { quote: 'Fast, knowledgeable support. Whenever we hit a wall, SWUT had an answer the same day.', name: 'Priya Nair', role: 'Project Lead, Vantage Consultants' },
-    { quote: 'The trial demo made the decision easy — we saw the value before spending a single dirham.', name: 'Omar Haddad', role: 'Managing Partner, Cornerstone Design' },
+    { quote: "We used to get a proper and effective technical presentation including trial demos from Swut team, which facilitate our technical evaluation, and get us more familiar with all software technical features.", name: "Ismail Maatok", role: "Head of IT Department" },
+    { quote: "A comfort business relationship as we always get a customized solutions that fits our technical need and financial budget, moreover Swut team are managing our software portfolio for more than 5 years.", name: "Ahmed Nasr", role: "Head of IT Department" },
+    { quote: "As an expert user for STAAD and RAM connection for more that 10 years, we get an effective support from Swut team to handle our software portfolio from Bentley by increasing the efficiency of our usage with a minimal cost.", name: "Amr Shuman", role: "Head of Civil Engineering Department" },
+    { quote: "During our journey to move forward the digitalization era, we received an adequate consultant from Swut team regarding the optimum software solutions from IDEA statica and CSI.", name: "Dr Ali El Minissi", role: "Head of IT" },
   ];
 
   componentDidMount() {

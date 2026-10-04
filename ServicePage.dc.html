@@ -30,11 +30,9 @@
 
   <!-- ===== OVERVIEW ===== -->
   <section data-nav-theme="light" data-screen-label="Service overview" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
-    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
-      <div class="col-span-12 lg:col-span-3">
-        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ overviewLabel }}</span>
-      </div>
-      <div class="col-span-12 lg:col-span-9">
+    <div class="flex flex-col items-start">
+      <span data-reveal="fade" class="mb-8 inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ overviewLabel }}</span>
+      <div class="w-full">
         <h2 data-reveal="fade" class="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">{{ overviewLead }}</h2>
 
         <div class="mt-16 flex flex-col">
@@ -60,11 +58,9 @@
   <!-- ===== ENQUIRY PREPARATION ===== -->
   <sc-if value="{{ hasPrep }}" hint-placeholder-val="{{ true }}">
   <section data-nav-theme="light" data-screen-label="Enquiry prep" class="px-6 py-24 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
-    <div class="grid grid-cols-12 items-start gap-10 lg:gap-[120px]">
-      <div class="col-span-12 lg:col-span-3">
-        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Before You Enquire</span>
-      </div>
-      <div class="col-span-12 lg:col-span-9">
+    <div class="flex flex-col items-start">
+      <span data-reveal="fade" class="mb-8 inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Before You Enquire</span>
+      <div class="w-full">
         <h2 data-reveal="fade" class="max-w-2xl text-balance text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">{{ prepLead }}</h2>
         <div class="mt-14 flex flex-col">
           <sc-for list="{{ prepItems }}" as="p" hint-placeholder-count="4">
@@ -91,7 +87,11 @@
         <div class="mt-2 flex w-full max-w-sm flex-col">
           <div class="flex flex-col gap-1.5 border-t border-border py-5">
             <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Email</span>
-            <a href="mailto:hello@swut.co" class="text-lg text-foreground transition-colors hover:text-muted-foreground">hello@swut.co</a>
+            <a href="mailto:info@swutsolutions.com" class="text-lg text-foreground transition-colors hover:text-muted-foreground">info@swutsolutions.com</a>
+          </div>
+          <div class="flex flex-col gap-1.5 border-t border-border py-5">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Phone</span>
+            <a href="tel:+201211112737" class="text-lg text-foreground transition-colors hover:text-muted-foreground">+2 012 1111 27 37</a>
           </div>
           <div class="flex flex-col gap-1.5 border-t border-b border-border py-5">
             <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">Location</span>
@@ -106,33 +106,37 @@
           <sc-if value="{{ noBackend }}" hint-placeholder-val="{{ false }}">
             <div role="alert" class="flex flex-col gap-2 border border-border bg-muted px-5 py-4">
               <span class="text-sm font-semibold text-foreground">Not sent — no submission backend is connected.</span>
-              <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. Connect a form endpoint and this button will send for real. Until then, email <a href="mailto:hello@swut.co" class="underline">hello@swut.co</a> directly.</span>
+              <span class="text-sm leading-relaxed text-muted-foreground">Your entries passed validation, but this prototype has nowhere to deliver them. Connect a form endpoint and this button will send for real. Until then, email <a href="mailto:info@swutsolutions.com" class="underline">info@swutsolutions.com</a> directly.</span>
             </div>
           </sc-if>
 
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 sm:col-span-2">
               <label for="s-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
               <input id="s-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
               <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
             </div>
-            <div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2">
               <label for="s-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
               <input id="s-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
               <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
             </div>
-          </div>
-
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div class="flex flex-col gap-2">
-              <label for="s-company" class="text-sm text-muted-foreground">Company</label>
-              <input id="s-company" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name">
+<div class="flex flex-col gap-2">
+              <label for="s-phone" class="text-sm text-muted-foreground">Phone number <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="s-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
+<sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span id="err-phone" class="text-sm text-red-600">Enter your phone number.</span></sc-if>
             </div>
-            <div class="flex flex-col gap-2">
-              <label for="s-phone" class="text-sm text-muted-foreground">Phone number</label>
-              <input id="s-phone" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code">
-            </div>
+<div class="flex flex-col gap-2">
+            <label for="s-title" class="text-sm text-muted-foreground">Title <span aria-hidden="true" style="color:#C62828">*</span></label>
+            <input id="s-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="e.g. Senior Structural Engineer" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
+            <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><span id="err-title" class="text-sm text-red-600">Enter your title.</span></sc-if>
           </div>
+<div class="flex flex-col gap-2">
+              <label for="s-company" class="text-sm text-muted-foreground">Company <span aria-hidden="true" style="color:#C62828">*</span></label>
+              <input id="s-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
+<sc-if value="{{ errors.company }}" hint-placeholder-val="{{ false }}"><span id="err-company" class="text-sm text-red-600">Enter your company name.</span></sc-if>
+            </div>
+</div>
 
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div class="flex flex-col gap-2" ref="{{ svcWrapRef }}" onKeyDown="{{ onServiceKeyDown }}">
@@ -156,9 +160,9 @@
             </div>
 
             <div class="flex flex-col gap-2" ref="{{ prodWrapRef }}" onKeyDown="{{ onProductKeyDown }}">
-              <label id="s-product-label" class="text-sm text-muted-foreground">Product</label>
+              <label id="s-product-label" class="text-sm text-muted-foreground">Product <span aria-hidden="true" style="color:#C62828">*</span></label>
               <div class="relative">
-                <button type="button" id="s-product" aria-haspopup="listbox" aria-expanded="{{ productOpen }}" aria-labelledby="s-product-label" onClick="{{ toggleProductOpen }}" class="flex w-full items-center justify-between gap-2 border border-border bg-transparent px-4 py-3 text-left text-base text-foreground">
+                <button type="button" id="s-product" aria-haspopup="listbox" aria-expanded="{{ productOpen }}" aria-labelledby="s-product-label" onClick="{{ toggleProductOpen }}" aria-invalid="{{ errors.product }}" aria-describedby="err-product" class="flex w-full items-center justify-between gap-2 border border-border bg-transparent px-4 py-3 text-left text-base text-foreground">
                   <span class="truncate">{{ fields.product }}</span>
                   <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
                 </button>
@@ -196,14 +200,15 @@
                   </div>
                 </sc-if>
               </div>
+              <sc-if value="{{ errors.product }}" hint-placeholder-val="{{ false }}"><span id="err-product" class="text-sm text-red-600">Select a product.</span></sc-if>
             </div>
           </div>
 
           <sc-if value="{{ hasExtra }}" hint-placeholder-val="{{ false }}">
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div class="flex flex-col gap-2">
-                <label for="s-extra" class="text-sm text-muted-foreground">{{ extraLabel }}</label>
-                <input id="s-extra" type="{{ extraType }}" min="1" value="{{ fields.extra }}" onChange="{{ setExtra }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ extraPlaceholder }}" aria-invalid="{{ errors.extra }}" aria-describedby="err-extra">
+                <label for="s-extra" class="text-sm text-muted-foreground">{{ extraLabel }} <span aria-hidden="true" style="color:#C62828">*</span></label>
+                <input id="s-extra" required="" type="{{ extraType }}" min="1" value="{{ fields.extra }}" onChange="{{ setExtra }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="{{ extraPlaceholder }}" aria-invalid="{{ errors.extra }}" aria-describedby="err-extra">
                 <sc-if value="{{ errors.extra }}" hint-placeholder-val="{{ false }}"><span id="err-extra" class="text-sm text-red-600">{{ extraError }}</span></sc-if>
               </div>
             </div>
@@ -231,16 +236,16 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200},&quot;serviceKey&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;training&quot;,&quot;options&quot;:[&quot;training&quot;,&quot;support&quot;,&quot;workshops&quot;,&quot;maintenance&quot;,&quot;consultancy&quot;,&quot;demo&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
   state = {
-    fields: { name: '', email: '', company: '', phone: '', message: '', service: '', product: 'Not sure / Other', extra: '' },
+    fields: { name: '', email: '', title: '', company: '', phone: '', message: '', service: '', product: 'Not sure / Other', extra: '' },
     errors: {}, serviceOpen: false, productOpen: false, noBackend: false,
   };
 
-  _SERVICES = ['Training', 'Technical Support', 'Technical Workshops', 'Software Maintenance', 'BIM Consultancy', 'Request a Demo'];
+  _SERVICES = ['Software Licenses', 'Training & Technical Workshops'];
   _PRODUCT_OPTS = { notSure: true };
 
   get _PRODUCTS() {
     const api = window.SWUTProductOptions;
-    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa', 'ZWCAD', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'STAAD.Pro', 'PLAXIS 2D', 'OpenRoads Designer', 'Not sure / Other'];
+    return api ? api.names(this._PRODUCT_OPTS) : ['IDEA StatiCa Steel', 'IDEA StatiCa Concrete', 'IDEA StatiCa Complete Edition', 'ZWCAD', 'ZW3D', 'MIDAS GEN', 'MIDAS CIVIL NX', 'MIDAS GTS NX', 'STAAD.Pro', 'PLAXIS 2D', 'SYNCHRO 4D', 'Other Bentley Products', 'Not sure / Other'];
   }
 
   _productRows(current, pick) {
@@ -249,17 +254,13 @@ class Component extends DCLogic {
     return this._PRODUCTS.map(name => ({ name, isGroup: false, isNested: false, isPlain: true, checked: current === name, select: () => pick(name) }));
   }
   _FOOTER = [
-    { name: 'Training', href: 'Training.dc.html' },
-    { name: 'Technical Support', href: 'Technical Support.dc.html' },
-    { name: 'Technical Workshops', href: 'Technical Workshops.dc.html' },
-    { name: 'Software Maintenance', href: 'Software Maintenance.dc.html' },
-    { name: 'BIM Consultancy', href: 'BIM Consultancy.dc.html' },
-    { name: 'Request a Demo', href: 'Request a Demo.dc.html' },
+    { name: 'Software Licenses', href: 'Software Maintenance.dc.html' },
+    { name: 'Training & Technical Workshops', href: 'Training.dc.html' },
   ];
 
   _CONTENT = {
     training: {
-      service: 'Training', label: 'Training',
+      service: 'Training & Technical Workshops', label: 'Training & Technical Workshops',
       headline: ['Build confidence', 'in your software.'],
       intro: "Develop your skills with SWUT's software training, whether you're getting started or building on existing experience.",
       heroCta: 'Request Training',
@@ -507,13 +508,18 @@ class Component extends DCLogic {
     const errors = {};
     if (!f.name.trim()) errors.name = true;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = true;
+    if (!f.title.trim()) errors.title = true;
+    if (!f.company.trim()) errors.company = true;
+    if (!f.phone.trim()) errors.phone = true;
+    if (!f.service) errors.service = true;
+    if (!f.product) errors.product = true;
     if (!f.message.trim()) errors.message = true;
-    if (c.extra && c.extra.type === 'number' && f.extra && Number(f.extra) < 1) errors.extra = true;
+    if (c.extra) { const v = String(f.extra || '').trim(); if (c.extra.type === 'number' ? (!v || Number(v) < 1) : !v) errors.extra = true; }
     return errors;
   }
 
   _focusFirstError(errors) {
-    const order = [['name', 's-name'], ['email', 's-email'], ['extra', 's-extra'], ['message', 's-message']];
+    const order = [['name', 's-name'], ['email', 's-email'], ['phone', 's-phone'], ['title', 's-title'], ['company', 's-company'], ['service', 's-service'], ['product', 's-product'], ['extra', 's-extra'], ['message', 's-message']];
     const hit = order.find(([k]) => errors[k]);
     if (hit) { const el = document.getElementById(hit[1]); if (el) el.focus(); }
   }
@@ -568,12 +574,13 @@ class Component extends DCLogic {
         const el = document.getElementById('enquiry');
         if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
       },
-      setName: (e) => this.setState(s => ({ fields: { ...s.fields, name: e.target.value } })),
-      setEmail: (e) => this.setState(s => ({ fields: { ...s.fields, email: e.target.value } })),
-      setCompany: (e) => this.setState(s => ({ fields: { ...s.fields, company: e.target.value } })),
-      setPhone: (e) => this.setState(s => ({ fields: { ...s.fields, phone: e.target.value } })),
-      setExtra: (e) => this.setState(s => ({ fields: { ...s.fields, extra: e.target.value } })),
-      setMessage: (e) => this.setState(s => ({ fields: { ...s.fields, message: e.target.value } })),
+      setName: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, name: v }, errors: { ...s.errors, name: false } })); },
+      setTitle: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, title: v }, errors: { ...s.errors, title: false } })); },
+      setEmail: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, email: v }, errors: { ...s.errors, email: false } })); },
+      setCompany: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, company: v }, errors: { ...s.errors, company: false } })); },
+      setPhone: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, phone: v }, errors: { ...s.errors, phone: false } })); },
+      setExtra: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, extra: v }, errors: { ...s.errors, extra: false } })); },
+      setMessage: (e) => { const v = e.target.value; this.setState(s => ({ fields: { ...s.fields, message: v }, errors: { ...s.errors, message: false } })); },
       handleSubmit: (e) => {
         e.preventDefault();
         const errs = this._validate(this.state.fields, c);

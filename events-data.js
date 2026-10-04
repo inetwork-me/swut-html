@@ -17,7 +17,7 @@
       venue: 'Triumph Luxury Hotel',
       online: false,
       products: ['IDEA StatiCa'],
-      services: ['Training'],
+      services: ['Training & Technical Workshops'],
       href: 'Event.dc.html?event=idea-statica-coffee-and-learn',
     },
   ];
