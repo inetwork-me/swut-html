@@ -113,27 +113,27 @@
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
 <div class="flex flex-col gap-2 sm:col-span-2">
               <label for="s-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
-              <input id="s-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
+              <input id="s-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your full name" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
               <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
             </div>
 <div class="flex flex-col gap-2">
               <label for="s-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
-              <input id="s-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
+              <input id="s-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your work email" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
               <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
             </div>
 <div class="flex flex-col gap-2">
               <label for="s-phone" class="text-sm text-muted-foreground">Phone number <span aria-hidden="true" style="color:#C62828">*</span></label>
-              <input id="s-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
+              <input id="s-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your phone number" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
 <sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span id="err-phone" class="text-sm text-red-600">Enter your phone number.</span></sc-if>
             </div>
 <div class="flex flex-col gap-2">
             <label for="s-title" class="text-sm text-muted-foreground">Title <span aria-hidden="true" style="color:#C62828">*</span></label>
-            <input id="s-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="e.g. Senior Structural Engineer" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
+            <input id="s-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your job title" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
             <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><span id="err-title" class="text-sm text-red-600">Enter your title.</span></sc-if>
           </div>
 <div class="flex flex-col gap-2">
               <label for="s-company" class="text-sm text-muted-foreground">Company <span aria-hidden="true" style="color:#C62828">*</span></label>
-              <input id="s-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
+              <input id="s-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
 <sc-if value="{{ errors.company }}" hint-placeholder-val="{{ false }}"><span id="err-company" class="text-sm text-red-600">Enter your company name.</span></sc-if>
             </div>
 </div>
@@ -236,7 +236,7 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200},&quot;serviceKey&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;training&quot;,&quot;options&quot;:[&quot;training&quot;,&quot;support&quot;,&quot;workshops&quot;,&quot;maintenance&quot;,&quot;consultancy&quot;,&quot;demo&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
   state = {
-    fields: { name: '', email: '', title: '', company: '', phone: '', message: '', service: '', product: 'Not sure / Other', extra: '' },
+    fields: { name: '', email: '', title: '', company: '', phone: '', message: '', service: '', product: '', extra: '' },
     errors: {}, serviceOpen: false, productOpen: false, noBackend: false,
   };
 
@@ -283,7 +283,7 @@ class Component extends DCLogic {
       messageLabel: 'Topics to cover',
       messagePlaceholder: 'Software, experience level, and the topics or workflows you want covered.',
       submit: 'Request Training',
-      extra: { label: 'Number of participants', type: 'number', placeholder: 'e.g. 8', error: 'Enter 1 or more participants.' },
+      extra: { label: 'Number of participants', type: 'number', placeholder: 'Enter the number of participants', error: 'Enter 1 or more participants.' },
     },
     support: {
       service: 'Technical Support', label: 'Technical Support',
@@ -309,7 +309,7 @@ class Component extends DCLogic {
       messageLabel: 'Describe the issue',
       messagePlaceholder: 'What you were doing, what happened, any error message, and the steps to reproduce it.',
       submit: 'Request Technical Support',
-      extra: { label: 'Software version', type: 'text', placeholder: 'e.g. 24.1.2', error: 'Enter the software version.' },
+      extra: { label: 'Software version', type: 'text', placeholder: 'Enter the software version', error: 'Enter the software version.' },
     },
     workshops: {
       service: 'Technical Workshops', label: 'Technical Workshops',
@@ -335,7 +335,7 @@ class Component extends DCLogic {
       messageLabel: 'Workflow and topics',
       messagePlaceholder: 'Your current workflow, the software in use, and the challenges you want the workshop to address.',
       submit: 'Request a Workshop',
-      extra: { label: 'Number of participants', type: 'number', placeholder: 'e.g. 12', error: 'Enter 1 or more participants.' },
+      extra: { label: 'Number of participants', type: 'number', placeholder: 'Enter the number of participants', error: 'Enter 1 or more participants.' },
     },
     maintenance: {
       service: 'Software Maintenance', label: 'Software Maintenance',
@@ -361,7 +361,7 @@ class Component extends DCLogic {
       messageLabel: 'What you\u2019d like to discuss',
       messagePlaceholder: 'Your software, current version, and whether this concerns an existing agreement or new options.',
       submit: 'Enquire About Maintenance',
-      extra: { label: 'Current software version', type: 'text', placeholder: 'e.g. 2025.1', error: 'Enter the current version.' },
+      extra: { label: 'Current software version', type: 'text', placeholder: 'Enter the current software version', error: 'Enter the current version.' },
     },
     consultancy: {
       service: 'BIM Consultancy', label: 'BIM Consultancy',
@@ -558,7 +558,7 @@ class Component extends DCLogic {
         select: () => this.setState(s => ({ fields: { ...s.fields, service: name }, serviceOpen: false })),
       })),
       productOptions: this._productRows(fields.product, (name) => this.setState(s => ({
-        fields: { ...s.fields, product: name, licenses: name === 'General enquiry' ? '1' : (s.fields.licenses || '1') },
+        fields: { ...s.fields, product: name, licenses: name === 'General enquiry' ? '1' : s.fields.licenses },
         productsOpen: false, productOpen: false, open: null,
         errors: { ...s.errors, product: false },
       }))),

@@ -42,27 +42,27 @@
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
 <div class="flex flex-col gap-2 sm:col-span-2">
             <label for="s-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
-            <input id="s-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
+            <input id="s-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your full name" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
             <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
           </div>
 <div class="flex flex-col gap-2">
             <label for="s-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
-            <input id="s-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
+            <input id="s-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your work email" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
             <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
           </div>
 <div class="flex flex-col gap-2">
             <label for="s-phone" class="text-sm text-muted-foreground">Phone number <span aria-hidden="true" style="color:#C62828">*</span></label>
-            <input id="s-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Include country code" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
+            <input id="s-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your phone number" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
 <sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span id="err-phone" class="text-sm text-red-600">Enter your phone number.</span></sc-if>
           </div>
 <div class="flex flex-col gap-2">
           <label for="s-title" class="text-sm text-muted-foreground">Title <span aria-hidden="true" style="color:#C62828">*</span></label>
-          <input id="s-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="e.g. Senior Structural Engineer" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
+          <input id="s-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your job title" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
           <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><span id="err-title" class="text-sm text-red-600">Enter your title.</span></sc-if>
         </div>
 <div class="flex flex-col gap-2">
             <label for="s-company" class="text-sm text-muted-foreground">Company <span aria-hidden="true" style="color:#C62828">*</span></label>
-            <input id="s-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
+            <input id="s-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="h-[50px] border border-border bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
 <sc-if value="{{ errors.company }}" hint-placeholder-val="{{ false }}"><span id="err-company" class="text-sm text-red-600">Enter your company name.</span></sc-if>
           </div>
 </div>
@@ -72,7 +72,7 @@
             <label id="s-service-label" class="text-sm text-muted-foreground">Service <span aria-hidden="true" style="color:#C62828">*</span></label>
             <div class="relative">
               <button type="button" id="s-service" aria-haspopup="listbox" aria-expanded="{{ svcOpen }}" aria-labelledby="s-service-label" onClick="{{ toggleSvc }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
-                <span class="truncate">{{ fields.service }}</span>
+                <span class="truncate">{{ serviceSummary }}</span>
                 <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
               </button>
               <sc-if value="{{ svcOpen }}" hint-placeholder-val="{{ false }}">
@@ -93,7 +93,7 @@
             <label id="s-product-label" class="text-sm text-muted-foreground">Product <span aria-hidden="true" style="color:#C62828">*</span></label>
             <div class="relative">
               <button type="button" id="s-product" aria-haspopup="listbox" aria-expanded="{{ prodOpen }}" aria-labelledby="s-product-label" onClick="{{ toggleProd }}" aria-invalid="{{ errors.product }}" aria-describedby="err-product" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
-                <span class="truncate">{{ fields.product }}</span>
+                <span class="truncate">{{ productSummary }}</span>
                 <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
               </button>
               <sc-if value="{{ prodOpen }}" hint-placeholder-val="{{ false }}">
@@ -143,7 +143,7 @@
               <sc-if value="{{ ctxAIsSelect }}" hint-placeholder-val="{{ false }}">
                 <div class="relative">
                   <button type="button" aria-haspopup="listbox" aria-expanded="{{ aOpen }}" aria-labelledby="s-ctxa-label" onClick="{{ toggleA }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
-                    <span class="truncate">{{ fields.ctxA }}</span>
+                    <span class="truncate">{{ ctxASummary }}</span>
                     <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
                   </button>
                   <sc-if value="{{ aOpen }}" hint-placeholder-val="{{ false }}">
@@ -169,7 +169,7 @@
               <sc-if value="{{ ctxBIsSelect }}" hint-placeholder-val="{{ false }}">
                 <div class="relative">
                   <button type="button" aria-haspopup="listbox" aria-expanded="{{ bOpen }}" aria-labelledby="s-ctxb-label" onClick="{{ toggleB }}" class="flex h-[50px] w-full items-center justify-between gap-2 border border-border bg-transparent px-4 text-left text-base text-foreground">
-                    <span class="truncate">{{ fields.ctxB }}</span>
+                    <span class="truncate">{{ ctxBSummary }}</span>
                     <i data-lucide="chevron-down" class="size-4 shrink-0 text-muted-foreground"></i>
                   </button>
                   <sc-if value="{{ bOpen }}" hint-placeholder-val="{{ false }}">
@@ -240,12 +240,12 @@ class Component extends DCLogic {
 
   _CTX = {
     'Software Licenses': {
-      a: { type: 'number', label: 'Number of licenses', ph: 'e.g. 5' },
+      a: { type: 'number', label: 'Number of licenses', ph: 'Enter the number of licenses' },
       b: { type: 'select', label: 'Enquiry type', options: ['New licenses', 'Renewal', 'Additional seats', 'Not sure'] },
     },
     'Training & Technical Workshops': {
       a: { type: 'select', label: 'Experience level', options: ['New to the software', 'Some experience', 'Working in it daily'] },
-      b: { type: 'number', label: 'Participants', ph: 'e.g. 8' },
+      b: { type: 'number', label: 'Participants', ph: 'Enter the number of participants' },
     },
   };
 
@@ -274,7 +274,7 @@ class Component extends DCLogic {
     if (!window.SWUTProductOptions) window.addEventListener('swut-products-ready', () => this.forceUpdate(), { once: true });
     const service = this._normService(this.props.service);
     this.setState(s => ({
-      fields: { ...s.fields, service, product: this.props.product || this._productFromUrl() || 'Not sure / Other', ...this._ctxDefaults(service) },
+      fields: { ...s.fields, service, product: this.props.product || this._productFromUrl() || '', ...this._ctxDefaults(service) },
     }));
     this._onDocClick = (e) => {
       const wraps = { service: this._svcWrap, product: this._prodWrap, a: this._aWrap, b: this._bWrap };
@@ -300,8 +300,8 @@ class Component extends DCLogic {
   _ctxDefaults(service) {
     const c = this._cfg(service);
     return {
-      ctxA: c.a && c.a.type === 'select' ? c.a.options[0] : '',
-      ctxB: c.b && c.b.type === 'select' ? c.b.options[0] : '',
+      ctxA: '',
+      ctxB: '',
       ctxFull: '',
     };
   }
@@ -362,6 +362,10 @@ class Component extends DCLogic {
       submitLabel: this.props.submitLabel ?? 'Send enquiry',
       messagePlaceholder: this.props.messagePlaceholder || this._PLACEHOLDERS[fields.service] || 'Tell us what you need.',
       fields, errors, noBackend,
+      serviceSummary: fields.service || 'Select a service',
+      productSummary: fields.product || 'Select a product',
+      ctxASummary: fields.ctxA || (a ? 'Select ' + a.label.toLowerCase() : ''),
+      ctxBSummary: fields.ctxB || (b ? 'Select ' + b.label.toLowerCase() : ''),
 
       svcOpen: open === 'service',
       prodOpen: open === 'product',

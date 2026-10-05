@@ -505,27 +505,27 @@
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
 <div class="flex flex-col gap-2 sm:col-span-2">
                 <label for="q-name" class="text-sm text-muted-foreground">Full name <span aria-hidden="true" style="color:#C62828">*</span></label>
-                <input id="q-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Jane Osei" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
+                <input id="q-name" type="text" required="" value="{{ fields.name }}" onChange="{{ setName }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your full name" aria-invalid="{{ errors.name }}" aria-describedby="err-name">
                 <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span id="err-name" class="text-sm text-red-600">Enter your full name.</span></sc-if>
               </div>
 <div class="flex flex-col gap-2">
                 <label for="q-email" class="text-sm text-muted-foreground">Work email <span aria-hidden="true" style="color:#C62828">*</span></label>
-                <input id="q-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="jane@company.com" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
+                <input id="q-email" type="email" required="" value="{{ fields.email }}" onChange="{{ setEmail }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your work email" aria-invalid="{{ errors.email }}" aria-describedby="err-email">
                 <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span id="err-email" class="text-sm text-red-600">Enter a valid work email.</span></sc-if>
               </div>
 <div class="flex flex-col gap-2">
                 <label for="q-phone" class="text-sm text-muted-foreground">Phone number <span aria-hidden="true" style="color:#C62828">*</span></label>
-                <input id="q-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="+20 10 0000 0000" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
+                <input id="q-phone" required="" type="tel" value="{{ fields.phone }}" onChange="{{ setPhone }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your phone number" aria-invalid="{{ errors.phone }}" aria-describedby="err-phone">
 <sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span id="err-phone" class="text-sm text-red-600">Enter your phone number.</span></sc-if>
               </div>
 <div class="flex flex-col gap-2">
               <label for="q-title" class="text-sm text-muted-foreground">Title <span aria-hidden="true" style="color:#C62828">*</span></label>
-              <input id="q-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="e.g. Senior Structural Engineer" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
+              <input id="q-title" type="text" required="" value="{{ fields.title }}" onChange="{{ setTitle }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your job title" aria-invalid="{{ errors.title }}" aria-describedby="err-title">
               <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><span id="err-title" class="text-sm text-red-600">Enter your title.</span></sc-if>
             </div>
 <div class="flex flex-col gap-2">
                 <label for="q-company" class="text-sm text-muted-foreground">Company <span aria-hidden="true" style="color:#C62828">*</span></label>
-                <input id="q-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
+                <input id="q-company" required="" type="text" value="{{ fields.company }}" onChange="{{ setCompany }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Enter your company name" aria-invalid="{{ errors.company }}" aria-describedby="err-company">
 <sc-if value="{{ errors.company }}" hint-placeholder-val="{{ false }}"><span id="err-company" class="text-sm text-red-600">Enter your company name.</span></sc-if>
               </div>
 </div>
@@ -604,7 +604,7 @@
                 </div>
                 <div class="flex flex-col gap-2">
                   <label for="q-licenses" class="text-sm text-muted-foreground">Number of licenses <span aria-hidden="true" style="color:#C62828">*</span></label>
-                  <input id="q-licenses" type="number" min="1" value="{{ fields.licenses }}" onChange="{{ setLicenses }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" aria-invalid="{{ errors.licenses }}" aria-describedby="err-licenses">
+                  <input id="q-licenses" type="number" min="1" placeholder="Enter the number of licenses" value="{{ fields.licenses }}" onChange="{{ setLicenses }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" aria-invalid="{{ errors.licenses }}" aria-describedby="err-licenses">
                   <sc-if value="{{ errors.licenses }}" hint-placeholder-val="{{ false }}"><span id="err-licenses" class="text-sm text-red-600">Enter at least 1 license.</span></sc-if>
                 </div>
               </div>
@@ -612,7 +612,7 @@
 
             <div class="flex flex-col gap-2">
               <label for="q-notes" class="text-sm text-muted-foreground">Message <span aria-hidden="true" style="color:#C62828">*</span></label>
-              <textarea id="q-notes" required="" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Modules you need, current tools, timeline…" aria-invalid="{{ errors.notes }}" aria-describedby="err-notes"></textarea>
+              <textarea id="q-notes" required="" rows="4" value="{{ fields.notes }}" onChange="{{ setNotes }}" class="border border-border bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground" placeholder="Tell us about your needs" aria-invalid="{{ errors.notes }}" aria-describedby="err-notes"></textarea>
 <sc-if value="{{ errors.notes }}" hint-placeholder-val="{{ false }}"><span id="err-notes" class="text-sm text-red-600">Add a short message so we can respond usefully.</span></sc-if>
             </div>
 
@@ -637,7 +637,7 @@ class Component extends DCLogic {
   _td() { const p = this.state && this.state.fields && this.state.fields.product; return p === 'ZWCAD' || p === 'ZW3D' ? '30' : '14'; }
   state = {
     noBackend: false, intent: 'quote', thumbSrc: {},
-    fields: { name: '', email: '', title: '', company: '', phone: '', notes: '', product: '', licenses: '1' },
+    fields: { name: '', email: '', title: '', company: '', phone: '', notes: '', product: '', licenses: '' },
     productsOpen: false, intentOpen: false,
     errors: {},
     activeCap: 0,
@@ -1144,7 +1144,7 @@ class Component extends DCLogic {
       onProductsKeyDown: (e) => { if (e.key === 'Escape') this.setState({ productsOpen: false }); },
       productsSummary: fields.product || 'Select a product',
       productOptions: this._productRows(fields.product, (name) => this.setState(s => ({
-        fields: { ...s.fields, product: name, licenses: name === 'General enquiry' ? '1' : (s.fields.licenses || '1') },
+        fields: { ...s.fields, product: name, licenses: name === 'General enquiry' ? '1' : s.fields.licenses },
         productsOpen: false, productOpen: false, open: null,
         errors: { ...s.errors, product: false },
       }))),
