@@ -276,27 +276,33 @@
     <dc-import style="width:100%" name="ProductTrialCTA" product="MIDAS" on-trial="{{ startTrial }}" on-quote="{{ startQuote }}" hint-size="100%,420px"></dc-import>
   </section>
 
-  <!-- ===== NEWS & EVENTS ===== -->
+  <!-- ===== TECHNICAL WORKSHOPS & EVENTS ===== -->
   <sc-if value="{{ hasEvents }}" hint-placeholder-val="{{ false }}">
   <section id="news-events" data-nav-theme="light" data-screen-label="News and events" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F8F8F8">
-    <div class="flex flex-col items-start gap-5">
-      <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Events</span>
-      <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-        <span class="inline-block">News &amp; Events</span>
-      </h2>
-      <a href="Events.dc.html?product=MIDAS" data-reveal="fade" class="group mt-1 inline-flex items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground">
-        View all events
-        <i data-lucide="arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
-      </a>
+    <div class="flex items-end justify-between gap-6">
+      <div class="flex flex-col items-start gap-5">
+        <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Workshops</span>
+        <h2 data-reveal="mask" class="overflow-hidden pt-[0.06em] pb-[0.2em] text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          <span class="inline-block">Technical Workshops</span>
+        </h2>
+      </div>
+      <div data-reveal="fade" class="flex shrink-0 items-center gap-2 pb-[0.2em]">
+        <button type="button" onClick="{{ wsPrev }}" aria-label="Previous workshops" class="flex size-11 items-center justify-center border border-foreground bg-background text-foreground transition-colors hover:bg-foreground hover:text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+          <i data-lucide="arrow-left" class="size-4"></i>
+        </button>
+        <button type="button" onClick="{{ wsNext }}" aria-label="Next workshops" class="flex size-11 items-center justify-center border border-foreground bg-background text-foreground transition-colors hover:bg-foreground hover:text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </button>
+      </div>
     </div>
 
-    <div class="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div ref="{{ wsTrackRef }}" role="region" aria-label="Technical workshops slider" class="relative mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 lg:gap-8" style="scrollbar-width:none">
       <sc-for list="{{ newsEvents }}" as="item" hint-placeholder-count="1">
-        <a href="{{ item.href }}" class="group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+        <a href="{{ item.href }}" class="group flex w-[86%] shrink-0 snap-start flex-col sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-4rem)/3)] border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
           <div data-curtain-container class="relative aspect-[16/10] w-full overflow-hidden">
             <div data-reveal="curtain" class="absolute inset-0">
               <div class="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-105">
-                <img src="{{ item.image }}" alt="{{ item.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover">
+                <img src="{{ item.image }}" alt="{{ item.imageAlt }}" loading="lazy" class="{{ item.imgClass }}" style="object-position:{{ item.imagePosition }}">
               </div>
             </div>
           </div>
@@ -310,12 +316,12 @@
             </span>
             <sc-if value="{{ item.isUpcoming }}" hint-placeholder-val="{{ true }}">
               <span class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
-                View Event
+                {{ item.cta }}
                 <i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1"></i>
               </span>
             </sc-if>
             <sc-if value="{{ item.isPast }}" hint-placeholder-val="{{ false }}">
-              <span class="mt-2 text-sm font-semibold text-muted-foreground">This event has taken place</span>
+              <span class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-foreground">{{ item.cta }}<i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1"></i></span>
             </sc-if>
           </div>
         </a>
@@ -557,6 +563,26 @@ class Component extends DCLogic {
   }
 
   _productEvents() {
+    const api = window.SWUTEvents, ws = window.SWUTWorkshops;
+    if (!api) return [];
+    const card = (ev, kind) => ({
+      id: ev.slug, href: ev.href, title: ev.title, summary: ev.summary,
+      image: ev.image, imageAlt: ev.imageAlt || ev.title, imagePosition: ev.imagePosition || '50% 50%',
+      venue: api.place(ev),
+      kindAndDate: kind + ' \u2014 ' + api.dateLabel(ev),
+      isUpcoming: api.status(ev) === 'upcoming',
+      isPast: api.status(ev) === 'past',
+      cta: kind === 'Workshop' ? 'View workshop' : (api.status(ev) === 'past' ? 'View event' : 'View Event'),
+      imgClass: 'absolute inset-0 size-full object-cover transition-[filter] duration-500 ease-out' + (api.status(ev) === 'past' ? ' grayscale group-hover:grayscale-0 group-focus-visible:grayscale-0' : ''),
+    });
+    return [...(ws ? ws.byProduct('MIDAS').map(w => card(w, 'Workshop')) : []), ...api.byProduct('MIDAS').map(ev => card(ev, 'Event'))];
+  }
+  _wsStep(dir) {
+    const t = this._wsTrack; if (!t) return;
+    const card = t.firstElementChild; const step = card ? card.getBoundingClientRect().width + parseFloat(getComputedStyle(t).columnGap || 0) : t.clientWidth;
+    t.scrollBy({ left: dir * step, behavior: 'smooth' });
+  }
+  _productEventsLegacy() {
     const api = window.SWUTEvents;
     if (!api) return [];
     return api.byProduct('MIDAS').map(ev => ({
@@ -978,6 +1004,9 @@ class Component extends DCLogic {
         this.setState({ errors: {}, noBackend: true });
       },
       hasEvents: events.length > 0,
+      wsTrackRef: this._wsRef || (this._wsRef = (el) => { this._wsTrack = el; }),
+      wsPrev: this._wsPrevFn || (this._wsPrevFn = () => this._wsStep(-1)),
+      wsNext: this._wsNextFn || (this._wsNextFn = () => this._wsStep(1)),
       newsEvents: events,
       requirementSteps: [
         { icon: 'compass', title: 'What you analyse', body: 'Buildings and general structures, bridges and civil structures, or the ground itself.' },

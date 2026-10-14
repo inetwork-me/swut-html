@@ -57,7 +57,7 @@
   <section data-nav-theme="dark" data-screen-label="Event hero" class="bg-primary px-6 pb-20 pt-32 text-primary-foreground sm:px-10 lg:px-20 lg:pb-24 lg:pt-40">
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-end lg:gap-16">
       <div class="flex flex-col items-start gap-6">
-        <span class="font-sans text-xs uppercase tracking-widest text-white/50">Event</span>
+        <span class="font-sans text-xs uppercase tracking-widest text-white/50">{{ event.eyebrow }}</span>
         <h1 class="text-balance text-4xl font-semibold leading-[1.18] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
           <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">{{ event.titleLine1 }}</span></span>
           <span data-reveal="mask" class="block overflow-hidden pb-[0.2em]"><span class="block">{{ event.titleLine2 }}</span></span>
@@ -65,23 +65,24 @@
       </div>
       <div data-reveal="stagger" class="flex flex-col items-start gap-6">
         <p class="max-w-md text-base leading-relaxed text-white/65 sm:text-lg">{{ event.intro }}</p>
-        <div class="grid w-full grid-cols-1 gap-4 sm:w-auto sm:grid-cols-2">
-          <a href="{{ event.registerHref }}" target="_blank" rel="noopener noreferrer" class="group inline-flex h-[50px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-none border border-transparent bg-white px-6 text-sm font-semibold text-black transition hover:bg-neutral-200">
-            Register for the Event
+        <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
+          <a href="{{ event.linkedin }}" target="_blank" rel="noopener noreferrer" class="group inline-flex h-[50px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-none border border-transparent bg-white px-6 text-sm font-semibold text-black transition hover:bg-neutral-200">
+            {{ linkLabel }}
             <i data-lucide="arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
           </a>
-          <a href="#agenda" class="inline-flex h-[50px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-none border border-white bg-transparent px-6 text-sm font-semibold text-white no-underline transition-colors hover:bg-white hover:text-black">View Agenda</a>
+          <sc-if value="{{ hasAgenda }}" hint-placeholder-val="{{ true }}">
+          <a href="#agenda" class="inline-flex h-[50px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-none border border-white bg-transparent px-6 text-sm font-semibold text-white no-underline transition-colors hover:bg-white hover:text-black sm:w-[200px]">View Agenda</a>
+          </sc-if>
         </div>
-        <p class="text-xs leading-relaxed text-white/40">Registration opens on the event website in a new tab.</p>
       </div>
     </div>
   </section>
 
   <!-- ===== EVENT IMAGE ===== -->
   <section data-nav-theme="light" data-screen-label="Event image" class="bg-background px-6 py-16 sm:px-10 lg:px-20 lg:py-24">
-    <div data-reveal="curtain" class="relative aspect-[16/8] w-full overflow-hidden sm:aspect-[16/7]">
+    <div data-reveal="curtain" class="{{ event.heroFrame }}">
       <div data-curtain-inner class="absolute inset-0">
-        <img src="https://files.cdn-files-a.com/uploads/12365954/2000_gi-6a9d4525d7321.jpg" alt="IDEA StatiCa Coffee &amp; Learn, Cairo" class="size-full object-cover" style="object-position:50% 40%">
+        <img src="{{ event.heroImage }}" alt="{{ event.heroAlt }}" class="size-full object-cover" style="object-position:{{ event.heroPos }}">
       </div>
     </div>
   </section>
@@ -109,19 +110,42 @@
     <div class="border-b border-border"></div>
   </section>
 
-  <!-- ===== ABOUT ===== -->
-  <section data-curtain-cols data-nav-theme="light" data-screen-label="About the event" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
-    <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-20">
-      <h2 data-reveal="curtain-left" class="max-w-md text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">What's on the agenda.</h2>
-      <div data-reveal="curtain-right" class="flex flex-col gap-5">
-        <p class="text-base leading-relaxed text-muted-foreground sm:text-lg">Sessions run across the IDEA StatiCa workflow: BIM links, Checkbot, and connection design, followed by IDEA StatiCa Detail in both 2D and 3D.</p>
-        <p class="text-base leading-relaxed text-muted-foreground sm:text-lg">Customers share how they apply the software on real projects, and the IDEA StatiCa team presents on Stability and Model Coordinator. Q&amp;A is built into the presentation sessions, with a coffee break in the middle of the day.</p>
-        <p class="text-sm leading-relaxed text-muted-foreground">These are event topics. Availability of any individual application depends on the license held.</p>
+  <!-- ===== EVENT HIGHLIGHTS ===== -->
+  <section data-nav-theme="light" data-screen-label="Event highlights" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[5fr_7fr] lg:gap-16">
+      <div class="flex min-w-0 flex-col items-start gap-6">
+        <span class="inline-flex items-center whitespace-nowrap rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ hlLabel }}</span>
+        <h2 class="text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">{{ event.hlHeading }}</h2>
+        <sc-for list="{{ event.hlBody }}" as="para" hint-placeholder-count="2">
+          <p class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">{{ para }}</p>
+        </sc-for>
+        <a href="{{ event.linkedin }}" target="_blank" rel="noopener noreferrer" class="group mt-2 inline-flex h-[50px] w-full items-center justify-center gap-2 whitespace-nowrap border border-foreground bg-foreground px-6 text-sm font-semibold text-background transition hover:opacity-85 sm:w-auto">
+          {{ linkLabel }}
+          <i data-lucide="arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5"></i>
+        </a>
+      </div>
+      <div class="flex min-w-0 flex-col" role="region" aria-roledescription="carousel" aria-label="Event photos">
+        <div class="relative aspect-[3/2] w-full overflow-hidden bg-muted">
+          <div class="flex h-full w-full transition-transform duration-500 ease-out" style="transform:translateX({{ galOffset }})">
+            <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="1">
+              <div class="relative h-full w-full shrink-0 overflow-hidden" aria-label="{{ g.label }}">
+                <sc-if value="{{ g.contain }}" hint-placeholder-val="{{ false }}">
+                  <img src="{{ g.src }}" alt="" aria-hidden="true" decoding="async" class="absolute inset-0 size-full scale-110 object-cover opacity-80 blur-2xl">
+                </sc-if>
+                <img src="{{ g.src }}" alt="{{ g.alt }}" loading="eager" decoding="async" class="{{ g.imgClass }}">
+              </div>
+            </sc-for>
+          </div>
+          <span aria-live="polite" class="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full bg-black/45 px-3 py-1 font-sans text-xs font-medium tabular-nums tracking-wider text-white backdrop-blur-sm sm:top-4">{{ galCounter }}</span>
+          <button type="button" aria-label="Previous photo" onClick="{{ galPrev }}" class="absolute left-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center bg-black/40 text-white backdrop-blur-sm transition-colors duration-200 hover:bg-black/65 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 sm:left-4 sm:size-11"><i data-lucide="chevron-left" class="size-5"></i></button>
+          <button type="button" aria-label="Next photo" onClick="{{ galNext }}" class="absolute right-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center bg-black/40 text-white backdrop-blur-sm transition-colors duration-200 hover:bg-black/65 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 sm:right-4 sm:size-11"><i data-lucide="chevron-right" class="size-5"></i></button>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ===== SPEAKERS ===== -->
+  <sc-if value="{{ hasSpeakerPhotos }}" hint-placeholder-val="{{ true }}">
   <section data-nav-theme="light" data-screen-label="Speakers" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F4F4F4">
     <h2 data-reveal="mask" class="mx-auto max-w-[800px] overflow-hidden pt-[0.06em] pb-[0.2em] text-center text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
       <span class="inline-block">Meet the IDEA StatiCa team.</span>
@@ -142,8 +166,10 @@
       </sc-for>
     </div>
   </section>
+  </sc-if>
 
   <!-- ===== AGENDA ===== -->
+  <sc-if value="{{ hasAgenda }}" hint-placeholder-val="{{ true }}">
   <section id="agenda" data-nav-theme="light" data-screen-label="Agenda" class="bg-background px-6 py-20 sm:px-10 lg:px-20 lg:py-28">
     <div class="flex flex-col items-start gap-5">
       <span data-reveal="fade" class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Full Agenda</span>
@@ -182,12 +208,14 @@
       </sc-for>
     </div>
   </section>
+  </sc-if>
 
-  <!-- ===== VENUE + REGISTRATION ===== -->
+  <!-- ===== VENUE ===== -->
+  <sc-if value="{{ hasVenue }}" hint-placeholder-val="{{ true }}">
   <section data-nav-theme="light" data-screen-label="Venue and registration" class="px-6 py-20 sm:px-10 lg:px-20 lg:py-28" style="background-color:#F4F4F4">
-    <div class="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20">
-      <div data-reveal="stagger" class="flex flex-col items-start gap-6">
-        <h2 class="max-w-md text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">Join us at Triumph Luxury Hotel.</h2>
+    <div class="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <div data-reveal="stagger" class="flex min-w-0 flex-col items-start gap-6">
+        <h2 class="max-w-md text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">Held at Triumph Luxury Hotel.</h2>
         <div class="flex w-full max-w-sm flex-col">
           <div class="flex items-start gap-4 border-t border-border py-5">
             <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center text-foreground" style="background-color:#FFFFFF">
@@ -209,24 +237,12 @@
           </div>
         </div>
       </div>
-
-      <div data-reveal="stagger" class="flex flex-col items-start gap-6">
-        <h2 class="max-w-md text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">Register your interest.</h2>
-        <p class="max-w-md text-base leading-relaxed text-muted-foreground">Registration for {{ event.title }} on {{ event.dateLong }} is handled on the event website, which asks for your full name, title, company, company mail, and phone number.</p>
-        <div class="flex w-full flex-col items-stretch gap-3.5 sm:w-auto sm:flex-row sm:items-center">
-          <a href="{{ event.registerHref }}" target="_blank" rel="noopener noreferrer" class="group inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-none border border-transparent bg-primary px-6 py-3.5 text-sm font-semibold leading-none text-primary-foreground transition hover:opacity-90 sm:w-auto">
-            Register for the Event
-            <i data-lucide="arrow-up-right" class="size-4 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
-          </a>
-          <a href="{{ event.mapHref }}" target="_blank" rel="noopener noreferrer" class="group inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-none border border-border bg-transparent px-6 py-3.5 text-sm font-semibold leading-none text-foreground transition hover:bg-foreground/5 sm:w-auto">
-            Open in Google Maps
-            <i data-lucide="arrow-up-right" class="size-4 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
-          </a>
-        </div>
-        <p class="text-sm leading-relaxed text-muted-foreground">Opens the event website in a new tab. SWUT does not collect registrations on this page.</p>
+      <div class="relative min-h-[320px] w-full min-w-0 overflow-hidden border border-border bg-background sm:min-h-[400px] lg:min-h-[440px]">
+        <iframe title="Map of Triumph Luxury Hotel, Katameya Heights Road, New Cairo" src="https://www.google.com/maps?q=Triumph+Luxury+Hotel,+Katameya+Heights+Rd,+New+Cairo+1,+Cairo+Governorate+11861,+Egypt&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen="" class="absolute inset-0 size-full" style="border:0"></iframe>
       </div>
     </div>
   </section>
+  </sc-if>
 
   <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
 
@@ -235,17 +251,41 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200}}">
 class Component extends DCLogic {
+  state = { galIdx: 0 };
   // Event records live here so further events reuse this page via ?event=<id>.
   _EVENTS = {
     'idea-statica-coffee-and-learn': {
       titleLine1: 'IDEA StatiCa',
       titleLine2: 'Coffee & Learn',
       title: 'IDEA StatiCa Coffee & Learn',
-      intro: 'Join the IDEA StatiCa team for a day of technical sessions, customer experiences, and discussion.',
+      eyebrow: 'Past event · 5 October 2026',
+      linkedin: 'https://www.linkedin.com/posts/iengs_swutsolutions-ideastatica-trimble-activity-7513525909987979264-6RsD',
+      heroImage: 'assets/events/coffee-learn-2026-01.png',
+      heroAlt: 'Attendees of IDEA StatiCa Coffee & Learn 2026 at Triumph Luxury Hotel, Cairo',
+      heroPos: '50% 50%',
+      heroFrame: 'relative aspect-[16/7] w-full overflow-hidden sm:aspect-[1280/400]',
+      hlHeading: 'A great day of structural engineering & innovation.',
+      hlBody: [
+        'SWUT Solutions brought structural engineers and industry professionals together in Cairo to explore IDEA StatiCa V26.1, from Detail and Anchoring Design enhancements to Connection, with real project experiences and BIM workflows shared on the day.',
+        'Thank you to Dominik Barič and Ondřej Balkanský of IDEA StatiCa, and to every speaker, partner, and attendee who made it a success.',
+      ],
+      gallery: [
+        ['assets/events/coffee-learn-2026-02.png', 'IDEA StatiCa speaker presenting Complex Anchoring and Concrete Discontinuities'],
+        ['assets/events/coffee-learn-2026-03.png', 'IDEA StatiCa speaker at the podium'],
+        ['assets/events/coffee-learn-2026-04.png', 'SWUT welcome address opening Coffee & Learn Event 2026'],
+        ['assets/events/coffee-learn-2026-05.png', 'Attendees seated in the ballroom'],
+        ['assets/events/coffee-learn-2026-06.png', 'Attendee asking a question at the ECG table'],
+        ['assets/events/coffee-learn-2026-07.png', 'Attendee speaking at table 7'],
+        ['assets/events/coffee-learn-2026-08.png', 'Enppi structural engineer asking a question'],
+        ['assets/events/coffee-learn-2026-09.png', 'Attendee speaking at the ECG table'],
+        ['assets/events/coffee-learn-2026-10.png', 'Attendee asking a question during the session'],
+        ['assets/events/coffee-learn-2026-11.png', 'Zamil Steel attendee standing to ask a question'],
+      ],
+      intro: 'A day of technical sessions, customer experiences, and discussion with the IDEA StatiCa team in Cairo.',
       dateLong: 'Monday, 5 October 2026',
       time: '9:00 AM–3:00 PM',
       venue: 'Triumph Luxury Hotel',
-      mapHref: 'https://maps.google.com/?q=Triumph+Luxury+Hotel%2C+In+front+of%D8%8C+Katameya+Heights+Rd%2C+New+Cairo+1%2C+Cairo+Governorate+11861',
+      mapHref: 'https://www.google.com/maps/dir/?api=1&destination=Triumph+Luxury+Hotel%2C+Katameya+Heights+Rd%2C+New+Cairo+1%2C+Cairo+Governorate+11861%2C+Egypt',
       registerHref: 'https://6a9d43e3e0678.site123.me/',
       speakers: [
         { name: 'Dominik Baric', role: 'Channel Manager', slot: 'speaker-dominik-baric', src: 'uploads/pasted-1789903466140-0.png', placeholder: 'Portrait of Dominik Baric' },
@@ -263,6 +303,129 @@ class Component extends DCLogic {
         { time: '13:45–15:00', title: 'Third Presentation Session', detail: 'Stability and Model Coordinator presentation, including Q&A.' },
         { time: '15:00–15:05', title: 'Photo & Lunch' },
       ],
+    },
+    'idea-statica-coffee-and-learn-egypt-2026': {
+      titleLine1: 'IDEA StatiCa',
+      titleLine2: 'Coffee & Learn Egypt',
+      title: 'IDEA StatiCa Coffee & Learn Egypt',
+      eyebrow: 'Past event · April 2026',
+      intro: 'A Coffee & Learn session hosted at SWUT Solutions, exploring the latest workflows in structural steel design with IDEA StatiCa.',
+      linkedin: 'https://www.linkedin.com/posts/iengs_swutsolutions-ideastatica-structuralengineering-activity-7450564766818930688-BdsI',
+      heroImage: 'assets/events/coffee-learn-egypt-2026-01.png',
+      heroAlt: 'SWUT Solutions team with IDEA StatiCa speakers Martin Horáček and Lukáš Juříček',
+      heroPos: '50% 55%',
+      heroFrame: 'relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] lg:aspect-[2/1]',
+      hlHeading: 'Expert insights from the source.',
+      hlBody: [
+        'SWUT Solutions hosted the IDEA StatiCa Coffee & Learn Egypt session at its premises, gathering partners and industry leaders to explore the latest workflows in structural steel design.',
+        'Martin Horáček (Product Engineer) and Lukáš Juříček (Computational Validation Engineer) shared practical insights into the CBFEM method, with live demonstrations for tackling today’s most “un-calculatable” structural challenges.',
+        'As the authorized IDEA StatiCa reseller in Egypt, SWUT thanks every consultant, fabricator, and engineer who attended and joined the discussion.',
+      ],
+      gallery: [
+        ['assets/events/coffee-learn-egypt-2026-02.png', 'Attendees following an IDEA StatiCa presentation at SWUT Solutions'],
+        ['assets/events/coffee-learn-egypt-2026-03.png', 'IDEA StatiCa engineer discussing a connection model with attendees'],
+        ['assets/events/coffee-learn-egypt-2026-04.png', 'Speaker presenting Steel and Concrete in one Checkbot'],
+      ],
+      facts: [
+        { label: 'Date', value: 'April 2026', plain: true },
+        { label: 'Venue', value: 'SWUT Solutions, Cairo', plain: true },
+        { label: 'Speakers', value: 'Martin Horáček · Lukáš Juříček', plain: true },
+      ],
+      speakers: [],
+      agenda: [],
+    },
+    'midas-gts-nx-technical-workshops-2026': {
+      titleLine1: 'MIDAS GTS NX',
+      titleLine2: 'Technical Workshops',
+      title: 'MIDAS GTS NX Technical Workshops',
+      eyebrow: 'Technical workshop · April 2026',
+      intro: 'A visit from Eng. Darshan of the MIDAS technical team, helping our clients unlock the full potential of MIDAS GTS NX.',
+      linkedin: 'https://www.linkedin.com/posts/midas-midasgtsnx-geotechnicalengineering-ugcPost-7455536959021576192-0uc2',
+      linkLabel: 'View the workshop on LinkedIn',
+      heroImage: 'assets/workshops/midas-gts-nx-2026-01.png',
+      heroAlt: 'MIDAS GTS NX workshop in a meeting room with an application case on screen',
+      heroPos: '50% 50%',
+      heroFrame: 'relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] lg:aspect-[2/1]',
+      hlLabel: 'Workshop Highlights',
+      hlHeading: 'Advanced geotechnical analysis, applied.',
+      hlBody: [
+        'Eng. Darshan from the MIDAS technical team visited Egypt to support our clients with a deep dive into the advanced geotechnical analysis capabilities and practical applications of MIDAS GTS NX.',
+        'A highlight was an intensive, focused workshop with the National Authority for Tunnels (NAT), exploring real project scenarios and how MIDAS GTS NX improves design accuracy and efficiency.',
+        'The visit also included meetings with Elsewedy Electric and Orascom Construction, opening insightful discussions on geotechnical challenges. Thank you to all our partners for their time, engagement, and trust.',
+      ],
+      gallery: [
+        ['assets/workshops/midas-gts-nx-2026-02.png', 'Engineers following a MIDAS GTS NX model on a large screen'],
+        ['assets/workshops/midas-gts-nx-2026-03.png', 'MIDAS GTS NX contents presented to a client team in a boardroom'],
+      ],
+      facts: [
+        { label: 'Date', value: 'April 2026', plain: true },
+        { label: 'Product', value: 'MIDAS GTS NX', plain: true },
+        { label: 'Led by', value: 'Eng. Darshan, MIDAS', plain: true },
+      ],
+      speakers: [],
+      agenda: [],
+    },
+    'midas-civil-nx-shaker-training-2026': {
+      titleLine1: 'MIDAS CIVIL NX',
+      titleLine2: 'Bridge Engineering Training',
+      title: 'MIDAS CIVIL NX Bridge Engineering Training',
+      eyebrow: 'Technical workshop · March 2026',
+      intro: 'A specialized MIDAS CIVIL NX training for Shaker Consultancy Group, delivered by SWUT Solutions with MIDAS Research and Development Centre India.',
+      linkedin: 'https://www.linkedin.com/posts/swutsolutions-midas-bridgeengineering-ugcPost-7434186963928322049-Zd9r',
+      linkLabel: 'View the workshop on LinkedIn',
+      heroImage: 'assets/workshops/midas-civil-nx-shaker-01.png',
+      heroAlt: 'Eng. Mital Chovatiya leading MIDAS CIVIL NX training for Shaker Consultancy Group',
+      heroPos: '50% 55%',
+      heroFrame: 'relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] lg:aspect-[2/1]',
+      hlLabel: 'Workshop Highlights',
+      hlHeading: 'Empowering bridge engineering excellence.',
+      hlBody: [
+        'SWUT Solutions and MIDAS Research and Development Centre India delivered high-impact technical training for Shaker Consultancy Group, marking the beginning of a promising partnership.',
+        'Using MIDAS CIVIL NX, participants explored API plugins and automation in bridge design, superstructure design and shell element modelling, dynamic analysis for railway bridges, and track–structure interaction under railway loading.',
+        'Thank you to the Shaker Consultancy Group team for their engagement, and to MIDAS and Eng. Mital Chovatiya for an insightful, engaging training.',
+      ],
+      gallery: [
+        ['assets/workshops/midas-civil-nx-shaker-02.png', 'Participants discussing a section model during the MIDAS CIVIL NX training'],
+        ['assets/workshops/midas-civil-nx-shaker-01.png', 'Bridge model on screen during the MIDAS CIVIL NX training'],
+      ],
+      facts: [
+        { label: 'Date', value: 'March 2026', plain: true },
+        { label: 'Product', value: 'MIDAS CIVIL NX', plain: true },
+        { label: 'Led by', value: 'Eng. Mital Chovatiya, MIDAS', plain: true },
+      ],
+      speakers: [],
+      agenda: [],
+    },
+    'idea-statica-coffee-and-learn-egypt-2025': {
+      titleLine1: 'IDEA StatiCa',
+      titleLine2: 'Coffee & Learn Session',
+      title: 'IDEA StatiCa Coffee & Learn Session',
+      eyebrow: 'Past event · November 2025',
+      intro: 'An IDEA StatiCa Coffee & Learn Egypt session hosted at SWUT Solutions, bringing our partners together to explore the latest IDEA StatiCa workflows and innovations.',
+      linkedin: 'https://www.linkedin.com/posts/iengs_ideastatica-swutsolutions-coffeeandlearn-activity-7392614464849833984-pxoa',
+      heroImage: 'assets/events/coffee-learn-egypt-2025-01.png',
+      heroAlt: 'Attendees and the SWUT team at the IDEA StatiCa Coffee & Learn session',
+      heroPos: '50% 45%',
+      heroFrame: 'relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] lg:aspect-[2/1]',
+      hlHeading: 'Learning together with our customers.',
+      hlBody: [
+        'SWUT Solutions hosted an IDEA StatiCa Coffee & Learn Egypt session at its premises, gathering valued partners to explore the latest workflows and innovations from IDEA StatiCa.',
+        'Channel Manager Eng. Dominik Barič led the session, with practical insights and clear demonstrations that made the day both informative and inspiring.',
+        'Thank you to the customers who attended, including Zamil Steel, Elsewedy Electric, Mahmood Saeed Steel Industries, LinkMisr International, ACROW Formwork Technology, AIC Steel, S. A. Miro, Dar, FMC-Ferrometalco, and Petrojet.',
+      ],
+      gallery: [
+        ['assets/events/coffee-learn-egypt-2025-02.png', 'Dominik Barič presenting IDEA StatiCa to attendees'],
+        ['assets/events/coffee-learn-egypt-2025-03.png', 'Session in progress with the IDEA StatiCa Connection banner'],
+        ['assets/events/coffee-learn-egypt-2025-04.png', 'Attendees in discussion during the break', 'contain'],
+        ['assets/events/coffee-learn-egypt-2025-05.png', 'Attendees talking over coffee'],
+      ],
+      facts: [
+        { label: 'Date', value: 'November 2025', plain: true },
+        { label: 'Venue', value: 'SWUT Solutions, Cairo', plain: true },
+        { label: 'Speaker', value: 'Dominik Barič', plain: true },
+      ],
+      speakers: [],
+      agenda: [],
     },
   };
 
@@ -416,10 +579,22 @@ class Component extends DCLogic {
 
   renderVals() {
     const event = this._EVENTS[this._eventId()];
+    const gal = event.gallery;
     return {
+      linkLabel: event.linkLabel || 'View the event on LinkedIn',
+      hlLabel: event.hlLabel || 'Event Highlights',
+      // Images that can't fill the 3:2 frame (e.g. portrait shots) are shown whole over a blurred copy of themselves.
+      gallery: gal.map(([src, alt, fit], i) => ({ src, alt, contain: fit === 'contain', imgClass: 'absolute inset-0 size-full ' + (fit === 'contain' ? 'object-contain' : 'object-cover'), label: 'Photo ' + (i + 1) + ' of ' + gal.length })),
+      galOffset: (-(this.state.galIdx % gal.length) * 100) + '%',
+      galCounter: String((this.state.galIdx % gal.length) + 1).padStart(2, '0') + ' / ' + String(gal.length).padStart(2, '0'),
+      galPrev: () => this.setState(s => ({ galIdx: (s.galIdx - 1 + gal.length) % gal.length })),
+      galNext: () => this.setState(s => ({ galIdx: (s.galIdx + 1) % gal.length })),
+      hasAgenda: event.agenda.length > 0,
+      hasSpeakerPhotos: event.speakers.length > 0,
+      hasVenue: !!event.mapHref,
       event,
       backHref: 'IDEA StatiCa.dc.html#news-events',
-      facts: [
+      facts: event.facts || [
         { label: 'Date', value: event.dateLong, plain: true },
         { label: 'Time', value: event.time, plain: true },
         { label: 'Venue', value: event.venue, href: event.mapHref },

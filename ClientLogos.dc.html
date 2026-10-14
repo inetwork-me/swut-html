@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @keyframes clientMarqueeL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes clientMarqueeR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    [data-client-track] { animation: none !important; transform: none !important; width: 100% !important; justify-content: center; }
+    [data-client-dup] { display: none !important; }
+    [data-client-set] { flex-wrap: wrap; justify-content: center; }
+    [data-client-mask] { -webkit-mask-image: none !important; mask-image: none !important; }
+  }
+</style>
+</helmet>
+<section id="clients" data-nav-theme="light" data-screen-label="Our clients" class="py-20 lg:py-28" style="background-color:#F8F8F8">
+  <div class="flex flex-col items-center gap-5 px-6 text-center sm:px-10 lg:px-20">
+    <span class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Trusted by</span>
+    <h2 class="pt-[0.06em] pb-[0.2em] text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">Our Clients</h2>
+  </div>
+  <div data-client-mask tabindex="0" role="region" aria-roledescription="carousel" aria-label="Our clients — auto-scrolling logos" onMouseEnter="{{ pause }}" onMouseLeave="{{ resume }}" onFocus="{{ pause }}" onBlur="{{ resume }}" class="mt-12 flex flex-col divide-y divide-border overflow-hidden border-y border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground lg:mt-16" style="-webkit-mask-image:linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);mask-image:linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%)">
+    <div data-client-track class="flex w-max" style="animation:clientMarqueeL 110s linear infinite;animation-play-state:{{ play }}">
+      <div data-client-set class="flex shrink-0">
+        <sc-for list="{{ rowA }}" as="c" hint-placeholder-count="8">
+          <div class="flex h-[104px] w-[176px] shrink-0 items-center justify-center border-r border-border px-6 sm:h-[120px] sm:w-[220px] sm:px-8">
+            <img src="{{ c.src }}" alt="{{ c.name }}" title="{{ c.name }}" decoding="async" class="block max-h-[48px] max-w-full object-contain sm:max-h-[56px]">
+          </div>
+        </sc-for>
+      </div>
+      <div data-client-dup aria-hidden="true" class="flex shrink-0">
+        <sc-for list="{{ rowA }}" as="c" hint-placeholder-count="8">
+          <div class="flex h-[104px] w-[176px] shrink-0 items-center justify-center border-r border-border px-6 sm:h-[120px] sm:w-[220px] sm:px-8">
+            <img src="{{ c.src }}" alt="" decoding="async" class="block max-h-[48px] max-w-full object-contain sm:max-h-[56px]">
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div data-client-track class="flex w-max" style="animation:clientMarqueeR 110s linear infinite;animation-play-state:{{ play }}">
+      <div data-client-set class="flex shrink-0">
+        <sc-for list="{{ rowB }}" as="c" hint-placeholder-count="8">
+          <div class="flex h-[104px] w-[176px] shrink-0 items-center justify-center border-r border-border px-6 sm:h-[120px] sm:w-[220px] sm:px-8">
+            <img src="{{ c.src }}" alt="{{ c.name }}" title="{{ c.name }}" decoding="async" class="block max-h-[48px] max-w-full object-contain sm:max-h-[56px]">
+          </div>
+        </sc-for>
+      </div>
+      <div data-client-dup aria-hidden="true" class="flex shrink-0">
+        <sc-for list="{{ rowB }}" as="c" hint-placeholder-count="8">
+          <div class="flex h-[104px] w-[176px] shrink-0 items-center justify-center border-r border-border px-6 sm:h-[120px] sm:w-[220px] sm:px-8">
+            <img src="{{ c.src }}" alt="" decoding="async" class="block max-h-[48px] max-w-full object-contain sm:max-h-[56px]">
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:520}}">
+class Component extends DCLogic {
+  state = { paused: false };
+
+  // Single source of truth for client logos site-wide (Home + About). Extracted from "our clients.pptx".
+  _CLIENTS = [
+    ['Elite Consolidated Engineers', 'elite-consolidated-engineers'],
+    ['WETICO', 'wetico'],
+    ['Khatib & Alami', 'khatib-alami'],
+    ['Al Maghrabi Factory for Metal Products', 'al-maghrabi-factory'],
+    ['EEC Group', 'eec-group'],
+    ['ACROW Integrated Construction Services', 'acrow'],
+    ['WES Engineering & Environmental Consultants', 'wes-consultants'],
+    ['thyssenkrupp', 'thyssenkrupp'],
+    ['SSH', 'ssh'],
+    ['Dar Al Alamia Construction', 'dar-al-alamia'],
+    ['Energya Industries – Elsewedy Helal', 'energya-elsewedy-helal'],
+    ['Cosmos Engineers & Consultants', 'cosmos'],
+    ['PGESCo', 'pgesco'],
+    ['Al Marasem Development', 'al-marasem'],
+    ['ECG Engineering Consultants Group', 'ecg'],
+    ['AW Engineering Services', 'aw-engineering'],
+    ['AACE – Amr Abdelrahman Consultant Engineers', 'aace'],
+    ['S. A. Miro, Inc.', 'sa-miro'],
+    ['Mahmood Saeed Steel', 'mahmood-saeed-steel'],
+    ['Elsewedy Electric PSP', 'elsewedy-electric-psp'],
+    ['National Steel Fabrication', 'national-steel-fabrication'],
+    ['Shaker Consultancy Group', 'shaker'],
+    ['alfanar Engineering Services', 'alfanar'],
+    ['ARX', 'arx'],
+    ['AFCO Steel', 'afco-steel'],
+    ['Saudi Firmness', 'saudi-firmness'],
+    ['Rowad Modern Engineering', 'rowad'],
+    ['LinkMisr', 'linkmisr'],
+    ['Petrojet', 'petrojet'],
+    ['The Arab Contractors', 'arab-contractors'],
+    ['Enppi', 'enppi'],
+    ['Orascom Construction', 'orascom'],
+    ['ACERO Building Systems', 'acero'],
+    ['AIC Steel', 'aic-steel'],
+    ['Al Ashoury Holding', 'al-ashoury'],
+    ['Dar', 'dar'],
+    ['Assent Steel Industries', 'assent-steel'],
+    ['Zamil Steel', 'zamil-steel'],
+    ['Nexus', 'nexus'],
+  ].map(([name, slug]) => ({ name, src: 'assets/clients/client-' + slug + '.png' }))
+   .concat([
+    { name: 'GIECO', src: 'assets/client-gieco.png' },
+    { name: 'Hassan Allam Holding', src: 'assets/client-hassan-allam.png' },
+    { name: 'Alexform', src: 'assets/client-alexform.png' },
+  ]);
+
+  renderVals() {
+    const half = Math.ceil(this._CLIENTS.length / 2);
+    return {
+      rowA: this._CLIENTS.slice(0, half),
+      rowB: this._CLIENTS.slice(half),
+      play: this.state.paused ? 'paused' : 'running',
+      pause: () => this.setState({ paused: true }),
+      resume: (e) => {
+        if (e && e.type === 'mouseleave' && e.currentTarget.contains(document.activeElement)) return;
+        if (e && e.type === 'blur' && e.currentTarget.matches(':hover')) return;
+        this.setState({ paused: false });
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

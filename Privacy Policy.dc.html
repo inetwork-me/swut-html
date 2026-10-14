@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./page-transition.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    background: 'oklch(var(--background))', foreground: 'oklch(var(--foreground))', card: 'oklch(var(--card))', border: 'oklch(var(--border))',
+    primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
+    muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
+  }, borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' } } } };
+</script>
+<link rel="stylesheet" href="swut-buttons.css">
+<style>
+  :root { --background: 1 0 0; --foreground: 0.145 0 0; --card: 1 0 0; --border: 0.922 0 0; --primary: 0.205 0 0; --primary-foreground: 0.985 0 0; --muted-foreground: 0.556 0 0; --muted: 0.97 0 0; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  html { scroll-padding-top: 112px; scroll-behavior: smooth; }
+  * { cursor: none; }
+</style>
+</helmet>
+<div class="relative min-h-screen bg-background font-sans text-foreground antialiased">
+  <dc-import name="NavHeader" current-page="legal" quote-href="Contact.dc.html" hint-size="100%,80px"></dc-import>
+
+  <section data-nav-theme="dark" data-screen-label="Privacy hero" class="bg-primary px-6 pb-16 pt-32 text-primary-foreground sm:px-10 lg:px-20 lg:pb-20 lg:pt-40">
+    <div class="flex flex-col items-start gap-5">
+      <span class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Legal</span>
+      <h1 class="text-balance text-4xl font-semibold leading-[1.18] tracking-tight sm:text-5xl lg:text-6xl">Privacy Policy</h1>
+      <p class="max-w-xl text-pretty text-base leading-relaxed text-white/70 sm:text-lg">How SWUT Solutions collects, uses, and protects your information when you use our website and services.</p>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/50">
+        <span>Last updated: 14 October 2026</span>
+        <span>Sample content — to be reviewed before publishing</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-nav-theme="light" data-screen-label="Privacy content" class="bg-background px-6 py-16 sm:px-10 lg:px-20 lg:py-24">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-20">
+      <nav aria-label="On this page" class="lg:sticky lg:top-28 lg:self-start">
+        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">On this page</span>
+        <ol class="mt-4 flex flex-col border-l border-border">
+          <li><a href="#information" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">1. Information we collect</a></li>
+          <li><a href="#use" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">2. How we use information</a></li>
+          <li><a href="#sharing" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">3. Sharing with vendors</a></li>
+          <li><a href="#cookies" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">4. Cookies</a></li>
+          <li><a href="#retention" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">5. Data retention</a></li>
+          <li><a href="#security" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">6. Security</a></li>
+          <li><a href="#rights" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">7. Your rights</a></li>
+          <li><a href="#contact" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">8. Contact us</a></li>
+        </ol>
+      </nav>
+
+      <article class="flex max-w-3xl flex-col">
+        <p class="text-pretty text-lg leading-relaxed text-foreground">This Privacy Policy explains how SWUT Solutions (“SWUT”, “we”, “us”) handles personal information collected through swutsolutions.com, our enquiry and trial forms, events, training, and technical support.</p>
+
+        <div id="information" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">1. Information we collect</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">We collect information you provide directly, such as your name, job title, company, business email, phone number, the products you are interested in, and the content of your messages.</p>
+          <ul class="flex flex-col gap-2 text-base leading-relaxed text-muted-foreground">
+            <li class="flex gap-3"><span aria-hidden="true" class="mt-2.5 block size-1.5 shrink-0 bg-foreground"></span><span>Enquiry, quote, demo, and trial requests</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="mt-2.5 block size-1.5 shrink-0 bg-foreground"></span><span>Event and workshop registrations</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="mt-2.5 block size-1.5 shrink-0 bg-foreground"></span><span>Technical support and maintenance requests</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="mt-2.5 block size-1.5 shrink-0 bg-foreground"></span><span>Basic usage data, such as pages visited and device type</span></li>
+          </ul>
+        </div>
+
+        <div id="use" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">2. How we use information</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">We use your information to respond to enquiries, prepare quotations, arrange trials and demos, deliver training and support, manage software licenses, and share relevant updates about products and events. We do not sell personal information.</p>
+        </div>
+
+        <div id="sharing" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">3. Sharing with vendors</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">As an authorized reseller, we may share the details needed to issue licenses, trials, or vendor-led training with our software partners, including IDEA StatiCa, ZWSOFT, MIDAS, and Bentley Systems. Each vendor processes this information under its own privacy policy.</p>
+        </div>
+
+        <div id="cookies" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">4. Cookies</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">Our website uses essential cookies to function and may use analytics cookies to understand how pages are used. You can control cookies through your browser settings.</p>
+        </div>
+
+        <div id="retention" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">5. Data retention</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">We keep personal information only as long as needed for the purposes described here, including license administration and legal or accounting obligations.</p>
+        </div>
+
+        <div id="security" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">6. Security</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">We apply reasonable technical and organizational measures to protect your information. No method of transmission or storage is completely secure, but we work to safeguard the data entrusted to us.</p>
+        </div>
+
+        <div id="rights" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">7. Your rights</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">You may ask to access, correct, or delete your personal information, or opt out of marketing communications at any time by contacting us.</p>
+        </div>
+
+        <div id="contact" class="mt-12 flex flex-col items-start gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">8. Contact us</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">Questions about this policy can be sent to <a href="mailto:info@swutsolutions.com" class="text-foreground underline underline-offset-4 hover:opacity-70">info@swutsolutions.com</a>.</p>
+          <div class="mt-2 flex flex-wrap gap-6 text-sm font-semibold">
+            <a href="Terms of Service.dc.html" class="inline-flex items-center gap-2 underline underline-offset-4 hover:opacity-70">Read the Terms of Service</a>
+            <a href="Contact.dc.html" class="inline-flex items-center gap-2 underline underline-offset-4 hover:opacity-70">Contact SWUT</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
+</div>
+</x-dc>
+</body>
+</html>

@@ -162,9 +162,9 @@
     <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       <sc-for list="{{ cards }}" as="ev" hint-placeholder-count="1">
         <sc-if value="{{ ev.isNext }}" hint-placeholder-val="{{ false }}">
-        <a href="{{ ev.href }}" onClick="{{ rememberReturn }}" class="swut-card-in group flex flex-col border border-foreground bg-foreground text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+        <a href="{{ ev.href }}" target="{{ ev.target }}" rel="{{ ev.rel }}" onClick="{{ rememberReturn }}" class="swut-card-in group flex flex-col border border-foreground bg-foreground text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
           <div class="relative aspect-[16/10] w-full overflow-hidden">
-            <img src="{{ ev.image }}" alt="{{ ev.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" style="object-position:50% 40%">
+            <img src="{{ ev.image }}" alt="{{ ev.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" style="object-position:{{ ev.imagePosition }}">
             <span class="absolute left-5 top-5 inline-flex items-center rounded-full border border-white bg-foreground px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-widest text-white">Upcoming</span>
           </div>
           <div class="flex flex-col items-start gap-3 p-7">
@@ -183,9 +183,9 @@
         </a>
         </sc-if>
         <sc-if value="{{ ev.isStandard }}" hint-placeholder-val="{{ true }}">
-        <a href="{{ ev.href }}" onClick="{{ rememberReturn }}" class="swut-card-in group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+        <a href="{{ ev.href }}" target="{{ ev.target }}" rel="{{ ev.rel }}" onClick="{{ rememberReturn }}" class="swut-card-in group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
           <div class="relative aspect-[16/10] w-full overflow-hidden">
-            <img src="{{ ev.image }}" alt="{{ ev.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" style="object-position:50% 40%">
+            <img src="{{ ev.image }}" alt="{{ ev.imageAlt }}" loading="lazy" class="{{ ev.imgClass }}" style="object-position:{{ ev.imagePosition }}">
           </div>
           <div class="flex flex-col items-start gap-3 p-7">
             <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ ev.dateAndStatus }}</span>
@@ -317,8 +317,12 @@ class Component extends DCLogic {
       isNext: i === nextIdx,
       isStandard: i !== nextIdx,
       href: ev.href,
+      target: ev.external ? '_blank' : '_self',
+      rel: ev.external ? 'noopener noreferrer' : '',
       image: ev.image,
       imageAlt: ev.imageAlt,
+      imagePosition: ev.imagePosition || '50% 50%',
+      imgClass: 'absolute inset-0 size-full object-cover transition-[filter,transform] duration-[900ms] ease-out group-hover:scale-105' + (api.status(ev) === 'past' ? ' grayscale group-hover:grayscale-0 group-focus-visible:grayscale-0' : ''),
       title: ev.title,
       summary: ev.summary,
       place: api.place(ev),

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./page-transition.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    background: 'oklch(var(--background))', foreground: 'oklch(var(--foreground))', card: 'oklch(var(--card))', border: 'oklch(var(--border))',
+    primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
+    muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
+  }, borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' } } } };
+</script>
+<link rel="stylesheet" href="swut-buttons.css">
+<style>
+  :root { --background: 1 0 0; --foreground: 0.145 0 0; --card: 1 0 0; --border: 0.922 0 0; --primary: 0.205 0 0; --primary-foreground: 0.985 0 0; --muted-foreground: 0.556 0 0; --muted: 0.97 0 0; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  html { scroll-padding-top: 112px; scroll-behavior: smooth; }
+  * { cursor: none; }
+</style>
+</helmet>
+<div class="relative min-h-screen bg-background font-sans text-foreground antialiased">
+  <dc-import name="NavHeader" current-page="legal" quote-href="Contact.dc.html" hint-size="100%,80px"></dc-import>
+
+  <section data-nav-theme="dark" data-screen-label="Terms hero" class="bg-primary px-6 pb-16 pt-32 text-primary-foreground sm:px-10 lg:px-20 lg:pb-20 lg:pt-40">
+    <div class="flex flex-col items-start gap-5">
+      <span class="inline-flex items-center rounded-full border border-white/25 px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-white/70">Legal</span>
+      <h1 class="text-balance text-4xl font-semibold leading-[1.18] tracking-tight sm:text-5xl lg:text-6xl">Terms of Service</h1>
+      <p class="max-w-xl text-pretty text-base leading-relaxed text-white/70 sm:text-lg">The terms that apply when you use our website, request quotes or trials, and work with SWUT on software, training, and support.</p>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/50">
+        <span>Last updated: 14 October 2026</span>
+        <span>Sample content — to be reviewed before publishing</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-nav-theme="light" data-screen-label="Terms content" class="bg-background px-6 py-16 sm:px-10 lg:px-20 lg:py-24">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-20">
+      <nav aria-label="On this page" class="lg:sticky lg:top-28 lg:self-start">
+        <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">On this page</span>
+        <ol class="mt-4 flex flex-col border-l border-border">
+          <li><a href="#acceptance" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">1. Acceptance of terms</a></li>
+          <li><a href="#services" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">2. Our services</a></li>
+          <li><a href="#licenses" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">3. Software licenses</a></li>
+          <li><a href="#trials" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">4. Trials and demos</a></li>
+          <li><a href="#payment" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">5. Quotes and payment</a></li>
+          <li><a href="#training" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">6. Training and events</a></li>
+          <li><a href="#liability" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">7. Limitation of liability</a></li>
+          <li><a href="#contact" class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">8. Contact us</a></li>
+        </ol>
+      </nav>
+
+      <article class="flex max-w-3xl flex-col">
+        <p class="text-pretty text-lg leading-relaxed text-foreground">These Terms of Service set out the conditions for using the SWUT Solutions website and the software, training, and support services we provide.</p>
+
+        <div id="acceptance" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">1. Acceptance of terms</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">By using swutsolutions.com or engaging SWUT Solutions (“SWUT”, “we”, “us”) for software, training, consultancy, or support, you agree to these Terms of Service.</p>
+        </div>
+
+        <div id="services" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">2. Our services</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">SWUT is an authorized reseller of engineering software from vendors including IDEA StatiCa, ZWSOFT, MIDAS, and Bentley Systems, and provides training, BIM consultancy, technical support, and software maintenance.</p>
+        </div>
+
+        <div id="licenses" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">3. Software licenses</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">Software is licensed, not sold. Your use of each product is governed by the vendor’s end-user license agreement, which you accept when installing or activating the software.</p>
+        </div>
+
+        <div id="trials" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">4. Trials and demos</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">Trial licenses are provided for evaluation only, for a limited period, and may not be used for commercial project delivery unless the vendor permits it.</p>
+        </div>
+
+        <div id="payment" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">5. Quotes and payment</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">Quotations are valid for the period stated on them. Licenses and services are delivered once payment terms agreed in writing are met.</p>
+        </div>
+
+        <div id="training" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">6. Training and events</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">Training content, materials, and recordings are for participants’ internal use. We may reschedule sessions or events with reasonable notice.</p>
+        </div>
+
+        <div id="liability" class="mt-12 flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">7. Limitation of liability</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">Engineering results remain the responsibility of the qualified engineer using the software. To the extent permitted by law, SWUT is not liable for indirect or consequential losses arising from use of the software or services.</p>
+        </div>
+
+        <div id="contact" class="mt-12 flex flex-col items-start gap-4 border-t border-border pt-10">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">8. Contact us</h2>
+          <p class="text-base leading-relaxed text-muted-foreground">Questions about these terms can be sent to <a href="mailto:info@swutsolutions.com" class="text-foreground underline underline-offset-4 hover:opacity-70">info@swutsolutions.com</a>.</p>
+          <div class="mt-2 flex flex-wrap gap-6 text-sm font-semibold">
+            <a href="Privacy Policy.dc.html" class="inline-flex items-center gap-2 underline underline-offset-4 hover:opacity-70">Read the Privacy Policy</a>
+            <a href="Contact.dc.html" class="inline-flex items-center gap-2 underline underline-offset-4 hover:opacity-70">Contact SWUT</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,900px"></dc-import>
+</div>
+</x-dc>
+</body>
+</html>

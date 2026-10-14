@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+<script src="./events-data.js"></script>
 <script src="./page-transition.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -145,15 +146,39 @@
           Moments from past SWUT workshops with engineering teams.
         </h2>
         <div data-reveal="fade" ref="{{ galRef }}" class="mt-14 grid w-full grid-cols-2 sm:mt-20 gap-4 sm:grid-cols-3 sm:gap-6">
-          <div class="col-span-2 aspect-[16/10] sm:row-span-2 sm:aspect-auto cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-1" shape="rect" fit="cover" src="https://images.pexels.com/photos/8761523/pexels-photo-8761523.jpeg?auto=compress&cs=tinysrgb&w=1400" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
-          <div class="aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-2" shape="rect" fit="cover" src="https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1400" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
-          <div class="aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-3" shape="rect" fit="cover" src="https://images.pexels.com/photos/19895721/pexels-photo-19895721.jpeg?auto=compress&cs=tinysrgb&w=1400" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
-          <div class="aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-4" shape="rect" fit="cover" src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=1400" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
-          <div class="aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-5" shape="rect" fit="cover" src="https://images.pexels.com/photos/19895882/pexels-photo-19895882.jpeg?auto=compress&cs=tinysrgb&w=1400" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
-          <div class="col-span-2 aspect-[16/10] sm:col-span-1 sm:aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-6" shape="rect" fit="cover" src="https://images.pexels.com/photos/8761326/pexels-photo-8761326.jpeg?auto=compress&cs=tinysrgb&w=1400" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
+          <div class="col-span-2 aspect-[16/10] sm:row-span-2 sm:aspect-auto cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-1" shape="rect" fit="cover" src="assets/workshops/midas-gts-nx-2026-01.png" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
+          <div class="aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-2" shape="rect" fit="cover" src="assets/workshops/midas-civil-nx-shaker-01.png" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
+          <div class="aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-3" shape="rect" fit="cover" src="assets/workshops/midas-gts-nx-2026-02.png" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
+          <div class="aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-4" shape="rect" fit="cover" src="assets/workshops/midas-civil-nx-shaker-02.png" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
+          <div class="aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-5" shape="rect" fit="cover" src="assets/workshops/midas-gts-nx-2026-03.png" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
+          <div class="col-span-2 aspect-[16/10] sm:col-span-1 sm:aspect-[4/3] cursor-pointer" tabindex="0" role="button" aria-label="Open workshop photo" onClickCapture="{{ openSlot }}" onKeyDown="{{ slotKey }}"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="trn-workshop-6" shape="rect" fit="cover" src="assets/events/coffee-learn-egypt-2026-03.png" hint-size="100%,100%" style="display:block;width:100%;height:100%"></x-import></div>
         </div>
     </div>
   </section>
+
+  <sc-if value="{{ hasWorkshops }}" hint-placeholder-val="{{ true }}">
+  <section id="technical-workshops" data-nav-theme="light" data-screen-label="Technical workshops" class="bg-background px-6 py-24 sm:px-10 lg:px-20 lg:py-28">
+    <div class="flex flex-col items-start gap-5">
+      <span class="inline-flex items-center rounded-full border border-border px-4 py-1.5 font-sans text-xs uppercase tracking-widest text-muted-foreground">Technical Workshops</span>
+      <h2 class="max-w-3xl text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-5xl">Recent workshops with vendor experts.</h2>
+    </div>
+    <div class="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <sc-for list="{{ workshops }}" as="w" hint-placeholder-count="1">
+        <a href="{{ w.href }}" class="group flex flex-col border border-border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2">
+          <div class="relative aspect-[16/10] w-full overflow-hidden">
+            <img src="{{ w.image }}" alt="{{ w.imageAlt }}" loading="lazy" class="absolute inset-0 size-full object-cover grayscale transition-[filter,transform] duration-500 ease-out group-hover:scale-105 group-hover:grayscale-0 group-focus-visible:grayscale-0" style="object-position:{{ w.imagePosition }}">
+          </div>
+          <div class="flex flex-1 flex-col items-start gap-3 p-8">
+            <span class="font-sans text-xs uppercase tracking-widest text-muted-foreground">{{ w.kindAndDate }}</span>
+            <span class="text-balance text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-2xl">{{ w.title }}</span>
+            <span class="text-sm leading-relaxed text-muted-foreground">{{ w.summary }}</span>
+            <span class="mt-auto inline-flex items-center gap-2 pt-3 text-sm font-semibold text-foreground">View workshop<i data-lucide="arrow-right" class="size-4 transition-transform duration-300 group-hover:translate-x-1"></i></span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
 
   <dc-import name="ServiceForm"
     background="white"
@@ -243,7 +268,12 @@ class Component extends DCLogic {
   _icons() { if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} } }
 
   renderVals() {
+    const ws = window.SWUTWorkshops;
+    if (!ws && !this._wsWait) { this._wsWait = setInterval(() => { if (window.SWUTWorkshops) { clearInterval(this._wsWait); this.forceUpdate(); } }, 100); setTimeout(() => clearInterval(this._wsWait), 5000); }
+    const workshops = ws ? ws.all.map(w => ({ ...w, imagePosition: w.imagePosition || '50% 50%', kindAndDate: (w.products || []).join(', ') + ' \u2014 ' + ws.dateLabel(w) })) : [];
     return {
+      workshops,
+      hasWorkshops: workshops.length > 0,
       features: this._FEATURES,
       galRef: (el) => { this._galRef = el; },
       openSlot: (e) => this._lbOpen(e),
