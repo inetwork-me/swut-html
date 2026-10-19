@@ -9,25 +9,37 @@
 <x-dc>
 <helmet>
 <script src="./page-transition.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    darkMode: 'class',
-    theme: {
-      extend: {
-        colors: {
-          background: 'oklch(var(--background))',
-          foreground: 'oklch(var(--foreground))',
-          card: 'oklch(var(--card))',
-          border: 'oklch(var(--border))',
-          primary: { DEFAULT: 'oklch(var(--primary))', foreground: 'oklch(var(--primary-foreground))' },
-          muted: { DEFAULT: 'oklch(var(--muted))', foreground: 'oklch(var(--muted-foreground))' },
-        },
-        borderRadius: { none: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' },
-      },
-    },
-  };
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-background: oklch(var(--background));
+    --color-foreground: oklch(var(--foreground));
+    --color-card: oklch(var(--card));
+    --color-border: oklch(var(--border));
+    --color-primary: oklch(var(--primary));
+    --color-primary-foreground: oklch(var(--primary-foreground));
+    --color-muted: oklch(var(--muted));
+    --color-muted-foreground: oklch(var(--muted-foreground));
+    --radius-xs: 0;
+    --radius-sm: 0;
+    --radius-md: 0;
+    --radius-lg: 0;
+    --radius-xl: 0;
+    --radius-2xl: 0;
+    --radius-3xl: 0;
+    --radius-4xl: 0;
+    /* v4 renamed the shadow scale; keep shadow-sm as v3 rendered it */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+  /* Three v4 defaults differ from v3; these keep the site looking the same:
+     borders default to currentColor, buttons to the default arrow, and
+     placeholders to the text colour at half opacity. */
+  @layer base {
+    *, ::after, ::before, ::backdrop, ::file-selector-button { border-color: #e5e7eb; }
+    button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+    input::placeholder, textarea::placeholder { color: oklch(var(--muted-foreground)); }
+  }
+</style>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script src="./product-options.js"></script>
 <link rel="stylesheet" href="swut-buttons.css">
