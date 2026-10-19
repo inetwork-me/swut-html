@@ -107,6 +107,58 @@
     navTimer = setTimeout(function () { navTimer = null; window.location.href = url.href; }, DUR_OUT);
   }, true);
 
+  // ---- ARRIVING ON A #SECTION ----
+  // Sections are rendered by the page runtime after load, so when the browser
+  // applies a #hash from another page the target does not exist yet and the
+  // reader is left at the top. Wait for the section, then scroll to it.
+  function scrollToHashWhenReady() {
+    var raw = (location.hash || '').slice(1);
+    if (!raw) return;
+    var id;
+    try { id = decodeURIComponent(raw); } catch (e) { id = raw; }
+
+    var target = function () {
+      return document.getElementById(id) ||
+        document.querySelector('[name="' + (window.CSS && CSS.escape ? CSS.escape(id) : id) + '"]');
+    };
+
+    var cancelled = false;
+    var stop = function () { cancelled = true; cleanup(); };
+    // The reader's own scrolling wins — never yank the page out from under them.
+    var events = ['wheel', 'touchstart', 'keydown', 'mousedown'];
+    function cleanup() {
+      clearInterval(poll);
+      clearTimeout(giveUp);
+      for (var i = 0; i < events.length; i++) window.removeEventListener(events[i], stop);
+    }
+    for (var i = 0; i < events.length; i++) window.addEventListener(events[i], stop, { passive: true, once: true });
+
+    // The runtime re-renders the page after load, which resets the scroll, so
+    // keep re-asserting the position until it holds rather than scrolling once.
+    var settled = 0;
+    var poll = setInterval(function () {
+      if (cancelled) return;
+      var el = target();
+      if (!el) return;
+      var top = el.getBoundingClientRect().top;
+      if (Math.abs(top) <= 8) {
+        if (++settled >= 3) cleanup();         // held for three ticks: done
+        return;
+      }
+      settled = 0;
+      // scrollIntoView honours the pages' scroll-padding-top, which clears the
+      // fixed header.
+      el.scrollIntoView({ block: 'start' });
+    }, 120);
+    var giveUp = setTimeout(cleanup, 6000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scrollToHashWhenReady);
+  } else {
+    scrollToHashWhenReady();
+  }
+
   // ---- HISTORY NAVIGATION ----
   // Same-document history moves (the in-page hash links). Back here must not be
   // undone by a navigation still queued from a click a moment earlier.
