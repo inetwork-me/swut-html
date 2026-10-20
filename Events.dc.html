@@ -4,6 +4,64 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script>
+/* Everything this page loads at runtime — the shared components, image-slot.js,
+   the image-slot state, images and stylesheets — is addressed relative to the
+   PAGE's URL. That holds while the page sits beside those files, as it does on
+   a static host. It stops holding when the page is served from somewhere else:
+   a WordPress theme renders pages at site URLs (/, /contact/) while the files
+   live under /wp-content/themes/<theme>/, so the nav, footer, forms, galleries
+   and images would silently go missing.
+
+   Work out where this page's own scripts came from and, only when that differs
+   from the page's folder, send the runtime's relative requests there and point
+   asset references at the same place. Links are deliberately untouched, so
+   anchors still lead to site URLs rather than to template files. */
+(function () {
+  var tag = document.querySelector('script[src$="support.js"]');
+  if (!tag) return;
+  var assets = new URL('.', tag.src).href;          // folder holding support.js
+  var page = new URL('.', location.href).href;      // folder the page is served from
+  if (assets === page) return;                      // same place: nothing to redirect
+
+  /* The runtime fetches components, modules and state by relative path. */
+  var nativeFetch = window.fetch;
+  window.fetch = function (input, init) {
+    try {
+      var url = typeof input === 'string' ? input : (input && input.url);
+      if (url && url[0] !== '/' && !/^[a-z][a-z0-9+.-]*:/i.test(url)) {
+        var abs = new URL(url, location.href).href;
+        if (abs.indexOf(page) === 0) {
+          return nativeFetch.call(this, assets + abs.slice(page.length), init);
+        }
+      }
+    } catch (e) {}
+    return nativeFetch.call(this, input, init);
+  };
+
+  /* Images and stylesheets are resolved by the browser, not fetched. */
+  var ASSET = /^(uploads|assets)\//;
+  function absolutise(root) {
+    var nodes = root.querySelectorAll('img[src], link[rel~="stylesheet"][href]');
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      var attr = el.tagName === 'LINK' ? 'href' : 'src';
+      var val = el.getAttribute(attr);
+      if (!val) continue;
+      if (ASSET.test(val) || val === 'swut-buttons.css' || val === 'swut-anim.css') {
+        el.setAttribute(attr, assets + val);
+      }
+    }
+  }
+  function watch() {
+    absolutise(document);
+    new MutationObserver(function () { absolutise(document); })
+      .observe(document.documentElement, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch);
+  else watch();
+})();
+</script>
 </head>
 <body>
 <x-dc>
