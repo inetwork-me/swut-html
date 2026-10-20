@@ -4,6 +4,57 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script>
+/* The runtime fetches its companion files — the NavHeader, ClientLogos and
+   SiteFooter components, and swut-buttons.css — relative to the PAGE's URL.
+   That holds while the page sits beside them, as it does on a static host.
+   It stops holding when the page is served from somewhere else: a WordPress
+   theme renders the home page at "/" while these files live under
+   /wp-content/themes/<theme>/, so "./NavHeader.dc.html" would resolve to the
+   site root and come back as WordPress's own 404 — the nav, footer and client
+   wall would silently go missing.
+
+   support.js reads window.__resources as a map of "the URL I would request" to
+   "the URL to request instead", so point those entries at the folder this
+   page's own scripts came from. Inert while both live together: when the two
+   folders match, nothing is registered. */
+(function () {
+  var tag = document.querySelector('script[src$="support.js"]');
+  if (!tag) return;
+  var assets = new URL('.', tag.src).href;          // folder holding support.js
+  var page = new URL('.', location.href).href;      // folder the page is served from
+  if (assets === page) return;                      // same place: nothing to redirect
+  var map = window.__resources || (window.__resources = {});
+  ['NavHeader', 'ClientLogos', 'SiteFooter'].forEach(function (name) {
+    map['./' + encodeURIComponent(name) + '.dc.html'] = assets + name + '.dc.html';
+  });
+
+  /* The markup also carries plain relative references — uploads/… and assets/…
+     images, and the stylesheet mounted from <helmet> — which the browser
+     resolves against the page URL for the same reason. Rewrite them as the
+     runtime renders. Deliberately narrow: only this page's own asset folders,
+     never links, so anchors still point at site URLs rather than theme files. */
+  var ASSET_DIR = /^(uploads|assets)\//;
+  function absolutise(root) {
+    var nodes = root.querySelectorAll('img[src], link[rel~="stylesheet"][href]');
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      var attr = el.tagName === 'LINK' ? 'href' : 'src';
+      var val = el.getAttribute(attr);
+      if (!val) continue;
+      if (ASSET_DIR.test(val)) el.setAttribute(attr, assets + val);
+      else if (val === 'swut-buttons.css') el.setAttribute(attr, assets + val);
+    }
+  }
+  function watch() {
+    absolutise(document);
+    new MutationObserver(function () { absolutise(document); })
+      .observe(document.documentElement, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch);
+  else watch();
+})();
+</script>
 </head>
 <body>
 <x-dc>
